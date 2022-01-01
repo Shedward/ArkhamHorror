@@ -7,18 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		63FE56BE2780EFC90059A4BE /* Arkham_HorrorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FE56962780EFC70059A4BE /* Arkham_HorrorApp.swift */; };
-		63FE56BF2780EFC90059A4BE /* Arkham_HorrorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FE56962780EFC70059A4BE /* Arkham_HorrorApp.swift */; };
+		63FE56BE2780EFC90059A4BE /* ArkhamHorrorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FE56962780EFC70059A4BE /* ArkhamHorrorApp.swift */; };
+		63FE56BF2780EFC90059A4BE /* ArkhamHorrorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FE56962780EFC70059A4BE /* ArkhamHorrorApp.swift */; };
 		63FE56C22780EFC90059A4BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63FE56982780EFC90059A4BE /* Assets.xcassets */; };
 		63FE56C32780EFC90059A4BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63FE56982780EFC90059A4BE /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		63FE56962780EFC70059A4BE /* Arkham_HorrorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arkham_HorrorApp.swift; sourceTree = "<group>"; };
+		63FE56962780EFC70059A4BE /* ArkhamHorrorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkhamHorrorApp.swift; sourceTree = "<group>"; };
 		63FE56982780EFC90059A4BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63FE569D2780EFC90059A4BE /* Arkham Horror.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Arkham Horror.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63FE56A32780EFC90059A4BE /* Arkham Horror.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Arkham Horror.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63FE56A52780EFC90059A4BE /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		63FE56D32780F1AA0059A4BE /* ArkhamHorror */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ArkhamHorror; sourceTree = "<group>"; };
+		63FE56D52780FCF10059A4BE /* Graph */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Graph; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +44,8 @@
 		63FE56902780EFC70059A4BE = {
 			isa = PBXGroup;
 			children = (
+				63FE56D42780FCB70059A4BE /* Utils */,
+				63FE56D22780F14E0059A4BE /* Domain */,
 				63FE56952780EFC70059A4BE /* Application */,
 				63FE56A42780EFC90059A4BE /* macOS */,
 				63FE569E2780EFC90059A4BE /* Products */,
@@ -51,7 +55,7 @@
 		63FE56952780EFC70059A4BE /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				63FE56962780EFC70059A4BE /* Arkham_HorrorApp.swift */,
+				63FE56962780EFC70059A4BE /* ArkhamHorrorApp.swift */,
 				63FE56982780EFC90059A4BE /* Assets.xcassets */,
 			);
 			path = Application;
@@ -72,6 +76,22 @@
 				63FE56A52780EFC90059A4BE /* macOS.entitlements */,
 			);
 			path = macOS;
+			sourceTree = "<group>";
+		};
+		63FE56D22780F14E0059A4BE /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				63FE56D32780F1AA0059A4BE /* ArkhamHorror */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		63FE56D42780FCB70059A4BE /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				63FE56D52780FCF10059A4BE /* Graph */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,7 +192,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63FE56BE2780EFC90059A4BE /* Arkham_HorrorApp.swift in Sources */,
+				63FE56BE2780EFC90059A4BE /* ArkhamHorrorApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,7 +200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63FE56BF2780EFC90059A4BE /* Arkham_HorrorApp.swift in Sources */,
+				63FE56BF2780EFC90059A4BE /* ArkhamHorrorApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
