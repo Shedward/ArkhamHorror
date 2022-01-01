@@ -13,31 +13,12 @@
 		63FE56C32780EFC90059A4BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63FE56982780EFC90059A4BE /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		63FE56AB2780EFC90059A4BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 63FE56912780EFC70059A4BE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 63FE569C2780EFC90059A4BE;
-			remoteInfo = "Arkham Horror (iOS)";
-		};
-		63FE56B72780EFC90059A4BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 63FE56912780EFC70059A4BE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 63FE56A22780EFC90059A4BE;
-			remoteInfo = "Arkham Horror (macOS)";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		63FE56962780EFC70059A4BE /* Arkham_HorrorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arkham_HorrorApp.swift; sourceTree = "<group>"; };
 		63FE56982780EFC90059A4BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63FE569D2780EFC90059A4BE /* Arkham Horror.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Arkham Horror.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63FE56A32780EFC90059A4BE /* Arkham Horror.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Arkham Horror.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63FE56A52780EFC90059A4BE /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
-		63FE56AA2780EFC90059A4BE /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		63FE56B62780EFC90059A4BE /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,39 +36,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		63FE56A72780EFC90059A4BE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		63FE56B32780EFC90059A4BE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		63FE56902780EFC70059A4BE = {
 			isa = PBXGroup;
 			children = (
-				63FE56952780EFC70059A4BE /* Shared */,
+				63FE56952780EFC70059A4BE /* Application */,
 				63FE56A42780EFC90059A4BE /* macOS */,
 				63FE569E2780EFC90059A4BE /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		63FE56952780EFC70059A4BE /* Shared */ = {
+		63FE56952780EFC70059A4BE /* Application */ = {
 			isa = PBXGroup;
 			children = (
 				63FE56962780EFC70059A4BE /* Arkham_HorrorApp.swift */,
 				63FE56982780EFC90059A4BE /* Assets.xcassets */,
 			);
-			path = Shared;
+			path = Application;
 			sourceTree = "<group>";
 		};
 		63FE569E2780EFC90059A4BE /* Products */ = {
@@ -95,8 +62,6 @@
 			children = (
 				63FE569D2780EFC90059A4BE /* Arkham Horror.app */,
 				63FE56A32780EFC90059A4BE /* Arkham Horror.app */,
-				63FE56AA2780EFC90059A4BE /* Tests iOS.xctest */,
-				63FE56B62780EFC90059A4BE /* Tests macOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -146,42 +111,6 @@
 			productReference = 63FE56A32780EFC90059A4BE /* Arkham Horror.app */;
 			productType = "com.apple.product-type.application";
 		};
-		63FE56A92780EFC90059A4BE /* Tests iOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 63FE56CC2780EFC90059A4BE /* Build configuration list for PBXNativeTarget "Tests iOS" */;
-			buildPhases = (
-				63FE56A62780EFC90059A4BE /* Sources */,
-				63FE56A72780EFC90059A4BE /* Frameworks */,
-				63FE56A82780EFC90059A4BE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				63FE56AC2780EFC90059A4BE /* PBXTargetDependency */,
-			);
-			name = "Tests iOS";
-			productName = "Tests iOS";
-			productReference = 63FE56AA2780EFC90059A4BE /* Tests iOS.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
-		63FE56B52780EFC90059A4BE /* Tests macOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 63FE56CF2780EFC90059A4BE /* Build configuration list for PBXNativeTarget "Tests macOS" */;
-			buildPhases = (
-				63FE56B22780EFC90059A4BE /* Sources */,
-				63FE56B32780EFC90059A4BE /* Frameworks */,
-				63FE56B42780EFC90059A4BE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				63FE56B82780EFC90059A4BE /* PBXTargetDependency */,
-			);
-			name = "Tests macOS";
-			productName = "Tests macOS";
-			productReference = 63FE56B62780EFC90059A4BE /* Tests macOS.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -197,14 +126,6 @@
 					};
 					63FE56A22780EFC90059A4BE = {
 						CreatedOnToolsVersion = 13.2;
-					};
-					63FE56A92780EFC90059A4BE = {
-						CreatedOnToolsVersion = 13.2;
-						TestTargetID = 63FE569C2780EFC90059A4BE;
-					};
-					63FE56B52780EFC90059A4BE = {
-						CreatedOnToolsVersion = 13.2;
-						TestTargetID = 63FE56A22780EFC90059A4BE;
 					};
 				};
 			};
@@ -223,8 +144,6 @@
 			targets = (
 				63FE569C2780EFC90059A4BE /* Arkham Horror (iOS) */,
 				63FE56A22780EFC90059A4BE /* Arkham Horror (macOS) */,
-				63FE56A92780EFC90059A4BE /* Tests iOS */,
-				63FE56B52780EFC90059A4BE /* Tests macOS */,
 			);
 		};
 /* End PBXProject section */
@@ -243,20 +162,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				63FE56C32780EFC90059A4BE /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		63FE56A82780EFC90059A4BE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		63FE56B42780EFC90059A4BE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,34 +184,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		63FE56A62780EFC90059A4BE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		63FE56B22780EFC90059A4BE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		63FE56AC2780EFC90059A4BE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 63FE569C2780EFC90059A4BE /* Arkham Horror (iOS) */;
-			targetProxy = 63FE56AB2780EFC90059A4BE /* PBXContainerItemProxy */;
-		};
-		63FE56B82780EFC90059A4BE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 63FE56A22780EFC90059A4BE /* Arkham Horror (macOS) */;
-			targetProxy = 63FE56B72780EFC90059A4BE /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		63FE56C42780EFC90059A4BE /* Debug */ = {
@@ -531,81 +409,6 @@
 			};
 			name = Release;
 		};
-		63FE56CD2780EFC90059A4BE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "me.shedward.Tests-iOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Arkham Horror (iOS)";
-			};
-			name = Debug;
-		};
-		63FE56CE2780EFC90059A4BE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "me.shedward.Tests-iOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Arkham Horror (iOS)";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		63FE56D02780EFC90059A4BE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.1;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "me.shedward.Tests-macOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = "Arkham Horror (macOS)";
-			};
-			name = Debug;
-		};
-		63FE56D12780EFC90059A4BE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.1;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "me.shedward.Tests-macOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = "Arkham Horror (macOS)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -632,24 +435,6 @@
 			buildConfigurations = (
 				63FE56CA2780EFC90059A4BE /* Debug */,
 				63FE56CB2780EFC90059A4BE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		63FE56CC2780EFC90059A4BE /* Build configuration list for PBXNativeTarget "Tests iOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				63FE56CD2780EFC90059A4BE /* Debug */,
-				63FE56CE2780EFC90059A4BE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		63FE56CF2780EFC90059A4BE /* Build configuration list for PBXNativeTarget "Tests macOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				63FE56D02780EFC90059A4BE /* Debug */,
-				63FE56D12780EFC90059A4BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
