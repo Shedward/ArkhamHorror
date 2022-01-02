@@ -29,5 +29,7 @@ final class ArrayHeplersTests: XCTestCase {
 		XCTAssertEqual([1].spreadIntoGroups(count: 3), [[1], [], []])
 		XCTAssertEqual([1, 2, 3, 4].spreadIntoGroups(count: 3), [[1, 4], [2], [3]])
 		XCTAssertEqual([1, 2, 3, 4, 5, 6].spreadIntoGroups(count: 3), [[1, 4], [2, 5], [3, 6]])
+		XCTAssertEqual([1, 2, 3].spreadIntoGroups(count: 0), [])
+		XCTAssertEqual([1, 2, 3].spreadIntoGroups(count: 1), [[1, 2, 3]])
 	}
 }

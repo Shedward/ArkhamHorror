@@ -18,9 +18,11 @@ final class DeckTests: XCTestCase {
 		XCTAssertEqual(deck.cards, [2, 3, 4])
 
 		deck.placeOnBottom(topCard)
+		XCTAssertEqual(deck.bottom, topCard)
 		XCTAssertEqual(deck.cards, [2, 3, 4, 1])
 
 		deck.placeOnTop(bottomCard)
+		XCTAssertEqual(deck.top, bottomCard)
 		XCTAssertEqual(deck.cards, [5, 2, 3, 4, 1])
 
 		var top3 = deck.drawTop(count: 3)
