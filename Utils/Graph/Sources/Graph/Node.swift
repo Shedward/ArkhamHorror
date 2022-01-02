@@ -5,6 +5,12 @@
 //  Created by Vladislav Maltsev on 01.01.2022.
 //
 
+public enum NodeConnectionError: Error {
+	case nodeCannotConnectToItself
+	case nodesAlreadyConnected
+	case nodesFromDifferentGraphs
+}
+
 public class Node<T>: Equatable {
 	public var value: T
 	public private(set) weak var graph: Graph<T>?
@@ -19,26 +25,20 @@ public class Node<T>: Equatable {
 		lhs === rhs
 	}
 
-	public func connect(to anotherNode: Node<T>) {
+	@discardableResult
+	public func connect(to anotherNode: Node<T>) -> Result<Void, NodeConnectionError> {
 		guard !neighbors.contains(anotherNode) else {
-			// Node \(self) is already connected to \(anotherNode)
-			return
+			return .failure(.nodesAlreadyConnected)
 		}
 		guard self != anotherNode else {
-			assertionFailure("Can not connect node \(self) to itself")
-			return
+			return .failure(.nodeCannotConnectToItself)
 		}
 		guard graph === anotherNode.graph else {
-			assertionFailure(
-				"""
-				Node \(self) can not be connected to \(anotherNode), \
-				since it not in the same graph \(String(describing: anotherNode.graph))
-				"""
-			)
-			return
+			return .failure(.nodesFromDifferentGraphs)
 		}
 
 		neighbors.append(anotherNode)
+		return .success(())
 	}
 
 	public func disconnect(from anotherNode: Node<T>) {
@@ -56,14 +56,14 @@ public class Node<T>: Equatable {
 }
 
 extension Node where T: Equatable {
-	func neighbor(for value: T) -> Node<T>? {
+	public func neighbor(for value: T) -> Node<T>? {
 		neighbors.first { $0.value == value }
 	}
 }
 
 @available(macOS 10.15, *)
 extension Node where T: Identifiable {
-	public func node(for identifier: T.ID) -> Node<T>? {
+	public func neighbor(for identifier: T.ID) -> Node<T>? {
 		neighbors.first { $0.value.id == identifier }
 	}
 }
