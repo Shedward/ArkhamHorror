@@ -50,6 +50,7 @@ extension Array {
 	func chunked(count: Int) -> [[Element]] {
 		assert(count > 0, "Chunk count should be more than zero.")
 		let chunkSize = Int((Float(self.count) / Float(count)).rounded(.up))
+		guard chunkSize > 0 else { return [self] }
 		return chunked(by: chunkSize)
 	}
 

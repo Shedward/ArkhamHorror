@@ -12,8 +12,8 @@ extension Shuffles {
 
 		public func shuffle(_ items: [Item]) -> [Item] {
 			let chunks = items.chunked(count: 2)
-			let leftHalf = chunks.first ?? []
-			let rightHalf = chunks.last ?? []
+			let leftHalf = chunks[safe: 0] ?? []
+			let rightHalf = chunks[safe: 1] ?? []
 			return rightHalf + leftHalf
 		}
 	}

@@ -34,6 +34,10 @@ final class ArrayHeplersTests: XCTestCase {
 	}
 
 	func testSafeSubscribe() {
+		let immutableArray = [0, 1, 2, 3]
+		XCTAssertEqual(immutableArray[safe: 2], 2)
+		XCTAssertEqual(immutableArray[safe: 6], nil)
+
 		var array = [0, 1, 2, 3]
 		XCTAssertEqual(array[safe: 2], 2)
 		XCTAssertEqual(array[safe: 6], nil)
