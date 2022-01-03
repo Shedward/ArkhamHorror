@@ -32,4 +32,16 @@ final class ArrayHeplersTests: XCTestCase {
 		XCTAssertEqual([1, 2, 3].spreadIntoGroups(count: 0), [])
 		XCTAssertEqual([1, 2, 3].spreadIntoGroups(count: 1), [[1, 2, 3]])
 	}
+
+	func testSafeSubscribe() {
+		var array = [0, 1, 2, 3]
+		XCTAssertEqual(array[safe: 2], 2)
+		XCTAssertEqual(array[safe: 6], nil)
+
+		array[safe: 6] = 6
+		XCTAssertEqual(array, [0, 1, 2, 3])
+
+		array[safe: 3] = -3
+		XCTAssertEqual(array, [0, 1, 2, -3])
+	}
 }

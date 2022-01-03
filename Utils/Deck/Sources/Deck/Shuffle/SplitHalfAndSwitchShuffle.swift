@@ -6,7 +6,9 @@
 //
 
 extension Shuffles {
-	public struct SplitInHalfAndSwitchShuffle<Item>: ShuffleStrategy {
+	public struct SplitHalfAndSwitch<Item>: ShuffleStrategy {
+		public init() {
+		}
 
 		public func shuffle(_ items: [Item]) -> [Item] {
 			let chunks = items.chunked(count: 2)
