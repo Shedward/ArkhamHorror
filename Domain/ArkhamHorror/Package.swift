@@ -10,11 +10,15 @@ let package = Package(
             name: "ArkhamHorror",
             targets: ["ArkhamHorror"]),
     ],
-	dependencies: [],
+	dependencies: [
+		.package(name: "Graph", path: "../Graph")
+	],
     targets: [
         .target(
             name: "ArkhamHorror",
-            dependencies: []),
+            dependencies: [
+				"Graph"
+			]),
         .testTarget(
             name: "ArkhamHorrorTests",
             dependencies: ["ArkhamHorror"]),
