@@ -13,18 +13,20 @@ final class MapRegion: Equatable {
 
 	let id: Id
 	let name: Name
-	let neighborhoodId: MapNeighborhood.Id
+	let typeId: MapRegionType.Id
 
 	init(
 		id: Id,
 		name: Name,
-		neighborhoodId: MapNeighborhood.Id
+		typeId: MapRegionType.Id
 	) {
 		self.id = id
 		self.name = name
-		self.neighborhoodId = neighborhoodId
+		self.typeId = typeId
 	}
+}
 
+extension MapRegion: Equatable {
 	static func == (_ lhs: MapRegion, _ rhs: MapRegion) -> Bool {
 		lhs.id == rhs.id
 	}

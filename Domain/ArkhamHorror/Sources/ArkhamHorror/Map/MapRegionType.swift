@@ -1,11 +1,11 @@
 //
-//  MapNeighborhood.swift
+//  MapRegionType.swift
 //  
 //
 //  Created by Vladislav Maltsev on 03.01.2022.
 //
 
-struct MapNeighborhood {
+struct MapRegionType {
 	enum IdTag { }
 	typealias Id = Tagged<IdTag, String>
 
@@ -16,11 +16,8 @@ struct MapNeighborhood {
 	let name: Name
 }
 
-extension MapNeighborhood: Equatable {
-	static func == (_ lhs: MapNeighborhood, _ rhs: MapNeighborhood) -> Bool {
+extension MapRegionType: Equatable {
+	static func == (_ lhs: MapRegionType, _ rhs: MapRegionType) -> Bool {
 		lhs.id == rhs.id
 	}
-}
-
-extension MapNeighborhood: Decodable {
 }

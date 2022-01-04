@@ -8,7 +8,7 @@
 import Graph
 
 final class Map {
-	private var neighborhoods: [MapNeighborhood] = []
+	private var neighborhoods: [MapRegionType] = []
 	private var regions: [MapRegion] = []
 	private var regionsMap: Graph<MapRegion.Id> = Graph()
 
