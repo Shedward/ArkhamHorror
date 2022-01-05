@@ -4,23 +4,32 @@
 import PackageDescription
 
 let package = Package(
-    name: "ArkhamHorror",
-    products: [
-        .library(
-            name: "ArkhamHorror",
-            targets: ["ArkhamHorror"]),
+	name: "ArkhamHorror",
+	products: [
+		.library(
+			name: "ArkhamHorror",
+			targets: ["ArkhamHorror"]),
     ],
 	dependencies: [
-		.package(name: "Graph", path: "../Graph")
+		.package(name: "Graph", path: "../Utils/Graph"),
+		.package(name: "XCTestUtils", path: "../Utils/XCTestUtils")
 	],
     targets: [
         .target(
-            name: "ArkhamHorror",
-            dependencies: [
+			name: "ArkhamHorror",
+			dependencies: [
 				"Graph"
-			]),
-        .testTarget(
-            name: "ArkhamHorrorTests",
-            dependencies: ["ArkhamHorror"]),
-    ]
+			]
+		),
+		.testTarget(
+			name: "ArkhamHorrorTests",
+			dependencies: [
+				"ArkhamHorror",
+				"XCTestUtils"
+			],
+			resources: [
+				.copy("Resources/TestData/")
+			]
+		),
+	]
 )

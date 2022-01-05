@@ -6,6 +6,7 @@
 //
 import XCTest
 import Graph
+import XCTestUtils
 
 final class GraphTests: XCTestCase {
     func testConnection() {
@@ -92,8 +93,4 @@ final class GraphTests: XCTestCase {
 		XCTAssertNotNil(graph.node(for: 4))
 		XCTAssertNil(node1.neighbor(for: 4))
 	}
-}
-
-private func XCTAssertEqualDescription<T>(_ t: T, _ description: String, file: StaticString = #filePath, line: UInt = #line) {
-	XCTAssertEqual(String(describing: t), description, file: file, line: line)
 }

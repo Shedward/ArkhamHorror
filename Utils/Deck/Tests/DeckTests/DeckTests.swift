@@ -2,18 +2,18 @@ import XCTest
 @testable import Deck
 
 final class DeckTests: XCTestCase {
-    func testTakingAndAppending() {
+    func testTakingAndAppending() throws {
 		let cards = [1, 2, 3, 4, 5]
 		var deck = Deck(cards: cards)
 
 		XCTAssertEqual(deck.count, cards.count)
 		XCTAssertEqual(deck.cards, cards)
 
-		let topCard = XCTUnwrap(deck.drawTop())
+		let topCard = try XCTUnwrap(deck.drawTop())
 		XCTAssertEqual(topCard, 1)
 		XCTAssertEqual(deck.cards, [2, 3, 4, 5])
 
-		let bottomCard = XCTUnwrap(deck.drawBottom())
+		let bottomCard = try XCTUnwrap(deck.drawBottom())
 		XCTAssertEqual(bottomCard, 5)
 		XCTAssertEqual(deck.cards, [2, 3, 4])
 
@@ -58,18 +58,5 @@ final class DeckTests: XCTestCase {
 		let deck = Deck(cards: [1, 2, 3, 4, 5])
 		let copyDeck = Deck(copy: deck)
 		XCTAssertEqual(deck, copyDeck)
-	}
-}
-
-private func XCTUnwrap<T>(
-	_ value: T?,
-	file: StaticString = #filePath,
-	line: UInt = #line
-) -> T {
-	if let value = value {
-		return value
-	} else {
-		XCTFail("Failed to unwrap value in XCTUnwrap", file: file, line: line)
-		fatalError("Failed to unwrap value in XCTUnwrap")
 	}
 }

@@ -5,7 +5,7 @@
 //  Created by Vladislav Maltsev on 03.01.2022.
 //
 
-final class MapRegion: Equatable {
+final class MapRegion {
 	enum IdTag {}
 	typealias Id = Tagged<IdTag, String>
 	enum NameTag {}

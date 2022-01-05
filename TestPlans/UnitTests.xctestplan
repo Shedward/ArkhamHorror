@@ -1,0 +1,40 @@
+{
+  "configurations" : [
+    {
+      "id" : "E1095ABF-317F-43D5-BA74-EE15FCED62C0",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Domain\/ArkhamHorror",
+        "identifier" : "ArkhamHorrorTests",
+        "name" : "ArkhamHorrorTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Utils\/Deck",
+        "identifier" : "DeckTests",
+        "name" : "DeckTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Utils\/Graph",
+        "identifier" : "GraphTests",
+        "name" : "GraphTests"
+      }
+    }
+  ],
+  "version" : 1
+}

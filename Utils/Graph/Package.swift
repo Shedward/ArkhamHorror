@@ -10,13 +10,18 @@ let package = Package(
             name: "Graph",
             targets: ["Graph"]),
     ],
-    dependencies: [],
+    dependencies: [
+		.package(name: "XCTestUtils", path: "../Utils/XCTestUtils")
+	],
     targets: [
         .target(
             name: "Graph",
             dependencies: []),
         .testTarget(
             name: "GraphTests",
-            dependencies: ["Graph"]),
+            dependencies: [
+				"Graph",
+				"XCTestUtils"
+			]),
     ]
 )
