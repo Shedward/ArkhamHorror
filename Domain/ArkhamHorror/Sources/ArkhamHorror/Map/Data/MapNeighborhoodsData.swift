@@ -7,17 +7,17 @@
 
 struct MapNeighborhoodsData: Decodable, Equatable {
 	struct TypeData: Decodable, Equatable {
-		let id: String
-		let name: String
+		let id: MapRegionType.Id
+		let name: MapRegionType.Name
 	}
 
 	struct RegionData: Decodable, Equatable {
-		let id: String
-		let name: String
+		let id: MapRegion.Id
+		let name: MapRegion.Name
 	}
 
 	struct NeighborhoodData: Decodable, Equatable {
-		let typeId: String
+		let typeId: MapRegionType.Id
 		let regions: [RegionData]
 	}
 

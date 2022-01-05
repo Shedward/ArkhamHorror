@@ -7,15 +7,15 @@
 
 struct MapStreetsData: Decodable, Equatable {
 	struct TypeData: Decodable, Equatable {
-		let id: String
-		let name: String
+		let id: MapRegionType.Id
+		let name: MapRegionType.Id
 	}
 
 	struct StreetData: Decodable, Equatable {
-		let id: String
-		let typeId: String
-		let from: [String]
-		let to: [String]
+		let id: MapRegion.Id
+		let typeId: MapRegionType.Id
+		let from: [MapRegion.Id]
+		let to: [MapRegion.Id]
 	}
 
 	let types: [TypeData]
