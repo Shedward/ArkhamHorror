@@ -5,18 +5,18 @@
 //  Created by Vladislav Maltsev on 05.01.2022.
 //
 
-struct MapNeighborhoodsData: Decodable {
-	struct TypeData: Decodable {
+struct MapNeighborhoodsData: Decodable, Equatable {
+	struct TypeData: Decodable, Equatable {
 		let id: String
 		let name: String
 	}
 
-	struct RegionData: Decodable {
+	struct RegionData: Decodable, Equatable {
 		let id: String
 		let name: String
 	}
 
-	struct NeighborhoodData: Decodable {
+	struct NeighborhoodData: Decodable, Equatable {
 		let typeId: String
 		let regions: [RegionData]
 	}

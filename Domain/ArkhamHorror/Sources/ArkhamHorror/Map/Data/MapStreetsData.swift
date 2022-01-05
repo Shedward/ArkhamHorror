@@ -5,13 +5,13 @@
 //  Created by Vladislav Maltsev on 05.01.2022.
 //
 
-struct MapStreetsData: Decodable {
-	struct TypeData: Decodable {
+struct MapStreetsData: Decodable, Equatable {
+	struct TypeData: Decodable, Equatable {
 		let id: String
 		let name: String
 	}
 
-	struct StreetData: Decodable {
+	struct StreetData: Decodable, Equatable {
 		let id: String
 		let typeId: String
 		let from: [String]
