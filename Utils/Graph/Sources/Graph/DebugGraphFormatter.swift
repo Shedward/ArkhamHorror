@@ -5,26 +5,26 @@
 //  Created by Vladislav Maltsev on 02.01.2022.
 //
 
-struct DebugGraphFormatter<T> {
-	let formatValue: (T) -> String
+public struct DebugGraphFormatter<T> {
+	private let formatValue: (T) -> String
 
-	init(_ formatValue: @escaping (T) -> String = String.init(describing:)) {
+	public init(_ formatValue: @escaping (T) -> String = String.init(describing:)) {
 		self.formatValue = formatValue
 	}
 
-	func format(from graph: Graph<T>) -> String {
+	public func format(from graph: Graph<T>) -> String {
 		let nodeDescriptions = graph.allNodes.map(format(from:)).joined(separator: "\n")
 		let indentedNodes = addIdentation("  ", to: nodeDescriptions)
 		return "Graph<\(String(describing: T.self))>\n\(indentedNodes)"
 	}
 
-	func format(from node: Node<T>) -> String {
+	public func format(from node: Node<T>) -> String {
 		let neighborDescriptions = node.neighbors.map(formatValue(node:)).joined(separator: "\n")
 		let indentedNeighborDescription = addIdentation("  -> ", to: neighborDescriptions)
 		return "\(formatValue(node: node))\n\(indentedNeighborDescription)"
 	}
 
-	func formatValue(node: Node<T>) -> String {
+	public func formatValue(node: Node<T>) -> String {
 		formatValue(node.value)
 	}
 

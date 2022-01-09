@@ -30,11 +30,21 @@ final class Map {
 		}
 		mapData.sityStreets.streets.forEach { street in
 			let streetRegion = MapRegion(id: street.id, name: nil, typeId: street.typeId)
-			GraphBuilder(graph: regionsMap).createBridge(streetRegion.id, from: street.from, to: street.to)
+			GraphBuilder(graph: regionsMap).createBidirectionalBridge(streetRegion.id, from: street.from, to: street.to)
 		}
 	}
 
 	func region(by id: MapRegion.Id) -> MapRegion? {
 		regions.first { $0.id == id }
+	}
+
+	func isNeighborRegions(_ lhs: MapRegion.Id, _ rhs: MapRegion.Id) -> Bool {
+		guard let lhsNode = regionsMap.node(for: lhs) else { return false }
+		guard let rhsNode = regionsMap.node(for: rhs) else { return false }
+		return lhsNode.isNeighbor(to: rhsNode)
+	}
+
+	func regionsMapDescription() -> String {
+		DebugGraphFormatter().format(from: regionsMap)
 	}
 }

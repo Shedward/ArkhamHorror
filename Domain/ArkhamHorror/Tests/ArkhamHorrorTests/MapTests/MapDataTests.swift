@@ -28,7 +28,7 @@ final class MapDataTests: XCTestCase {
 				typeId: "northside",
 				regions: [
 					.init(id: "arkham_advertiser", name: "Аркхэм Адвертайзер"),
-					.init(id: "curriosity_shope", name: "Магазинчик Странностей"),
+					.init(id: "curriosity_shop", name: "Магазинчик Странностей"),
 					.init(id: "train_station", name: "Вокзал")
 				]
 			)
