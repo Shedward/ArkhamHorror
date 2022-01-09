@@ -10,13 +10,10 @@ import XCTest
 
 final class MapDataTests: XCTestCase {
 	func testParsing() throws {
-		let bundle = Bundle.module
-		let resourceUrl = try XCTUnwrap(bundle.resourcePath.map(URL.init(fileURLWithPath:)))
-		let mapUrl = resourceUrl.appendingPathComponent("TestData/map.json")
-		let data = try Data(contentsOf: mapUrl)
+		let mapData = try TestData().mapData()
 
 		let decoder = JSONDecoder()
-		let model = try decoder.decode(MapData.self, from: data)
+		let model = try decoder.decode(MapData.self, from: mapData)
 
 		XCTAssertEqual(model.sityNeighborhoods.types.count, 5)
 		XCTAssertEqual(

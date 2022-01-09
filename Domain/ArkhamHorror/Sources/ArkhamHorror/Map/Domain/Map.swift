@@ -7,7 +7,7 @@
 
 import Graph
 
-final class Map<RegionData> {
+final class Map {
 	private var neighborhoods: [MapRegionType] = []
 	private var streetTypes: [MapRegionType] = []
 	private var regions: [MapRegion] = []
