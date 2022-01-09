@@ -49,4 +49,90 @@ final class GraphBuilderTests: XCTestCase {
 		XCTAssertTrue(ring[5].isNeighbor(to: ring[0]))
 		XCTAssertTrue(ring[0].isNeighbor(to: ring[5]))
 	}
+
+	func testBridge() {
+		let graph = Graph<Int>()
+		let nodes = (0...3).map { graph.createNode($0) }
+		let bridge = GraphBuilder(graph: graph).createBridge(
+			_: -1,
+			from: [0, 1],
+			to: [2, 3]
+		)
+
+		XCTAssertTrue(nodes[0].isNeighbor(to: bridge))
+		XCTAssertTrue(nodes[1].isNeighbor(to: bridge))
+		XCTAssertFalse(nodes[2].isNeighbor(to: bridge))
+		XCTAssertFalse(nodes[3].isNeighbor(to: bridge))
+		XCTAssertFalse(bridge.isNeighbor(to: nodes[0]))
+		XCTAssertFalse(bridge.isNeighbor(to: nodes[1]))
+		XCTAssertTrue(bridge.isNeighbor(to: nodes[2]))
+		XCTAssertTrue(bridge.isNeighbor(to: nodes[3]))
+	}
+
+	func testBidirectionalBridge() {
+		let graph = Graph<Int>()
+		let nodes = (0...3).map { graph.createNode($0) }
+		let bridge = GraphBuilder(graph: graph).createBidirectionalBridge(
+			_: -1,
+			from: [0, 1],
+			to: [2, 3]
+		)
+
+		XCTAssertTrue(nodes[0].isNeighbor(to: bridge))
+		XCTAssertTrue(nodes[1].isNeighbor(to: bridge))
+		XCTAssertTrue(nodes[2].isNeighbor(to: bridge))
+		XCTAssertTrue(nodes[3].isNeighbor(to: bridge))
+		XCTAssertTrue(bridge.isNeighbor(to: nodes[0]))
+		XCTAssertTrue(bridge.isNeighbor(to: nodes[1]))
+		XCTAssertTrue(bridge.isNeighbor(to: nodes[2]))
+		XCTAssertTrue(bridge.isNeighbor(to: nodes[3]))
+	}
+
+	private struct IdentifiableInt: Identifiable {
+		var id: Int
+	}
+
+	func testIdentifiableBridge() {
+		let graph = Graph<IdentifiableInt>()
+		let nodes = (0...3)
+			.map(IdentifiableInt.init(id:))
+			.map { graph.createNode($0) }
+
+		let bridge = GraphBuilder(graph: graph).createBridge(
+			_: .init(id: -1),
+			from: [0, 1],
+			to: [2, 3]
+		)
+
+		XCTAssertTrue(nodes[0].isNeighbor(to: bridge))
+		XCTAssertTrue(nodes[1].isNeighbor(to: bridge))
+		XCTAssertFalse(nodes[2].isNeighbor(to: bridge))
+		XCTAssertFalse(nodes[3].isNeighbor(to: bridge))
+		XCTAssertFalse(bridge.isNeighbor(to: nodes[0]))
+		XCTAssertFalse(bridge.isNeighbor(to: nodes[1]))
+		XCTAssertTrue(bridge.isNeighbor(to: nodes[2]))
+		XCTAssertTrue(bridge.isNeighbor(to: nodes[3]))
+	}
+
+	func testIdentifiableBidirectionalBridge() {
+		let graph = Graph<IdentifiableInt>()
+		let nodes = (0...3)
+			.map(IdentifiableInt.init(id:))
+			.map { graph.createNode($0) }
+
+		let bridge = GraphBuilder(graph: graph).createBidirectionalBridge(
+			_: .init(id: -1),
+			from: [0, 1],
+			to: [2, 3]
+		)
+
+		XCTAssertTrue(nodes[0].isNeighbor(to: bridge))
+		XCTAssertTrue(nodes[1].isNeighbor(to: bridge))
+		XCTAssertTrue(nodes[2].isNeighbor(to: bridge))
+		XCTAssertTrue(nodes[3].isNeighbor(to: bridge))
+		XCTAssertTrue(bridge.isNeighbor(to: nodes[0]))
+		XCTAssertTrue(bridge.isNeighbor(to: nodes[1]))
+		XCTAssertTrue(bridge.isNeighbor(to: nodes[2]))
+		XCTAssertTrue(bridge.isNeighbor(to: nodes[3]))
+	}
 }

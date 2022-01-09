@@ -12,12 +12,12 @@ final class MapRegion {
 	typealias Name = Tagged<NameTag, String>
 
 	let id: Id
-	let name: Name
+	let name: Name?
 	let typeId: MapRegionType.Id
 
 	init(
 		id: Id,
-		name: Name,
+		name: Name?,
 		typeId: MapRegionType.Id
 	) {
 		self.id = id

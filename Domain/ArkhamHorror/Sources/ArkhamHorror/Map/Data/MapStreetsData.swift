@@ -8,7 +8,7 @@
 struct MapStreetsData: Decodable, Equatable {
 	struct TypeData: Decodable, Equatable {
 		let id: MapRegionType.Id
-		let name: MapRegionType.Id
+		let name: MapRegionType.Name
 	}
 
 	struct StreetData: Decodable, Equatable {
