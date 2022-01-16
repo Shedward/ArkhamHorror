@@ -9,6 +9,18 @@ import SwiftUI
 import ArkhamHorror
 
 struct MapRenderView: View {
+	private struct ShapeColors {
+		let backgroundColor: Color
+		let borderColor: Color
+
+		init<T: Hashable>(hashable: T) {
+			let hue256 = hashable.hashValue % 256
+			let hueDouble = Double(hue256) / 256
+			backgroundColor = Color(hue: hueDouble, saturation: 0.8, brightness: 0.6)
+			borderColor = Color(hue: hueDouble, saturation: 0.6, brightness: 0.8)
+		}
+	}
+
 	let map: Map
 
     var body: some View {
@@ -21,7 +33,7 @@ struct MapRenderView: View {
     }
 
 	private func scalableGeometry(for size: CGSize, fitting layout: MapLayout) -> MapGeometry {
-		MapGeometry(hexagonSize: 50, spacing: 25)
+		MapGeometry(hexagonSize: 75, spacing: 25)
 	}
 
 	private func drawNeighborhood(
@@ -37,15 +49,44 @@ struct MapRenderView: View {
 			}
 			path.addLine(to: hexagon.point(at: .v0).toCGPoint())
 		}
-		context.fill(
-			path,
-			with: .color(regionTypeColor(for: neighborhood.typeId))
+		let shapeColors = ShapeColors(hashable: neighborhood.typeId)
+		context.fill(path, with: .color(shapeColors.backgroundColor))
+		context.stroke(path, with: .color(shapeColors.borderColor), lineWidth: 1)
+
+		drawRegionBorders(
+			for: hexagon,
+			orientation: neighborhood.regionOrientation,
+			borderColor: shapeColors.borderColor,
+			in: context
 		)
 	}
 
-	private func regionTypeColor(for regionId: MapRegionType.Id) -> Color {
-		let hue256 = regionId.rawValue.hash % 256
-		let hueDouble = Double(hue256) / 256
-		return Color(hue: hueDouble, saturation: 0.8, brightness: 0.8)
+	private func drawRegionBorders(
+		for hexagon: MapGeometry.Hexagon,
+		orientation: MapLayout.RegionOrientation,
+		borderColor: Color,
+		in context: GraphicsContext
+	) {
+		let center = hexagon.center.toCGPoint()
+		let path = Path { path in
+			path.move(to: center)
+			func drawBorderToEdge(_ edge: MapGeometry.Hexagon.Edge) {
+				path.addLine(to: hexagon.line(at: edge).middle.toCGPoint())
+				path.addLine(to: center)
+			}
+
+			switch orientation {
+			case .clockwise:
+				drawBorderToEdge(.e1)
+				drawBorderToEdge(.e3)
+				drawBorderToEdge(.e5)
+			case .counterclockwise:
+				drawBorderToEdge(.e0)
+				drawBorderToEdge(.e2)
+				drawBorderToEdge(.e4)
+			}
+		}
+
+		context.stroke(path, with: .color(borderColor), lineWidth: 1)
 	}
 }

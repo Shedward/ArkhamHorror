@@ -24,10 +24,6 @@
 			{
 				"id": "test1town",
 				"name": "Тествантаун"
-			},
-			{
-				"id": "test2town",
-				"name": "Тесттутаун"
 			}
 		],
 		"neighborhoods": [
@@ -132,24 +128,7 @@
 						"name": "Test 1.3"
 					},
 				]
-			},
-			{
-				"typeId": "test2town",
-				"regions": [
-					{
-						"id": "test21reg",
-						"name": "Test 2.1"
-					},
-					{
-						"id": "test22reg",
-						"name": "Test 2.2"
-					},
-					{
-						"id": "test23reg",
-						"name": "Test 2.3"
-					},
-				]
-			},
+			}
 		]
 	},
 	"sityStreets": {
@@ -260,14 +239,6 @@
 				"row": 2,
 				"column": 2
 			}
-		},
-		{
-			"regionTypeId": "test2town",
-			"orientation": "counterclockwise",
-			"tile": {
-				"row": 3,
-				"column": 1
-			}
-		},
+		}
 	]
 }

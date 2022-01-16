@@ -11,9 +11,24 @@ public struct MapLayout {
 		public let y: Int
 	}
 
+	public enum RegionOrientation {
+		case clockwise
+		case counterclockwise
+
+		init(from data: MapNeighborhoodsLayoutData.TileLayoutData.Orientation) {
+			switch data {
+			case .clockwise:
+				self = .clockwise
+			case .counterclockwise:
+				self = .counterclockwise
+			}
+		}
+	}
+
 	public struct Neighboarhood {
 		public let position: NeighborhoodPosition
 		public let typeId: MapRegionType.Id
+		public let regionOrientation: RegionOrientation
 	}
 
 	public struct Bridge {
@@ -29,7 +44,8 @@ public struct MapLayout {
 		neighboarhoods = mapData.layout.tileLayouts.map { tileLayout in
 			.init(
 				position: .init(x: tileLayout.tile.column, y: tileLayout.tile.row),
-				typeId: tileLayout.regionTypeId
+				typeId: tileLayout.regionTypeId,
+				regionOrientation: .init(from: tileLayout.orientation)
 			)
 		}
 		bridges = []

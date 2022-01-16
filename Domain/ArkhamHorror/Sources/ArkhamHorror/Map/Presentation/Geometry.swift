@@ -44,7 +44,7 @@ public enum Geometry {
 		public var start: Point
 		public var end: Point
 
-		var middle: Point {
+		public var middle: Point {
 			.init(
 				x: (start.x + end.x) / 2,
 				y: (start.y + end.y) / 2

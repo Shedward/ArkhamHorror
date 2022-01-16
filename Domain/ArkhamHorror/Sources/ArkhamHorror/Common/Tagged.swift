@@ -92,3 +92,13 @@ extension Tagged: ExpressibleByUnicodeScalarLiteral where RawValue: ExpressibleB
 		self.init(rawValue: RawValue(unicodeScalarLiteral: unicodeScalarLiteral))
 	}
 }
+
+extension Tagged: Hashable where RawValue: Hashable {
+	public var hashValue: Int {
+		rawValue.hashValue
+	}
+
+	public func hash(into hasher: inout Hasher) {
+		rawValue.hash(into: &hasher)
+	}
+}
