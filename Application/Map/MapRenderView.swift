@@ -29,6 +29,9 @@ struct MapRenderView: View {
 			map.layout.neighboarhoods.forEach { neighborhood in
 				self.drawNeighborhood(neighborhood, withGeometry: geometry, in: context)
 			}
+			map.layout.streets.forEach { street in
+				self.drawStreet(street, withGeometry: geometry, in: context)
+			}
 		}
     }
 
@@ -41,7 +44,7 @@ struct MapRenderView: View {
 		withGeometry geometry: MapGeometry,
 		in context: GraphicsContext
 	) {
-		let hexagon = geometry.hexagon(at: .init(x: neighborhood.position.x, y: neighborhood.position.y))
+		let hexagon = geometry.hexagon(at: neighborhood.position.toHexagonPosition())
 		let path = Path { path in
 			path.move(to: hexagon.point(at: .v0).toCGPoint())
 			for point in hexagon.allPoints {
@@ -88,5 +91,29 @@ struct MapRenderView: View {
 		}
 
 		context.stroke(path, with: .color(borderColor), lineWidth: 1)
+	}
+
+	private func drawStreet(
+		_ street: MapLayout.Street,
+		withGeometry geometry: MapGeometry,
+		in context: GraphicsContext
+	) {
+		let bridge = geometry.bridge(
+			from: street.from.position.toHexagonPosition(),
+			to: street.to.position.toHexagonPosition(),
+			fromEdge: street.from.edge
+		)
+
+		let path = Path { path in
+			path.move(to: bridge.startLine.start.toCGPoint())
+			path.addLine(to: bridge.startLine.end.toCGPoint())
+			path.addLine(to: bridge.endLine.start.toCGPoint())
+			path.addLine(to: bridge.endLine.end.toCGPoint())
+		}
+
+		let shapeColors = ShapeColors(hashable: street.typeId)
+
+		context.fill(path, with: .color(shapeColors.backgroundColor))
+		context.stroke(path, with: .color(shapeColors.borderColor), lineWidth: 1)
 	}
 }

@@ -99,6 +99,6 @@ extension Tagged: Hashable where RawValue: Hashable {
 	}
 
 	public func hash(into hasher: inout Hasher) {
-		rawValue.hash(into: &hasher)
+		 rawValue.hash(into: &hasher)
 	}
 }

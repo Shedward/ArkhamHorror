@@ -49,6 +49,10 @@ public final class Map {
 		regions.first { $0.id == id }
 	}
 
+	public func neighbourhood(by id: MapRegionType.Id) -> MapRegionType? {
+		neighborhoods.first { $0.id == id }
+	}
+
 	public func isNeighborRegions(_ lhs: MapRegion.Id, _ rhs: MapRegion.Id) -> Bool {
 		guard let lhsNode = regionsMap.node(for: lhs) else { return false }
 		guard let rhsNode = regionsMap.node(for: rhs) else { return false }

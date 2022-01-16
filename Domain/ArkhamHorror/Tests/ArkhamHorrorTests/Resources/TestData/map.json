@@ -35,12 +35,12 @@
 						"name": "Аркхэм Адвертайзер"
 					},
 					{
-						"id": "curriosity_shop",
-						"name": "Магазинчик Странностей"
-					},
-					{
 						"id": "train_station",
 						"name": "Вокзал"
+					},
+					{
+						"id": "curriosity_shop",
+						"name": "Магазинчик Странностей"
 					}
 				]
 			},

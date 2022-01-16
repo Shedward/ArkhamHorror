@@ -23,4 +23,8 @@ struct MapNeighborhoodsData: Decodable, Equatable {
 
 	let types: [TypeData]
 	let neighborhoods: [NeighborhoodData]
+
+	func neighbourhood(by id: MapRegionType.Id) -> NeighborhoodData? {
+		neighborhoods.first(where: { $0.typeId == id })
+	}
 }
