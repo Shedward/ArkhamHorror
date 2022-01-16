@@ -11,8 +11,8 @@ import SwiftUI
 struct ArkhamHorrorApp: App {
     var body: some Scene {
         WindowGroup {
-            Text("Hello world")
-				.padding(20)
+			MapDebugView()
+				.padding()
         }
     }
 }

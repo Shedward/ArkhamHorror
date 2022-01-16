@@ -5,19 +5,19 @@
 //  Created by Vladislav Maltsev on 03.01.2022.
 //
 
-struct MapRegionType {
-	enum IdTag { }
-	typealias Id = Tagged<IdTag, String>
+public struct MapRegionType {
+	public enum IdTag { }
+	public typealias Id = Tagged<IdTag, String>
 
-	enum NameTag { }
-	typealias Name = Tagged<NameTag, String>
+	public enum NameTag { }
+	public typealias Name = Tagged<NameTag, String>
 
-	let id: Id
-	let name: Name
+	public let id: Id
+	public let name: Name
 }
 
 extension MapRegionType: Equatable {
-	static func == (_ lhs: MapRegionType, _ rhs: MapRegionType) -> Bool {
+	public static func == (_ lhs: MapRegionType, _ rhs: MapRegionType) -> Bool {
 		lhs.id == rhs.id
 	}
 }

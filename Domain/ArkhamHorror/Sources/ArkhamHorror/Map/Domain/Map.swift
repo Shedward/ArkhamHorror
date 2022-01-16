@@ -5,14 +5,21 @@
 //  Created by Vladislav Maltsev on 03.01.2022.
 //
 
+import Foundation
 import Graph
 
-final class Map {
+public final class Map {
 	private var neighborhoods: [MapRegionType] = []
 	private var streetTypes: [MapRegionType] = []
 	private var regions: [MapRegion] = []
 	private var streets: [MapRegion] = []
 	private var regionsMap: Graph<MapRegion.Id> = Graph()
+
+	public convenience init(data: Data) throws {
+		let decoder = JSONDecoder()
+		let mapData = try decoder.decode(MapData.self, from: data)
+		self.init(mapData: mapData)
+	}
 
 	init(mapData: MapData) {
 		mapData.sityNeighborhoods.types.forEach { type  in
@@ -34,17 +41,17 @@ final class Map {
 		}
 	}
 
-	func region(by id: MapRegion.Id) -> MapRegion? {
+	public func region(by id: MapRegion.Id) -> MapRegion? {
 		regions.first { $0.id == id }
 	}
 
-	func isNeighborRegions(_ lhs: MapRegion.Id, _ rhs: MapRegion.Id) -> Bool {
+	public func isNeighborRegions(_ lhs: MapRegion.Id, _ rhs: MapRegion.Id) -> Bool {
 		guard let lhsNode = regionsMap.node(for: lhs) else { return false }
 		guard let rhsNode = regionsMap.node(for: rhs) else { return false }
 		return lhsNode.isNeighbor(to: rhsNode)
 	}
 
-	func regionsMapDescription() -> String {
+	public func regionsMapDescription() -> String {
 		DebugGraphFormatter().format(from: regionsMap)
 	}
 }
