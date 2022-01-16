@@ -5,20 +5,33 @@
 //  Created by Vladislav Maltsev on 16.01.2022.
 //
 
-struct MapLayout {
-	struct NeighborhoodPosition {
-		let x: Int
-		let y: Int
+public struct MapLayout {
+	public struct NeighborhoodPosition {
+		public let x: Int
+		public let y: Int
 	}
 
-	struct Neighboarhood {
-		let position: NeighborhoodPosition
-		let typeId: MapRegionType.Id
+	public struct Neighboarhood {
+		public let position: NeighborhoodPosition
+		public let typeId: MapRegionType.Id
 	}
 
-	struct Bridge {
-		let from: MapRegionType.Id
-		let to: MapRegionType.Id
-		let edge: MapGeometry.Hexagon.Edge
+	public struct Bridge {
+		public let from: MapRegionType.Id
+		public let to: MapRegionType.Id
+		public let edge: MapGeometry.Hexagon.Edge
+	}
+
+	public var neighboarhoods: [Neighboarhood]
+	public var bridges: [Bridge]
+
+	init(mapData: MapData) {
+		neighboarhoods = mapData.layout.tileLayouts.map { tileLayout in
+			.init(
+				position: .init(x: tileLayout.tile.column, y: tileLayout.tile.row),
+				typeId: tileLayout.regionTypeId
+			)
+		}
+		bridges = []
 	}
 }

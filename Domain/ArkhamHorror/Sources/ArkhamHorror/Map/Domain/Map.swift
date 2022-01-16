@@ -15,6 +15,8 @@ public final class Map {
 	private var streets: [MapRegion] = []
 	private var regionsMap: Graph<MapRegion.Id> = Graph()
 
+	public let layout: MapLayout
+
 	public convenience init(data: Data) throws {
 		let decoder = JSONDecoder()
 		let mapData = try decoder.decode(MapData.self, from: data)
@@ -22,6 +24,8 @@ public final class Map {
 	}
 
 	init(mapData: MapData) {
+		layout = MapLayout(mapData: mapData)
+
 		mapData.sityNeighborhoods.types.forEach { type  in
 			neighborhoods.append(.init(id: type.id, name: type.name))
 		}

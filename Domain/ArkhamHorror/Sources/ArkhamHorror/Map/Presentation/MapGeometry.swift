@@ -162,8 +162,10 @@ public struct MapGeometry {
 
 		oddRowOffset = (sqrt3/2) * hexagonSize + (1/2) * spacing
 		tileDeltaX = sqrt3 * hexagonSize + spacing
-		tileDeltaY = 2 * hexagonSize - (sqrt3/2) * spacing
+		tileDeltaY = (3/2) * hexagonSize + (sqrt3/2) * spacing
 	}
+
+	public static let tileAspectRatio = sqrt3 / 2
 
 	private func rectOriginForHexagon(at hexPosition: HexagonPosition) -> Geometry.Point {
 		.init(

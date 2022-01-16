@@ -26,8 +26,8 @@ struct MapDebugView: View {
 			case .failed(let error):
 				Text(String(describing: error))
 					.foregroundColor(.red)
-			case .loaded:
-				Text("Map loaded")
+			case .loaded(let map):
+				MapRenderView(map: map)
 			}
 		}
 		.frame(minWidth: 500, minHeight: 500)
