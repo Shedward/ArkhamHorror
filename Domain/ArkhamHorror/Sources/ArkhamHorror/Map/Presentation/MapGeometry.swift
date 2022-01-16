@@ -10,53 +10,98 @@ private let sqrt3: Geometry.LengthUnit = 3.squareRoot()
 /// Abstraction for map geometry.
 /// Details and resoning: https://www.craft.do/s/gIx3P2RZKDB8Nj
 public struct MapGeometry {
-	struct HexagonPosition {
-		typealias Index = Int
-		let x: Index
-		let y: Index
+	public struct HexagonPosition {
+		public typealias Index = Int
+
+		public let x: Index
+		public let y: Index
+
+		public init(x: Index, y: Index) {
+			self.x = x
+			self.y = y
+		}
 	}
 
-	struct Hexagon {
-		enum Point: Int {
-			case p0 = 0
-			case p1 = 1
-			case p2 = 2
-			case p3 = 3
-			case p4 = 4
-			case p5 = 5
+	public struct Hexagon {
+		public enum Vertex: Int {
+			case v0 = 0
+			case v1 = 1
+			case v2 = 2
+			case v3 = 3
+			case v4 = 4
+			case v5 = 5
 
-			func next() -> Point {
-				let nextIndex = (rawValue + 1) % 6
-				guard let nextPoint = Point(rawValue: nextIndex) else {
-					fatalError("Impossible value \(nextIndex) for next point.")
+			public static let all: [Vertex] = [.v0, .v1, .v2, .v3, .v4, .v5]
+
+			public var opposite: Vertex {
+				next(step: 3)
+			}
+
+			public var next: Vertex {
+				next(step: 1)
+			}
+
+			public var previous: Vertex {
+				next(step: -1)
+			}
+
+			private func next(step: Int) -> Vertex {
+				let nextIndex = (rawValue + step) % Self.all.count
+				guard let nextPoint = Vertex(rawValue: nextIndex) else {
+					fatalError("Impossible value \(nextIndex) for next \(step) point from \(self).")
 				}
 				return nextPoint
 			}
-
-			func opposite() -> Point {
-				let oppositeIndex = (rawValue + 3) % 6
-				guard let oppositePoint = Point(rawValue: oppositeIndex) else {
-					fatalError("Impossible value \(oppositeIndex) for opposite point.")
-				}
-				return oppositePoint
-			}
 		}
 
-		enum Edge: Int {
+		public enum Edge: Int {
 			case e0 = 0
 			case e1 = 1
 			case e2 = 2
 			case e3 = 3
 			case e4 = 4
 			case e5 = 5
+
+			public static let all: [Edge] = [.e0, .e1, .e2, .e3, .e4, .e5]
+
+			public var opposite: Edge {
+				next(step: 3)
+			}
+
+			public var next: Edge {
+				next(step: 1)
+			}
+
+			public var prevoius: Edge {
+				next(step: -1)
+			}
+
+			public var startVertex: Vertex {
+				guard let vertex = Vertex(rawValue: rawValue) else {
+					fatalError("Impossible value for vertex \(rawValue)")
+				}
+				return vertex
+			}
+
+			public var endVertex: Vertex {
+				startVertex.next
+			}
+
+			private func next(step: Int) -> Edge {
+				let nextIndex = (rawValue + step) % Self.all.count
+				guard let nextEdge = Edge(rawValue: nextIndex) else {
+					fatalError("Impossible value \(nextIndex) for next \(step) edge from \(self).")
+				}
+				return nextEdge
+			}
 		}
 
-		let origin: Geometry.Point
-		let size: Geometry.LengthUnit
-		let center: Geometry.Point
-		let allPoints: [Geometry.Point]
+		public let origin: Geometry.Point
+		public let size: Geometry.LengthUnit
+		public let center: Geometry.Point
+		public let allPoints: [Geometry.Point]
 
-		init(origin: Geometry.Point, size: Geometry.LengthUnit) {
+		public init(origin: Geometry.Point, size: Geometry.LengthUnit) {
 			self.origin = origin
 			self.size = size
 
@@ -68,7 +113,7 @@ public struct MapGeometry {
 				.init(x: 0, y: (3/2) * size),
 				.init(x: 0, y: (1/2) * size)
 			]
-			points = pointOffsets.map { origin + $0 }
+			allPoints = pointOffsets.map { origin + $0 }
 
 			let centerOffset = Geometry.Point(
 				x: (sqrt3/2) * size,
@@ -77,16 +122,25 @@ public struct MapGeometry {
 			center = origin + centerOffset
 		}
 
-		func point(at point: Point) -> Geometry.Point {
-			allPoints[point.rawValue]
+		public func point(at vertex: Vertex) -> Geometry.Point {
+			allPoints[vertex.rawValue]
 		}
 
-		func
+		public func line(at edge: Edge) -> Geometry.Line {
+			Geometry.Line(
+				start: point(at: edge.startVertex),
+				end: point(at: edge.endVertex)
+			)
+		}
 	}
 
-	struct Bridge {
-		init(from fromHex: Hexagon, to toHex: Hexagon, fromEdge: Hexagon.Edge) {
+	public struct Bridge {
+		public let startLine: Geometry.Line
+		public let endLine: Geometry.Line
 
+		public init(from fromHex: Hexagon, to toHex: Hexagon, fromEdge: Hexagon.Edge) {
+			startLine = fromHex.line(at: fromEdge)
+			endLine = toHex.line(at: fromEdge.opposite)
 		}
 	}
 
@@ -119,8 +173,20 @@ public struct MapGeometry {
 		)
 	}
 
-	private func hexagon(at hexPosition: HexagonPosition) -> Hexagon {
+	public func hexagon(at hexPosition: HexagonPosition) -> Hexagon {
 		let origin = rectOriginForHexagon(at: hexPosition)
 		return .init(origin: origin, size: hexagonSize)
+	}
+
+	public func bridge(
+		from fromHexPosition: HexagonPosition,
+		to toHexPosition: HexagonPosition,
+		fromEdge: Hexagon.Edge
+	) -> Bridge {
+		.init(
+			from: hexagon(at: fromHexPosition),
+			to: hexagon(at: toHexPosition),
+			fromEdge: fromEdge
+		)
 	}
 }
