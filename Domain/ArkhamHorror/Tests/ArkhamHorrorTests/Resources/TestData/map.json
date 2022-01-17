@@ -178,16 +178,16 @@
 				"to": ["black_cave", "general_store"]
 			},
 			{
-				"id": "bridge1",
-				"typeId": "bridge",
-				"from": ["la_bella_luna"],
-				"to": ["black_cave"]
-			},
-			{
 				"id": "bridge2",
 				"typeId": "bridge",
 				"from": ["police_station"],
 				"to": ["black_cave", "graveyard"]
+			},
+			{
+				"id": "bridge2",
+				"typeId": "bridge",
+				"from": ["general_store", "graveyard"],
+				"to": ["test11reg"]
 			}
 		],
 	},

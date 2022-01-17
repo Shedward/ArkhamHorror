@@ -41,6 +41,7 @@ final class MapDropDelegate: DropDelegate {
 				let mapResult = loadingResult.flatMap(self.loadMap)
 				self.completion(mapResult)
 			}
+			return true
 		}
 
 		completion(.failure(.noKnownObjectFound))

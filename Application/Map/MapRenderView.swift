@@ -16,8 +16,8 @@ struct MapRenderView: View {
 		init<T: Hashable>(hashable: T) {
 			let hue256 = hashable.hashValue % 256
 			let hueDouble = Double(hue256) / 256
-			backgroundColor = Color(hue: hueDouble, saturation: 0.8, brightness: 0.6)
-			borderColor = Color(hue: hueDouble, saturation: 0.6, brightness: 0.8)
+			borderColor = Color(hue: hueDouble, saturation: 0.8, brightness: 0.6)
+			backgroundColor = Color(hue: hueDouble, saturation: 0.6, brightness: 0.8)
 		}
 	}
 
@@ -36,7 +36,7 @@ struct MapRenderView: View {
     }
 
 	private func scalableGeometry(for size: CGSize, fitting layout: MapLayout) -> MapGeometry {
-		MapGeometry(hexagonSize: 75, spacing: 25)
+		MapGeometry(hexagonSize: 75, spacing: 50)
 	}
 
 	private func drawNeighborhood(
@@ -109,6 +109,7 @@ struct MapRenderView: View {
 			path.addLine(to: bridge.startLine.end.toCGPoint())
 			path.addLine(to: bridge.endLine.start.toCGPoint())
 			path.addLine(to: bridge.endLine.end.toCGPoint())
+			path.addLine(to: bridge.startLine.start.toCGPoint())
 		}
 
 		let shapeColors = ShapeColors(hashable: street.typeId)
