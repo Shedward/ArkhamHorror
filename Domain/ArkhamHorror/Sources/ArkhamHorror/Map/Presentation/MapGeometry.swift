@@ -132,16 +132,37 @@ public struct MapGeometry {
 				end: point(at: edge.endVertex)
 			)
 		}
+
+		public func region(at edge: Edge) -> Region {
+			let edgeLine = line(at: edge)
+			let center = Geometry.Line(start: center, end: edgeLine.middle).middle
+			return Region(center: center, width: (sqrt3/4) * size)
+		}
 	}
 
 	public struct Bridge {
 		public let startLine: Geometry.Line
 		public let endLine: Geometry.Line
+		public var center: Geometry.Point {
+			Geometry.Line(start: startLine.middle, end: endLine.middle).middle
+		}
 
 		public init(from fromHex: Hexagon, to toHex: Hexagon, fromEdge: Hexagon.Edge) {
 			startLine = fromHex.line(at: fromEdge)
 			endLine = toHex.line(at: fromEdge.opposite)
 		}
+
+		public func region() -> Region {
+			let centerLine = Geometry.Line(start: startLine.middle, end: endLine.middle)
+			let minMedianLength = min(startLine.length, centerLine.length)
+			let width = minMedianLength / 2
+			return .init(center: centerLine.middle, width: width)
+		}
+	}
+
+	public struct Region {
+		public let center: Geometry.Point
+		public let width: Geometry.LengthUnit
 	}
 
 	public let hexagonSize: Geometry.LengthUnit

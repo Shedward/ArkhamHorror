@@ -36,7 +36,7 @@ struct MapRenderView: View {
     }
 
 	private func scalableGeometry(for size: CGSize, fitting layout: MapLayout) -> MapGeometry {
-		MapGeometry(hexagonSize: 75, spacing: 50)
+		MapGeometry(hexagonSize: 50, spacing: 30)
 	}
 
 	private func drawNeighborhood(
@@ -58,35 +58,28 @@ struct MapRenderView: View {
 
 		drawRegionBorders(
 			for: hexagon,
-			orientation: neighborhood.regionOrientation,
+			edges: neighborhood.borderEdges(),
 			borderColor: shapeColors.borderColor,
 			in: context
 		)
+
+		neighborhood.regions
+			.compactMap { neighborhood.edge(for: $0).map { hexagon.region(at: $0) } }
+			.forEach { drawRegionMarker($0, in: context) }
 	}
 
 	private func drawRegionBorders(
 		for hexagon: MapGeometry.Hexagon,
-		orientation: MapLayout.RegionOrientation,
+		edges: [MapGeometry.Hexagon.Edge],
 		borderColor: Color,
 		in context: GraphicsContext
 	) {
 		let center = hexagon.center.toCGPoint()
 		let path = Path { path in
 			path.move(to: center)
-			func drawBorderToEdge(_ edge: MapGeometry.Hexagon.Edge) {
+			edges.forEach { edge in
 				path.addLine(to: hexagon.line(at: edge).middle.toCGPoint())
 				path.addLine(to: center)
-			}
-
-			switch orientation {
-			case .clockwise:
-				drawBorderToEdge(.e1)
-				drawBorderToEdge(.e3)
-				drawBorderToEdge(.e5)
-			case .counterclockwise:
-				drawBorderToEdge(.e0)
-				drawBorderToEdge(.e2)
-				drawBorderToEdge(.e4)
 			}
 		}
 
@@ -116,5 +109,22 @@ struct MapRenderView: View {
 
 		context.fill(path, with: .color(shapeColors.backgroundColor))
 		context.stroke(path, with: .color(shapeColors.borderColor), lineWidth: 1)
+
+		drawRegionMarker(bridge.region(), in: context)
+	}
+
+	private func drawRegionMarker(
+		_ region: MapGeometry.Region,
+		in context: GraphicsContext
+	) {
+		let radius = region.width / 3
+		let rect = CGRect(
+			x: region.center.x - radius,
+			y: region.center.y - radius,
+			width: 2 * radius,
+			height: 2 * radius
+		)
+		let path = Path(ellipseIn: rect)
+		context.fill(path, with: .color(white: 1.0, opacity: 0.5))
 	}
 }

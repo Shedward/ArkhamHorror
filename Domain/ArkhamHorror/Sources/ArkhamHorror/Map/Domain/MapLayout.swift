@@ -35,7 +35,7 @@ public struct MapLayout {
 		public let regionOrientation: RegionOrientation
 		public let regions: [MapRegion.Id]
 
-		func edge(for regionId: MapRegion.Id) -> MapGeometry.Hexagon.Edge? {
+		public func edge(for regionId: MapRegion.Id) -> MapGeometry.Hexagon.Edge? {
 			guard let regionIndex = regions.firstIndex(of: regionId) else {
 				return nil
 			}
@@ -43,7 +43,7 @@ public struct MapLayout {
 			return edge(at: regionIndex)
 		}
 
-		func edge(for regions: [MapRegion.Id]) -> MapGeometry.Hexagon.Edge? {
+		public func edge(for regions: [MapRegion.Id]) -> MapGeometry.Hexagon.Edge? {
 			switch regions.count {
 			case 0:
 				return nil
@@ -53,6 +53,15 @@ public struct MapLayout {
 				return edgeBetween(firstRegion: regions[0], secondRegion: regions[1])
 			default:
 				return nil
+			}
+		}
+
+		public func borderEdges() -> [MapGeometry.Hexagon.Edge] {
+			switch regionOrientation {
+			case .clockwise:
+				return [.e1, .e3, .e5]
+			case .counterclockwise:
+				return [.e0, .e2, .e4]
 			}
 		}
 

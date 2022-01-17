@@ -51,6 +51,11 @@ public enum Geometry {
 			)
 		}
 
+		public var length: LengthUnit {
+			let delta = end - start
+			return (delta.x * delta.x + delta.y * delta.y).squareRoot()
+		}
+
 		init(start: Point, end: Point) {
 			self.start = start
 			self.end = end
