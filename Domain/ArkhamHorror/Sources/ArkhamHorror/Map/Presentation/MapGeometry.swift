@@ -201,10 +201,10 @@ public struct MapGeometry {
 		} else {
 			oddRowOffsetM = sqrt3/2 + 1/2 * relativeSpacing
 		}
-		let idealSizeForWidth = size.width / (mdx * xCount + oddRowOffsetM)
+		let idealSizeForWidth = size.width / (mdx * xCount + oddRowOffsetM - relativeSpacing)
 		let mdy = 3/2 - sqrt3/2 * relativeSpacing
 		let yCount = Geometry.LengthUnit(maxPosition.y + 1)
-		let idealSizeForHeight = size.height / (mdy * yCount)
+		let idealSizeForHeight = size.height / (mdy * yCount - relativeSpacing)
 
 		let size = min(idealSizeForWidth, idealSizeForHeight)
 		let spacing = relativeSpacing * size
