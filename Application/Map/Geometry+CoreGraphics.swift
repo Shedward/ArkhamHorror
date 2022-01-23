@@ -20,3 +20,16 @@ extension Geometry.Point {
 		CGPoint(x: x, y: y)
 	}
 }
+
+extension Geometry.Size {
+	init(cgSize: CGSize) {
+		self.init(
+			width: cgSize.width,
+			height: cgSize.height
+		)
+	}
+
+	func toCGSize() -> CGSize {
+		CGSize(width: width, height: height)
+	}
+}

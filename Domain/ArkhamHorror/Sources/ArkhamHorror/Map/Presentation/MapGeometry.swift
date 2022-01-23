@@ -188,6 +188,29 @@ public struct MapGeometry {
 
 	public static let tileAspectRatio = sqrt3 / 2
 
+	public static func scaledToFit(
+		size: Geometry.Size,
+		maxPosition: HexagonPosition,
+		relativeSpacing: Geometry.LengthUnit
+	) -> MapGeometry {
+		let mdx = sqrt3 + relativeSpacing
+		let xCount = Geometry.LengthUnit(maxPosition.x + 1)
+		let oddRowOffsetM: Geometry.LengthUnit
+		if maxPosition.x % 2 == 0 {
+			oddRowOffsetM = 0
+		} else {
+			oddRowOffsetM = sqrt3/2 + 1/2 * relativeSpacing
+		}
+		let idealSizeForWidth = size.width / (mdx * xCount + oddRowOffsetM)
+		let mdy = 3/2 - sqrt3/2 * relativeSpacing
+		let yCount = Geometry.LengthUnit(maxPosition.y + 1)
+		let idealSizeForHeight = size.height / (mdy * yCount)
+
+		let size = min(idealSizeForWidth, idealSizeForHeight)
+		let spacing = relativeSpacing * size
+		return .init(hexagonSize: size, spacing: spacing)
+	}
+
 	private func rectOriginForHexagon(at hexPosition: HexagonPosition) -> Geometry.Point {
 		.init(
 			x: oddRowOffset * Geometry.LengthUnit(hexPosition.y % 2)

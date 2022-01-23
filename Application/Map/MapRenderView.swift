@@ -36,7 +36,14 @@ struct MapRenderView: View {
     }
 
 	private func scalableGeometry(for size: CGSize, fitting layout: MapLayout) -> MapGeometry {
-		MapGeometry(hexagonSize: 50, spacing: 30)
+		let maxXPosition = layout.neighboarhoods.map { $0.position.x }.max() ?? 0
+		let maxYPosition = layout.neighboarhoods.map { $0.position.y }.max() ?? 0
+
+		return MapGeometry.scaledToFit(
+			size: .init(cgSize: size),
+			maxPosition: .init(x: maxXPosition, y: maxYPosition),
+			relativeSpacing: 0.5
+		)
 	}
 
 	private func drawNeighborhood(
