@@ -15,21 +15,21 @@ final class MapDataTests: XCTestCase {
 		let decoder = JSONDecoder()
 		let model = try decoder.decode(MapData.self, from: mapData)
 
-		XCTAssertEqual(model.sityNeighborhoods.types.count, 5)
+		XCTAssertEqual(model.sityNeighborhoods.types.count, 6)
 		XCTAssertEqual(
 			model.sityNeighborhoods.types.first,
 			.init(id: "northside", name: "Нортсайд")
 		)
 
-		XCTAssertEqual(model.sityNeighborhoods.neighborhoods.count, 5)
+		XCTAssertEqual(model.sityNeighborhoods.neighborhoods.count, 6)
 		XCTAssertEqual(
 			model.sityNeighborhoods.neighborhoods.first,
 			.init(
 				typeId: "northside",
 				regions: [
 					.init(id: "arkham_advertiser", name: "Аркхэм Адвертайзер"),
-					.init(id: "curriosity_shop", name: "Магазинчик Странностей"),
-					.init(id: "train_station", name: "Вокзал")
+					.init(id: "train_station", name: "Вокзал"),
+					.init(id: "curriosity_shop", name: "Магазинчик Странностей")
 				]
 			)
 		)
@@ -51,7 +51,7 @@ final class MapDataTests: XCTestCase {
 			)
 		)
 
-		XCTAssertEqual(model.layout.tileLayouts.count, 5)
+		XCTAssertEqual(model.layout.tileLayouts.count, 6)
 		XCTAssertEqual(
 			model.layout.tileLayouts.first,
 			.init(
