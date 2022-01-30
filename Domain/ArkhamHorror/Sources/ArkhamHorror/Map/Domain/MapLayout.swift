@@ -115,6 +115,7 @@ public struct MapLayout {
 			public let position: NeighborhoodPosition
 		}
 
+		public let regionId: MapRegion.Id
 		public let typeId: MapRegionType.Id
 		public let from: Edge
 		public let to: Edge
@@ -183,6 +184,7 @@ public struct MapLayout {
 		}
 
 		return .init(
+			regionId: street.id,
 			typeId: street.typeId,
 			from: .init(regionType: fromNeighbourhood.typeId, edge: fromEdge, position: fromNeighbourhood.position),
 			to: .init(regionType: toNeighbourhood.typeId, edge: toEdge, position: toNeighbourhood.position)

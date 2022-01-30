@@ -32,6 +32,8 @@ struct MapRenderView: View {
 			map.layout.streets.forEach { street in
 				self.drawStreet(street, withGeometry: geometry, in: context)
 			}
+
+			drawEdges(withGeometry: geometry, in: context)
 		}
     }
 
@@ -133,5 +135,54 @@ struct MapRenderView: View {
 		)
 		let path = Path(ellipseIn: rect)
 		context.fill(path, with: .color(white: 1.0, opacity: 0.5))
+	}
+
+	private func drawEdges(
+		withGeometry mapGeometry: MapGeometry,
+		in context: GraphicsContext
+	) {
+		struct RegionDescription {
+			let regionId: MapRegion.Id
+			let center: Geometry.Point
+		}
+
+		var regionDescriptions: [RegionDescription] = []
+
+		map.layout.streets.forEach { street in
+			let streetRegion = mapGeometry
+				.bridge(
+					from: street.from.position.toHexagonPosition(),
+					to: street.to.position.toHexagonPosition(),
+					fromEdge: street.from.edge
+				)
+				.region()
+			regionDescriptions.append(.init(regionId: street.regionId, center: streetRegion.center))
+		}
+
+		map.layout.neighboarhoods.forEach { neighboarhood in
+			let hexagon = mapGeometry.hexagon(at: neighboarhood.position.toHexagonPosition())
+			neighboarhood.regions.forEach { regionId in
+				if let regionEdge = neighboarhood.edge(for: regionId) {
+					let region = hexagon.region(at: regionEdge)
+					regionDescriptions.append(.init(regionId: regionId, center: region.center))
+				}
+			}
+		}
+
+		for startIndex in regionDescriptions.indices {
+			for endIndex in regionDescriptions.indices {
+				let startRegion = regionDescriptions[startIndex]
+				let endRegion = regionDescriptions[endIndex]
+
+				if map.isNeighborRegions(startRegion.regionId, endRegion.regionId) {
+					let line = Path { path in
+						path.move(to: startRegion.center.toCGPoint())
+						path.addLine(to: endRegion.center.toCGPoint())
+					}
+
+					context.stroke(line, with: .color(white: 1, opacity: 0.4))
+				}
+			}
+		}
 	}
 }
