@@ -199,12 +199,14 @@ public struct MapGeometry {
 		if maxPosition.x % 2 == 0 {
 			oddRowOffsetM = 0
 		} else {
-			oddRowOffsetM = sqrt3/2 + 1/2 * relativeSpacing
+			oddRowOffsetM = sqrt3/2.0 + 0.5 * relativeSpacing
 		}
-		let idealSizeForWidth = size.width / (mdx * xCount + oddRowOffsetM - relativeSpacing)
-		let mdy = 3/2 - sqrt3/2 * relativeSpacing
+		let extraWidthM = relativeSpacing
+		let idealSizeForWidth = size.width / (mdx * xCount + oddRowOffsetM - extraWidthM)
+		let mdy = 1.5 + sqrt3/2.0 * relativeSpacing
 		let yCount = Geometry.LengthUnit(maxPosition.y + 1)
-		let idealSizeForHeight = size.height / (mdy * yCount - relativeSpacing)
+		let extraHeightM = -0.5 + sqrt3/2.0 * relativeSpacing
+		let idealSizeForHeight = size.height / (mdy * yCount - extraHeightM)
 
 		let size = min(idealSizeForWidth, idealSizeForHeight)
 		let spacing = relativeSpacing * size

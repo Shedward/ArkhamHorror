@@ -15,5 +15,3 @@ public func XCTAssertEqualDescription<T>(
 ) {
 	XCTAssertEqual(String(describing: t), description, file: file, line: line)
 }
-
-
