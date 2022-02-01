@@ -15,9 +15,22 @@ struct MapRenderView: View {
 			let foregroundBrightness: Double
 			let backgroundSaturation: Double
 			let backgroundBrightness: Double
+			let markerColor: Color
 
-			static let light = Style(foregroundSaturation: 0.8, foregroundBrightness: 0.6, backgroundSaturation: 0.6, backgroundBrightness: 0.8)
-			static let dark = Style(foregroundSaturation: 0.6, foregroundBrightness: 0.8, backgroundSaturation: 0.8, backgroundBrightness: 0.6)
+			static let light = Style(
+				foregroundSaturation: 0.8,
+				foregroundBrightness: 0.6,
+				backgroundSaturation: 0.6,
+				backgroundBrightness: 0.8,
+				markerColor: .white
+			)
+			static let dark = Style(
+				foregroundSaturation: 0.6,
+				foregroundBrightness: 0.8,
+				backgroundSaturation: 0.8,
+				backgroundBrightness: 0.6,
+				markerColor: .black
+			)
 		}
 
 		struct ShapeColors {
@@ -37,6 +50,14 @@ struct MapRenderView: View {
 			let borderColor = Color(hue: hueDouble, saturation: style.foregroundSaturation, brightness: style.foregroundBrightness)
 			let backgroundColor = Color(hue: hueDouble, saturation: style.backgroundBrightness, brightness: style.backgroundBrightness)
 			return ShapeColors(backgroundColor: backgroundColor, borderColor: borderColor)
+		}
+
+		var regionMarkerColor: Color {
+			style.markerColor
+		}
+
+		var graphEdgeColor: Color {
+			style.markerColor.opacity(0.8)
 		}
 	}
 
@@ -163,7 +184,7 @@ struct MapRenderView: View {
 			height: 2 * radius
 		)
 		let path = Path(ellipseIn: rect)
-		context.fill(path, with: .color(white: 1.0, opacity: 1))
+		context.fill(path, with: .color(colorScheme.regionMarkerColor))
 	}
 
 	private func drawEdges(
@@ -209,7 +230,7 @@ struct MapRenderView: View {
 						path.addLine(to: endRegion.center.toCGPoint())
 					}
 
-					context.stroke(line, with: .color(white: 1, opacity: 0.4))
+					context.stroke(line, with: .color(colorScheme.graphEdgeColor))
 				}
 			}
 		}
