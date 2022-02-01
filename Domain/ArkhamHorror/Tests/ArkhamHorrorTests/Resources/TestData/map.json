@@ -184,7 +184,7 @@
 				"to": ["black_cave", "graveyard"]
 			},
 			{
-				"id": "bridge2",
+				"id": "bridge3",
 				"typeId": "bridge",
 				"from": ["general_store", "graveyard"],
 				"to": ["test11reg"]

@@ -18,6 +18,9 @@ struct MapDebugView: View {
 	@State
 	private var state: ViewState = .empty
 
+	@Environment(\.colorScheme)
+	var colorScheme
+
     var body: some View {
 		ZStack {
 			switch state {
@@ -27,7 +30,7 @@ struct MapDebugView: View {
 				Text(String(describing: error))
 					.foregroundColor(.red)
 			case .loaded(let map):
-				MapRenderView(map: map)
+				MapRenderView(colorScheme: .init(style: colorScheme == .dark ? .dark : .light), map: map)
 			}
 		}
 		.frame(minWidth: 500, minHeight: 500)

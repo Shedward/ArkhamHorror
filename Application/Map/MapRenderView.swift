@@ -9,18 +9,41 @@ import SwiftUI
 import ArkhamHorror
 
 struct MapRenderView: View {
-	private struct ShapeColors {
-		let backgroundColor: Color
-		let borderColor: Color
+	struct ColorScheme {
+		struct Style {
+			let foregroundSaturation: Double
+			let foregroundBrightness: Double
+			let backgroundSaturation: Double
+			let backgroundBrightness: Double
 
-		init<T: Hashable>(hashable: T) {
-			let hue256 = hashable.hashValue % 256
-			let hueDouble = Double(hue256) / 256
-			borderColor = Color(hue: hueDouble, saturation: 0.8, brightness: 0.6)
-			backgroundColor = Color(hue: hueDouble, saturation: 0.6, brightness: 0.8)
+			static let light = Style(foregroundSaturation: 0.8, foregroundBrightness: 0.6, backgroundSaturation: 0.6, backgroundBrightness: 0.8)
+			static let dark = Style(foregroundSaturation: 0.6, foregroundBrightness: 0.8, backgroundSaturation: 0.8, backgroundBrightness: 0.6)
+		}
+
+		struct ShapeColors {
+			let backgroundColor: Color
+			let borderColor: Color
+		}
+
+		let style: Style
+
+		init(style: Style) {
+			self.style = style
+		}
+
+		func shape<T: Hashable>(for hashable: T) -> ShapeColors {
+			let hueInt = hashable.hashValue % 1024
+			let hueDouble = Double(hueInt) / 1024
+			let borderColor = Color(hue: hueDouble, saturation: style.foregroundSaturation, brightness: style.foregroundBrightness)
+			let backgroundColor = Color(hue: hueDouble, saturation: style.backgroundBrightness, brightness: style.backgroundBrightness)
+			return ShapeColors(backgroundColor: backgroundColor, borderColor: borderColor)
 		}
 	}
 
+	let colorScheme: ColorScheme
+	let showRegions: Bool = true
+	let showGraph: Bool = true
+	let showRegionId: Bool = true
 	let map: Map
 
     var body: some View {
@@ -33,7 +56,9 @@ struct MapRenderView: View {
 				self.drawStreet(street, withGeometry: geometry, in: context)
 			}
 
-			drawEdges(withGeometry: geometry, in: context)
+			if showGraph {
+				drawEdges(withGeometry: geometry, in: context)
+			}
 		}
     }
 
@@ -61,7 +86,7 @@ struct MapRenderView: View {
 			}
 			path.addLine(to: hexagon.point(at: .v0).toCGPoint())
 		}
-		let shapeColors = ShapeColors(hashable: neighborhood.typeId)
+		let shapeColors = colorScheme.shape(for: neighborhood.typeId)
 		context.fill(path, with: .color(shapeColors.backgroundColor))
 		context.stroke(path, with: .color(shapeColors.borderColor), lineWidth: 1)
 
@@ -72,9 +97,11 @@ struct MapRenderView: View {
 			in: context
 		)
 
-		neighborhood.regions
-			.compactMap { neighborhood.edge(for: $0).map { hexagon.region(at: $0) } }
-			.forEach { drawRegionMarker($0, in: context) }
+		if showRegions {
+			neighborhood.regions
+				.compactMap { neighborhood.edge(for: $0).map { hexagon.region(at: $0) } }
+				.forEach { drawRegionMarker($0, in: context) }
+		}
 	}
 
 	private func drawRegionBorders(
@@ -114,19 +141,21 @@ struct MapRenderView: View {
 			path.addLine(to: bridge.startLine.start.toCGPoint())
 		}
 
-		let shapeColors = ShapeColors(hashable: street.typeId)
+		let shapeColors = colorScheme.shape(for: street.typeId)
 
 		context.fill(path, with: .color(shapeColors.backgroundColor))
 		context.stroke(path, with: .color(shapeColors.borderColor), lineWidth: 1)
 
-		drawRegionMarker(bridge.region(), in: context)
+		if showRegions {
+			drawRegionMarker(bridge.region(), in: context)
+		}
 	}
 
 	private func drawRegionMarker(
 		_ region: MapGeometry.Region,
 		in context: GraphicsContext
 	) {
-		let radius = region.width / 3
+		let radius = 2.0
 		let rect = CGRect(
 			x: region.center.x - radius,
 			y: region.center.y - radius,
@@ -134,7 +163,7 @@ struct MapRenderView: View {
 			height: 2 * radius
 		)
 		let path = Path(ellipseIn: rect)
-		context.fill(path, with: .color(white: 1.0, opacity: 0.5))
+		context.fill(path, with: .color(white: 1.0, opacity: 1))
 	}
 
 	private func drawEdges(
