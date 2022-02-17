@@ -57,7 +57,7 @@ struct MapRenderView: View {
 		}
 
 		var graphEdgeColor: Color {
-			style.markerColor.opacity(0.8)
+			style.markerColor.opacity(0.2)
 		}
 	}
 

@@ -5,6 +5,8 @@
 //  Created by Vladislav Maltsev on 03.01.2022.
 //
 
+import Prelude
+
 public struct MapRegionType {
 	public enum IdTag { }
 	public typealias Id = Tagged<IdTag, String>

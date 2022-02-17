@@ -1,3 +1,3 @@
 # XCTestUtils
 
-A description of this package.
+Set of convinience tools for writing tests.
