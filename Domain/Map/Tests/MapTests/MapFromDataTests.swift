@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import ArkhamHorror
+@testable import Map
 
 final class MapFromDataTests: XCTestCase {
 	func testMapLoading() throws {

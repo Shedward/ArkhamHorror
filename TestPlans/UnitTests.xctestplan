@@ -15,6 +15,14 @@
     {
       "parallelizable" : true,
       "target" : {
+        "containerPath" : "container:Utils\/Prelude",
+        "identifier" : "PreludeTests",
+        "name" : "PreludeTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
         "containerPath" : "container:Domain\/ArkhamHorror",
         "identifier" : "ArkhamHorrorTests",
         "name" : "ArkhamHorrorTests"
@@ -29,10 +37,19 @@
       }
     },
     {
+      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:Utils\/Graph",
         "identifier" : "GraphTests",
         "name" : "GraphTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Domain\/Map",
+        "identifier" : "MapTests",
+        "name" : "MapTests"
       }
     }
   ],

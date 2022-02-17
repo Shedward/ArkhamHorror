@@ -26,6 +26,7 @@ let package = Package(
         .testTarget(
             name: "MapTests",
 			dependencies: [
+				"Map",
 				"XCTestUtils"
 			],
 			resources: [
