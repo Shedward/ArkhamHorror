@@ -8,7 +8,7 @@
 private let sqrt3: Geometry.LengthUnit = 3.squareRoot()
 
 /// Abstraction for map geometry.
-/// Details and resoning: https://www.craft.do/s/gIx3P2RZKDB8Nj
+/// Details and reasoning: https://www.craft.do/s/gIx3P2RZKDB8Nj
 public struct MapGeometry {
 	public struct HexagonPosition {
 		public typealias Index = Int

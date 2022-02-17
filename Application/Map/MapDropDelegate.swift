@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ArkhamHorror
+import Map
 import UniformTypeIdentifiers
 
 final class MapDropDelegate: DropDelegate {

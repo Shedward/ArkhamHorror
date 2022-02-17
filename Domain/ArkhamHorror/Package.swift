@@ -11,27 +11,18 @@ let package = Package(
 			targets: ["ArkhamHorror"]),
     ],
 	dependencies: [
-		.package(name: "Graph", path: "../Utils/Graph"),
-		.package(name: "XCTestUtils", path: "../Utils/XCTestUtils"),
-		.package(name: "Prelude", path: "../Utils/Prelude")
+		.package(name: "Map", path: "../Domain/Map")
 	],
     targets: [
         .target(
 			name: "ArkhamHorror",
 			dependencies: [
-				"Graph",
-				"Prelude"
+				"Map"
 			]
 		),
 		.testTarget(
 			name: "ArkhamHorrorTests",
-			dependencies: [
-				"ArkhamHorror",
-				"XCTestUtils"
-			],
-			resources: [
-				.copy("Resources/TestData/")
-			]
+			dependencies: []
 		),
 	]
 )

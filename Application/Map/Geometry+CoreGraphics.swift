@@ -5,7 +5,7 @@
 //  Created by Vladislav Maltsev on 16.01.2022.
 //
 
-import ArkhamHorror
+import Map
 import CoreGraphics
 
 extension Geometry.Point {

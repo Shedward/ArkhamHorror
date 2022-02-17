@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ArkhamHorror
+import Map
 
 struct MapRenderView: View {
 	struct ColorScheme {
