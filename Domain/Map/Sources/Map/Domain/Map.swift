@@ -13,7 +13,7 @@ public final class Map {
 	private var streetTypes: [MapRegionType] = []
 	private var regions: [MapRegion] = []
 	private var streets: [MapRegion] = []
-	private var regionsMap: Graph<MapRegion.Id> = Graph()
+	private var regionsGraph: Graph<MapRegion.Id> = Graph()
 
 	public let layout: MapLayout
 
@@ -34,14 +34,14 @@ public final class Map {
 				regions.append(.init(id: region.id, name: region.name, typeId: neighborhood.typeId))
 			}
 			let regionIds = neighborhood.regions.map { $0.id }
-			GraphBuilder(graph: regionsMap).createBidirectionalRing(regionIds)
+			GraphBuilder(graph: regionsGraph).createBidirectionalRing(regionIds)
 		}
 		mapData.sityStreets.types.forEach { streetType in
 			streetTypes.append(.init(id: streetType.id, name: streetType.name))
 		}
 		mapData.sityStreets.streets.forEach { street in
 			let streetRegion = MapRegion(id: street.id, name: nil, typeId: street.typeId)
-			GraphBuilder(graph: regionsMap).createBidirectionalBridge(streetRegion.id, from: street.from, to: street.to)
+			GraphBuilder(graph: regionsGraph).createBidirectionalBridge(streetRegion.id, from: street.from, to: street.to)
 		}
 	}
 
@@ -54,12 +54,12 @@ public final class Map {
 	}
 
 	public func isNeighborRegions(_ lhs: MapRegion.Id, _ rhs: MapRegion.Id) -> Bool {
-		guard let lhsNode = regionsMap.node(for: lhs) else { return false }
-		guard let rhsNode = regionsMap.node(for: rhs) else { return false }
+		guard let lhsNode = regionsGraph.node(for: lhs) else { return false }
+		guard let rhsNode = regionsGraph.node(for: rhs) else { return false }
 		return lhsNode.isNeighbor(to: rhsNode)
 	}
 
 	public func regionsMapDescription() -> String {
-		DebugGraphFormatter().format(from: regionsMap)
+		DebugGraphFormatter().format(from: regionsGraph)
 	}
 }

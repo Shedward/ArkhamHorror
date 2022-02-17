@@ -28,6 +28,10 @@ public enum Geometry {
 		static func - (_ lhs: Point, rhs: Point) -> Point {
 			lhs + (-rhs)
 		}
+
+		public func distance(to anotherPoint: Point) -> LengthUnit {
+			Line(start: self, end: anotherPoint).length
+		}
 	}
 
 	public struct Size {
