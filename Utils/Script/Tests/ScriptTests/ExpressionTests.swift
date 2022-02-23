@@ -8,7 +8,7 @@
 import XCTest
 import Script
 
-class TestContext {
+class LoggingContext {
 	var logs: [String] = []
 
 	func log(_ message: String) {
@@ -16,18 +16,18 @@ class TestContext {
 	}
 }
 
-struct LogMessage: Expression {
+struct Print: Expression {
 	let message: String
 
-	func resolve(in context: TestContext) async {
+	func resolve(in context: LoggingContext) async {
 		context.log(message)
 	}
 }
 
-struct CheckLogLength: Expression {
+struct IsLogLengthGreaterOrEqual: Expression {
 	let expectedLength: Int
 
-	func resolve(in context: TestContext) async -> Bool {
+	func resolve(in context: LoggingContext) async -> Bool {
 		context.logs.count >= expectedLength
 	}
 }
@@ -35,17 +35,17 @@ struct CheckLogLength: Expression {
 class ExpressionTests: XCTestCase {
     func testExample() async {
 		let expression = Do(
-			LogMessage(message: "Hello world").asAny(),
-			LogMessage(message: "Another message").asAny(),
+			Print(message: "Hello world").asAny(),
+			Print(message: "Another message").asAny(),
 			If(
-				CheckLogLength(expectedLength: 2).asAny(),
-				onSuccess: LogMessage(message: "Is at least 2 lines").asAny(),
-				onFailure: LogMessage(message: "Is less than 2 lines").asAny()
+				IsLogLengthGreaterOrEqual(expectedLength: 2).asAny(),
+				then: Print(message: "It's at least 2 lines").asAny(),
+				else: Print(message: "It's less than 2 lines").asAny()
 			).asAny()
 		)
 
-		let context = TestContext()
+		let context = LoggingContext()
 		await expression.resolve(in: context)
-		XCTAssertEqual(context.logs, ["Hello world", "Another message", "Is at least 2 lines"])
+		XCTAssertEqual(context.logs, ["Hello world", "Another message", "It's at least 2 lines"])
     }
 }

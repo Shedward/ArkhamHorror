@@ -12,8 +12,8 @@ public struct If<Context, Result>: Expression {
 
 	public init(
 		_ test: AnyPredicate<Context>,
-		onSuccess: AnyExpression<Context, Result>,
-		onFailure: AnyExpression<Context, Result>
+		then onSuccess: AnyExpression<Context, Result>,
+		else onFailure: AnyExpression<Context, Result>
 	) {
 		self.test = test
 		self.onSuccess = onSuccess
