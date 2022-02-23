@@ -13,14 +13,14 @@ public struct DoNothing<Context>: Expression {
 	}
 }
 
-public struct DoNothingParser<Context>: SParser {
+public struct DoNothingParser<Context>: ExpressionParser {
 	public let head = "doNothing"
-	public let doc = SParserDoc(
+	public let doc = ExpressionDoc(
 		signature: "(doNothing):Void",
 		description: "Do nothing."
 	)
 
-	public func parse(_ reader: SReader<Context>) throws -> AnyExpression<Context, Void> {
+	public func parse(_ reader: ExpressionParameterReader<Context>) throws -> AnyExpression<Context, Void> {
 		DoNothing().asAny()
 	}
 }

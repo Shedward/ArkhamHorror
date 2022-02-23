@@ -23,17 +23,17 @@ public struct Do<Context>: Expression {
 	}
 }
 
-public struct DoParser<Context>: SParser {
+public struct DoParser<Context>: ExpressionParser {
 	public let head = "do"
-	public let doc = SParserDoc(
-		signature: "(do (action1):Void (action2):Void ...): Void",
+	public let doc = ExpressionDoc(
+		signature: "(do (action1):Void (action2):Void ...):Void",
 		description: """
-		Do all actions in order. If no actions provided do nothing.
+		Do all actions in order. If no actions provided - do nothing.
 		""",
 		example: "(do (heal 3) (getMoney 3))"
 	)
 
-	public func parse(_ reader: SReader<Context>) throws -> AnyExpression<Context, Void> {
+	public func parse(_ reader: ExpressionParameterReader<Context>) throws -> AnyExpression<Context, Void> {
 		var actions: [AnyAction<Context>] = []
 		while reader.haveParameter() {
 			actions.append(try reader.readExpression())
