@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Script",
+	platforms: [.macOS(.v10_15)],
     products: [
         .library(
             name: "Script",

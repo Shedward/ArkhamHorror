@@ -8,7 +8,7 @@
 import XCTest
 import Script
 
-class LoggingContext {
+final class LoggingContext {
 	var logs: [String] = []
 
 	func log(_ message: String) {
@@ -32,8 +32,8 @@ struct IsLogLengthGreaterOrEqual: Expression {
 	}
 }
 
-class ExpressionTests: XCTestCase {
-    func testExample() async {
+final class ExpressionTests: XCTestCase {
+    func testBasicExpression() async {
 		let expression = Do(
 			Print(message: "Hello world").asAny(),
 			Print(message: "Another message").asAny(),
