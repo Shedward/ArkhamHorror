@@ -9,19 +9,8 @@ import XCTest
 @testable import Script
 
 final class ExpressionParsersRepositoryTests: XCTestCase {
-	private func createRepository() throws -> ExpressionParsersRepository<LogContext> {
-		var parsersRepository = ExpressionParsersRepository<LogContext>()
-		try parsersRepository.register(DoParser())
-		try parsersRepository.register(IfParser<LogContext, Void>())
-		try parsersRepository.register(DoNothingParser())
-		try parsersRepository.register(PrintParser())
-		try parsersRepository.register(ConcatParser())
-		try parsersRepository.register(CheckLogLengthParser())
-		return parsersRepository
-	}
-
 	func testRegistration() throws {
-		let repository = try createRepository()
+		let repository = try TestExpressionRepository.create()
 		let doParser = repository.parser(head: "do", returnType: Void.self)
 		XCTAssertNotNil(doParser)
 
@@ -30,19 +19,19 @@ final class ExpressionParsersRepositoryTests: XCTestCase {
 	}
 
 	func testDoubleRegistration() throws {
-		var repository = try createRepository()
+		var repository = try TestExpressionRepository.create()
 		XCTAssertThrowsError(try repository.register(DoParser()))
 	}
 
 	func testUnregistering() throws {
-		var repository = try createRepository()
+		var repository = try TestExpressionRepository.create()
 		repository.unregister(head: "do", returnType: Void.self)
 		let doParser = repository.parser(head: "do", returnType: Void.self)
 		XCTAssertNil(doParser)
 	}
 
 	func testPolymorphismByReturnType() throws {
-		var repository = ExpressionParsersRepository<LogContext>()
+		var repository = TestExpressionRepository.createEmpty()
 		try repository.register(IfParser<LogContext, Void>())
 		try repository.register(IfParser<LogContext, String>())
 

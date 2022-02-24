@@ -7,25 +7,33 @@
 
 public struct ExpressionParameterReader<Context> {
 	private let tokenReader: TokenReader
+	private let expressionRepository: ExpressionParsersRepository<Context>
 
 	public var currentIndex: String.Index {
 		tokenReader.currentIndex
 	}
 
-	init(tokenReader: TokenReader) {
+	init(tokenReader: TokenReader, expressionRepository: ExpressionParsersRepository<Context>) {
 		self.tokenReader = tokenReader
+		self.expressionRepository = expressionRepository
 	}
 
 	public func readInt() throws -> Int {
-		try tokenReader.readInt()
+		let int = try tokenReader.readInt()
+		try? tokenReader.skipSeparator()
+		return int
 	}
 
 	public func readString() throws -> String {
-		try tokenReader.readString()
+		let string = try tokenReader.readString()
+		try? tokenReader.skipSeparator()
+		return string
 	}
 
 	public func readSymbol() throws -> String {
-		try tokenReader.readSymbol()
+		let symbol = try tokenReader.readSymbol()
+		try? tokenReader.skipSeparator()
+		return symbol
 	}
 
 	public func readRaw<T: RawRepresentable>(
@@ -40,7 +48,14 @@ public struct ExpressionParameterReader<Context> {
 	}
 
 	public func readExpression<Result>(_ resultType: Result.Type) throws -> AnyExpression<Context, Result> {
-		fatalError()
+		let expressionReader = ExpressionReader<Context, Result>(
+			tokenReader: tokenReader,
+			expressionParserRepository: expressionRepository
+		 )
+
+		let expression = try expressionReader.readExpression()
+		try? tokenReader.skipSeparator()
+		return expression
 	}
 
 	public func readExpression() throws -> AnyExpression<Context, Void> {
@@ -48,7 +63,7 @@ public struct ExpressionParameterReader<Context> {
 	}
 
 	public func haveParameter() -> Bool {
-		fatalError()
+		!tokenReader.willCloseExpression()
 	}
 }
 

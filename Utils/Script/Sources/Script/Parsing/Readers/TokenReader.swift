@@ -79,6 +79,13 @@ struct TokenReader {
 		}
 	}
 
+	func willCloseExpression() -> Bool {
+		let currentIndex = scanner.currentIndex
+		let closeBracket = scanner.scanString(")")
+		scanner.currentIndex = currentIndex
+		return closeBracket != nil
+	}
+
 	private func readOrReturnBack<T>(_ scanning: (Scanner) throws -> T) rethrows -> T {
 		let initialPosition = scanner.currentIndex
 
