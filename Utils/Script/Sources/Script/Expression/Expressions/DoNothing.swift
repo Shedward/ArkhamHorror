@@ -20,6 +20,9 @@ public struct DoNothingParser<Context>: ExpressionParser {
 		description: "Do nothing."
 	)
 
+	public init() {
+	}
+
 	public func parse(_ reader: ExpressionParameterReader<Context>) throws -> AnyExpression<Context, Void> {
 		DoNothing().asAny()
 	}

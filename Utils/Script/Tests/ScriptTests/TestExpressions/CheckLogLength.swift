@@ -16,7 +16,7 @@ struct CheckLogLength: Expression {
 }
 
 struct CheckLogLengthParser: ExpressionParser {
-	let head = "checkLogLengh"
+	let head = "checkLogLength"
 	let doc = ExpressionDoc(
 		signature: "(checkLogLength minLength:Int): Bool",
 		description: "Returns true if current log length is equal or bigger than minLength",

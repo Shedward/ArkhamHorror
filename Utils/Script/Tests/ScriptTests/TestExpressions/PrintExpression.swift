@@ -27,9 +27,9 @@ struct Print: Expression {
 struct PrintParser: ExpressionParser {
 	let head = "print"
 	let doc = ExpressionDoc(
-		signature: "(print \"message\")",
+		signature: #"(print "message")"#,
 		description: "Print message to log context",
-		example: "(print \"Hello world\")"
+		example: #"(print "Hello world")"#
 	)
 
 	func parse(_ reader: ExpressionParameterReader<LogContext>) throws -> AnyExpression<LogContext, Void> {

@@ -79,6 +79,13 @@ struct TokenReader {
 		}
 	}
 
+	func peekRest() -> String? {
+		let position = scanner.currentIndex
+		let string = scanner.scanCharacters(from: CharacterSet().inverted)
+		scanner.currentIndex = position
+		return string
+	}
+
 	func willCloseExpression() -> Bool {
 		let currentIndex = scanner.currentIndex
 		let closeBracket = scanner.scanString(")")

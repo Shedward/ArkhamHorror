@@ -47,7 +47,7 @@ public struct AnyExpressionParser<Context, Result>: ExpressionParser {
 	}
 }
 
-extension ExpressionParser {
+public extension ExpressionParser {
 	func asAny() -> AnyExpressionParser<Context, Result> {
 		AnyExpressionParser(self)
 	}

@@ -17,6 +17,7 @@ struct ExpressionReader<Context, Result> {
 	func readExpression() throws -> AnyExpression<Context, Result> {
 		try tokenReader.openExpression()
 		let head = try tokenReader.readSymbol()
+		try? tokenReader.skipSeparator()
 		guard let parser = expressionParserRepository.parser(head: head, returnType: Result.self) else {
 			let possibleSymbolsList = expressionParserRepository.documentationSuggestion(for: head)
 				.map { $0.signature }

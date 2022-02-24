@@ -65,6 +65,10 @@ public struct ExpressionParameterReader<Context> {
 	public func haveParameter() -> Bool {
 		!tokenReader.willCloseExpression()
 	}
+
+	public func peekRest() -> String? {
+		tokenReader.peekRest()
+	}
 }
 
 

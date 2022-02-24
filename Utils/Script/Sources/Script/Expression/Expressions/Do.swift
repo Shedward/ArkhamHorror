@@ -33,6 +33,9 @@ public struct DoParser<Context>: ExpressionParser {
 		example: "(do (heal 3) (getMoney 3))"
 	)
 
+	public init() {
+	}
+
 	public func parse(_ reader: ExpressionParameterReader<Context>) throws -> AnyExpression<Context, Void> {
 		var actions: [AnyAction<Context>] = []
 		while reader.haveParameter() {

@@ -40,6 +40,9 @@ public struct IfParser<Context, Result>: ExpressionParser {
 		example: "(if (healthBiggerThan 5) (doNothing) (heal 10))"
 	)
 
+	public init() {
+	}
+
 	public func parse(_ reader: ExpressionParameterReader<Context>) throws -> AnyExpression<Context, Result> {
 		let test = try reader.readExpression(Bool.self)
 		let thenExpression = try reader.readExpression(Result.self)
