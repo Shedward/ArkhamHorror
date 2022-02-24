@@ -22,3 +22,8 @@ public enum RegionType {
 	public enum NameTag {}
 	public typealias Name = Tagged<NameTag, String>
 }
+
+public enum Event {
+	public enum IdTag {}
+	public typealias Id = Tagged<IdTag, String>
+}
