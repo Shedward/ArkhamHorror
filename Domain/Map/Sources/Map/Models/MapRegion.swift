@@ -6,21 +6,17 @@
 //
 
 import Prelude
+import Common
 
 public final class MapRegion {
-	public enum IdTag {}
-	public typealias Id = Tagged<IdTag, String>
-	public enum NameTag {}
-	public typealias Name = Tagged<NameTag, String>
-
-	public let id: Id
-	public let name: Name?
-	public let typeId: MapRegionType.Id
+	public let id: Region.Id
+	public let name: Region.Name?
+	public let typeId: RegionType.Id
 
 	public init(
-		id: Id,
-		name: Name?,
-		typeId: MapRegionType.Id
+		id: Region.Id,
+		name: Region.Name?,
+		typeId: RegionType.Id
 	) {
 		self.id = id
 		self.name = name

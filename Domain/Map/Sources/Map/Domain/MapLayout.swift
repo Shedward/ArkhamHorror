@@ -5,6 +5,8 @@
 //  Created by Vladislav Maltsev on 16.01.2022.
 //
 
+import Common
+
 public struct MapLayout {
 	public struct NeighborhoodPosition {
 		public let x: Int
@@ -31,11 +33,11 @@ public struct MapLayout {
 
 	public struct Neighboarhood {
 		public let position: NeighborhoodPosition
-		public let typeId: MapRegionType.Id
+		public let typeId: RegionType.Id
 		public let regionOrientation: RegionOrientation
-		public let regions: [MapRegion.Id]
+		public let regions: [Region.Id]
 
-		public func edge(for regionId: MapRegion.Id) -> MapGeometry.Hexagon.Edge? {
+		public func edge(for regionId: Region.Id) -> MapGeometry.Hexagon.Edge? {
 			guard let regionIndex = regions.firstIndex(of: regionId) else {
 				return nil
 			}
@@ -43,7 +45,7 @@ public struct MapLayout {
 			return edge(at: regionIndex)
 		}
 
-		public func edge(for regions: [MapRegion.Id]) -> MapGeometry.Hexagon.Edge? {
+		public func edge(for regions: [Region.Id]) -> MapGeometry.Hexagon.Edge? {
 			switch regions.count {
 			case 0:
 				return nil
@@ -80,7 +82,7 @@ public struct MapLayout {
 			return edges[index]
 		}
 
-		private func edgeBetween(firstRegion: MapRegion.Id, secondRegion: MapRegion.Id) -> MapGeometry.Hexagon.Edge? {
+		private func edgeBetween(firstRegion: Region.Id, secondRegion: Region.Id) -> MapGeometry.Hexagon.Edge? {
 			guard let firstEdge = regions.firstIndex(of: firstRegion) else { return nil }
 			guard let secondEdge = regions.firstIndex(of: secondRegion) else { return nil }
 
@@ -110,13 +112,13 @@ public struct MapLayout {
 
 	public struct Street {
 		public struct Edge {
-			public let regionType: MapRegionType.Id
+			public let regionType: RegionType.Id
 			public let edge: MapGeometry.Hexagon.Edge
 			public let position: NeighborhoodPosition
 		}
 
-		public let regionId: MapRegion.Id
-		public let typeId: MapRegionType.Id
+		public let regionId: Region.Id
+		public let typeId: RegionType.Id
 		public let from: Edge
 		public let to: Edge
 	}

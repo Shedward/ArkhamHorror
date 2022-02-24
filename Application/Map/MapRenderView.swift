@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Map
+import Common
 
 struct MapRenderView: View {
 	struct ColorScheme {
@@ -192,7 +193,7 @@ struct MapRenderView: View {
 		in context: GraphicsContext
 	) {
 		struct RegionDescription {
-			let regionId: MapRegion.Id
+			let regionId: Region.Id
 			let center: Geometry.Point
 		}
 

@@ -13,14 +13,16 @@ let package = Package(
 	dependencies: [
 		.package(name: "Graph", path: "../Utils/Graph"),
 		.package(name: "XCTestUtils", path: "../Utils/XCTestUtils"),
-		.package(name: "Prelude", path: "../Utils/Prelude")
+		.package(name: "Prelude", path: "../Utils/Prelude"),
+		.package(name: "Common", path: "../Utils/Common")
 	],
     targets: [
         .target(
             name: "Map",
 			dependencies: [
 				"Graph",
-				"Prelude"
+				"Prelude",
+				"Common"
 			]
 		),
         .testTarget(

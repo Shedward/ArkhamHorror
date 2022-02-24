@@ -7,13 +7,14 @@
 
 import Foundation
 import Graph
+import Common
 
 public final class Map {
 	private var neighborhoods: [MapRegionType] = []
 	private var streetTypes: [MapRegionType] = []
 	private var regions: [MapRegion] = []
 	private var streets: [MapRegion] = []
-	private var regionsGraph: Graph<MapRegion.Id> = Graph()
+	private var regionsGraph: Graph<Region.Id> = Graph()
 
 	public let layout: MapLayout
 
@@ -45,15 +46,15 @@ public final class Map {
 		}
 	}
 
-	public func region(by id: MapRegion.Id) -> MapRegion? {
+	public func region(by id: Region.Id) -> MapRegion? {
 		regions.first { $0.id == id }
 	}
 
-	public func neighbourhood(by id: MapRegionType.Id) -> MapRegionType? {
+	public func neighbourhood(by id: RegionType.Id) -> MapRegionType? {
 		neighborhoods.first { $0.id == id }
 	}
 
-	public func isNeighborRegions(_ lhs: MapRegion.Id, _ rhs: MapRegion.Id) -> Bool {
+	public func isNeighborRegions(_ lhs: Region.Id, _ rhs: Region.Id) -> Bool {
 		guard let lhsNode = regionsGraph.node(for: lhs) else { return false }
 		guard let rhsNode = regionsGraph.node(for: rhs) else { return false }
 		return lhsNode.isNeighbor(to: rhsNode)

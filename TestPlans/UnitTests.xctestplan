@@ -51,6 +51,14 @@
         "identifier" : "MapTests",
         "name" : "MapTests"
       }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Utils\/Script",
+        "identifier" : "ScriptTests",
+        "name" : "ScriptTests"
+      }
     }
   ],
   "version" : 1

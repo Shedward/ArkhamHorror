@@ -5,6 +5,8 @@
 //  Created by Vladislav Maltsev on 05.01.2022.
 //
 
+import Common
+
 struct MapNeighborhoodsLayoutData: Decodable, Equatable {
 	struct TileLayoutData: Decodable, Equatable {
 		enum Orientation: String, Decodable {
@@ -17,7 +19,7 @@ struct MapNeighborhoodsLayoutData: Decodable, Equatable {
 			let column: Int
 		}
 
-		let regionTypeId: MapRegionType.Id
+		let regionTypeId: RegionType.Id
 		let orientation: Orientation
 		let tile: TileLocation
 	}

@@ -6,16 +6,11 @@
 //
 
 import Prelude
+import Common
 
 public struct MapRegionType {
-	public enum IdTag { }
-	public typealias Id = Tagged<IdTag, String>
-
-	public enum NameTag { }
-	public typealias Name = Tagged<NameTag, String>
-
-	public let id: Id
-	public let name: Name
+	public let id: RegionType.Id
+	public let name: RegionType.Name
 }
 
 extension MapRegionType: Equatable {
