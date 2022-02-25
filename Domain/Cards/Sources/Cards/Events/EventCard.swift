@@ -11,7 +11,7 @@ import Script
 import FormattedText
 import Yams
 
-public struct EventCardData: Decodable {
+struct EventCardData: Decodable {
 	let id: Event.Id
 	let regionId: Region.Id
 	let text: String
