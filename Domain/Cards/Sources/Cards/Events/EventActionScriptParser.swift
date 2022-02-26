@@ -22,6 +22,7 @@ enum EventActionScriptParser {
 
 		try parser.register(TestSkillParser())
 		try parser.register(SpendMoneyParser())
+		try parser.register(SpendRemnantParser())
 
 		return parser
 	}

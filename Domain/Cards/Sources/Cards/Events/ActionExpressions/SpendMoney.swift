@@ -24,7 +24,7 @@ struct SpendMoneyParser: ExpressionParser {
 	let head = "spendMoney"
 	let doc = ExpressionDoc(
 		signature: #"(spendMoney amount:Int):Bool"#,
-		description: "Spend money",
+		description: "Spend money.",
 		example: "(spendMoney 2)"
 	)
 
