@@ -11,7 +11,7 @@ struct SpendRemnant: Expression {
 	let amount: Int
 
 	func resolve(in context: EventContext) async -> Bool {
-		guard context.user.remnantsCount > amount else {
+		guard context.user.remnantsCount >= amount else {
 			return false
 		}
 
@@ -25,11 +25,11 @@ struct SpendRemnantParser: ExpressionParser {
 	let doc = ExpressionDoc(
 		signature: #"(spendRemnant amount:Int?):Bool"#,
 		description: "Spend user's remnant. If amount not provided - counted as 1.",
-		example: "(spendRemnant 2)"
+		example: "(spendRemnant)"
 	)
 
 	func parse(_ reader: ExpressionParameterReader<EventContext>) throws -> AnyExpression<EventContext, Bool> {
-		let amount = try reader.readInt()
+		let amount = try? reader.readInt() ?? 1
 		return SpendRemnant(amount: amount).asAny()
 	}
 }

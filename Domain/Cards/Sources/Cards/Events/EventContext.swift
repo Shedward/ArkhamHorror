@@ -30,6 +30,9 @@ public protocol UserContext {
 	var remnantsCount: Int { get }
 	func spendRemnant(_ amount: Int) async -> Void
 
+	var cluesCount: Int { get }
+	func spendClue(_ amount: Int) async -> Void
+
 	func testSkill(_ skill: Skill) async -> Int
 }
 
