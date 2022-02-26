@@ -23,7 +23,15 @@ public enum Skill: String {
 	case will
 }
 
-public protocol EventContext {
-	func askUser<Value>(_ question: UserQuestion<Value>) async -> Value
+public protocol UserContext {
+	var money: Bool { get }
+	func spendMoney(_ amount: Int) async -> Void
+
 	func testSkill(_ skill: Skill) async -> Int
+}
+
+public protocol EventContext {
+	var user: UserContext { get }
+
+	func askUser<Value>(_ question: UserQuestion<Value>) async -> Value
 }

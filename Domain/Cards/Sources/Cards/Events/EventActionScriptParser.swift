@@ -19,7 +19,9 @@ enum EventActionScriptParser {
 		try parser.register(AskParser())
 		try parser.register(ChooseOneParser<Void>())
 		try parser.register(ChooseOneParser<Bool>())
+
 		try parser.register(TestSkillParser())
+		try parser.register(SpendMoneyParser())
 
 		return parser
 	}
