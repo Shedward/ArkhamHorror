@@ -62,7 +62,7 @@ public struct ExpressionParameterReader<Context> {
 		try readExpression(Void.self)
 	}
 
-	public func haveParameter() -> Bool {
+	public func haveAnotherParameter() -> Bool {
 		!tokenReader.willCloseExpression()
 	}
 

@@ -34,13 +34,13 @@ struct ChooseOneParser<Result>: ExpressionParser {
 	let doc = ExpressionDoc(
 		signature: #"(chooseOne "oneChoice" (oneAction):Some "twoChoice" (twoAction):Some ...):Some"#,
 		description: "Shows user dialog with N choices, when user pick one - nth expression executed.",
-		example: #"(chooseOne "Take 2 damage" (takeDamate 2) "Became delayed" (becameDelayed))"#
+		example: #"(chooseOne "Take 2 damage" (takeDamage 2) "Became delayed" (becameDelayed))"#
 	)
 
 	func parse(_ reader: ExpressionParameterReader<EventContext>) throws -> AnyExpression<EventContext, Result> {
 		var choices: [ChooseOne<Result>.Choice] = []
 
-		while reader.haveParameter() {
+		while reader.haveAnotherParameter() {
 			let title = try reader.readString()
 			let expression = try reader.readExpression(Result.self)
 

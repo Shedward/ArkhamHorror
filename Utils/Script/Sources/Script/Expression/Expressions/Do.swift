@@ -38,7 +38,7 @@ public struct DoParser<Context>: ExpressionParser {
 
 	public func parse(_ reader: ExpressionParameterReader<Context>) throws -> AnyExpression<Context, Void> {
 		var actions: [AnyAction<Context>] = []
-		while reader.haveParameter() {
+		while reader.haveAnotherParameter() {
 			actions.append(try reader.readExpression())
 		}
 		return Do(actions: actions).asAny()
