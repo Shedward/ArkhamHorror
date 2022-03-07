@@ -28,7 +28,9 @@ struct SpendMoneyParser: ExpressionParser {
 		example: "(spendMoney 2)"
 	)
 
-	func parse(_ reader: ExpressionParameterReader<EventContext>) throws -> AnyExpression<EventContext, Void> {
+	func parse(
+		_ reader: ExpressionParameterReader<EventContext>
+	) throws -> AnyExpression<EventContext, Bool> {
 		let amount = try reader.readInt()
 		return SpendMoney(amount: amount).asAny()
 	}

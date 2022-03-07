@@ -59,6 +59,30 @@
         "identifier" : "ScriptTests",
         "name" : "ScriptTests"
       }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Domain\/Cards",
+        "identifier" : "CardsTests",
+        "name" : "CardsTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Domain\/Common",
+        "identifier" : "CommonTests",
+        "name" : "CommonTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Utils\/FormattedText",
+        "identifier" : "FormattedTextTests",
+        "name" : "FormattedTextTests"
+      }
     }
   ],
   "version" : 1

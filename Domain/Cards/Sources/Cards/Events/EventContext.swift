@@ -5,7 +5,7 @@
 //  Created by Vladislav Maltsev on 25.02.2022.
 //
 
-import Core
+import Common
 
 public struct UserQuestion<Value> {
 	struct Answer {

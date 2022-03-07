@@ -29,7 +29,7 @@ struct SpendRemnantParser: ExpressionParser {
 	)
 
 	func parse(_ reader: ExpressionParameterReader<EventContext>) throws -> AnyExpression<EventContext, Bool> {
-		let amount = try? reader.readInt() ?? 1
+		let amount = (try? reader.readInt()) ?? 1
 		return SpendRemnant(amount: amount).asAny()
 	}
 }

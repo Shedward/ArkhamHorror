@@ -27,4 +27,11 @@ struct SpendClueParser: ExpressionParser {
 		description: "Spend user's clue. If amount not provided - counted as 1.",
 		example: "(spendClue)"
 	)
+
+	func parse(
+		_ reader: ExpressionParameterReader<EventContext>
+	) throws -> AnyExpression<EventContext, Bool> {
+		let amount = (try? reader.readInt()) ?? 1
+		return SpendClue(amount: amount).asAny()
+	}
 }

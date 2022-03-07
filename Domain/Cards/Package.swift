@@ -15,14 +15,15 @@ let package = Package(
 		.package(url: "https://github.com/jpsim/Yams.git", from: "5.0.0"),
 		.package(name: "Prelude", path: "../Utils/Prelude"),
 		.package(name: "Script", path: "../Utils/Script"),
-		.package(name: "FormattedText", path: "../Utils/FormattedText")
+		.package(name: "FormattedText", path: "../Utils/FormattedText"),
+		.package(name: "Common", path: "../Domain/Common")
     ],
     targets: [
         .target(
             name: "Cards",
-            dependencies: ["Yams", "Prelude", "Script", "FormattedText"]),
+            dependencies: ["Yams", "Prelude", "Script", "FormattedText", "Common"]),
         .testTarget(
             name: "CardsTests",
-            dependencies: ["Cards"]),
+            dependencies: ["Cards", "Common"]),
     ]
 )

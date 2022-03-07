@@ -12,7 +12,7 @@ struct TestSkill: Expression {
 	let minSuccessCount: Int
 
 	func resolve(in context: EventContext) async -> Bool {
-		let successCount = await context.testSkill(skill)
+		let successCount = await context.user.testSkill(skill)
 		return successCount >= minSuccessCount
 	}
 }

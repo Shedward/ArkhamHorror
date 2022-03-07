@@ -5,6 +5,7 @@
 //  Created by Vladislav Maltsev on 04.03.2022.
 //
 
+import Prelude
 import Common
 import Script
 
@@ -26,7 +27,8 @@ struct DrawSpecialParser: ExpressionParser {
 	func parse(
 		_ reader: ExpressionParameterReader<EventContext>
 	) throws -> AnyExpression<EventContext, Void> {
-		let cardId = try reader.readRaw(Event.Id.self)
+		let cardIdString = try reader.readString()
+		let cardId = Event.Id(rawValue: cardIdString)
 		return DrawSpecial(cardId: cardId).asAny()
 	}
 }
