@@ -93,6 +93,17 @@ struct TokenReader {
 		return closeBracket != nil
 	}
 
+	func safeRead<T>(_ read: (TokenReader) throws -> T) rethrows -> T {
+		let initialPosition = scanner.currentIndex
+
+		do {
+			return try read(self)
+		} catch {
+			scanner.currentIndex = initialPosition
+			throw error
+		}
+	}
+
 	private func readOrReturnBack<T>(_ scanning: (Scanner) throws -> T) rethrows -> T {
 		let initialPosition = scanner.currentIndex
 

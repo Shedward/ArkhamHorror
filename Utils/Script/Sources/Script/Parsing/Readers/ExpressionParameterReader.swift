@@ -58,6 +58,25 @@ public struct ExpressionParameterReader<Context> {
 		return expression
 	}
 
+	public func readData<Parser: DataParser>(
+		_ parser: Parser
+	) throws -> Parser.Data where Parser.Context == Context {
+		return try tokenReader.safeRead { tokenReader in
+			try tokenReader.openExpression()
+			let head = try tokenReader.readSymbol()
+			try? tokenReader.skipSeparator()
+			let parameterReader = ExpressionParameterReader(
+				tokenReader: tokenReader,
+				expressionRepository: expressionRepository
+			)
+
+			let data =  try parser.parse(head: head, parametersReader: parameterReader)
+			try? tokenReader.skipSeparator()
+			try tokenReader.closeExpression()
+			return data
+		}
+	}
+
 	public func readExpression() throws -> AnyExpression<Context, Void> {
 		try readExpression(Void.self)
 	}

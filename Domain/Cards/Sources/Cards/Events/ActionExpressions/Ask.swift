@@ -31,7 +31,9 @@ struct AskParser: ExpressionParser {
 		example: #"(if (ask "Continue?") (continue) (doNothing))"#
 	)
 
-	func parse(_ reader: ExpressionParameterReader<EventContext>) throws -> AnyExpression<EventContext, Bool> {
+	func parse(
+		_ reader: ExpressionParameterReader<EventContext>
+	) throws -> AnyExpression<EventContext, Bool> {
 		let question = try reader.readString()
 		return Ask(title: question).asAny()
 	}

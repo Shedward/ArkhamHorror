@@ -7,43 +7,70 @@
 
 import Foundation
 
-struct SyntaxError: LocalizedError {
-	let message: String
-	let position: String.Index
+public struct SyntaxError: LocalizedError {
+	public let message: String
+	public let position: String.Index
 
-	var errorDescription: String? {
+	public init(message: String, position: String.Index) {
+		self.message = message
+		self.position = position
+	}
+
+	public var errorDescription: String? {
 		"SyntaxError at \(position): \(message)"
 	}
 }
 
-struct SemanticError: LocalizedError {
-	let message: String
-	let position: String.Index
+public struct SemanticError: LocalizedError {
+	public let message: String
+	public let position: String.Index
 
-	var errorDescription: String? {
+	public init(message: String, position: String.Index) {
+		self.message = message
+		self.position = position
+	}
+
+	public var errorDescription: String? {
 		"SemanticError at \(position): \(message)"
 	}
 }
 
-struct TypeError: LocalizedError {
-	let message: String
-	let recoverySuggestion: String?
+public struct TypeError: LocalizedError {
+	public let message: String
+	public let recoverySuggestion: String?
 
-	var errorDescription: String? {
+	public var errorDescription: String? {
 		"TypeError: \(message)"
 	}
 
-	init(message: String, recoverySuggestion: String? = nil) {
+	public init(message: String, recoverySuggestion: String? = nil) {
 		self.message = message
 		self.recoverySuggestion = recoverySuggestion
 	}
 }
 
-struct ExpressionError: LocalizedError {
-	let expressionHead: String
-	let underlyingError: Error
+public struct ExpressionError: LocalizedError {
+	public let expressionHead: String
+	public let underlyingError: Error
 
-	var errorDescription: String? {
+	public init(expressionHead: String, underlyingError: Error) {
+		self.expressionHead = expressionHead
+		self.underlyingError = underlyingError
+	}
+
+	public var errorDescription: String? {
 		"ExpressionError: Could not parse expression '\(expressionHead)':\n\(underlyingError.localizedDescription)"
+	}
+}
+
+public struct DataError: LocalizedError {
+	public let message: String
+
+	public init(message: String) {
+		self.message = message
+	}
+
+	public var errorDescription: String? {
+		"DataError: \(message)"
 	}
 }

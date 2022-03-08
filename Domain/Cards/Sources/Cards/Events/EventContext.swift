@@ -41,6 +41,7 @@ public protocol UserContext {
 public protocol GameBoardContext {
 	func drawSpell() async
 	func drawSpecial(id: Event.Id) async
+	func drawItem(expectedRarity: ItemRarity?, expectedCost: CostTest?) async
 }
 
 public protocol EventContext {
