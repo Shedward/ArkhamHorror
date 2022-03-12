@@ -25,6 +25,23 @@ public enum Skill: String {
 	case will
 }
 
+public struct HealthChangeRequest {
+	enum Kind {
+		case damage
+		case horror
+	}
+
+	enum Target {
+		case you
+		case ally
+		case investigators
+	}
+
+	let kind: Kind
+	let amount: Int
+	let targets: Set<Target>
+}
+
 public protocol UserContext {
 	var money: Int { get }
 	func spendMoney(_ amount: Int) async
@@ -52,4 +69,5 @@ public protocol EventContext {
 	var gameBoard: GameBoardContext { get }
 
 	func askUser<Value>(_ question: UserQuestion<Value>) async -> Value
+	func changeHealth(_ request: HealthChangeRequest) async
 }
