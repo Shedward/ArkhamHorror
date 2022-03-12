@@ -27,13 +27,16 @@ public enum Skill: String {
 
 public protocol UserContext {
 	var money: Int { get }
-	func spendMoney(_ amount: Int) async -> Void
+	func spendMoney(_ amount: Int) async
+	func getMoney(_ amount: Int) async
 
 	var remnantsCount: Int { get }
-	func spendRemnant(_ amount: Int) async -> Void
+	func spendRemnant(_ amount: Int) async
+	func getRemnant(_ amount: Int) async
 
 	var cluesCount: Int { get }
-	func spendClue(_ amount: Int) async -> Void
+	func spendClue(_ amount: Int) async
+	func getClue(_ amount: Int) async
 
 	func testSkill(_ skill: Skill) async -> Int
 }
