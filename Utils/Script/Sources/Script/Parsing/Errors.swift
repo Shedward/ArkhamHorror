@@ -74,3 +74,15 @@ public struct DataError: LocalizedError {
 		"DataError: \(message)"
 	}
 }
+
+public struct ParameterError: LocalizedError {
+	public let message: String
+
+	public init(message: String) {
+		self.message = message
+	}
+
+	public var errorDescription: String? {
+		"ParameterError: \(message)"
+	}
+}

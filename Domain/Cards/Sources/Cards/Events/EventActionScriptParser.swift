@@ -33,6 +33,8 @@ enum EventActionScriptParser {
 
 		try parser.register(TakeDamageParser())
 		try parser.register(TakeHorrorParser())
+		try parser.register(RestoreDamageParser())
+		try parser.register(RestoreHorrorParser())
 
 		return parser
 	}

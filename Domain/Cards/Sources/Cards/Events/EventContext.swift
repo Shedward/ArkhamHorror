@@ -31,7 +31,7 @@ public struct HealthChangeRequest {
 		case horror
 	}
 
-	enum Target {
+	enum Target: String {
 		case you
 		case ally
 		case investigators
