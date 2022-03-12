@@ -56,6 +56,10 @@ public protocol UserContext {
 	func getClue(_ amount: Int) async
 
 	func testSkill(_ skill: Skill) async -> Int
+
+	func becomeBlessed() async
+	func becomeCursed() async
+	func becomeDelayed() async
 }
 
 public protocol GameBoardContext {
