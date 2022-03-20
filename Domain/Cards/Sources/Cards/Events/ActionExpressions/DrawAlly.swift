@@ -21,7 +21,9 @@ struct DrawAllyParser: ExpressionParser {
 		example: "(drawAlly)"
 	)
 
-	func parse(_ reader: ExpressionParameterReader<Context>) throws -> AnyExpression<Context, Result> {
+	func parse(
+		_ reader: ExpressionParameterReader<EventContext>
+	) throws -> AnyExpression<EventContext, Void> {
 		DrawAlly().asAny()
 	}
 }
