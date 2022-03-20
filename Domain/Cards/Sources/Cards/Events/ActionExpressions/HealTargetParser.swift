@@ -12,7 +12,7 @@ struct HealTargetParser: DataParser {
 		head: String,
 		parametersReader: ExpressionParameterReader<EventContext>
 	) throws -> Set<HealthChangeRequest.Target> {
-		guard head == "healTarget" else {
+		guard head == "target" else {
 			throw DataError(message: "Expected healTarget")
 		}
 
