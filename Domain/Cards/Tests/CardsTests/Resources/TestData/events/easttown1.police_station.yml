@@ -1,0 +1,22 @@
+id: easttown1.police_station
+regionId: police_station
+text:
+  'Похоже, шериф Энгл не верит вашим историям об ужасных монстрах. Проведите
+  проверку \takeSkill{influence}, чтобы убедить его, или потратьте 1 трофей,
+  чтобы показать ему доказательство. При успехе или трате трофея шериф дает
+  вам пистолет и значок: станьте \cardName{помошником шерифа} и получите
+  \cardName{табельный пистолет}.'
+action:
+  '(if 
+    (chooseOne
+      "Убедить: \testSkill{influence}"
+        (testSkill influence) 
+      "Показать доказательство: -1 трофей"
+        (spendRemnant 1)
+    )
+    (do
+      (drawSpecial "deputy_sheriff")
+      (drawSpecial "service_pistol")
+    )
+    (doNothing)
+  )'

@@ -1,0 +1,14 @@
+id: southside1.historical_community
+regionId: historical_community
+text:
+  'Исследуя библиотеку, вы находите генеалогические записи своей семьи.
+  Можете потратить 1 трофей, чтобы сравнить их со своими находками.
+  В этом случае вы обнаруживаете родственную связь с семьёй Маршей из
+  Инсмута: получите 1 ужас напрямую и \cardName{исмутскую внешность}'
+action:
+  (if (spendRemnant)
+    (do 
+      (takeHorror 1 (target you))
+      (drawSpecial "innsmouth_appearance")
+    )
+  )

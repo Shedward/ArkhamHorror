@@ -1,0 +1,8 @@
+id: easttown2.hibbs_roadhouse
+regionId: hibbs_roadhouse
+text:
+  'Джоуи Виджил по прозвищу Крыса привлекает ваше внимание свистом:
+  "Я тут, это, обзавёлся кое-какими вещичками. Интересно?" Можете
+  купить 1 \keyword{простую} вещь с витрины за полцены.'
+action:
+  (shop showcase common 1)

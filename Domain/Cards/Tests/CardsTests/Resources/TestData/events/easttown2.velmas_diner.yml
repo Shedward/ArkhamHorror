@@ -1,0 +1,17 @@
+id: easttown2.velmas_diner
+regionId: velmas_diner
+text:
+  'Вельма приносит вам лучший стейк с гарниром из картофеля, что вы
+  когда-либо пробовали. Вы или ваш союзник восстанавливаете 2 здоровья.
+  "Один из работников уволился, - говорит Вельма. - Может, подсобите мне 
+  (\testSkill{influence})?". При успехе вы становитесь 
+  \cardName{официантом у Вельмы}. При провале вы неуклюже отклоняете
+  предложение.'
+action:
+  (do
+    (restoreDamage 2)
+    (if (testSkill influence)
+      (drawSpecial "velmas_waiter")
+      (doNothing)
+    )
+  )
