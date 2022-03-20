@@ -6,6 +6,9 @@
 //
 
 public struct FormattedTextParser {
+	public init() {
+	}
+
 	public func parse(_ string: String) throws -> FormattedText {
 		FormattedText(from: string)
 	}
