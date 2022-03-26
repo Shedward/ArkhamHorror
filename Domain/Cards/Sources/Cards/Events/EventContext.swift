@@ -75,4 +75,5 @@ public protocol EventContext {
 
 	func askUser<Value>(_ question: UserQuestion<Value>) async -> Value
 	func changeHealth(_ request: HealthChangeRequest) async
+    func shop(from source: ShopSource, limitations: ShopLimitations) async
 }

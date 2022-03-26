@@ -26,10 +26,12 @@ struct ExpressionReader<Context, Result> {
 				message: """
 				Symbol \(head) for return type \(Result.self) not found.
 				""",
-				recoverySuggestion: """
-				Possible symbols:
-				\(possibleSymbolsList)
-				"""
+                recoverySuggestion: possibleSymbolsList.isEmpty
+                    ? "No possible symbols"
+                    : """
+                    Possible symbols:
+                    \(possibleSymbolsList)
+                    """
 			)
 		}
 		let parametersReader = ExpressionParameterReader(tokenReader: tokenReader, expressionRepository: expressionParserRepository)

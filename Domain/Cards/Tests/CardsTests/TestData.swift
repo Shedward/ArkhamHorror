@@ -36,4 +36,18 @@ struct TestData {
 	func eventCardData(named: String) throws -> Data {
 		try fileData(at: "events/\(named)")
 	}
+
+    func forEachEventCard(_ action: (URL, Result<Data, Swift.Error>) throws -> Void) throws {
+        let eventsCardFolder = fileUrl(at: "events/")
+        let fileManager = FileManager.default
+        let files = try fileManager.contentsOfDirectory(
+            at: eventsCardFolder,
+            includingPropertiesForKeys: [.isDirectoryKey]
+        )
+
+        for file in files {
+            let dataResult = Result { try Data(contentsOf: file) }
+            try action(file, dataResult)
+        }
+    }
 }

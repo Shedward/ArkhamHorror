@@ -8,6 +8,6 @@ text:
   вещь с витрины за полцены.'
 action:
   (do
-    (restoreDamage 2)
+    (restoreDamage 2 (target you ally))
     (shop showcase 1 discounted)
   )
