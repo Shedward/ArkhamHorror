@@ -7,6 +7,6 @@ text:
   При провале: вы уверены, что сдесь какие-то координаты, но какие.'
 action:
   (if (testSkill lore)
-    (getSpecial "smuggled_whiskey")
+    (drawSpecial "smuggled_whiskey")
     (doNothing)
   )
