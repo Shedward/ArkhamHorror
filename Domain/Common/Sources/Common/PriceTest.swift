@@ -1,11 +1,11 @@
 //
-//  CostTest.swift
+//  PriceTest.swift
 //  
 //
 //  Created by Vladislav Maltsev on 07.03.2022.
 //
 
-public struct CostTest {
+public struct PriceTest {
 	private let testAction: (Int) -> Bool
 
 	public init(_ testAction: @escaping (Int) -> Bool) {

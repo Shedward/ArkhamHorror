@@ -15,6 +15,10 @@ struct TokenReader {
 		set { scanner.currentIndex = newValue }
 	}
 
+    var currentContext: ParsingContext {
+        ParsingContext(from: scanner.string, position: scanner.currentIndex)
+    }
+
 	init(string: String) {
 		scanner = .init(string: string)
 		scanner.charactersToBeSkipped = nil
@@ -23,7 +27,7 @@ struct TokenReader {
 	func readInt() throws -> Int {
 		try readOrReturnBack { scanner in
 			guard let value = scanner.scanInt() else {
-				throw SyntaxError(message: "Expected Int", position: scanner.currentIndex)
+				throw SyntaxError(message: "Expected Int.", context: currentContext)
 			}
 			return value
 		}
@@ -33,7 +37,7 @@ struct TokenReader {
 		try readOrReturnBack { scanner in
 			let symbol = scanner.scanCharacters(from: .alphanumerics)
 			guard let symbol = symbol, !symbol.isEmpty else {
-				throw SyntaxError(message: "Expected symbol", position: scanner.currentIndex)
+				throw SyntaxError(message: "Expected symbol.", context: currentContext)
 			}
 			return symbol
 		}
@@ -42,10 +46,10 @@ struct TokenReader {
 	func readString() throws -> String {
 		try readOrReturnBack { scanner in
 			guard scanner.scanString("\"") != nil else {
-				throw SyntaxError(message: "Expected string", position: scanner.currentIndex)
+                throw SyntaxError(message: "Expected string.", context: currentContext)
 			}
 			guard let string = scanner.scanUpToString("\"") else {
-				throw SyntaxError(message: "Expected string", position: scanner.currentIndex)
+				throw SyntaxError(message: "Expected string.", context: currentContext)
 			}
 
 			let _ = scanner.scanString("\"")
@@ -58,7 +62,7 @@ struct TokenReader {
 			let separator = scanner.scanCharacters(from: .whitespacesAndNewlines)
 
 			if separator?.isEmpty ?? true {
-				throw SyntaxError(message: "Expected separator", position: scanner.currentIndex)
+				throw SyntaxError(message: "Expected separator.", context: currentContext)
 			}
 		}
 	}
@@ -66,7 +70,7 @@ struct TokenReader {
 	func openExpression() throws {
 		try readOrReturnBack { scanner in
 			guard scanner.scanString("(") != nil else {
-				throw SyntaxError(message: "Expected '('", position: scanner.currentIndex)
+				throw SyntaxError(message: "Expected '('.", context: currentContext)
 			}
 		}
 	}
@@ -74,7 +78,7 @@ struct TokenReader {
 	func closeExpression() throws {
 		try readOrReturnBack { scanner in
 			guard scanner.scanString(")") != nil else {
-				throw SyntaxError(message: "Expected ')'", position: scanner.currentIndex)
+				throw SyntaxError(message: "Expected ')'.", context: currentContext)
 			}
 		}
 	}

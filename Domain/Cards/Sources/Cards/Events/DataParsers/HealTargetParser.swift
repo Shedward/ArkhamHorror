@@ -23,7 +23,7 @@ struct HealTargetParser: DataParser {
 		}
 
 		if targets.isEmpty {
-			throw ParameterError(message: "Heal targets should not be empty")
+			throw DataError(message: "Heal targets should not be empty")
 		}
 
 		return targets

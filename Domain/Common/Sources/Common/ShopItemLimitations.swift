@@ -5,18 +5,18 @@
 //  Created by Vladislav Maltsev on 26.03.2022.
 //
 
-public struct ShopLimitations {
+public struct ShopItemLimitations {
     public var expectedRarity: Set<ItemRarity>
-    public var expectedCost: CostTest
+    public var expectedPrice: PriceTest
     public var maxAmount: Int?
 
     public init(
         expectedRarity: Set<ItemRarity> = [],
-        expectedCost: CostTest = .init { _ in true },
+        expectedPrice: PriceTest = .init { _ in true },
         maxAmount: Int? = nil
     ) {
         self.expectedRarity = expectedRarity
-        self.expectedCost = expectedCost
+        self.expectedPrice = expectedPrice
         self.maxAmount = maxAmount
     }
 }

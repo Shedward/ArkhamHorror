@@ -30,7 +30,12 @@ final class EventCardTests: XCTestCase {
                 )
                 XCTAssertEqual(url.lastPathComponent, "\(card.id.rawValue).yml")
             } catch {
-                XCTFail("Failed to load card \(url):\n \(error)")
+                XCTFail(
+                    """
+                    Failed to load card \(url):
+                    \(error.localizedDescription)
+                    """
+                )
             }
         }
     }

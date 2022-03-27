@@ -5,4 +5,4 @@ text:
   "Я тут, это, обзавёлся кое-какими вещичками. Интересно?" Можете
   купить 1 \keyword{простую} вещь с витрины за полцены.'
 action:
-  (shop showcase common 1)
+  (shop (showcase) (limits (rarity common) (maxCount 1)) (priceChanges))

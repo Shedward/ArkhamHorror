@@ -19,62 +19,81 @@ public struct ExpressionParameterReader<Context> {
 	}
 
 	public func readInt() throws -> Int {
-		let int = try tokenReader.readInt()
-		try? tokenReader.skipSeparator()
-		return int
+        try wrapParameterError(message: "Expected Int parameter.") {
+            let int = try tokenReader.readInt()
+            try? tokenReader.skipSeparator()
+            return int
+        }
 	}
 
 	public func readString() throws -> String {
-		let string = try tokenReader.readString()
-		try? tokenReader.skipSeparator()
-		return string
+        try wrapParameterError(message: "Expected String parameter.") {
+            let string = try tokenReader.readString()
+            try? tokenReader.skipSeparator()
+            return string
+        }
 	}
 
 	public func readSymbol() throws -> String {
-		let symbol = try tokenReader.readSymbol()
-		try? tokenReader.skipSeparator()
-		return symbol
+        try wrapParameterError(message: "Expected Symbol.") {
+            let symbol = try tokenReader.readSymbol()
+            try? tokenReader.skipSeparator()
+            return symbol
+        }
 	}
 
 	public func readRaw<T: RawRepresentable>(
 		_ type: T.Type
 	) throws -> T where T.RawValue == String {
-		let symbol = try readSymbol()
-		guard let value = T(rawValue: symbol) else {
-			throw SemanticError(message: "Value '\(symbol)' can not be represented as \(T.self)", position: tokenReader.currentIndex)
-		}
+        try wrapParameterError(message: "Expected \(String(describing: type)) parameter.") {
+            let symbol = try readSymbol()
+            guard let value = T(rawValue: symbol) else {
+                throw SemanticError(
+                    message: "Value '\(symbol)' can not be represented as \(T.self)",
+                    context: tokenReader.currentContext
+                )
+            }
 
-		return value
+            return value
+        }
 	}
 
 	public func readExpression<Result>(_ resultType: Result.Type) throws -> AnyExpression<Context, Result> {
-		let expressionReader = ExpressionReader<Context, Result>(
-			tokenReader: tokenReader,
-			expressionParserRepository: expressionRepository
-		 )
+        try wrapParameterError(message: "Expected Expression returning \(String(describing: resultType)).") {
+            let expressionReader = ExpressionReader<Context, Result>(
+                tokenReader: tokenReader,
+                expressionParserRepository: expressionRepository
+            )
 
-		let expression = try expressionReader.readExpression()
-		try? tokenReader.skipSeparator()
-		return expression
+            let expression = try expressionReader.readExpression()
+            try? tokenReader.skipSeparator()
+            return expression
+        }
 	}
 
 	public func readData<Parser: DataParser>(
 		_ parser: Parser
 	) throws -> Parser.Data where Parser.Context == Context {
-		return try tokenReader.safeRead { tokenReader in
-			try tokenReader.openExpression()
-			let head = try tokenReader.readSymbol()
-			try? tokenReader.skipSeparator()
-			let parameterReader = ExpressionParameterReader(
-				tokenReader: tokenReader,
-				expressionRepository: expressionRepository
-			)
+       try wrapParameterError(
+        message: "Expected data \(String(describing: Parser.Data.self)) using \(String(describing: Parser.self))."
+       ) {
+            return try tokenReader.safeRead { tokenReader in
+                try? tokenReader.skipSeparator()
+                try tokenReader.openExpression()
+                let head = try tokenReader.readSymbol()
+                try? tokenReader.skipSeparator()
+                let parameterReader = ExpressionParameterReader(
+                    tokenReader: tokenReader,
+                    expressionRepository: expressionRepository
+                )
 
-			let data =  try parser.parse(head: head, parametersReader: parameterReader)
-			try? tokenReader.skipSeparator()
-			try tokenReader.closeExpression()
-			return data
-		}
+                let data =  try parser.parse(head: head, parametersReader: parameterReader)
+                try? tokenReader.skipSeparator()
+                try tokenReader.closeExpression()
+                try? tokenReader.skipSeparator()
+                return data
+            }
+        }
 	}
 
 	public func readExpression() throws -> AnyExpression<Context, Void> {
@@ -88,6 +107,17 @@ public struct ExpressionParameterReader<Context> {
 	public func peekRest() -> String? {
 		tokenReader.peekRest()
 	}
+
+    private func wrapParameterError<Return>(message: String, _ actions: () throws -> Return) throws -> Return {
+        do {
+            return try actions()
+        } catch {
+            throw ParameterError(
+                message: message,
+                underlyingError: error
+            )
+        }
+    }
 }
 
 

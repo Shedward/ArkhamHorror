@@ -11,7 +11,7 @@ import Common
 struct ShopSourceParser: DataParser {
     func parse(
         head: String,
-        parametersReader: ExpressionParameterReader<Context>
+        parametersReader: ExpressionParameterReader<EventContext>
     ) throws -> ShopSource {
         switch head {
         case "showcase":

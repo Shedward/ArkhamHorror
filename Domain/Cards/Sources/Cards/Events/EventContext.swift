@@ -66,7 +66,7 @@ public protocol GameBoardContext {
 	func drawSpell() async
 	func drawAlly() async
 	func drawSpecial(id: Event.Id) async
-	func drawItem(expectedRarity: ItemRarity?, expectedCost: CostTest?) async
+	func drawItem(expectedRarity: ItemRarity?, expectedCost: PriceTest?) async
 }
 
 public protocol EventContext {
@@ -75,5 +75,9 @@ public protocol EventContext {
 
 	func askUser<Value>(_ question: UserQuestion<Value>) async -> Value
 	func changeHealth(_ request: HealthChangeRequest) async
-    func shop(from source: ShopSource, limitations: ShopLimitations) async
+    func shop(
+        from source: ShopSource,
+        limitations: ShopItemLimitations,
+        priceChange: ShopPriceChange
+    ) async
 }

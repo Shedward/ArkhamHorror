@@ -42,6 +42,8 @@ enum EventActionScriptParser {
 		try parser.register(BecomeCursedParser())
 		try parser.register(BecomeDelayedParser())
 
+        try parser.register(ShopParser())
+
 		return parser
 	}
 }

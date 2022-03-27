@@ -6,12 +6,13 @@
 //
 
 import Script
+import Common
 
-struct CostTestParser: DataParser {
+struct PriceTestParser: DataParser {
     func parse(
         head: String,
         parametersReader: ExpressionParameterReader<EventContext>
-    ) throws -> CostTest {
+    ) throws -> PriceTest {
         let op: (Int, Int) -> Bool
         let value = try parametersReader.readInt()
 
@@ -30,6 +31,6 @@ struct CostTestParser: DataParser {
             throw DataError(message: "Not expected operator \(head) for CostTest")
         }
 
-        return CostTest { op($0, value) }
+        return PriceTest { op($0, value) }
     }
 }

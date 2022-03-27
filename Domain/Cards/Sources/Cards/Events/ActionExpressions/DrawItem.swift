@@ -10,10 +10,10 @@ import Common
 
 struct DrawItem: Expression {
 	let expectedRarity: ItemRarity?
-	let expectedCost: CostTest?
+	let expectedPrice: PriceTest?
 
 	func resolve(in context: EventContext) async {
-		await context.gameBoard.drawItem(expectedRarity: expectedRarity, expectedCost: expectedCost)
+		await context.gameBoard.drawItem(expectedRarity: expectedRarity, expectedCost: expectedPrice)
 	}
 }
 
@@ -24,7 +24,7 @@ struct DrawItemParser: ExpressionParser {
 		description: """
 		Draw first item that apply to selected rules.
 		Possible rarities: nil, common, rare
-		Possible costs: nil, (equalTo N), (lessThan N), (lessOrEqualThan N),
+		Possible price: nil, (equalTo N), (lessThan N), (lessOrEqualThan N),
 			(greaterThan N), (greaterOrEqualThan N)
 		""",
 		example: "(drawItem common (lessThan 4))"
@@ -34,8 +34,8 @@ struct DrawItemParser: ExpressionParser {
 		_ reader: ExpressionParameterReader<EventContext>
 	) throws -> AnyExpression<EventContext, Void> {
 		let rarity = try? reader.readRaw(ItemRarity.self)
-		let costTest = try? reader.readData(CostTestParser())
+		let priceTest = try? reader.readData(PriceTestParser())
 
-		return DrawItem(expectedRarity: rarity, expectedCost: costTest).asAny()
+		return DrawItem(expectedRarity: rarity, expectedPrice: priceTest).asAny()
 	}
 }

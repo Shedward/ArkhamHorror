@@ -7,7 +7,11 @@ text:
   отличное предложение для вас!" Можете купить 1 \keyword{простую}
   вещь с витрины за полцены.'
 action:
-  (do
+  '(do
     (restoreDamage 2 (target you ally))
-    (shop showcase 1 discounted)
-  )
+    (shop
+        (showcase)
+        (limits (maxCount 1))
+        (priceChanges (half))
+    )
+  )'
