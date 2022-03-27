@@ -30,7 +30,7 @@ struct TestSkillParser: ExpressionParser {
 
 	func parse(_ reader: ExpressionParameterReader<EventContext>) throws -> AnyExpression<EventContext, Bool> {
 		let skill = try reader.readRaw(Skill.self)
-		let count = (try? reader.readInt()) ?? 1
+		let count = try reader.readOptionalInt() ?? 1
 		return TestSkill(skill: skill, minSuccessCount: count).asAny()
 	}
 }

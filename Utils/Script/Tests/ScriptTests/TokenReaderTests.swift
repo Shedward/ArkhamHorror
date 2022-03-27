@@ -15,11 +15,11 @@ final class TokenReaderTests: XCTestCase {
 
 		try reader.openExpression()
 		let methodName = try reader.readSymbol()
-		try reader.skipSeparator()
+		reader.skipSeparator()
 		let stringParam = try reader.readString()
-		try? reader.skipSeparator()
+		reader.skipSeparator()
 		let intParam = try reader.readInt()
-		try reader.skipSeparator()
+		reader.skipSeparator()
 		let symbolParam = try reader.readSymbol()
 		try reader.closeExpression()
 

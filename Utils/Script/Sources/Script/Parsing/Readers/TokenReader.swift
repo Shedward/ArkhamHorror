@@ -57,13 +57,16 @@ struct TokenReader {
 		}
 	}
 
-	func skipSeparator() throws {
-		try readOrReturnBack { scanner in
-			let separator = scanner.scanCharacters(from: .whitespacesAndNewlines)
+    func readPlaceholder() -> Bool  {
+        readOrReturnBack { scanner in
+            let placeholder = scanner.scanString("_")
+            return placeholder != nil
+        }
+    }
 
-			if separator?.isEmpty ?? true {
-				throw SyntaxError(message: "Expected separator.", context: currentContext)
-			}
+	func skipSeparator() {
+        readOrReturnBack { scanner in
+			_ = scanner.scanCharacters(from: .whitespacesAndNewlines)
 		}
 	}
 

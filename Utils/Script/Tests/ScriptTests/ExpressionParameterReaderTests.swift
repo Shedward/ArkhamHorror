@@ -18,20 +18,18 @@ final class ExpressionParameterReaderTests: XCTestCase {
 
 	func testEmpty() throws {
 		let paramReader = try createParametersReader(for: "")
-		XCTAssertThrowsError(try paramReader.readSymbol())
+        XCTAssertThrowsError(try paramReader.readString())
 	}
 
 	func testWordReading() throws {
-		let paramReader = try createParametersReader(for: "param1 \"param2\" 3 enum4")
-		let symbol1 = try paramReader.readSymbol()
-		let string2 = try paramReader.readString()
-		let int3 = try paramReader.readInt()
-		let enum4 = try paramReader.readRaw(TestEnum.self)
+		let paramReader = try createParametersReader(for: "\"param1\" 2 enum3")
+		let string1 = try paramReader.readString()
+		let int2 = try paramReader.readInt()
+		let enum3 = try paramReader.readRaw(TestEnum.self)
 
-		XCTAssertEqual(symbol1, "param1")
-		XCTAssertEqual(string2, "param2")
-		XCTAssertEqual(int3, 3)
-		XCTAssertEqual(enum4, .enum4)
+		XCTAssertEqual(string1, "param1")
+		XCTAssertEqual(int2, 2)
+		XCTAssertEqual(enum3, .enum3)
 	}
 
 	private func createParametersReader(for string: String) throws -> ExpressionParameterReader<LogContext> {

@@ -25,7 +25,7 @@ struct Shop: Expression {
 struct ShopParser: ExpressionParser {
     let head = "shop"
     let doc = ExpressionDoc(
-        signature: "(shop <source>:ShopSource <limitations>: ShopItemLimitations):Void",
+        signature: "(shop <source>:ShopSource <limits?>:ShopItemLimitations <priceChanges?>:ShopPriceChanges):Void",
         description: """
         Open shop for user to buy.
         Parameters:
@@ -33,7 +33,8 @@ struct ShopParser: ExpressionParser {
                 - (showcase) - User can buy from open showcase
                 - (draw N) - User can draw n cards and buy items from it, the rest
                     should be shuffled back.
-            - (limitations <limitation1> <limitation2> ...) - list of limitations on buying items:
+            - limits - list of limitations on buying items:
+                (limits <limitation1> <limitation2> ...)
                 Empty limitations `(limitations)` list means - any item can be bought.
                 Possible limitations:
                     - (rarity <rarity1> <rarity2> ...) - only items with selected rarity could be bought.
@@ -41,6 +42,14 @@ struct ShopParser: ExpressionParser {
                     - (maxCount N) - only N or less items could be bought.
                     - (price <priceTest>:PriceTest) - only items with price passing price test
                         could be bought
+            - priceChanges - list of effects applying on prices in the shop:
+                (priceChanges <priceChange1> <priceChange2> ...)
+                Price changes applies one after another.
+                Possible price changes:
+                    - (half) - prices reduced by 50%
+                    - (free) - prices droped to 0
+                    - (none) - prices stays the same
+                    - (discount N) - prices reduced by N
 
         """,
         example: "(shop (showcase) (limits (price (lessThan 3))))"
@@ -50,12 +59,12 @@ struct ShopParser: ExpressionParser {
         _ reader: ExpressionParameterReader<EventContext>
     ) throws -> AnyExpression<EventContext, Void> {
         let source = try reader.readData(ShopSourceParser())
-        let limitations = try reader.readData(ShopItemLimitationsParser())
-        let priceChange = try reader.readData(ShopPriceChangesParser())
+        let limitations = try reader.readOptionalData(ShopItemLimitationsParser())
+        let priceChange = try reader.readOptionalData(ShopPriceChangesParser())
         return Shop(
             source: source,
-            limitations: limitations,
-            priceChange: priceChange
+            limitations: limitations ?? .init(),
+            priceChange: priceChange ?? .none
         ).asAny()
     }
 }

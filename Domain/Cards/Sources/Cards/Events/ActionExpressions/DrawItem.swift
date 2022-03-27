@@ -33,8 +33,8 @@ struct DrawItemParser: ExpressionParser {
 	func parse(
 		_ reader: ExpressionParameterReader<EventContext>
 	) throws -> AnyExpression<EventContext, Void> {
-		let rarity = try? reader.readRaw(ItemRarity.self)
-		let priceTest = try? reader.readData(PriceTestParser())
+		let rarity = try reader.readOptionalRaw(ItemRarity.self)
+		let priceTest = try reader.readOptionalData(PriceTestParser())
 
 		return DrawItem(expectedRarity: rarity, expectedPrice: priceTest).asAny()
 	}
