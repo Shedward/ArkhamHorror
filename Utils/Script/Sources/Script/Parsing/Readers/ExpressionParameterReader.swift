@@ -46,6 +46,7 @@ public struct ExpressionParameterReader<Context> {
 		_ type: T.Type
 	) throws -> T where T.RawValue == String {
         try wrapParameterError(message: "Expected \(String(describing: type)) parameter.") {
+            try? tokenReader.skipSeparator()
             let symbol = try readSymbol()
             guard let value = T(rawValue: symbol) else {
                 throw SemanticError(
@@ -53,6 +54,7 @@ public struct ExpressionParameterReader<Context> {
                     context: tokenReader.currentContext
                 )
             }
+            try? tokenReader.skipSeparator()
 
             return value
         }

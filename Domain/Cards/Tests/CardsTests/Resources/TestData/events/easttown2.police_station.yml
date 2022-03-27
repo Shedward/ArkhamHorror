@@ -6,4 +6,4 @@ text:
   настаивает, так что вы роетесь в найденных вещах. Получите
   одну \keyword{простую} вещь ценой $3 или меньше.'
 action:
-  (drawItem common (lessOrEqual 4))
+  (drawItem common (lessOrEqualThan 4))

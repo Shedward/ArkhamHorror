@@ -8,7 +8,7 @@ text:
   на 3 области или меньше.'
 action:
   (do
-    (shop showcase common)
+    (shop (showcase) (limits (rarity common) (priceChanges))
     (if (ask "Помочь Нейтану?")
       (move 3)
       (doNothing)

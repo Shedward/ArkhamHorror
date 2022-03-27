@@ -9,7 +9,7 @@ text:
   предложение.'
 action:
   (do
-    (restoreDamage 2)
+    (restoreDamage 2 (target you ally))
     (if (testSkill influence)
       (drawSpecial "velmas_waiter")
       (doNothing)
