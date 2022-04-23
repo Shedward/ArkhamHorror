@@ -17,13 +17,13 @@ struct ChooseOne<Result>: Expression {
 	let choices: [Choice]
 
 	func resolve(in context: EventContext) async -> Result {
-		let question = UserQuestion<Int>(
+		let question = Question<Int>(
 			title: nil,
 			answers: choices.indices.map { index in
-				UserQuestion.Answer(title: choices[index].title, value: index)
+				Question.Answer(title: choices[index].title, value: index)
 			}
 		)
-		let chosenIndex = await context.askUser(question)
+        let chosenIndex = await context.player.ask(question)
 		let result = await choices[chosenIndex].expression.resolve(in: context)
 		return result
 	}
@@ -33,7 +33,7 @@ struct ChooseOneParser<Result>: ExpressionParser {
 	let head = "chooseOne"
 	let doc = ExpressionDoc(
 		signature: #"(chooseOne "oneChoice" (oneAction):Some "twoChoice" (twoAction):Some ...):Some"#,
-		description: "Shows user dialog with N choices, when user pick one - nth expression executed.",
+		description: "Shows to player dialog with N choices, when player pick one - nth expression executed.",
 		example: #"(chooseOne "Take 2 damage" (takeDamage 2) "Became delayed" (becameDelayed))"#
 	)
 

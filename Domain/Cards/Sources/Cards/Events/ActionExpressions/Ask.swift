@@ -12,14 +12,14 @@ struct Ask: Expression {
 	let title: String
 
 	func resolve(in context: EventContext) async -> Bool {
-		let question = UserQuestion<Bool>(
+		let question = Question<Bool>(
 			title: title,
 			answers: [
 				.init(title: Localized.string("Да"), value: true),
 				.init(title: Localized.string("Нет"), value: false)
 			]
 		)
-		return await context.askUser(question)
+        return await context.player.ask(question)
 	}
 }
 
@@ -27,7 +27,7 @@ struct AskParser: ExpressionParser {
 	let head = "ask"
 	let doc = ExpressionDoc(
 		signature: #"(ask "question"):Bool"#,
-		description: "Ask user question with ",
+		description: "Ask player question with ",
 		example: #"(if (ask "Continue?") (continue) (doNothing))"#
 	)
 

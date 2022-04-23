@@ -11,7 +11,7 @@ struct Move: Expression {
     let maxAmount: Int
 
     func resolve(in context: EventContext) async {
-        await context.user.move(maxAmount)
+        await context.player.move(maxAmount)
     }
 }
 

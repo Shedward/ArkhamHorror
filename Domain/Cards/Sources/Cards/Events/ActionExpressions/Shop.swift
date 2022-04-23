@@ -27,11 +27,11 @@ struct ShopParser: ExpressionParser {
     let doc = ExpressionDoc(
         signature: "(shop <source>:ShopSource <limits?>:ShopItemLimitations <priceChanges?>:ShopPriceChanges):Void",
         description: """
-        Open shop for user to buy.
+        Open shop for player to buy.
         Parameters:
-            - source - source from which user can buy items:
-                - (showcase) - User can buy from open showcase
-                - (draw N) - User can draw n cards and buy items from it, the rest
+            - source - source from which player can buy items:
+                - (showcase) - Player can buy from open showcase
+                - (draw N) - Player can draw n cards and buy items from it, the rest
                     should be shuffled back.
             - limits - list of limitations on buying items:
                 (limits <limitation1> <limitation2> ...)

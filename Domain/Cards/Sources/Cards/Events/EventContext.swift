@@ -7,7 +7,7 @@
 
 import Common
 
-public struct UserQuestion<Value> {
+public struct Question<Value> {
 	struct Answer {
 		let title: String
 		let value: Value
@@ -42,7 +42,7 @@ public struct HealthChangeRequest {
 	let targets: Set<Target>
 }
 
-public protocol UserContext {
+public protocol PlayerContext {
 	var money: Int { get }
 	func spendMoney(_ amount: Int) async
 	func getMoney(_ amount: Int) async
@@ -63,6 +63,9 @@ public protocol UserContext {
 
     func move(_ maxAmount: Int) async
     func moveToNearestStreet() async
+
+    func changeHealth(_ request: HealthChangeRequest) async
+    func ask<Value>(_ question: Question<Value>) async -> Value
 }
 
 public protocol GameBoardContext {
@@ -70,19 +73,16 @@ public protocol GameBoardContext {
 	func drawAlly() async
 	func drawSpecial(id: Event.Id) async
 	func drawItem(expectedRarity: ItemRarity?, expectedCost: PriceTest?) async
+    func removeDoom() async
 }
 
 public protocol EventContext {
-	var user: UserContext { get }
+	var player: PlayerContext { get }
 	var gameBoard: GameBoardContext { get }
 
-	func askUser<Value>(_ question: UserQuestion<Value>) async -> Value
-	func changeHealth(_ request: HealthChangeRequest) async
     func shop(
         from source: ShopSource,
         limitations: ShopItemLimitations,
         priceChange: ShopPriceChange
     ) async
-
-    func removeDoom() async
 }

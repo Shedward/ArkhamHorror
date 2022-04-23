@@ -11,11 +11,11 @@ struct SpendClue: Expression {
 	let amount: Int
 
 	func resolve(in context: EventContext) async -> Bool {
-		guard context.user.cluesCount >= amount else {
+		guard context.player.cluesCount >= amount else {
 			return false
 		}
 
-		await context.user.spendClue(amount)
+		await context.player.spendClue(amount)
 		return true
 	}
 }
@@ -24,7 +24,7 @@ struct SpendClueParser: ExpressionParser {
 	let head = "spendClue"
 	let doc = ExpressionDoc(
 		signature: "(spendClue amount:Int?):Bool",
-		description: "Spend user's clue. If amount not provided - counted as 1.",
+		description: "Spend player's clue. If amount not provided - counted as 1.",
 		example: "(spendClue)"
 	)
 

@@ -9,7 +9,7 @@ import Script
 
 struct BecomeCursed: Expression {
 	func resolve(in context: EventContext) async {
-		await context.user.becomeCursed()
+		await context.player.becomeCursed()
 	}
 }
 

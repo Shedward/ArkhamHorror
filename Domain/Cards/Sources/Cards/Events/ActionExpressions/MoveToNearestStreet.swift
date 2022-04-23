@@ -9,7 +9,7 @@ import Script
 
 struct MoveToNearestStreet: Expression {
     func resolve(in context: EventContext) async {
-        await context.user.moveToNearestStreet()
+        await context.player.moveToNearestStreet()
     }
 }
 

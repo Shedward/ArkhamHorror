@@ -12,7 +12,7 @@ struct TestSkill: Expression {
 	let minSuccessCount: Int
 
 	func resolve(in context: EventContext) async -> Bool {
-		let successCount = await context.user.testSkill(skill)
+		let successCount = await context.player.testSkill(skill)
 		return successCount >= minSuccessCount
 	}
 }
@@ -22,7 +22,7 @@ struct TestSkillParser: ExpressionParser {
 	let doc = ExpressionDoc(
 		signature: #"(testSkill skill:Skill minSuccessCount:Int?):Bool"#,
 		description: """
-		Returns true if users pass skill test with success count > minSuccessCount,
+		Returns true if players pass skill test with success count > minSuccessCount,
 		if minSuccessCount not provided, it counts as 1.
 		""",
 		example: #"(testSkill lore)"#

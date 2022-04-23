@@ -12,7 +12,7 @@ struct RestoreDamage: Expression {
 	let targets: Set<HealthChangeRequest.Target>
 
 	func resolve(in context: EventContext) async {
-		await context.changeHealth(
+        await context.player.changeHealth(
 			.init(
 				kind: .damage,
 				amount: -amount,

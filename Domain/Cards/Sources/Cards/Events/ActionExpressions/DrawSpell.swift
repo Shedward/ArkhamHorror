@@ -17,7 +17,7 @@ struct DrawSpellParser: ExpressionParser {
 	let head = "drawSpell"
 	let doc = ExpressionDoc(
 		signature: "(drawSpell)",
-		description: "Current user draw a spell",
+		description: "Current player draw a spell",
 		example: "(drawSpell)"
 	)
 

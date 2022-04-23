@@ -11,7 +11,7 @@ struct GetRemnant: Expression {
 	let amount: Int
 
 	func resolve(in context: EventContext) async {
-		await context.user.getRemnant(amount)
+		await context.player.getRemnant(amount)
 	}
 }
 
@@ -19,7 +19,7 @@ struct GetRemnantParser: ExpressionParser {
 	let head = "getRemnant"
 	let doc = ExpressionDoc(
 		signature: "(getRemnant <amount?>:Int):Void",
-		description: "User gets remnants. If amount not provided it counted as 1.",
+		description: "Player gets remnants. If amount not provided it counted as 1.",
 		example: "(getRemnant)"
 	)
 

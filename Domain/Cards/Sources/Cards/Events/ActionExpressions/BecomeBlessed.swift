@@ -9,7 +9,7 @@ import Script
 
 struct BecomeBlessed: Expression {
 	func resolve(in context: EventContext) async {
-		await context.user.becomeBlessed()
+		await context.player.becomeBlessed()
 	}
 }
 

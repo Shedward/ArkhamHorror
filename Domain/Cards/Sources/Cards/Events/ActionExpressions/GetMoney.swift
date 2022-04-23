@@ -11,7 +11,7 @@ struct GetMoney: Expression {
 	let amount: Int
 
 	func resolve(in context: EventContext) async {
-		await context.user.getMoney(amount)
+		await context.player.getMoney(amount)
 	}
 }
 
@@ -19,7 +19,7 @@ struct GetMoneyParser: ExpressionParser {
 	let head = "getMoney"
 	let doc = ExpressionDoc(
 		signature: "(getMoney <amount?>:Int):Void",
-		description: "User gets money. If amount not provided it counted as 1.",
+		description: "Player gets money. If amount not provided it counted as 1.",
 		example: "(getMoney)"
 	)
 

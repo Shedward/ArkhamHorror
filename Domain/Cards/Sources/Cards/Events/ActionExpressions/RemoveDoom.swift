@@ -13,7 +13,7 @@ struct RemoveDoom: Expression {
     let locationLimitaion: LocationLimitation
 
     func resolve(in context: EventContext) async {
-        await context.removeDoom()
+        await context.gameBoard.removeDoom()
     }
 }
 
@@ -22,12 +22,12 @@ struct RemoveDoomParser: ExpressionParser {
     let doc = ExpressionDoc(
         signature: "(removeDoom <amount:Int?> <location:LocationLimitation?>):Bool",
         description: """
-        Allow user to remove doom.
+        Allow player to remove doom.
         Parameters:
             - amount: Int?
               Amount of doom player can remove. If not presented - counts as 1.
             - location: LocationLimitation?
-              From what location user can remove doom. Possible values: any, currentNeighborhood,
+              From what location player can remove doom. Possible values: any, currentNeighborhood,
               currentRegion. If not presented - counts as any.
         """,
         example: "(removeDoom 1 currentRegion)"
