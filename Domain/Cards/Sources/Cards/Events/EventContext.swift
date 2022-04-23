@@ -60,6 +60,9 @@ public protocol UserContext {
 	func becomeBlessed() async
 	func becomeCursed() async
 	func becomeDelayed() async
+
+    func move(_ maxAmount: Int) async
+    func moveToNearestStreet() async
 }
 
 public protocol GameBoardContext {

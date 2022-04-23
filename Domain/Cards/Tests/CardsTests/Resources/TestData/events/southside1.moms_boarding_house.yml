@@ -7,8 +7,8 @@ text:
   часов, а затем мягко будит вас и отправляет восвояси. Передвиньтесь на
   смежную улицу и станьте задержаным.'
 action:
-  (do
+  '(do
     (restoreDamage 2 (target you ally))
     (moveToNearestStreet)
     (becomeDelayed)
-  )
+  )'

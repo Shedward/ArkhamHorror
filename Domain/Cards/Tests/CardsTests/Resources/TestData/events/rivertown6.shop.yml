@@ -7,4 +7,4 @@ text:
   не волнуйся: закрываться мы не планируем".
   Можете купить любое количество \keyword{простых} вещей с витрины.'
 action:
-  (shop showcase common)
+  (shop (showcase) (limits (rarity common)))

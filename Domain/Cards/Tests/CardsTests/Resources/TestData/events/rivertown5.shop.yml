@@ -1,5 +1,5 @@
-id: rivertown5.show
-regionId: show
+id: rivertown5.shop
+regionId: shop
 text:
   'Грозовые облака расходятся, и на вас падают золотые лучи солнца.
   Вдыхая запах дождя и ощущая солнечное тепло, вы чувствуете себя
@@ -9,5 +9,5 @@ text:
 action:
   (do
     (becomeBlessed)
-    (shop showcase rare 1 discounted)
+    (shop (showcase) (limits (rarity common)) (priceChanges (half)))
   )

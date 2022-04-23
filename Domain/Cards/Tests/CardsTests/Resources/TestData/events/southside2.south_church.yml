@@ -7,6 +7,6 @@ text:
     верном пути. Восстановите 2 рассудка и станьте \cardName{благословленным}'
 action:
   (do
-    (restoreHorror (target you))
+    (restoreHorror 2 (target you))
     (becomeBlessed)
   )

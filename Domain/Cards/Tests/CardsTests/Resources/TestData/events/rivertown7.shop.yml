@@ -1,4 +1,4 @@
-id: rivertown6.shop
+id: rivertown7.shop
 regionId: shop
 text:
   'Пока владелец занят другим покупателем, к вам подходит курьер Нейтан.
@@ -7,4 +7,4 @@ text:
   карандаша. Можете купить любое количество \keyword{простых} вещей с
   витрины.'
 action:
-  (shop showcase common)
+  (shop (showcase) (limits (rarity common)))

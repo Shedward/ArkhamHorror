@@ -24,6 +24,7 @@ enum EventActionScriptParser {
 		try parser.register(SpendMoneyParser())
 		try parser.register(SpendRemnantParser())
 		try parser.register(SpendClueParser())
+        try parser.register(BecomeDelayedTestParser())
 
 		try parser.register(DrawSpellParser())
 		try parser.register(DrawSpecialParser())
@@ -44,6 +45,8 @@ enum EventActionScriptParser {
         try parser.register(ShopParser())
 
         try parser.register(RemoveDoomParser())
+        try parser.register(MoveParser())
+        try parser.register(MoveToNearestStreetParser())
 
 		return parser
 	}

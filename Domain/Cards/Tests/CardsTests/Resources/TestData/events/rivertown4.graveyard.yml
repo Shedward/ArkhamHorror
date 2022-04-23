@@ -18,4 +18,5 @@ action:
       (getRemnant 1)
       (getMoney 3)
     )
+    (doNothing)
   )'

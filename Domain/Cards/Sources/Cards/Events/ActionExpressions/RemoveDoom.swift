@@ -20,9 +20,17 @@ struct RemoveDoom: Expression {
 struct RemoveDoomParser: ExpressionParser {
     let head = "removeDoom"
     let doc = ExpressionDoc(
-        signature: "(removeDoom):Bool",
-        description: "Allow user to remove doom",
-        example: "(removeDoom)"
+        signature: "(removeDoom <amount:Int?> <location:LocationLimitation?>):Bool",
+        description: """
+        Allow user to remove doom.
+        Parameters:
+            - amount: Int?
+              Amount of doom player can remove. If not presented - counts as 1.
+            - location: LocationLimitation?
+              From what location user can remove doom. Possible values: any, currentNeighborhood,
+              currentRegion. If not presented - counts as any.
+        """,
+        example: "(removeDoom 1 currentRegion)"
     )
 
     func parse(

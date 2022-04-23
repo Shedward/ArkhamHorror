@@ -16,7 +16,7 @@ struct BecomeDelayed: Expression {
 struct BecomeDelayedParser: ExpressionParser {
 	let head = "becomeDelayed"
 	let doc = ExpressionDoc(
-		signature: "(becomeDelayed)",
+		signature: "(becomeDelayed):Void",
 		description: "Player become delayed.",
 		example: nil
 	)

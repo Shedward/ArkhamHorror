@@ -7,7 +7,7 @@ text:
   делать, вы наслаждаетесь неспешной прогулкой по кладбищу: вы или ваш
   союзник восстанавливаете 1 рассудок.'
 action:
-  (if (ask "Стать могильщиком?")
+  '(if (ask "Стать могильщиком?")
     (drawSpecial "gravedigger")
-    (restoreHorror 1 (healTarget you ally))
-  )
+    (restoreHorror 1 (target you ally))
+  )'

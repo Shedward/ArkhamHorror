@@ -6,4 +6,4 @@ text:
   что-нибудь. Всё по скидке. Не хочу всю ночь это считать".
   Можете купить 1 \keyword{простую} вещь с витрины за полцены.'
 action:
-  (shop showcase 1 discounted)
+  (shop (showcase) (limits (maxCount 1)) (priceChanges (half)))

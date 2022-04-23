@@ -11,4 +11,5 @@ action:
       (takeHorror 1 (target you))
       (drawSpecial "innsmouth_appearance")
     )
+    (doNothing)
   )
