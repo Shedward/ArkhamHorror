@@ -9,7 +9,7 @@ action:
   (do
     (drawSpell)
     (if (testSkill will)
-      (removeDoom 1 neighborhood)
+      (removeDoom 1 currentNeighborhood)
       (becomeCursed)
     )
   )

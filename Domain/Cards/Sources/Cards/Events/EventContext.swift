@@ -80,4 +80,6 @@ public protocol EventContext {
         limitations: ShopItemLimitations,
         priceChange: ShopPriceChange
     ) async
+
+    func removeDoom() async
 }
