@@ -6,6 +6,6 @@
 //
 
 public enum ItemRarity: String {
-	case rare = "rare"
-	case common = "common"
+	case rare
+	case common
 }

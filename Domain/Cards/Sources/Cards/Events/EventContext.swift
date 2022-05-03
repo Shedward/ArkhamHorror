@@ -17,14 +17,6 @@ public struct Question<Value> {
 	let answers: [Answer]
 }
 
-public enum Skill: String {
-	case lore
-	case influence
-	case observation
-	case strength
-	case will
-}
-
 public struct HealthChangeRequest {
 	enum Kind {
 		case damage

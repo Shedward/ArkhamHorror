@@ -6,6 +6,7 @@
 //
 
 import Script
+import Common
 
 struct TestSkill: Expression {
 	let skill: Skill

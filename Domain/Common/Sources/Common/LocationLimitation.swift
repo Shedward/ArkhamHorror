@@ -8,7 +8,7 @@
 import Foundation
 
 public enum LocationLimitation: String {
-    case any = "any"
-    case currentNeighborhood = "currentNeighborhood"
-    case currentRegion = "currentRegion"
+    case any
+    case currentNeighborhood
+    case currentRegion
 }
