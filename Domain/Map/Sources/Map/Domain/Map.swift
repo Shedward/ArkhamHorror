@@ -8,6 +8,7 @@
 import Foundation
 import Graph
 import Common
+import Yams
 
 public final class Map {
 	private var neighborhoods: [MapRegionType] = []
@@ -19,7 +20,7 @@ public final class Map {
 	public let layout: MapLayout
 
 	public convenience init(data: Data) throws {
-		let decoder = JSONDecoder()
+		let decoder = YAMLDecoder()
 		let mapData = try decoder.decode(MapData.self, from: data)
 		self.init(mapData: mapData)
 	}

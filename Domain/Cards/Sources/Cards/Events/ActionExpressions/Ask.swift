@@ -19,7 +19,7 @@ struct Ask: Expression {
 				.init(title: Localized.string("Нет"), value: false)
 			]
 		)
-        return await context.player.ask(question)
+        return await context.currentPlayer.ask(question)
 	}
 }
 

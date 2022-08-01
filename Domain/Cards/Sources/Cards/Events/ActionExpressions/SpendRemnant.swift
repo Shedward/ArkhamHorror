@@ -11,11 +11,11 @@ struct SpendRemnant: Expression {
 	let amount: Int
 
 	func resolve(in context: EventContext) async -> Bool {
-		guard context.player.remnantsCount >= amount else {
+		guard context.currentPlayer.remnantsCount >= amount else {
 			return false
 		}
 
-		await context.player.spendRemnant(amount)
+		await context.currentPlayer.spendRemnant(amount)
 		return true
 	}
 }

@@ -7,12 +7,13 @@
 
 import XCTest
 @testable import Map
+import Yams
 
 final class MapDataTests: XCTestCase {
 	func testParsing() throws {
 		let mapData = try TestData().mapData()
 
-		let decoder = JSONDecoder()
+		let decoder = YAMLDecoder()
 		let model = try decoder.decode(MapData.self, from: mapData)
 
 		XCTAssertEqual(model.sityNeighborhoods.types.count, 6)

@@ -11,6 +11,7 @@ let package = Package(
             targets: ["Map"]),
     ],
 	dependencies: [
+        .package(url: "https://github.com/jpsim/Yams.git", from: "5.0.0"),
 		.package(name: "Graph", path: "../Utils/Graph"),
 		.package(name: "XCTestUtils", path: "../Utils/XCTestUtils"),
 		.package(name: "Prelude", path: "../Utils/Prelude"),
@@ -20,6 +21,7 @@ let package = Package(
         .target(
             name: "Map",
 			dependencies: [
+                "Yams",
 				"Graph",
 				"Prelude",
 				"Common"

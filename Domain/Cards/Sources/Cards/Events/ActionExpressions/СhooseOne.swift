@@ -23,7 +23,7 @@ struct ChooseOne<Result>: Expression {
 				Question.Answer(title: choices[index].title, value: index)
 			}
 		)
-        let chosenIndex = await context.player.ask(question)
+        let chosenIndex = await context.currentPlayer.ask(question)
 		let result = await choices[chosenIndex].expression.resolve(in: context)
 		return result
 	}

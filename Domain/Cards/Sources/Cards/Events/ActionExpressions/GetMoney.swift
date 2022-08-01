@@ -11,7 +11,7 @@ struct GetMoney: Expression {
 	let amount: Int
 
 	func resolve(in context: EventContext) async {
-		await context.player.getMoney(amount)
+		await context.currentPlayer.getMoney(amount)
 	}
 }
 

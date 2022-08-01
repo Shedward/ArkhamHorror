@@ -34,6 +34,6 @@ struct TestData {
 	}
 
 	func mapData() throws -> Data {
-		try fileData(at: "map.json")
+		try fileData(at: "map.yml")
 	}
 }

@@ -11,11 +11,11 @@ struct SpendMoney: Expression {
 	let amount: Int
 
 	func resolve(in context: EventContext) async -> Bool {
-		guard context.player.money >= amount else {
+		guard context.currentPlayer.money >= amount else {
 			return false
 		}
 
-		await context.player.spendMoney(amount)
+		await context.currentPlayer.spendMoney(amount)
 		return true
 	}
 }

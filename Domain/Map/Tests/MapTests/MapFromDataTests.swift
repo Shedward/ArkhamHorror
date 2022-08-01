@@ -6,16 +6,15 @@
 //
 
 import XCTest
+import Yams
 @testable import Map
 
 final class MapFromDataTests: XCTestCase {
 	func testMapLoading() throws {
 		let mapData = try TestData().mapData()
 
-		let decoder = JSONDecoder()
-		let mapDataModel = try decoder.decode(MapData.self, from: mapData)
+		let map = try Map(data: mapData)
 
-		let map = Map(mapData: mapDataModel)
 		XCTAssertEqual(map.region(by: "train_station")?.name, "Вокзал")
 
 		XCTAssertFalse(map.isNeighborRegions("curriosity_shop", "independence_square"))

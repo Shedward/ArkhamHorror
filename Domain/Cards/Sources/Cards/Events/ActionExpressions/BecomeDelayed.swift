@@ -9,7 +9,7 @@ import Script
 
 struct BecomeDelayed: Expression {
 	func resolve(in context: EventContext) async {
-		await context.player.becomeDelayed()
+		await context.currentPlayer.becomeDelayed()
 	}
 }
 

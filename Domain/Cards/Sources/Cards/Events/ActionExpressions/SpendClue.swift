@@ -11,11 +11,11 @@ struct SpendClue: Expression {
 	let amount: Int
 
 	func resolve(in context: EventContext) async -> Bool {
-		guard context.player.cluesCount >= amount else {
+		guard context.currentPlayer.cluesCount >= amount else {
 			return false
 		}
 
-		await context.player.spendClue(amount)
+		await context.currentPlayer.spendClue(amount)
 		return true
 	}
 }

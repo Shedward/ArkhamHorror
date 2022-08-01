@@ -12,7 +12,7 @@ struct TakeHorror: Expression {
     let target: Set<HealthChangeRequest.Target>
 
     func resolve(in context: EventContext) async {
-        await context.player.changeHealth(
+        await context.currentPlayer.changeHealth(
             .init(
                 kind: .horror,
                 amount: amount,

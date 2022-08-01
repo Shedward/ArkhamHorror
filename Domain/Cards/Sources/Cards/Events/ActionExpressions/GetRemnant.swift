@@ -11,7 +11,7 @@ struct GetRemnant: Expression {
 	let amount: Int
 
 	func resolve(in context: EventContext) async {
-		await context.player.getRemnant(amount)
+		await context.currentPlayer.getRemnant(amount)
 	}
 }
 

@@ -69,7 +69,7 @@ public protocol GameBoardContext {
 }
 
 public protocol EventContext {
-	var player: PlayerContext { get }
+	var currentPlayer: PlayerContext { get }
 	var gameBoard: GameBoardContext { get }
 
     func shop(
