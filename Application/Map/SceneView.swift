@@ -15,8 +15,7 @@ struct SceneView: UIViewRepresentable {
     func makeUIView(context: Context) -> some UView {
         let sceneView = SCNView()
         sceneView.scene = scene
-        sceneView.allowsCameraControl = true
-        sceneView.showsStatistics = true
+        configureSceneView(sceneView)
         return sceneView
     }
 
@@ -30,8 +29,7 @@ struct SceneView: NSViewRepresentable {
     func makeNSView(context: Context) -> some NSView {
         let sceneView = SCNView()
         sceneView.scene = scene
-        sceneView.allowsCameraControl = true
-        sceneView.showsStatistics = true
+        configureSceneView(sceneView)
         return sceneView
     }
 
@@ -39,3 +37,7 @@ struct SceneView: NSViewRepresentable {
     }
 }
 #endif
+
+private func configureSceneView(_ sceneView: SCNView) {
+    sceneView.allowsCameraControl = true
+}

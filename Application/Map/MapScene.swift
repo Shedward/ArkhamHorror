@@ -13,10 +13,11 @@ import Map
 
 struct MapScene: View {
     let map: Map
-    let mapGeometry = MapGeometry(hexagonSize: 1, spacing: 0.5)
+    let mapGeometry = MapGeometry(hexagonSize: 1, spacing: 1)
 
     private var scene = SCNScene(named: "SceeneAssets.scnassets/Gameboard.scn")!
     private let gameboardNode = SCNNode()
+    private let playerNode = SCNNode()
 
     var body: some View {
         SceneView(scene: scene)
@@ -31,11 +32,14 @@ struct MapScene: View {
         scene.rootNode.addChildNode(gameboardNode)
         configureCamera()
         configureLighting()
+        configurePlayerNode()
         configureGameboard()
     }
 
     private func configureCamera() {
         let camera = SCNCamera()
+        camera.usesOrthographicProjection = true
+        camera.orthographicScale = 4
         camera.fieldOfView = 20
 
         let node = SCNNode()
@@ -47,29 +51,53 @@ struct MapScene: View {
 
     private func configureLighting() {
         scene.background.contents = UColor.white
+        let light = createLight(
+            type: .ambient,
+            color: .white,
+            intencity: 500,
+            castShadows: false
+        )
+        light.position = .origin
+        scene.rootNode.addChildNode(light)
 
-        let light1 = createLight(type: .omni, color: .systemGreen, castShadows: true)
-        light1.position = pointOfView().movedBy(dx: -5)
+        let light1 = createLight(
+            type: .omni,
+            color: .systemPink,
+            intencity: 500,
+            castShadows: true
+        )
+        light1.position = pointOfView().movedBy(dx: -5, dz: 5)
         scene.rootNode.addChildNode(light1)
 
-        let light2 = createLight(type: .omni, color: .systemPink, castShadows: true)
-        light2.position = pointOfView().movedBy(dx: 5)
+        let light2 = createLight(
+            type: .omni,
+            color: .systemMint,
+            intencity: 500,
+            castShadows: true
+        )
+        light2.position = pointOfView().movedBy(dx: 5, dz: 5)
         scene.rootNode.addChildNode(light2)
 
-        let light3 = createLight(type: .omni, color: .systemBlue, castShadows: true)
-        light3.position = pointOfView().movedBy(dy: 5)
+        let light3 = createLight(
+            type: .omni,
+            color: .systemTeal,
+            intencity: 500,
+            castShadows: true
+        )
+        light3.position = pointOfView().movedBy(dy: 5, dz: 5)
         scene.rootNode.addChildNode(light3)
-
-        let light4 = createLight(type: .ambient, color: .white, castShadows: false)
-        light4.position = pointOfView()
-        scene.rootNode.addChildNode(light4)
     }
 
-    private func createLight(type: SCNLight.LightType, color: UColor, castShadows: Bool) -> SCNNode {
+    private func createLight(
+        type: SCNLight.LightType,
+        color: UColor,
+        intencity: CGFloat = 1000,
+        castShadows: Bool
+    ) -> SCNNode {
         let light = SCNLight()
         light.color = color
         light.type = type
-        light.intensity = 500
+        light.intensity = intencity
         light.castsShadow = castShadows
 
         let node = SCNNode()
@@ -77,10 +105,26 @@ struct MapScene: View {
         return node
     }
 
+    private func configurePlayerNode() {
+        let geometry = SCNCapsule(capRadius: 0.125, height: 0.5)
+        geometry.materials = [regionMaterial()]
+
+        playerNode.geometry = geometry
+        playerNode.orientation = .init(axis: .xAxis, radians: .pi2)
+        playerNode.position.z = regionHeight() + 0.25
+        gameboardNode.addChildNode(playerNode)
+        startWandering(node: playerNode)
+    }
+
     private func configureGameboard() {
         map.layout.neighboarhoods.forEach { neighboarhood in
             let neighboarhoodNode = createNeighbourhoodNode(for: neighboarhood)
             gameboardNode.addChildNode(neighboarhoodNode)
+        }
+
+        map.layout.streets.forEach { street in
+            let streetNode = createStreetNode(for: street)
+            gameboardNode.addChildNode(streetNode)
         }
     }
 
@@ -105,26 +149,73 @@ struct MapScene: View {
 
         let node = SCNNode()
         for region in regions {
-            let regionNode = createRegionNode(for: region)
+            let regionNode = createRegionNode(for: region, height: regionHeight())
             node.addChildNode(regionNode)
         }
+
         let nodePosition = mapGeometry.origin(at: neighboarhood.position.toHexagonPosition())
-        node.position = .init(nodePosition.x, nodePosition.y, 0.1)
+        node.position = .init(nodePosition.x, nodePosition.y, regionHeight() / 2)
         return node
     }
 
-    private func createRegionNode(for region: MapGeometry.Region) -> SCNNode {
+    private func createStreetNode(for street: MapLayout.Street) -> SCNNode {
+        let bridge = mapGeometry.bridge(
+            from: street.from.position.toHexagonPosition(),
+            to: street.to.position.toHexagonPosition(),
+            fromEdge: street.from.edge
+        )
+
+        let region = bridge.region()
+        let node = createRegionNode(for: region, height: regionHeight() / 2)
+        node.position.z = UFloat(regionHeight() / 2)
+        return node
+    }
+
+    private func createRegionNode(for region: MapGeometry.Region, height: CGFloat) -> SCNNode {
         let bezierPath = UBezierPath(points: region.border)
 
-        let regionShape = SCNShape(path: bezierPath, extrusionDepth: 0.2)
-        regionShape.chamferRadius = 0.02
+        let regionShape = SCNShape(path: bezierPath, extrusionDepth: height)
+        regionShape.chamferRadius = regionHeight() / 10
         regionShape.chamferMode = .front
         regionShape.chamferProfile = UBezierPath(lineFrom: .init(x: 0, y: 1), to: .init(x: 1, y: 0))
-
-        let material = SCNMaterial()
-        regionShape.materials = [material]
+        regionShape.materials = [regionMaterial()]
 
         let node = SCNNode(geometry: regionShape)
         return node
+    }
+
+    private func regionMaterial() -> SCNMaterial {
+        let material = SCNMaterial()
+        material.lightingModel = .blinn
+        material.diffuse.contents = UColor(white: 0.85, alpha: 1.0)
+        return material
+    }
+
+    private func regionHeight() -> CGFloat {
+        return 0.2
+    }
+
+    private func startWandering(node: SCNNode) {
+        class WanderingState {
+            var currentRegionId: Region.Id = "arkham_advertiser"
+        }
+
+        let wanderingState = WanderingState()
+
+        let wanderAction = SCNAction.run { [map, mapGeometry] node in
+            guard let nextRegionId = map.neighbors(for: wanderingState.currentRegionId).randomElement() else { return }
+            guard let geometryRegion = map.geometryRegion(by: nextRegionId, geometry: mapGeometry) else { return }
+
+            SCNTransaction.begin()
+            SCNTransaction.animationDuration = 0.5
+            node.position.xy = geometryRegion.center.toUPoint()
+            SCNTransaction.commit()
+
+            wanderingState.currentRegionId = nextRegionId
+        }
+
+        let wanderingForever = SCNAction.repeatForever(.sequence([wanderAction, .wait(duration: 1)]))
+
+        node.runAction(wanderingForever)
     }
 }

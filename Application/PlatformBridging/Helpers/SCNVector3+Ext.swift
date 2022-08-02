@@ -9,6 +9,7 @@ import SceneKit
 
 extension SCNVector3 {
 
+    static let origin = SCNVector3(0, 0, 0)
     static let xAxis = SCNVector3(1, 0, 0)
     static let yAxis = SCNVector3(0, 1, 0)
     static let zAxis = SCNVector3(0, 0, 1)
@@ -25,4 +26,26 @@ extension SCNVector3 {
         changed.z += dz
         return changed
     }
+
+    #if os(iOS)
+    var xy: UPoint {
+        get {
+            UPoint(x: CGFloat(x), y: CGFloat(y))
+        }
+        set {
+            x = Float(newValue.x)
+            y = Float(newValue.y)
+        }
+    }
+    #elseif os(macOS)
+    var xy: UPoint {
+        get {
+            UPoint(x: x, y: y)
+        }
+        set {
+            x = newValue.x
+            y = newValue.y
+        }
+    }
+    #endif
 }

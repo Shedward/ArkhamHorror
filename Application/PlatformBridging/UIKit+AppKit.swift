@@ -9,6 +9,7 @@
 #if os(macOS)
 import AppKit
 typealias UBezierPath = NSBezierPath
+typealias UImage = NSImage
 typealias UColor = NSColor
 typealias UView = NSView
 typealias UPoint = NSPoint
@@ -18,6 +19,7 @@ typealias UFloat = CGFloat
 #elseif os(iOS)
 import UIKit
 typealias UBezierPath = UIBezierPath
+typealias UImage = UIImage
 typealias UColor = UIColor
 typealias UView = UIView
 typealias UPoint = CGPoint

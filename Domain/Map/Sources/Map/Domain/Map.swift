@@ -61,7 +61,40 @@ public final class Map {
 		return lhsNode.isNeighbor(to: rhsNode)
 	}
 
-	public func regionsMapDescription() -> String {
-		DebugGraphFormatter().format(from: regionsGraph)
-	}
+    public func neighbors(for id: Region.Id) -> [Region.Id] {
+        let node = regionsGraph.node(for: id)
+        return node?.neighbors.map { $0.value } ?? []
+    }
+}
+
+extension Map {
+    public func geometryRegion(by id: Region.Id, geometry: MapGeometry) -> MapGeometry.Region? {
+        for neighboarhood in layout.neighboarhoods {
+            if let neighboarhoodEdge = neighboarhood.edge(for: id) {
+                let region = geometry.hexagon(at: neighboarhood.position.toHexagonPosition())
+                    .region(at: neighboarhoodEdge)
+                return region
+            }
+        }
+
+        for street in layout.streets {
+            if street.regionId == id {
+                let bridge = geometry.bridge(
+                    from: street.from.position.toHexagonPosition(),
+                    to: street.to.position.toHexagonPosition(),
+                    fromEdge: street.from.edge
+                )
+
+                return bridge.region()
+            }
+        }
+
+        return nil
+    }
+}
+
+extension Map {
+    public func regionsMapDescription() -> String {
+        DebugGraphFormatter().format(from: regionsGraph)
+    }
 }
