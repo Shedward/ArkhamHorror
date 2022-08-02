@@ -15,6 +15,7 @@ typealias UView = NSView
 typealias UPoint = NSPoint
 typealias USize = NSSize
 typealias UFloat = CGFloat
+typealias VFloat = Float
 
 #elseif os(iOS)
 import UIKit
@@ -25,5 +26,6 @@ typealias UView = UIView
 typealias UPoint = CGPoint
 typealias USize = CGSize
 typealias UFloat = Float
+typealias VFloat = CGFloat
 
 #endif

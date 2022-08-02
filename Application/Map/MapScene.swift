@@ -17,7 +17,6 @@ struct MapScene: View {
 
     private var scene = SCNScene(named: "SceeneAssets.scnassets/Gameboard.scn")!
     private let gameboardNode = SCNNode()
-    private let playerNode = SCNNode()
 
     var body: some View {
         SceneView(scene: scene)
@@ -32,8 +31,8 @@ struct MapScene: View {
         scene.rootNode.addChildNode(gameboardNode)
         configureCamera()
         configureLighting()
-        configurePlayerNode()
         configureGameboard()
+        configurePlayers()
     }
 
     private func configureCamera() {
@@ -61,7 +60,7 @@ struct MapScene: View {
 
         let light1 = createLight(
             type: .omni,
-            color: .red,
+            color: .init(hue: 0, saturation: 100, lightness: 80, alpha: 1.0),
             castShadows: true
         )
         light1.position = pointOfView().movedBy(dx: -5, dz: 5)
@@ -69,7 +68,7 @@ struct MapScene: View {
 
         let light2 = createLight(
             type: .omni,
-            color: .green,
+            color: .init(hue: 120, saturation: 100, lightness: 80, alpha: 1.0),
             castShadows: true
         )
         light2.position = pointOfView().movedBy(dx: 5, dz: 5)
@@ -77,7 +76,7 @@ struct MapScene: View {
 
         let light3 = createLight(
             type: .omni,
-            color: .blue,
+            color: .init(hue: 240, saturation: 100, lightness: 80, alpha: 1.0),
             castShadows: true
         )
         light3.position = pointOfView().movedBy(dy: 5, dz: 5)
@@ -103,12 +102,17 @@ struct MapScene: View {
         return node
     }
 
-    private func configurePlayerNode() {
+    private func configurePlayers() {
+        createPlayerNode(color: UColor(rgb: 0xf2950e))
+        createPlayerNode(color: UColor(rgb: 0x0dac98))
+    }
+
+    private func createPlayerNode(color: UColor) {
         let geometry = SCNPyramid(width: 0.25, height: 0.5, length: 0.25)
 
-        let color = UColor.cyan
         geometry.materials = [regionMaterial(color: color)]
 
+        let playerNode = SCNNode()
         let light = SCNLight()
         light.type = .omni
         light.color = color
@@ -161,7 +165,7 @@ struct MapScene: View {
         }
 
         let nodePosition = mapGeometry.origin(at: neighboarhood.position.toHexagonPosition())
-        node.position = .init(nodePosition.x, nodePosition.y, regionHeight() / 2)
+        node.position = .init(nodePosition.x, nodePosition.y, Double(regionHeight()) / 2)
         return node
     }
 
@@ -178,11 +182,11 @@ struct MapScene: View {
         return node
     }
 
-    private func createRegionNode(for region: MapGeometry.Region, color: UColor, height: CGFloat) -> SCNNode {
+    private func createRegionNode(for region: MapGeometry.Region, color: UColor, height: UFloat) -> SCNNode {
         let bezierPath = UBezierPath(points: region.border)
 
-        let regionShape = SCNShape(path: bezierPath, extrusionDepth: height)
-        regionShape.chamferRadius = regionHeight() / 5
+        let regionShape = SCNShape(path: bezierPath, extrusionDepth: CGFloat(height))
+        regionShape.chamferRadius = CGFloat(regionHeight() / 5)
         regionShape.chamferMode = .front
         regionShape.chamferProfile = UBezierPath(lineFrom: .init(x: 0, y: 1), to: .init(x: 1, y: 0))
         regionShape.materials = [regionMaterial(color: color)]
@@ -198,7 +202,7 @@ struct MapScene: View {
         return material
     }
 
-    private func regionHeight() -> CGFloat {
+    private func regionHeight() -> UFloat {
         return 0.2
     }
 
