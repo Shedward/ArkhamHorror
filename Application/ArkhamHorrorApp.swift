@@ -12,7 +12,6 @@ struct ArkhamHorrorApp: App {
     var body: some Scene {
         WindowGroup {
 			MapDebugView()
-				.padding()
         }
     }
 }

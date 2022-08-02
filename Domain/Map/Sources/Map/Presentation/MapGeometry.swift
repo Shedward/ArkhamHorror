@@ -88,7 +88,10 @@ public struct MapGeometry {
 			}
 
 			private func next(step: Int) -> Edge {
-				let nextIndex = (rawValue + step) % Self.all.count
+				var nextIndex = (rawValue + step) % Self.all.count
+                if nextIndex < 0 {
+                    nextIndex = Self.all.count + nextIndex
+                }
 				guard let nextEdge = Edge(rawValue: nextIndex) else {
 					fatalError("Impossible value \(nextIndex) for next \(step) edge from \(self).")
 				}
@@ -97,29 +100,31 @@ public struct MapGeometry {
 		}
 
 		public let origin: Geometry.Point
-		public let size: Geometry.LengthUnit
+		public let edgeLength: Geometry.LengthUnit
 		public let center: Geometry.Point
+        public let size: Geometry.Size
 		public let allPoints: [Geometry.Point]
 
-		public init(origin: Geometry.Point, size: Geometry.LengthUnit) {
+		public init(origin: Geometry.Point, edgeLength: Geometry.LengthUnit) {
 			self.origin = origin
-			self.size = size
+			self.edgeLength = edgeLength
 
 			let pointOffsets: [Geometry.Point] = [
-				.init(x: (sqrt3/2) * size, y: 0),
-				.init(x: sqrt3 * size, y: (1/2) * size),
-				.init(x: sqrt3 * size, y: (3/2) * size),
-				.init(x: (sqrt3/2) * size, y: 2 * size),
-				.init(x: 0, y: (3/2) * size),
-				.init(x: 0, y: (1/2) * size)
+				.init(x: (sqrt3/2) * edgeLength, y: 0),
+				.init(x: sqrt3 * edgeLength, y: (1/2) * edgeLength),
+				.init(x: sqrt3 * edgeLength, y: (3/2) * edgeLength),
+				.init(x: (sqrt3/2) * edgeLength, y: 2 * edgeLength),
+				.init(x: 0, y: (3/2) * edgeLength),
+				.init(x: 0, y: (1/2) * edgeLength)
 			]
 			allPoints = pointOffsets.map { origin + $0 }
 
 			let centerOffset = Geometry.Point(
-				x: (sqrt3/2) * size,
-				y: size
+				x: (sqrt3/2) * edgeLength,
+				y: edgeLength
 			)
 			center = origin + centerOffset
+            size = (centerOffset + centerOffset).toSize()
 		}
 
 		public func point(at vertex: Vertex) -> Geometry.Point {
@@ -135,8 +140,15 @@ public struct MapGeometry {
 
 		public func region(at edge: Edge) -> Region {
 			let edgeLine = line(at: edge)
-			let center = Geometry.Line(start: center, end: edgeLine.middle).middle
-			return Region(center: center, width: (sqrt3/4) * size)
+			let regionCenter = Geometry.Line(start: center, end: edgeLine.middle).middle
+            let border: [Geometry.Point] = [
+                center,
+                line(at: edge.prevoius).middle,
+                edgeLine.start,
+                edgeLine.end,
+                line(at: edge.next).middle
+            ]
+            return Region(center: regionCenter, width: (sqrt3/4) * edgeLength, border: border)
 		}
 	}
 
@@ -156,13 +168,20 @@ public struct MapGeometry {
 			let centerLine = Geometry.Line(start: startLine.middle, end: endLine.middle)
 			let minMedianLength = min(startLine.length, centerLine.length)
 			let width = minMedianLength / 2
-			return .init(center: centerLine.middle, width: width)
+            let border: [Geometry.Point] = [
+                startLine.start,
+                startLine.end,
+                endLine.start,
+                endLine.end
+            ]
+            return .init(center: centerLine.middle, width: width, border: border)
 		}
 	}
 
 	public struct Region {
 		public let center: Geometry.Point
 		public let width: Geometry.LengthUnit
+        public let border: [Geometry.Point]
 	}
 
 	public let hexagonSize: Geometry.LengthUnit
@@ -213,7 +232,7 @@ public struct MapGeometry {
 		return .init(hexagonSize: size, spacing: spacing)
 	}
 
-	private func rectOriginForHexagon(at hexPosition: HexagonPosition) -> Geometry.Point {
+	public func origin(at hexPosition: HexagonPosition) -> Geometry.Point {
 		.init(
 			x: oddRowOffset * Geometry.LengthUnit(hexPosition.y % 2)
 				+ Geometry.LengthUnit(hexPosition.x) * tileDeltaX,
@@ -221,10 +240,19 @@ public struct MapGeometry {
 		)
 	}
 
+    public func endPoint(for maxPosition: HexagonPosition) -> Geometry.Point {
+        let lastHexagon = hexagon(at: maxPosition)
+        return lastHexagon.origin + lastHexagon.size.toPoint()
+    }
+
 	public func hexagon(at hexPosition: HexagonPosition) -> Hexagon {
-		let origin = rectOriginForHexagon(at: hexPosition)
-		return .init(origin: origin, size: hexagonSize)
+        let origin = self.origin(at: hexPosition)
+        return .init(origin: origin, edgeLength: hexagonSize)
 	}
+
+    public func hexagon() -> Hexagon {
+        return .init(origin: .init(x: 0, y: 0), edgeLength: hexagonSize)
+    }
 
 	public func bridge(
 		from fromHexPosition: HexagonPosition,

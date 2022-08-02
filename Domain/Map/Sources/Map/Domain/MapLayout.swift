@@ -134,6 +134,23 @@ public struct MapLayout {
 		self.streets = streets
 	}
 
+    public func maxPosition() -> NeighborhoodPosition {
+        let positions = neighboarhoods.map { $0.position }
+        var maxX: Int = 0
+        var maxY: Int = 0
+
+        positions.forEach { position in
+            if position.x > maxX {
+                maxX = position.x
+            }
+            if position.y > maxY {
+                maxY = position.y
+            }
+        }
+
+        return .init(x: maxX, y: maxY)
+    }
+
 	private static func neighbourhood(from tileLayout: MapNeighborhoodsLayoutData.TileLayoutData, mapData: MapData) -> Neighboarhood? {
 		guard let neighbourhood = mapData.sityNeighborhoods.neighbourhood(by: tileLayout.regionTypeId) else {
 			return nil

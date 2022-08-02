@@ -61,7 +61,7 @@ extension Node where T: Equatable {
 	}
 }
 
-@available(macOS 10.15, *)
+@available(macOS 10.15, iOS 13.0, *)
 extension Node where T: Identifiable {
 	public func neighbor(for identifier: T.ID) -> Node<T>? {
 		neighbors.first { $0.value.id == identifier }

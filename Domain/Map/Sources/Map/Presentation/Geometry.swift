@@ -32,16 +32,28 @@ public enum Geometry {
 		public func distance(to anotherPoint: Point) -> LengthUnit {
 			Line(start: self, end: anotherPoint).length
 		}
+
+        public func toSize() -> Size {
+            .init(width: x, height: y)
+        }
 	}
 
 	public struct Size {
 		public var width: LengthUnit
 		public var height: LengthUnit
 
+        public var maxDimention: LengthUnit {
+            max(width, height)
+        }
+
 		public init(width: LengthUnit, height: LengthUnit) {
 			self.width = width
 			self.height = height
 		}
+
+        public func toPoint() -> Point {
+            .init(x: width, y: height)
+        }
 	}
 
 	public struct Line {

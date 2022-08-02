@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "scuffed-plastic-normal.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

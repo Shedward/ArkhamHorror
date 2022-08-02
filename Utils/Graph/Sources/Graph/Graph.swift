@@ -29,7 +29,7 @@ extension Graph where T: Equatable {
 	}
 }
 
-@available(macOS 10.15, *)
+@available(macOS 10.15, iOS 13.0, *)
 extension Graph where T: Identifiable {
 	public func node(for identifier: T.ID) -> Node<T>? {
 		allNodes.first { $0.value.id == identifier }

@@ -99,7 +99,7 @@ extension GraphBuilder where T: Equatable {
 	}
 }
 
-@available(macOS 10.15, *)
+@available(macOS 10.15, iOS 13.0, *)
 extension GraphBuilder where T: Identifiable {
 	@discardableResult
 	public func createBridge(_ bridgeValue: T, from: [T.ID], to: [T.ID]) -> Node<T> {
