@@ -50,11 +50,10 @@ struct MapScene: View {
     }
 
     private func configureLighting() {
-        scene.background.contents = UColor.white
+        scene.background.contents = UColor(white: 0.05, alpha: 1)
         let light = createLight(
             type: .ambient,
             color: .white,
-            intencity: 500,
             castShadows: false
         )
         light.position = .origin
@@ -62,8 +61,7 @@ struct MapScene: View {
 
         let light1 = createLight(
             type: .omni,
-            color: .systemPink,
-            intencity: 500,
+            color: .red,
             castShadows: true
         )
         light1.position = pointOfView().movedBy(dx: -5, dz: 5)
@@ -71,8 +69,7 @@ struct MapScene: View {
 
         let light2 = createLight(
             type: .omni,
-            color: .systemMint,
-            intencity: 500,
+            color: .green,
             castShadows: true
         )
         light2.position = pointOfView().movedBy(dx: 5, dz: 5)
@@ -80,8 +77,7 @@ struct MapScene: View {
 
         let light3 = createLight(
             type: .omni,
-            color: .systemTeal,
-            intencity: 500,
+            color: .blue,
             castShadows: true
         )
         light3.position = pointOfView().movedBy(dy: 5, dz: 5)
@@ -92,6 +88,7 @@ struct MapScene: View {
         type: SCNLight.LightType,
         color: UColor,
         intencity: CGFloat = 1000,
+        temperature: CGFloat = 6500,
         castShadows: Bool
     ) -> SCNNode {
         let light = SCNLight()
@@ -99,7 +96,7 @@ struct MapScene: View {
         light.type = type
         light.intensity = intencity
         light.castsShadow = castShadows
-        light.temperature = 6000
+        light.temperature = temperature
 
         let node = SCNNode()
         node.light = light
@@ -108,12 +105,20 @@ struct MapScene: View {
 
     private func configurePlayerNode() {
         let geometry = SCNPyramid(width: 0.25, height: 0.5, length: 0.25)
-        //let geometry = SCNCapsule(capRadius: 0.125, height: 0.5)
-        geometry.materials = [regionMaterial(color: .systemRed)]
+
+        let color = UColor.cyan
+        geometry.materials = [regionMaterial(color: color)]
+
+        let light = SCNLight()
+        light.type = .omni
+        light.color = color
+        light.intensity = 1000
+        light.castsShadow = true
+        playerNode.light = light
 
         playerNode.geometry = geometry
         playerNode.orientation = .init(axis: .xAxis, radians: .pi2)
-        playerNode.position.z = regionHeight() + 0.25
+        playerNode.position.z = regionHeight() + 0.05
         gameboardNode.addChildNode(playerNode)
         startWandering(node: playerNode)
     }
@@ -151,7 +156,7 @@ struct MapScene: View {
 
         let node = SCNNode()
         for region in regions {
-            let regionNode = createRegionNode(for: region, color: UColor(white: 0.85, alpha: 1.0), height: regionHeight())
+            let regionNode = createRegionNode(for: region, color: UColor(white: 0.30, alpha: 1.0), height: regionHeight())
             node.addChildNode(regionNode)
         }
 
@@ -168,7 +173,7 @@ struct MapScene: View {
         )
 
         let region = bridge.region()
-        let node = createRegionNode(for: region, color: UColor(white: 0.75, alpha: 1.0), height: regionHeight() / 2)
+        let node = createRegionNode(for: region, color: UColor(white: 0.15, alpha: 1.0), height: regionHeight() / 2)
         node.position.z = UFloat(regionHeight() / 2)
         return node
     }
@@ -209,15 +214,18 @@ struct MapScene: View {
             guard let geometryRegion = map.geometryRegion(by: nextRegionId, geometry: mapGeometry) else { return }
 
             SCNTransaction.begin()
-            SCNTransaction.animationDuration = 0.5
+            SCNTransaction.animationDuration = 0.75
             node.position.xy = geometryRegion.center.toUPoint()
             SCNTransaction.commit()
 
             wanderingState.currentRegionId = nextRegionId
         }
 
-        let wanderingForever = SCNAction.repeatForever(.sequence([wanderAction, .wait(duration: 1)]))
+        let wanderingForever = SCNAction.repeatForever(.sequence([wanderAction, .wait(duration: 1.25)]))
 
+        let rotation = SCNAction.repeatForever(.rotate(by: .pi2, around: .zAxis, duration: 1
+                                                      ))
         node.runAction(wanderingForever)
+        node.runAction(rotation)
     }
 }
