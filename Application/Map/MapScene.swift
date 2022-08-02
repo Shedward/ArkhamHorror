@@ -99,6 +99,7 @@ struct MapScene: View {
         light.type = type
         light.intensity = intencity
         light.castsShadow = castShadows
+        light.temperature = 6000
 
         let node = SCNNode()
         node.light = light
@@ -106,8 +107,9 @@ struct MapScene: View {
     }
 
     private func configurePlayerNode() {
-        let geometry = SCNCapsule(capRadius: 0.125, height: 0.5)
-        geometry.materials = [regionMaterial()]
+        let geometry = SCNPyramid(width: 0.25, height: 0.5, length: 0.25)
+        //let geometry = SCNCapsule(capRadius: 0.125, height: 0.5)
+        geometry.materials = [regionMaterial(color: .systemRed)]
 
         playerNode.geometry = geometry
         playerNode.orientation = .init(axis: .xAxis, radians: .pi2)
@@ -149,7 +151,7 @@ struct MapScene: View {
 
         let node = SCNNode()
         for region in regions {
-            let regionNode = createRegionNode(for: region, height: regionHeight())
+            let regionNode = createRegionNode(for: region, color: UColor(white: 0.85, alpha: 1.0), height: regionHeight())
             node.addChildNode(regionNode)
         }
 
@@ -166,28 +168,28 @@ struct MapScene: View {
         )
 
         let region = bridge.region()
-        let node = createRegionNode(for: region, height: regionHeight() / 2)
+        let node = createRegionNode(for: region, color: UColor(white: 0.75, alpha: 1.0), height: regionHeight() / 2)
         node.position.z = UFloat(regionHeight() / 2)
         return node
     }
 
-    private func createRegionNode(for region: MapGeometry.Region, height: CGFloat) -> SCNNode {
+    private func createRegionNode(for region: MapGeometry.Region, color: UColor, height: CGFloat) -> SCNNode {
         let bezierPath = UBezierPath(points: region.border)
 
         let regionShape = SCNShape(path: bezierPath, extrusionDepth: height)
-        regionShape.chamferRadius = regionHeight() / 10
+        regionShape.chamferRadius = regionHeight() / 5
         regionShape.chamferMode = .front
         regionShape.chamferProfile = UBezierPath(lineFrom: .init(x: 0, y: 1), to: .init(x: 1, y: 0))
-        regionShape.materials = [regionMaterial()]
+        regionShape.materials = [regionMaterial(color: color)]
 
         let node = SCNNode(geometry: regionShape)
         return node
     }
 
-    private func regionMaterial() -> SCNMaterial {
+    private func regionMaterial(color: UColor) -> SCNMaterial {
         let material = SCNMaterial()
         material.lightingModel = .blinn
-        material.diffuse.contents = UColor(white: 0.85, alpha: 1.0)
+        material.diffuse.contents = color
         return material
     }
 
