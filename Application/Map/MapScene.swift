@@ -46,7 +46,7 @@ struct MapScene: View {
     }
 
     private func configureLighting() {
-        scene.background.contents = UIColor.white
+        scene.background.contents = UColor.white
 
         let light1 = createLight(type: .omni, color: .systemGreen, castShadows: true)
         light1.position = pointOfView().movedBy(dx: -5)
@@ -65,7 +65,7 @@ struct MapScene: View {
         scene.rootNode.addChildNode(light4)
     }
 
-    private func createLight(type: SCNLight.LightType, color: UIColor, castShadows: Bool) -> SCNNode {
+    private func createLight(type: SCNLight.LightType, color: UColor, castShadows: Bool) -> SCNNode {
         let light = SCNLight()
         light.color = color
         light.type = type

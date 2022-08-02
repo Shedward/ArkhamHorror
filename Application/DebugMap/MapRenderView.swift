@@ -89,7 +89,7 @@ struct MapRenderView: View {
 		let maxYPosition = layout.neighboarhoods.map { $0.position.y }.max() ?? 0
 
 		return MapGeometry.scaledToFit(
-			size: .init(cgSize: size),
+			size: .init(uSize: size),
 			maxPosition: .init(x: maxXPosition, y: maxYPosition),
 			relativeSpacing: 0.5
 		)
@@ -102,11 +102,11 @@ struct MapRenderView: View {
 	) {
 		let hexagon = geometry.hexagon(at: neighborhood.position.toHexagonPosition())
 		let path = Path { path in
-			path.move(to: hexagon.point(at: .v0).toCGPoint())
+			path.move(to: hexagon.point(at: .v0).toUPoint())
 			for point in hexagon.allPoints {
-				path.addLine(to: point.toCGPoint())
+				path.addLine(to: point.toUPoint())
 			}
-			path.addLine(to: hexagon.point(at: .v0).toCGPoint())
+			path.addLine(to: hexagon.point(at: .v0).toUPoint())
 		}
 		let shapeColors = colorScheme.shape(for: neighborhood.typeId)
 		context.fill(path, with: .color(shapeColors.backgroundColor))
@@ -132,11 +132,11 @@ struct MapRenderView: View {
 		borderColor: Color,
 		in context: GraphicsContext
 	) {
-		let center = hexagon.center.toCGPoint()
+		let center = hexagon.center.toUPoint()
 		let path = Path { path in
 			path.move(to: center)
 			edges.forEach { edge in
-				path.addLine(to: hexagon.line(at: edge).middle.toCGPoint())
+				path.addLine(to: hexagon.line(at: edge).middle.toUPoint())
 				path.addLine(to: center)
 			}
 		}
@@ -156,11 +156,11 @@ struct MapRenderView: View {
 		)
 
 		let path = Path { path in
-			path.move(to: bridge.startLine.start.toCGPoint())
-			path.addLine(to: bridge.startLine.end.toCGPoint())
-			path.addLine(to: bridge.endLine.start.toCGPoint())
-			path.addLine(to: bridge.endLine.end.toCGPoint())
-			path.addLine(to: bridge.startLine.start.toCGPoint())
+			path.move(to: bridge.startLine.start.toUPoint())
+			path.addLine(to: bridge.startLine.end.toUPoint())
+			path.addLine(to: bridge.endLine.start.toUPoint())
+			path.addLine(to: bridge.endLine.end.toUPoint())
+			path.addLine(to: bridge.startLine.start.toUPoint())
 		}
 
 		let shapeColors = colorScheme.shape(for: street.typeId)
@@ -227,8 +227,8 @@ struct MapRenderView: View {
 
 				if map.isNeighborRegions(startRegion.regionId, endRegion.regionId) {
 					let line = Path { path in
-						path.move(to: startRegion.center.toCGPoint())
-						path.addLine(to: endRegion.center.toCGPoint())
+						path.move(to: startRegion.center.toUPoint())
+						path.addLine(to: endRegion.center.toUPoint())
 					}
 
 					context.stroke(line, with: .color(colorScheme.graphEdgeColor))

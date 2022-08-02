@@ -18,7 +18,7 @@ extension SCNVector3 {
         return SCNVector3(self.x / magnitude, self.y / magnitude, self.z / magnitude)
     }
 
-    func movedBy(dx: Float = 0, dy: Float = 0, dz: Float = 0) -> SCNVector3 {
+    func movedBy(dx: UFloat = 0, dy: UFloat = 0, dz: UFloat = 0) -> SCNVector3 {
         var changed = self
         changed.x += dx
         changed.y += dy
