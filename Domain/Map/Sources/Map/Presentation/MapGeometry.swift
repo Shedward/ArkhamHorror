@@ -148,7 +148,12 @@ public struct MapGeometry {
                 edgeLine.end,
                 line(at: edge.next).middle
             ]
-            return Region(center: regionCenter, width: (sqrt3/4) * edgeLength, border: border)
+            return Region(
+                center: regionCenter,
+                width: (sqrt3/4) * edgeLength,
+                border: border,
+                axis: edgeLine
+            )
 		}
 	}
 
@@ -174,7 +179,12 @@ public struct MapGeometry {
                 endLine.start,
                 endLine.end
             ]
-            return .init(center: centerLine.middle, width: width, border: border)
+            return .init(
+                center: centerLine.middle,
+                width: width,
+                border: border,
+                axis: startLine.inverted()
+            )
 		}
 	}
 
@@ -182,6 +192,7 @@ public struct MapGeometry {
 		public let center: Geometry.Point
 		public let width: Geometry.LengthUnit
         public let border: [Geometry.Point]
+        public let axis: Geometry.Line
 	}
 
 	public let hexagonSize: Geometry.LengthUnit

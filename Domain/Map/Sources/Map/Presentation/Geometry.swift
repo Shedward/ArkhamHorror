@@ -5,8 +5,11 @@
 //  Created by Vladislav Maltsev on 11.01.2022.
 //
 
+import Darwin
+
 public enum Geometry {
 	public typealias LengthUnit = Double
+    public typealias AngleUnit = Double
 
 	public struct Point {
 		public var x: LengthUnit
@@ -72,10 +75,34 @@ public enum Geometry {
 			return (delta.x * delta.x + delta.y * delta.y).squareRoot()
 		}
 
+        public var angle: AngleUnit {
+            let dp = end - start
+            return atan2(dp.y, dp.x)
+        }
+
 		init(start: Point, end: Point) {
 			self.start = start
 			self.end = end
 		}
+
+        func inverted() -> Line {
+            .init(start: end, end: start)
+        }
+
+        func isUsableForText() -> Bool {
+            let xAxisSign = cos(angle)
+            if xAxisSign > 0 {
+                return true
+            } else if xAxisSign < 0 {
+                return false
+            } else {
+                if sin(angle) > 0 {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        }
 	}
 
 	public struct Rect {

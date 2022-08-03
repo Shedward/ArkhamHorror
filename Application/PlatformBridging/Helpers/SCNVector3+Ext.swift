@@ -14,6 +14,10 @@ extension SCNVector3 {
     static let yAxis = SCNVector3(0, 1, 0)
     static let zAxis = SCNVector3(0, 0, 1)
 
+    static func uniformScale(_ s: UFloat) -> SCNVector3 {
+        SCNVector3(s, s, s)
+    }
+
     func normalized() -> SCNVector3 {
         let magnitude = ((self.x * self.x) + (self.y * self.y) + (self.z * self.z)).squareRoot()
         return SCNVector3(self.x / magnitude, self.y / magnitude, self.z / magnitude)

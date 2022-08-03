@@ -13,7 +13,7 @@ import Map
 
 struct MapScene: View {
     let map: Map
-    let mapGeometry = MapGeometry(hexagonSize: 1, spacing: 1)
+    let mapGeometry = MapGeometry(hexagonSize: 1, spacing: 0.5)
 
     private var scene = SCNScene(named: "SceeneAssets.scnassets/Gameboard.scn")!
     private let gameboardNode = SCNNode()
@@ -49,7 +49,7 @@ struct MapScene: View {
     }
 
     private func configureLighting() {
-        scene.background.contents = UColor(white: 0.05, alpha: 1)
+        scene.background.contents = UColor(white: 0.10, alpha: 1)
         let light = createLight(
             type: .ambient,
             color: .white,
@@ -108,7 +108,7 @@ struct MapScene: View {
     }
 
     private func createPlayerNode(color: UColor) {
-        let geometry = SCNPyramid(width: 0.25, height: 0.5, length: 0.25)
+        let geometry = SCNPyramid(width: 0.125, height: 0.5, length: 0.25)
 
         geometry.materials = [regionMaterial(color: color)]
 
@@ -116,7 +116,7 @@ struct MapScene: View {
         let light = SCNLight()
         light.type = .omni
         light.color = color
-        light.intensity = 1000
+        light.intensity = 3000
         light.castsShadow = true
         playerNode.light = light
 
@@ -152,20 +152,26 @@ struct MapScene: View {
 
     private func createNeighbourhoodNode(for neighboarhood: MapLayout.Neighboarhood) -> SCNNode {
         let hexagon = mapGeometry.hexagon()
-        let regions = neighboarhood.regions.compactMap { regionId -> MapGeometry.Region? in
+        let regions = neighboarhood.regions.compactMap { regionId -> (MapGeometry.Region, Region.Id)? in
             guard let edge = neighboarhood.edge(for: regionId) else { return nil }
             let region = hexagon.region(at: edge)
-            return region
+            return (region, regionId)
         }
 
         let node = SCNNode()
-        for region in regions {
-            let regionNode = createRegionNode(for: region, color: UColor(white: 0.30, alpha: 1.0), height: regionHeight())
+        for (region, regionId) in regions {
+            let regionNode = createRegionNode(
+                title: regionId.rawValue,
+                region: region,
+                color: UColor(white: 0.30, alpha: 1.0),
+                contentColor: UColor(white: 0.15, alpha: 1.0),
+                height: regionHeight()
+            )
             node.addChildNode(regionNode)
         }
 
         let nodePosition = mapGeometry.origin(at: neighboarhood.position.toHexagonPosition())
-        node.position = .init(nodePosition.x, nodePosition.y, Double(regionHeight()) / 2)
+        node.position = .init(nodePosition.x, nodePosition.y, 0)
         return node
     }
 
@@ -177,22 +183,52 @@ struct MapScene: View {
         )
 
         let region = bridge.region()
-        let node = createRegionNode(for: region, color: UColor(white: 0.15, alpha: 1.0), height: regionHeight() / 2)
-        node.position.z = UFloat(regionHeight() / 2)
+        let node = createRegionNode(
+            title: street.regionId.rawValue,
+            region: region,
+            color: UColor(white: 0.15, alpha: 1.0),
+            contentColor: UColor(white: 0.30, alpha: 1.0),
+            height: regionHeight() / 2
+        )
         return node
     }
 
-    private func createRegionNode(for region: MapGeometry.Region, color: UColor, height: UFloat) -> SCNNode {
+    private func createRegionNode(
+        title: String?,
+        region: MapGeometry.Region,
+        color: UColor,
+        contentColor: UColor,
+        height: UFloat
+    ) -> SCNNode {
         let bezierPath = UBezierPath(points: region.border)
 
         let regionShape = SCNShape(path: bezierPath, extrusionDepth: CGFloat(height))
+        let champferRadius = regionHeight() / 5
+
         regionShape.chamferRadius = CGFloat(regionHeight() / 5)
         regionShape.chamferMode = .front
         regionShape.chamferProfile = UBezierPath(lineFrom: .init(x: 0, y: 1), to: .init(x: 1, y: 0))
         regionShape.materials = [regionMaterial(color: color)]
+        let shapeNode = SCNNode(geometry: regionShape)
 
-        let node = SCNNode(geometry: regionShape)
-        return node
+        let text = SCNText(string: title, extrusionDepth: 1)
+        let fontSize: CGFloat = 12.0
+        text.font = .init(name: "AmericanTypewriter", size: fontSize)
+        text.materials = [regionMaterial(color: contentColor)]
+        let textNode = SCNNode(geometry: text)
+        textNode.position.xy = .init(x: champferRadius, y: champferRadius)
+        textNode.scale = .uniformScale(1 / (fontSize * 10))
+
+        let regionLegendNode = SCNNode()
+        regionLegendNode.position.xy = region.axis.start.toUPoint()
+        regionLegendNode.position.z = height / 2
+        regionLegendNode.orientation = .init(axis: .zAxis, radians: Float(region.axis.angle))
+        regionLegendNode.addChildNode(textNode)
+
+        let containerNode = SCNNode()
+        containerNode.addChildNode(shapeNode)
+        containerNode.addChildNode(regionLegendNode)
+        return containerNode
     }
 
     private func regionMaterial(color: UColor) -> SCNMaterial {
@@ -227,8 +263,7 @@ struct MapScene: View {
 
         let wanderingForever = SCNAction.repeatForever(.sequence([wanderAction, .wait(duration: 1.25)]))
 
-        let rotation = SCNAction.repeatForever(.rotate(by: .pi2, around: .zAxis, duration: 1
-                                                      ))
+        let rotation = SCNAction.repeatForever(.rotate(by: .pi2, around: .zAxis, duration: 1))
         node.runAction(wanderingForever)
         node.runAction(rotation)
     }

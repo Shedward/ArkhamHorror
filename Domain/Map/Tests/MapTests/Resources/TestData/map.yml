@@ -24,7 +24,7 @@ sityNeighborhoods:
       name: Магазинчик Странностей
   - typeId: downtown
     regions:
-    - id: independence_square
+    - id: indep_square
       name: Площадь независимости
     - id: la_bella_luna
       name: La Bella Luna
@@ -89,7 +89,7 @@ sityStreets:
   - id: street1
     typeId: street
     from:
-    - independence_square
+    - indep_square
     - la_bella_luna
     to:
     - velmas_diner
