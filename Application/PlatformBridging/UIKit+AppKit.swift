@@ -16,6 +16,7 @@ typealias UPoint = NSPoint
 typealias USize = NSSize
 typealias UFloat = CGFloat
 typealias VFloat = Float
+typealias UFont = NSFont
 
 #elseif os(iOS)
 import UIKit
@@ -27,5 +28,12 @@ typealias UPoint = CGPoint
 typealias USize = CGSize
 typealias UFloat = Float
 typealias VFloat = CGFloat
+typealias UFont = UIFont
+
+extension UPoint {
+    init(x: UFloat, y: UFloat) {
+        self.init(x: Double(x), y: Double(y))
+    }
+}
 
 #endif

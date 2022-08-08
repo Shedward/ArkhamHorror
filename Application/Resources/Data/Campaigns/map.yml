@@ -1,0 +1,142 @@
+sityNeighborhoods:
+  types:
+  - id: northside
+    name: Нортсайд
+  - id: downtown
+    name: Даунтаун
+  - id: easttown
+    name: Исттаун
+  - id: merchant_district
+    name: Торговый район
+  - id: rivertown
+    name: Ривертаун
+
+  neighborhoods:
+  - typeId: northside
+    regions:
+    - id: arkham_advertiser
+      name: Аркхэм Адвертайзер
+    - id: train_station
+      name: Вокзал
+    - id: curriosity_shop
+      name: Магазинчик Странностей
+  - typeId: downtown
+    regions:
+    - id: indep_square
+      name: Площадь независимости
+    - id: la_bella_luna
+      name: La Bella Luna
+    - id: arkham_asylum
+      name: Психбольница
+  - typeId: easttown
+    regions:
+    - id: velmas_diner
+      name: Ресторанчик Вельмы
+    - id: police_station
+      name: Отделение Полиции
+    - id: hibbs_roadhouse
+      name: Таверна Хиббса
+  - typeId: merchant_district
+    regions:
+    - id: unvisited_isle
+      name: Необитаемый остров
+    - id: tick_tock_club
+      name: Клуб Тик-Так
+    - id: river_docks
+      name: Речные доки
+  - typeId: rivertown
+    regions:
+    - id: black_cave
+      name: Черная пещера
+    - id: general_store
+      name: Магазин
+    - id: graveyard
+      name: Кладбище
+
+sityStreets:
+  types:
+  - id: street
+    name: Улица
+  - id: bridge
+    name: Мост
+  - id: park
+    name: Парк
+  streets:
+  - id: park1
+    typeId: park
+    from:
+    - arkham_advertiser
+    - train_station
+    to:
+    - arkham_asylum
+  - id: park2
+    typeId: park
+    from:
+    - train_station
+    to:
+    - unvisited_isle
+    - river_docks
+  - id: street1
+    typeId: street
+    from:
+    - indep_square
+    - la_bella_luna
+    to:
+    - velmas_diner
+    - police_station
+  - id: street2
+    typeId: street
+    from:
+    - arkham_asylum
+    - la_bella_luna
+    to:
+    - unvisited_isle
+  - id: street3
+    typeId: street
+    from:
+    - unvisited_isle
+    - tick_tock_club
+    to:
+    - black_cave
+    - general_store
+  - id: bridge2
+    typeId: bridge
+    from:
+    - police_station
+    to:
+    - black_cave
+    - graveyard
+  - id: bridge3
+    typeId: bridge
+    from:
+    - general_store
+    - graveyard
+    to:
+    - test11reg
+
+layout:
+- regionTypeId: northside
+  orientation: clockwise
+  tile:
+    row: 0
+    column: 0
+- regionTypeId: downtown
+  orientation: clockwise
+  tile:
+    row: 0
+    column: 1
+- regionTypeId: easttown
+  orientation: counterclockwise
+  tile:
+    row: 0
+    column: 2
+- regionTypeId: merchant_district
+  orientation: clockwise
+  tile:
+    row: 1
+    column: 0
+- regionTypeId: rivertown
+  orientation: counterclockwise
+  tile:
+    row: 1
+    column: 1

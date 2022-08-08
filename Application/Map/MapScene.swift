@@ -217,7 +217,7 @@ struct MapScene: View {
         text.materials = [regionMaterial(color: contentColor)]
         let textNode = SCNNode(geometry: text)
         textNode.position.xy = .init(x: champferRadius, y: champferRadius)
-        textNode.scale = .uniformScale(1 / (fontSize * 10))
+        textNode.scale = .uniformScale(1 / UFloat(fontSize * 10))
 
         let regionLegendNode = SCNNode()
         regionLegendNode.position.xy = region.axis.start.toUPoint()
