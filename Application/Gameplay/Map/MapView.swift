@@ -1,5 +1,5 @@
 //
-//  MapDebugView.swift
+//  MapView.swift
 //  Arkham Horror (macOS)
 //
 //  Created by Vladislav Maltsev on 16.01.2022.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Map
 
-struct MapDebugView: View {
+struct MapView: View {
 	enum ViewState {
 		case empty
 		case failed(Error)
@@ -50,6 +50,6 @@ struct MapDebugView: View {
 
 struct MapDebugView_Previews: PreviewProvider {
     static var previews: some View {
-        MapDebugView()
+        MapView()
     }
 }
