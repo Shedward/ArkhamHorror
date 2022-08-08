@@ -23,14 +23,6 @@
     {
       "parallelizable" : true,
       "target" : {
-        "containerPath" : "container:Domain\/ArkhamHorror",
-        "identifier" : "ArkhamHorrorTests",
-        "name" : "ArkhamHorrorTests"
-      }
-    },
-    {
-      "parallelizable" : true,
-      "target" : {
         "containerPath" : "container:Utils\/Deck",
         "identifier" : "DeckTests",
         "name" : "DeckTests"
@@ -82,6 +74,14 @@
         "containerPath" : "container:Utils\/FormattedText",
         "identifier" : "FormattedTextTests",
         "name" : "FormattedTextTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Domain\/ArkhamHorror",
+        "identifier" : "ArkhamHorrorTests",
+        "name" : "ArkhamHorrorTests"
       }
     }
   ],

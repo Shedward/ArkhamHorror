@@ -10,7 +10,7 @@ import Common
 import Script
 
 struct DrawSpecial: Expression {
-	let cardId: Event.Id
+	let cardId: Event.ID
 
 	func resolve(in context: EventContext) async {
 		await context.gameBoard.drawSpecial(id: cardId)
@@ -28,7 +28,7 @@ struct DrawSpecialParser: ExpressionParser {
 		_ reader: ExpressionParameterReader<EventContext>
 	) throws -> AnyExpression<EventContext, Void> {
 		let cardIdString = try reader.readString()
-		let cardId = Event.Id(rawValue: cardIdString)
+		let cardId = Event.ID(rawValue: cardIdString)
 		return DrawSpecial(cardId: cardId).asAny()
 	}
 }

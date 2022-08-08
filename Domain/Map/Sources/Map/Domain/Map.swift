@@ -15,7 +15,7 @@ public final class Map {
 	private var streetTypes: [MapRegionType] = []
 	private var regions: [MapRegion] = []
 	private var streets: [MapRegion] = []
-	private var regionsGraph: Graph<Region.Id> = Graph()
+	private var regionsGraph: Graph<Region.ID> = Graph()
 
 	public let layout: MapLayout
 
@@ -47,28 +47,28 @@ public final class Map {
 		}
 	}
 
-	public func region(by id: Region.Id) -> MapRegion? {
+	public func region(by id: Region.ID) -> MapRegion? {
 		regions.first { $0.id == id }
 	}
 
-	public func neighbourhood(by id: RegionType.Id) -> MapRegionType? {
+	public func neighbourhood(by id: RegionType.ID) -> MapRegionType? {
 		neighborhoods.first { $0.id == id }
 	}
 
-	public func isNeighborRegions(_ lhs: Region.Id, _ rhs: Region.Id) -> Bool {
+	public func isNeighborRegions(_ lhs: Region.ID, _ rhs: Region.ID) -> Bool {
 		guard let lhsNode = regionsGraph.node(for: lhs) else { return false }
 		guard let rhsNode = regionsGraph.node(for: rhs) else { return false }
 		return lhsNode.isNeighbor(to: rhsNode)
 	}
 
-    public func neighbors(for id: Region.Id) -> [Region.Id] {
+    public func neighbors(for id: Region.ID) -> [Region.ID] {
         let node = regionsGraph.node(for: id)
         return node?.neighbors.map { $0.value } ?? []
     }
 }
 
 extension Map {
-    public func geometryRegion(by id: Region.Id, geometry: MapGeometry) -> MapGeometry.Region? {
+    public func geometryRegion(by id: Region.ID, geometry: MapGeometry) -> MapGeometry.Region? {
         for neighboarhood in layout.neighboarhoods {
             if let neighboarhoodEdge = neighboarhood.edge(for: id) {
                 let region = geometry.hexagon(at: neighboarhood.position.toHexagonPosition())

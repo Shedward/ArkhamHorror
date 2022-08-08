@@ -12,15 +12,15 @@ import FormattedText
 import Yams
 
 struct EventCardData: Decodable {
-	let id: Event.Id
-	let regionId: Region.Id
+	let id: Event.ID
+	let regionId: Region.ID
 	let text: String
 	let action: String
 }
 
 public struct EventCard {
-	let id: Event.Id
-	let regionId: Region.Id
+	let id: Event.ID
+	let regionId: Region.ID
 	let text: FormattedText
 	let action: Script<EventContext, Void>
 

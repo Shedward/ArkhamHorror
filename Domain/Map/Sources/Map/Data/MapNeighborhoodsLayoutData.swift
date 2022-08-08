@@ -19,7 +19,7 @@ struct MapNeighborhoodsLayoutData: Decodable, Equatable {
 			let column: Int
 		}
 
-		let regionTypeId: RegionType.Id
+		let regionTypeId: RegionType.ID
 		let orientation: Orientation
 		let tile: TileLocation
 	}

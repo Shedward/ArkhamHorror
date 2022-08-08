@@ -33,11 +33,11 @@ public struct MapLayout {
 
 	public struct Neighboarhood {
 		public let position: NeighborhoodPosition
-		public let typeId: RegionType.Id
+		public let typeId: RegionType.ID
 		public let regionOrientation: RegionOrientation
-		public let regions: [Region.Id]
+		public let regions: [Region.ID]
 
-		public func edge(for regionId: Region.Id) -> MapGeometry.Hexagon.Edge? {
+		public func edge(for regionId: Region.ID) -> MapGeometry.Hexagon.Edge? {
 			guard let regionIndex = regions.firstIndex(of: regionId) else {
 				return nil
 			}
@@ -45,7 +45,7 @@ public struct MapLayout {
 			return edge(at: regionIndex)
 		}
 
-		public func edge(for regions: [Region.Id]) -> MapGeometry.Hexagon.Edge? {
+		public func edge(for regions: [Region.ID]) -> MapGeometry.Hexagon.Edge? {
 			switch regions.count {
 			case 0:
 				return nil
@@ -82,7 +82,7 @@ public struct MapLayout {
 			return edges[index]
 		}
 
-		private func edgeBetween(firstRegion: Region.Id, secondRegion: Region.Id) -> MapGeometry.Hexagon.Edge? {
+		private func edgeBetween(firstRegion: Region.ID, secondRegion: Region.ID) -> MapGeometry.Hexagon.Edge? {
 			guard let firstEdge = regions.firstIndex(of: firstRegion) else { return nil }
 			guard let secondEdge = regions.firstIndex(of: secondRegion) else { return nil }
 
@@ -112,13 +112,13 @@ public struct MapLayout {
 
 	public struct Street {
 		public struct Edge {
-			public let regionType: RegionType.Id
+			public let regionType: RegionType.ID
 			public let edge: MapGeometry.Hexagon.Edge
 			public let position: NeighborhoodPosition
 		}
 
-		public let regionId: Region.Id
-		public let typeId: RegionType.Id
+		public let regionId: Region.ID
+		public let typeId: RegionType.ID
 		public let from: Edge
 		public let to: Edge
 	}

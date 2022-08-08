@@ -5,7 +5,10 @@ import PackageDescription
 
 let package = Package(
 	name: "ArkhamHorror",
-    platforms: [.iOS(.v10), .macOS(.v10_11)],
+    platforms: [
+        .iOS(.v14),
+        .macOS(.v10_15)
+    ],
 	products: [
 		.library(
 			name: "ArkhamHorror",
@@ -13,19 +16,25 @@ let package = Package(
     ],
 	dependencies: [
         .package(url: "https://github.com/hsluv/hsluv-swift.git", from: "2.1.0"),
+        .package(name: "Prelude", path: "../Utils/Prelude"),
+        .package(name: "Common", path: "../Domain/Common"),
 		.package(name: "Map", path: "../Domain/Map"),
 	],
     targets: [
         .target(
 			name: "ArkhamHorror",
 			dependencies: [
+                "Prelude",
+                "Common",
 				"Map",
                 .product(name: "HSLuvSwift", package: "hsluv-swift")
 			]
 		),
 		.testTarget(
 			name: "ArkhamHorrorTests",
-			dependencies: []
+			dependencies: [
+                "ArkhamHorror"
+            ]
 		),
 	]
 )

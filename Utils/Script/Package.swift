@@ -5,7 +5,10 @@ import PackageDescription
 
 let package = Package(
     name: "Script",
-	platforms: [.macOS(.v10_15)],
+    platforms: [
+        .iOS(.v14),
+        .macOS(.v10_15)
+    ],
     products: [
         .library(
             name: "Script",

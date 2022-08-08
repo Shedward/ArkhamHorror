@@ -9,7 +9,7 @@ import Prelude
 import Common
 
 public struct MapRegionType {
-	public let id: RegionType.Id
+	public let id: RegionType.ID
 	public let name: RegionType.Name
 }
 

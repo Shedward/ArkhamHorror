@@ -9,24 +9,24 @@ import Common
 
 struct MapNeighborhoodsData: Decodable, Equatable {
 	struct TypeData: Decodable, Equatable {
-		let id: RegionType.Id
+		let id: RegionType.ID
 		let name: RegionType.Name
 	}
 
 	struct RegionData: Decodable, Equatable {
-		let id: Region.Id
+		let id: Region.ID
 		let name: Region.Name
 	}
 
 	struct NeighborhoodData: Decodable, Equatable {
-		let typeId: RegionType.Id
+		let typeId: RegionType.ID
 		let regions: [RegionData]
 	}
 
 	let types: [TypeData]
 	let neighborhoods: [NeighborhoodData]
 
-	func neighbourhood(by id: RegionType.Id) -> NeighborhoodData? {
+	func neighbourhood(by id: RegionType.ID) -> NeighborhoodData? {
 		neighborhoods.first(where: { $0.typeId == id })
 	}
 }

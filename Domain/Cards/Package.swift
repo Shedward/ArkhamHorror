@@ -5,7 +5,10 @@ import PackageDescription
 
 let package = Package(
     name: "Cards",
-	platforms: [.macOS(.v10_15)],
+    platforms: [
+        .iOS(.v14),
+        .macOS(.v10_15)
+    ],
     products: [
         .library(
             name: "Cards",
@@ -24,7 +27,7 @@ let package = Package(
             dependencies: ["Yams", "Prelude", "Script", "FormattedText", "Common"]),
         .testTarget(
             name: "CardsTests",
-            dependencies: ["Cards", "Common"],
+            dependencies: ["Cards"],
 			resources: [
 				.copy("Resources/TestData/")
 			]

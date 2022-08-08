@@ -63,7 +63,7 @@ public protocol PlayerContext {
 public protocol GameBoardContext {
 	func drawSpell() async
 	func drawAlly() async
-	func drawSpecial(id: Event.Id) async
+	func drawSpecial(id: Event.ID) async
 	func drawItem(expectedRarity: ItemRarity?, expectedCost: PriceTest?) async
     func removeDoom() async
 }

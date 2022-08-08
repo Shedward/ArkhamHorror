@@ -5,6 +5,10 @@ import PackageDescription
 
 let package = Package(
     name: "Map",
+    platforms: [
+        .iOS(.v14),
+        .macOS(.v10_15)
+    ],
     products: [
         .library(
             name: "Map",

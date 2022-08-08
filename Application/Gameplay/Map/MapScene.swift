@@ -152,7 +152,7 @@ struct MapScene: View {
 
     private func createNeighbourhoodNode(for neighboarhood: MapLayout.Neighboarhood) -> SCNNode {
         let hexagon = mapGeometry.hexagon()
-        let regions = neighboarhood.regions.compactMap { regionId -> (MapGeometry.Region, Region.Id)? in
+        let regions = neighboarhood.regions.compactMap { regionId -> (MapGeometry.Region, Region.ID)? in
             guard let edge = neighboarhood.edge(for: regionId) else { return nil }
             let region = hexagon.region(at: edge)
             return (region, regionId)
@@ -244,7 +244,7 @@ struct MapScene: View {
 
     private func startWandering(node: SCNNode) {
         class WanderingState {
-            var currentRegionId: Region.Id = "arkham_advertiser"
+            var currentRegionId: Region.ID = "arkham_advertiser"
         }
 
         let wanderingState = WanderingState()

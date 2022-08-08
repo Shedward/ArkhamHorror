@@ -9,14 +9,14 @@ import Prelude
 import Common
 
 public final class MapRegion {
-	public let id: Region.Id
+	public let id: Region.ID
 	public let name: Region.Name?
-	public let typeId: RegionType.Id
+	public let typeId: RegionType.ID
 
 	public init(
-		id: Region.Id,
+		id: Region.ID,
 		name: Region.Name?,
-		typeId: RegionType.Id
+		typeId: RegionType.ID
 	) {
 		self.id = id
 		self.name = name
