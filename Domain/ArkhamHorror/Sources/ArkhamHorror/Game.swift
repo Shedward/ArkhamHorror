@@ -32,12 +32,14 @@ public class Game {
             let finalDestination = regionIds.last
         else { return }
 
+        let initialPosition = player.position
+
         player.position = finalDestination
         player.availableActions -= 1
 
         state.players[id: playerId] = player
 
-        presentation.map?.move(player: playerId, through: [player.position] + regionIds)
+        presentation.map?.move(player: playerId, through: [initialPosition] + regionIds)
         presentation.players[playerId]?.value?.updateAvailableActions(player.availableActions)
     }
 

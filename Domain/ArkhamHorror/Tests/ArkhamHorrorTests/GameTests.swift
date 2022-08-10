@@ -33,7 +33,20 @@ final class GameTests: XCTestCase {
 
         let logPresentation = LogPresentation()
         game.presentation = logPresentation.gamePresentation(for: game)
-
         XCTAssertEqual(logPresentation.logs, [])
+
+        game.movePlayer(bob.id, path: ["p3"])
+        game.movePlayer(bob.id, path: ["p4"])
+        game.movePlayer(bob.id, path: ["p5"])
+
+        XCTAssertEqual(
+            logPresentation.logs,
+            [
+                "Move bob throught p1, p3",
+                "Move bob throught p3, p4"
+            ]
+        )
+
+        game.endTurn()
     }
 }

@@ -12,7 +12,7 @@ import Common
 final class LogPresentation {
     var logs: [String]
 
-    private var disposeBag: [WeakBox<AnyObject>] = []
+    private var disposeBag: [AnyObject] = []
 
     init() {
         logs = []
@@ -27,32 +27,34 @@ final class LogPresentation {
 
         let mapPresentation = LogMapPresentation(presentation: self)
         gamePresentation.map = mapPresentation
-        disposeBag.append(.init(mapPresentation))
+        disposeBag.append(mapPresentation)
 
         game.players().forEach { player in
             let playerPresentation = LogPlayerPresentation(playerId: player.id, presentation: self)
             gamePresentation.players[player.id] = .init(.init(wrapped: playerPresentation))
-            disposeBag.append(.init(playerPresentation))
+            disposeBag.append(playerPresentation)
         }
         return gamePresentation
     }
 }
 
 final class LogMapPresentation: MapPresentation {
-    private let presentation: LogPresentation
+    private weak var presentation: LogPresentation?
 
     init(presentation: LogPresentation) {
         self.presentation = presentation
     }
 
     func move(player: Player.ID, through path: [Region.ID]) {
-        presentation.log("Move \(player) throught \(path)")
+        let pathDescription = path.map(\.rawValue)
+            .joined(separator: ", ")
+        presentation?.log("Move \(player.rawValue) throught \(pathDescription)")
     }
 }
 
 final class LogPlayerPresentation: PlayerPresentation {
     private let playerId: Player.ID
-    private let presentation: LogPresentation
+    private weak var presentation: LogPresentation?
 
     init(playerId: Player.ID, presentation: LogPresentation) {
         self.playerId = playerId
@@ -60,6 +62,6 @@ final class LogPlayerPresentation: PlayerPresentation {
     }
 
     func updateAvailableActions(_ availableActionsCount: Int) {
-        presentation.log("Player \(playerId) have \(availableActionsCount) actions")
+        presentation?.log("Player \(playerId.rawValue) have \(availableActionsCount) actions")
     }
 }
