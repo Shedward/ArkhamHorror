@@ -31,8 +31,9 @@ final class LogPresentation {
 
         game.players().forEach { player in
             let playerPresentation = LogPlayerPresentation(playerId: player.id, presentation: self)
-            gamePresentation.players[player.id] = .init(.init(wrapped: playerPresentation))
-            disposeBag.append(playerPresentation)
+            let anyPlayerPresentation = AnyPlayerPresentation(wrapped: playerPresentation)
+            gamePresentation.players[player.id] = .init(anyPlayerPresentation)
+            disposeBag.append(anyPlayerPresentation)
         }
         return gamePresentation
     }

@@ -43,7 +43,9 @@ final class GameTests: XCTestCase {
             logPresentation.logs,
             [
                 "Move bob throught p1, p3",
-                "Move bob throught p3, p4"
+                "Player bob have 1 actions",
+                "Move bob throught p3, p4",
+                "Player bob have 0 actions"
             ]
         )
 
