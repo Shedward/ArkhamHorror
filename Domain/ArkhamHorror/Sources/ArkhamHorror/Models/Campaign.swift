@@ -12,10 +12,15 @@ public struct Campaign: Codable {
     enum IdTag {}
     typealias Id = Tagged<IdTag, String>
 
+    public struct Rules: Codable {
+        let initialPosition: Region.ID
+        let defaultCountOfActions: Int
+    }
+
     let id: Id
     let name: String
     let description: String
-    let initialPosition: Region.ID
+    let rules: Rules
 
     let availableCharacters: [Character]
 }

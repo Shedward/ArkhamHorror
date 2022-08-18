@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct TextStyle {
     var font: UFont
@@ -52,5 +53,12 @@ extension NSAttributedString {
 extension String {
     func styled(_ textStyle: TextStyle) -> NSAttributedString {
         .init(string: self, style: textStyle)
+    }
+}
+
+extension Text {
+    func styled(_ textStyle: TextStyle) -> Text {
+        foregroundColor(.init(textStyle.color.cgColor))
+            .font(.init(textStyle.font))
     }
 }

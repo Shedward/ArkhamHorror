@@ -38,6 +38,8 @@ final class GameTests: XCTestCase {
         game.movePlayer(bob.id, path: ["p3"])
         game.movePlayer(bob.id, path: ["p4"])
         game.movePlayer(bob.id, path: ["p5"])
+        game.endTurn()
+        game.movePlayer(bob.id, path: ["p5"])
 
         XCTAssertEqual(
             logPresentation.logs,
@@ -45,10 +47,12 @@ final class GameTests: XCTestCase {
                 "Move bob throught p1, p3",
                 "Player bob have 1 actions",
                 "Move bob throught p3, p4",
-                "Player bob have 0 actions"
+                "Player bob have 0 actions",
+                "Player alice have 2 actions",
+                "Player bob have 2 actions",
+                "Move bob throught p4, p5",
+                "Player bob have 1 actions"
             ]
         )
-
-        game.endTurn()
     }
 }

@@ -5,6 +5,8 @@
 //  Created by Vladislav Maltsev on 08.08.2022.
 //
 
+import SwiftUI
+
 extension DesignSystem {
     enum Color {
         enum Background {
@@ -32,4 +34,10 @@ extension DesignSystem {
 
 extension UColor {
     typealias Design = DesignSystem.Color
+}
+
+extension Color {
+    init(_ color: UColor) {
+        self = .init(nsColor: color)
+    }
 }

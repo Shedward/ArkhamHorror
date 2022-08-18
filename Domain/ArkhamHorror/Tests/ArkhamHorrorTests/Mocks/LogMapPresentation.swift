@@ -22,8 +22,8 @@ final class LogPresentation {
         logs.append(message)
     }
 
-    func gamePresentation(for game: Game) -> GamePresentation {
-        let gamePresentation = GamePresentation()
+    func gamePresentation(for game: Game) -> Presentation {
+        let gamePresentation = Presentation()
 
         let mapPresentation = LogMapPresentation(presentation: self)
         gamePresentation.map = mapPresentation

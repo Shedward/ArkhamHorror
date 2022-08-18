@@ -15,17 +15,24 @@ public class Game {
     }
 
     private var state: State
-    var presentation: GamePresentation = .init()
+    var presentation: Presentation = .init()
 
     init(initialState: State) {
         self.state = initialState
     }
 
-    func players() -> [Player] {
+    public init(campaign: Campaign, selectedPlayers: [Player]) {
+        self.state = .init(
+            campaignId: campaign.id,
+            players: selectedPlayers
+        )
+    }
+
+    public func players() -> [Player] {
         state.players
     }
 
-    func movePlayer(_ playerId: Player.ID, path regionIds: [Region.ID]) {
+    public func movePlayer(_ playerId: Player.ID, path regionIds: [Region.ID]) {
         guard
             var player = state.players[id: playerId],
             player.availableActions > 0,
@@ -43,7 +50,7 @@ public class Game {
         presentation.players[playerId]?.value?.updateAvailableActions(player.availableActions)
     }
 
-    func endTurn() {
+    public func endTurn() {
         state.players.mutatingForEach { player in
             player.availableActions = 2
             presentation.players[player.id]?.value?.updateAvailableActions(player.availableActions)
