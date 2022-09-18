@@ -8,6 +8,7 @@
 import SceneKit
 import SwiftUI
 
+import Prelude
 import Common
 import Map
 
@@ -112,17 +113,18 @@ struct MapScene: View {
 
         geometry.materials = [regionMaterial(color: color)]
 
-        let playerNode = SCNNode()
-        let light = SCNLight()
-        light.type = .omni
-        light.color = color
-        light.intensity = 3000
-        light.castsShadow = true
-        playerNode.light = light
+        let playerNode = with(SCNNode()) { node in
+            node.light = with(SCNLight()) { light in
+                light.type = .omni
+                light.color = color
+                light.intensity = 3000
+                light.castsShadow = true
+            }
 
-        playerNode.geometry = geometry
-        playerNode.orientation = .init(axis: .xAxis, radians: .pi2)
-        playerNode.position.z = regionHeight() + 0.05
+            node.geometry = geometry
+            node.orientation = .init(axis: .xAxis, radians: .pi2)
+            node.position.z = regionHeight() + 0.05
+        }
         gameboardNode.addChildNode(playerNode)
         startWandering(node: playerNode)
     }

@@ -38,6 +38,10 @@ extension UColor {
 
 extension Color {
     init(_ color: UColor) {
+#if os(iOS)
+        self = .init(uiColor: color)
+#elseif os(macOS)
         self = .init(nsColor: color)
+#endif
     }
 }
