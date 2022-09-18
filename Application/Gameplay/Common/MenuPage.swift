@@ -20,7 +20,7 @@ struct MenuPage<Content: View>: View {
     var body: some View {
         ZStack(alignment: .center) {
             Rectangle()
-                .background(Color(.Design.Background.main))
+                .fill(Color(.Design.Background.main))
             VStack(spacing: 32) {
                 VStack(spacing: 0) {
                     Text(Localized.string(title))
