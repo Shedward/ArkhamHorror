@@ -10,20 +10,23 @@ import Prelude
 
 struct SelectCharactersView: View {
     var body: some View {
-        MenuPage(title: Localized.string("Select characters")) {
+        ZStack(alignment: .bottomLeading) {
+            Rectangle()
+                .foregroundColor(.init(.Design.Background.main))
             HStack(alignment: .bottom, spacing: 16) {
-                HStack(spacing: 16) {
-                    ForEach(0..<4) { _ in
-                        VStack(spacing: 16) {
-                            ForEach(0..<3) { _ in
-                                ZStack {
+                VStack {
+                    MenuTitle(text: Localized.string("Select characters"))
+                    HStack(spacing: 16) {
+                        ForEach(0..<4) { _ in
+                            VStack(spacing: 16) {
+                                ForEach(0..<3) { _ in
                                     CharacterPortrait()
                                 }
                             }
                         }
                     }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 Rectangle()
                     .frame(width: 1)
                     .foregroundColor(.init(.Design.Content.main))
@@ -38,6 +41,9 @@ struct SelectCharactersView: View {
                     MenuButton(title: Localized.string("Go"), highlightingStyle: .mainButton)
                 }
             }
+            .padding(24)
+            MenuButton(iconName: "arrow.backward", title: Localized.string("Back"))
+                .padding(EdgeInsets(top: 0, leading: 32, bottom: 24, trailing: 0))
         }
     }
 }

@@ -23,13 +23,7 @@ struct MenuPage<Content: View>: View {
                 Rectangle()
                     .fill(Color(.Design.Background.main))
                 VStack(spacing: 32) {
-                    VStack(spacing: 0) {
-                        Text(Localized.string(title))
-                            .styled(.Design.menuTitle)
-                        Rectangle()
-                            .frame(maxWidth: 200, maxHeight: 1)
-                            .foregroundColor(Color(.Design.Content.main))
-                    }
+                    MenuTitle(text: title)
                     content
                         .padding([.leading, .trailing, .bottom], 32)
                 }
