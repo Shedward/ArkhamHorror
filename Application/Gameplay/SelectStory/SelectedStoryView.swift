@@ -44,7 +44,7 @@ struct SelectedStoryView_Previews: PreviewProvider {
                 title: "Story title",
                 image: UImage(),
                 description: """
-                This is a test multiline string \
+                This is a test for multiline string \
                 which we trying to use as \
                 test data to check if this view will looks good
                 """
