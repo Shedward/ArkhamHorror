@@ -36,6 +36,7 @@ struct MenuButton: View {
         )
     }
 
+    var iconName: String?
     var title: String
     var highlightingStyle: HighlitingStyle = .none
     var textStyle: TextStyle = .Design.menuSubtitle
@@ -47,11 +48,15 @@ struct MenuButton: View {
     var body: some View {
         HStack(alignment: .center) {
             let iconTextStyle = textStyle.withIconStyle(textStyle.iconStyle.smaller(by: 6))
+
             if let leftIcon = isHovered
                 ? highlightingStyle.leftHighlightedIcondName
                 : highlightingStyle.leftIconName
             {
                 Image(systemName: leftIcon, withStyle: iconTextStyle)
+            }
+            if let iconName {
+                Image(systemName: iconName, withStyle: iconTextStyle)
             }
             Text(title).styled(textStyle)
             if let rightIcon = isHovered
@@ -75,7 +80,10 @@ struct MenuButton_Provider_Previews: PreviewProvider {
         ZStack {
             Rectangle()
                 .foregroundColor(.init(.Design.Background.main))
-            MenuButton(title: "Start",highlightingStyle: .mainButton)
+            VStack {
+                MenuButton(title: "Start",highlightingStyle: .mainButton)
+                MenuButton(iconName: "arrow.backward", title: "Back")
+            }
         }
     }
 }

@@ -18,21 +18,25 @@ struct MenuPage<Content: View>: View {
     }
 
     var body: some View {
-        ZStack(alignment: .center) {
-            Rectangle()
-                .fill(Color(.Design.Background.main))
-            VStack(spacing: 32) {
-                VStack(spacing: 0) {
-                    Text(Localized.string(title))
-                        .styled(.Design.menuTitle)
-                    Rectangle()
-                        .frame(maxWidth: 200, maxHeight: 1)
-                        .foregroundColor(Color(.Design.Content.main))
+        ZStack(alignment: .bottomLeading) {
+            ZStack(alignment: .center) {
+                Rectangle()
+                    .fill(Color(.Design.Background.main))
+                VStack(spacing: 32) {
+                    VStack(spacing: 0) {
+                        Text(Localized.string(title))
+                            .styled(.Design.menuTitle)
+                        Rectangle()
+                            .frame(maxWidth: 200, maxHeight: 1)
+                            .foregroundColor(Color(.Design.Content.main))
+                    }
+                    content
+                        .padding([.leading, .trailing, .bottom], 32)
                 }
-                content
-                    .padding([.leading, .trailing, .bottom], 32)
+                .padding()
             }
-            .padding()
+            MenuButton(iconName: "arrow.backward", title: Localized.string("Back"))
+                .padding(EdgeInsets(top: 0, leading: 32, bottom: 24, trailing: 0))
         }
     }
 }

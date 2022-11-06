@@ -24,7 +24,10 @@ struct SelectedStoryView: View {
                     Rectangle()
                         .frame(maxWidth: 50, maxHeight: 1)
                         .foregroundColor(Color(.Design.Content.main))
-                    MenuButton(title: Localized.string("Start"), highlightingStyle: .mainButton)
+                    MenuButton(
+                        title: Localized.string("Start"),
+                        highlightingStyle: .mainButton
+                    )
                 }
                 .frame(width: StoryImage.width)
             }
