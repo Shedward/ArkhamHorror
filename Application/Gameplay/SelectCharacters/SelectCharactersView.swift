@@ -20,22 +20,25 @@ struct SelectCharactersView: View {
                         ForEach(0..<4) { _ in
                             VStack(spacing: 16) {
                                 ForEach(0..<3) { _ in
-                                    CharacterPortrait()
+                                    CharacterView(name: "John Summerfield")
                                 }
                             }
                         }
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding(.bottom, 32)
                 }
                 Rectangle()
                     .frame(width: 1)
                     .foregroundColor(.init(.Design.Content.main))
-                VStack {
+                VStack(spacing: 16) {
                     Text(Localized.string("2/4"))
                         .styled(.Design.menuSubtitle)
                     ScrollView(showsIndicators: false) {
-                        ForEach(0..<3) { _ in
-                            CharacterPortrait()
+                        VStack(spacing: 16) {
+                            ForEach(0..<3) { _ in
+                                CharacterPortrait()
+                            }
                         }
                     }
                     MenuButton(title: Localized.string("Go"), highlightingStyle: .mainButton)
