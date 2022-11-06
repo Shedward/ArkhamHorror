@@ -24,12 +24,13 @@ struct MenuPage<Content: View>: View {
             VStack(spacing: 32) {
                 VStack(spacing: 0) {
                     Text(Localized.string(title))
-                        .styled(.Design.title)
+                        .styled(.Design.menuTitle)
                     Rectangle()
                         .frame(maxWidth: 200, maxHeight: 1)
                         .foregroundColor(Color(.Design.Content.main))
                 }
                 content
+                    .padding([.leading, .trailing, .bottom], 32)
             }
             .padding()
         }
@@ -40,7 +41,7 @@ struct MenuPage_Previews: PreviewProvider {
     static var previews: some View {
         MenuPage(title: "Title") {
             Text("~ Content ~")
-                .styled(.Design.title)
+                .styled(.Design.menuTitle)
         }
     }
 }

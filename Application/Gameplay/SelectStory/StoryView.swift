@@ -12,13 +12,10 @@ struct StoryView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            Rectangle()
-                .aspectRatio(10/16, contentMode: .fit)
-                .cornerRadius(16)
-                .foregroundColor(Color(.Design.Background.secondary))
+            StoryImage()
             VStack {
                 Text(title)
-                    .styled(.Design.subtitle)
+                    .styled(.Design.menuBody)
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
                 Spacer()
@@ -31,6 +28,10 @@ struct StoryView: View {
 
 struct StoryView_Previews: PreviewProvider {
     static var previews: some View {
-        StoryView(title: "Story title")
+        ZStack {
+            Rectangle()
+                .foregroundColor(.init(.Design.Background.main))
+            StoryView(title: "Story title")
+        }
     }
 }
