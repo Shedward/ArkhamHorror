@@ -15,16 +15,14 @@ struct SelectCharactersView: View {
                 .foregroundColor(.init(.Design.Background.main))
             HStack(alignment: .bottom, spacing: 16) {
                 CharactersList()
-                Rectangle()
-                    .frame(width: 1)
-                    .foregroundColor(.init(.Design.Content.main))
+                MenuVSeparator()
                 VStack(spacing: 16) {
                     Text(Localized.string("2/4"))
                         .styled(.Design.menuSubtitle)
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 16) {
                             ForEach(0..<3) { _ in
-                                CharacterPortrait()
+                                CharacterPortrait(size: .small)
                             }
                         }
                     }

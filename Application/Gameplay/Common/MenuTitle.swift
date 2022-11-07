@@ -14,9 +14,7 @@ struct MenuTitle: View {
         VStack(spacing: 0) {
             Text(text)
                 .styled(.Design.menuTitle)
-            Rectangle()
-                .frame(maxWidth: 200, maxHeight: 1)
-                .foregroundColor(Color(.Design.Content.main))
+            MenuHSeparator().frame(maxWidth: 200)
         }
     }
 }

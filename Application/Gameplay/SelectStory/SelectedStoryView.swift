@@ -21,9 +21,8 @@ struct SelectedStoryView: View {
                 VStack {
                     Text(description)
                         .styled(.Design.menuBody)
-                    Rectangle()
-                        .frame(maxWidth: 50, maxHeight: 1)
-                        .foregroundColor(Color(.Design.Content.main))
+                    MenuHSeparator()
+                        .frame(maxWidth: 50)
                     MenuButton(
                         title: Localized.string("Start"),
                         highlightingStyle: .mainButton

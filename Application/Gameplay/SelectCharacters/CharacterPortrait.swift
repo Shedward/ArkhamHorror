@@ -26,20 +26,43 @@ struct PortraitArc: Shape {
 }
 
 struct CharacterPortrait: View {
-    static let width: CGFloat = 60
-    static let height: CGFloat = 72
+    enum Size {
+        case small
+        case big
+
+        var scale: CGFloat {
+            switch self {
+            case .small:
+                return 1.0
+            case .big:
+                return 2.0
+            }
+        }
+    }
+
+    static func width(for size: Size) -> CGFloat {
+        60 * size.scale
+    }
+    static func height(for size: Size) -> CGFloat {
+        72 * size.scale
+    }
+
+    var size: Size
 
     var body: some View {
         PortraitArc()
             .cornerRadius(8)
             .foregroundColor(Color(.Design.Background.secondary))
-            .frame(width: CharacterPortrait.width, height: CharacterPortrait.height)
+            .frame(
+                width: CharacterPortrait.width(for: size),
+                height: CharacterPortrait.height(for: size)
+            )
     }
 }
 
 struct CharacterPortrait_Previews: PreviewProvider {
     static var previews: some View {
-        CharacterPortrait()
+        CharacterPortrait(size: .big)
             .padding()
     }
 }

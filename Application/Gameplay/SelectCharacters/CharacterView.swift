@@ -12,13 +12,13 @@ struct CharacterView: View {
 
     var body: some View {
         VStack {
-            CharacterPortrait()
+            CharacterPortrait(size: .small)
             Text(name)
                 .styled(.Design.menuBody)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
                 .frame(height: 32, alignment: .top)
-                .frame(maxWidth: CharacterPortrait.width * 1.5)
+                .frame(maxWidth: CharacterPortrait.width(for: .small) * 1.5)
         }
     }
 }

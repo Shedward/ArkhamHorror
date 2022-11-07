@@ -47,17 +47,17 @@ struct TextStyle {
 extension DesignSystem {
     enum TextStyle {
         static let menuTitle = Arkham_Horror.TextStyle(
-            font: .Design.title,
+            font: .Design.titleSC,
             iconStyle: .init(pointSize: 18, weight: .bold),
             color: .Design.Content.main
         )
         static let menuSubtitle = Arkham_Horror.TextStyle(
-            font: .Design.subtitle,
+            font: .Design.subtitleSC,
             iconStyle: .init(pointSize: 18, weight: .semibold),
             color: .Design.Content.main
         )
         static let menuBody = Arkham_Horror.TextStyle(
-            font: .Design.body,
+            font: .Design.bodySC,
             iconStyle: .init(pointSize: 12, weight: .regular),
             color: .Design.Content.main
         )
