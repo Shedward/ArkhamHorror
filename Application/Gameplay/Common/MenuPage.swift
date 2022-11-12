@@ -22,6 +22,7 @@ struct MenuPage<Content: View>: View {
             ZStack(alignment: .center) {
                 Rectangle()
                     .fill(Color(.Design.Background.main))
+                    .ignoresSafeArea()
                 VStack(spacing: 32) {
                     MenuTitle(text: title)
                     content

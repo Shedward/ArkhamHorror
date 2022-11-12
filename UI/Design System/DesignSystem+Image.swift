@@ -14,16 +14,15 @@ extension Image {
             pointSize: CGFloat(textStyle.iconStyle.pointSize),
             weight: textStyle.iconStyle.weight
         )
-        let colorConfiguration = UImage.SymbolConfiguration(hierarchicalColor: textStyle.color)
-        let fullConfiguration = fontConfiguration.applying(colorConfiguration)
         guard let image = UImage(
             systemName: systemName,
-            withConfiguration: fullConfiguration
+            withConfiguration: fontConfiguration
         ) else {
             return nil
         }
 
-        self.init(uiImage: image)
+        let uiImage = image.withTintColor(textStyle.color, renderingMode: .alwaysTemplate)
+        self.init(uiImage: uiImage)
     }
 
     #elseif os(macOS)

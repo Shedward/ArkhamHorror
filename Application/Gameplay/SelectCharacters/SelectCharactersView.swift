@@ -9,12 +9,27 @@ import SwiftUI
 import Prelude
 
 struct SelectCharactersView: View {
+
+    enum State {
+        case selectCharacter
+        case configureCharacter
+    }
+
+    @SwiftUI.State
+    var state: State = .selectCharacter
+
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             Rectangle()
                 .foregroundColor(.init(.Design.Background.main))
+                .ignoresSafeArea()
             HStack(alignment: .bottom, spacing: 16) {
-                CharactersList()
+                switch state {
+                case .selectCharacter:
+                    CharactersList()
+                case .configureCharacter:
+                    UnderConstructionView(textStyle: .Design.Menu.debug)
+                }
                 MenuVSeparator()
                 VStack(spacing: 16) {
                     Text(Localized.string("2/4"))
@@ -36,6 +51,6 @@ struct SelectCharactersView: View {
 
 struct SelectCharactersView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectCharactersView()
+        SelectCharactersView(state: .configureCharacter)
     }
 }

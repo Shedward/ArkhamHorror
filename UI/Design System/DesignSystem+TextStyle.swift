@@ -78,6 +78,11 @@ extension DesignSystem {
                 iconStyle: .init(pointSize: 12, weight: .regular),
                 color: .Design.Content.main
             )
+            static let debug = Arkham_Horror.TextStyle(
+                font: .Design.debug,
+                iconStyle: .init(pointSize: 12, weight: .light),
+                color: .Design.Content.main
+            )
         }
 
         static let body = Arkham_Horror.TextStyle(
@@ -92,7 +97,7 @@ extension DesignSystem {
         )
         static let debug = Arkham_Horror.TextStyle(
             font: .Design.debug,
-            iconStyle: .init(pointSize: 12, weight: .regular),
+            iconStyle: .init(pointSize: 12, weight: .light),
             color: .Design.Content.secondary
         )
     }

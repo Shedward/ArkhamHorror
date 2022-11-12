@@ -53,10 +53,12 @@ struct MenuButton: View {
                 ? highlightingStyle.leftHighlightedIcondName
                 : highlightingStyle.leftIconName
             {
-                Image(systemName: leftIcon, withStyle: iconTextStyle)
+                Image(systemName: leftIcon, withStyle: iconTextStyle)?
+                        .foregroundColor(Color(textStyle.color))
             }
             if let iconName {
                 Image(systemName: iconName, withStyle: iconTextStyle)
+                    .foregroundColor(Color(textStyle.color))
             }
             Text(title).styled(textStyle)
             if let rightIcon = isHovered
@@ -64,6 +66,7 @@ struct MenuButton: View {
                 : highlightingStyle.rightIconName
             {
                 Image(systemName: rightIcon, withStyle: iconTextStyle)
+                    .foregroundColor(Color(textStyle.color))
             }
         }
         .onHover { isHovered in
