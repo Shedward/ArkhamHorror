@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Podkova-Regular.ttf</string>
+		<string>VollkornSC-Bold.ttf</string>
+		<string>VollkornSC-SemiBold.ttf</string>
+		<string>VollkornSC-Regular.ttf</string>
+		<string>VollkornSC-Black.ttf</string>
+		<string>Vollkorn-Regular.ttf</string>
+		<string>Vollkorn-Medium.ttf</string>
+		<string>Vollkorn-Italic.ttf</string>
+	</array>
+</dict>
+</plist>

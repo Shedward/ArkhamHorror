@@ -39,7 +39,7 @@ struct MenuPage_Previews: PreviewProvider {
     static var previews: some View {
         MenuPage(title: "Title") {
             Text("~ Content ~")
-                .styled(.Design.menuTitle)
+                .styled(.Design.Menu.h1)
         }
     }
 }

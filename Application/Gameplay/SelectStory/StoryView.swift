@@ -15,7 +15,7 @@ struct StoryView: View {
             StoryImage()
             VStack {
                 Text(title)
-                    .styled(.Design.menuBody)
+                    .styled(.Design.Menu.h3)
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
                 Spacer()

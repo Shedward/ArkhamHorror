@@ -13,7 +13,7 @@ struct MenuTitle: View {
     var body: some View {
         VStack(spacing: 0) {
             Text(text)
-                .styled(.Design.menuTitle)
+                .styled(.Design.Menu.h1)
             MenuHSeparator().frame(maxWidth: 200)
         }
     }

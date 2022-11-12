@@ -20,7 +20,7 @@ struct SelectedStoryView: View {
                 StoryImage()
                 VStack {
                     Text(description)
-                        .styled(.Design.menuBody)
+                        .styled(.Design.Menu.body)
                     MenuHSeparator()
                         .frame(maxWidth: 50)
                     MenuButton(

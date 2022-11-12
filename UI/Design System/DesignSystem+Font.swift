@@ -14,6 +14,7 @@ extension DesignSystem {
         static let title = UFont(name: "Vollkorn-Bold", size: 18)!
         static let subtitle = UFont(name: "Vollkorn-SemiBold", size: 18)!
         static let body = UFont(name: "Vollkorn-Regular", size: 12)!
+        static let bodyItalic = UFont(name: "Vollkorn-Italic", size: 12)!
         static let keyword = UFont(name: "Vollkorn-Bold", size: 12)!
         static let debug = UFont(name: "Podkova-Regular", size: 12)!
     }
@@ -22,4 +23,3 @@ extension DesignSystem {
 extension UFont {
     typealias Design = DesignSystem.Font
 }
-

@@ -14,7 +14,7 @@ struct CharacterView: View {
         VStack {
             CharacterPortrait(size: .small)
             Text(name)
-                .styled(.Design.menuBody)
+                .styled(.Design.Menu.body)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
                 .frame(height: 32, alignment: .top)

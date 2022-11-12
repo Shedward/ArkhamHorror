@@ -10,10 +10,16 @@ import Prelude
 import SwiftUI
 
 struct IconStyle {
-    var pointSize: UFloat
-    var weight: UFont.Weight
+    #if os(iOS)
+    typealias Weight = UImage.SymbolWeight
+    #elseif os(macOS)
+    typealias Weight = UFont.Weight
+    #endif
 
-    func smaller(by sizeDifference: CGFloat) -> IconStyle {
+    var pointSize: UFloat
+    var weight: Weight
+
+    func smaller(by sizeDifference: UFloat) -> IconStyle {
         with(self) {
             $0.pointSize -= sizeDifference
         }
@@ -46,21 +52,34 @@ struct TextStyle {
 
 extension DesignSystem {
     enum TextStyle {
-        static let menuTitle = Arkham_Horror.TextStyle(
-            font: .Design.titleSC,
-            iconStyle: .init(pointSize: 18, weight: .bold),
-            color: .Design.Content.main
-        )
-        static let menuSubtitle = Arkham_Horror.TextStyle(
-            font: .Design.subtitleSC,
-            iconStyle: .init(pointSize: 18, weight: .semibold),
-            color: .Design.Content.main
-        )
-        static let menuBody = Arkham_Horror.TextStyle(
-            font: .Design.bodySC,
-            iconStyle: .init(pointSize: 12, weight: .regular),
-            color: .Design.Content.main
-        )
+        enum Menu {
+            static let h1 = Arkham_Horror.TextStyle(
+                font: .Design.titleSC,
+                iconStyle: .init(pointSize: 18, weight: .bold),
+                color: .Design.Content.main
+            )
+            static let h2 = Arkham_Horror.TextStyle(
+                font: .Design.subtitleSC,
+                iconStyle: .init(pointSize: 18, weight: .semibold),
+                color: .Design.Content.main
+            )
+            static let h3 = Arkham_Horror.TextStyle(
+                font: .Design.bodySC,
+                iconStyle: .init(pointSize: 12, weight: .regular),
+                color: .Design.Content.main
+            )
+            static let body = Arkham_Horror.TextStyle(
+                font: .Design.body,
+                iconStyle: .init(pointSize: 12, weight: .regular),
+                color: .Design.Content.main
+            )
+            static let story = Arkham_Horror.TextStyle(
+                font: .Design.bodyItalic,
+                iconStyle: .init(pointSize: 12, weight: .regular),
+                color: .Design.Content.main
+            )
+        }
+
         static let body = Arkham_Horror.TextStyle(
             font: .Design.body,
             iconStyle: .init(pointSize: 12, weight: .regular),
@@ -111,9 +130,9 @@ extension Text {
 struct MyPreviewProvider_Previews: PreviewProvider {
     static var previews: some View {
         let styles: [TextStyle] = [
-            .Design.menuTitle,
-            .Design.menuSubtitle,
-            .Design.menuBody,
+            .Design.Menu.h1,
+            .Design.Menu.h2,
+            .Design.Menu.body,
             .Design.body,
             .Design.debug,
             .Design.keyword

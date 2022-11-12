@@ -39,7 +39,7 @@ struct MenuButton: View {
     var iconName: String?
     var title: String
     var highlightingStyle: HighlitingStyle = .none
-    var textStyle: TextStyle = .Design.menuSubtitle
+    var textStyle: TextStyle = .Design.Menu.h2
     var onTap: (() -> Void)?
 
     @State
