@@ -8,7 +8,7 @@
 import Prelude
 import Common
 
-public struct MapRegionType {
+public struct MapRegionType: Identifiable {
 	public let id: RegionType.ID
 	public let name: RegionType.Name
 }

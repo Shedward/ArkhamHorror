@@ -8,7 +8,7 @@
 import Prelude
 import Common
 
-public final class MapRegion {
+public final class MapRegion: Identifiable {
 	public let id: Region.ID
 	public let name: Region.Name?
 	public let typeId: RegionType.ID

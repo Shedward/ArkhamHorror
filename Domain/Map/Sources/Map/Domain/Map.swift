@@ -9,6 +9,7 @@ import Foundation
 import Graph
 import Common
 import Yams
+import Prelude
 
 public final class Map {
 	private var neighborhoods: [MapRegionType] = []
@@ -48,11 +49,11 @@ public final class Map {
 	}
 
 	public func region(by id: Region.ID) -> MapRegion? {
-		regions.first { $0.id == id }
+        regions.first(byId: id)
 	}
 
 	public func neighbourhood(by id: RegionType.ID) -> MapRegionType? {
-		neighborhoods.first { $0.id == id }
+        neighborhoods.first(byId: id)
 	}
 
 	public func isNeighborRegions(_ lhs: Region.ID, _ rhs: Region.ID) -> Bool {

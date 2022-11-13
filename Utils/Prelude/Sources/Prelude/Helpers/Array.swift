@@ -8,7 +8,7 @@
 public extension Array where Element: Identifiable {
     subscript(id id: Element.ID) -> Element? {
         get {
-            first(where: { $0.id == id })
+            first(byId: id)
         }
         set {
             guard let index = firstIndex(where: { $0.id == id }) else { return }
@@ -20,6 +20,12 @@ public extension Array where Element: Identifiable {
         }
     }
 
+    func first(byId id: Element.ID) -> Element? {
+        first { $0.id == id }
+    }
+}
+
+public extension Array {
     mutating func mutatingForEach(_ action: (inout Element) -> Void) {
         self = map { value in
             var newValue = value
