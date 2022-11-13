@@ -12,8 +12,18 @@ struct MainMenu: View {
     var body: some View {
         MenuPage(title: Localized.string("Arkham Horror")) {
             VStack(spacing: 8) {
-                MenuButton(title: Localized.string("New game"), icons: .mainButton)
-                MenuButton(title: Localized.string("Settings"))
+                NavigationLink {
+                    SelectCharactersView()
+                } label: {
+                    MenuButton(title: Localized.string("New game"), icons: .mainButton)
+                }
+                NavigationLink {
+                    MenuPage(title: Localized.string("Settings")) {
+                        UnderConstructionView(textStyle: .Design.Menu.h1)
+                    }
+                } label: {
+                    MenuButton(title: Localized.string("Settings"))
+                }
             }
         }
     }

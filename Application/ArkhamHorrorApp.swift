@@ -11,8 +11,9 @@ import SwiftUI
 struct ArkhamHorrorApp: App {
     var body: some Scene {
         WindowGroup {
-            MainMenu()
-			//MapView()
+            NavigationStack {
+                MainMenu()
+            }
         }
     }
 }
