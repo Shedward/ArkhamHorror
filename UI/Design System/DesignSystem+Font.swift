@@ -9,6 +9,7 @@ extension DesignSystem {
     enum Font {
         static let titleSC = UFont(name: "VollkornSC-Bold", size: 24)!
         static let subtitleSC = UFont(name: "VollkornSC-SemiBold", size: 24)!
+        static let subsubtitleSC = UFont(name: "VollkornSC-SemiBold", size: 20)!
         static let bodySC = UFont(name: "VollkornSC-Regular", size: 14)!
         static let keywordSC = UFont(name: "VollkornSC-Bold", size: 14)!
         static let title = UFont(name: "Vollkorn-Bold", size: 24)!

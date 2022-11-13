@@ -28,7 +28,7 @@ struct SelectCharactersView: View {
                 case .selectCharacter:
                     CharactersList()
                 case .configureCharacter:
-                    UnderConstructionView(textStyle: .Design.Menu.debug)
+                    ConfigureCharacterView.mock()
                 }
                 MenuVSeparator()
                 VStack(spacing: 16) {
@@ -41,8 +41,9 @@ struct SelectCharactersView: View {
                             }
                         }
                     }
-                    MenuButton(title: Localized.string("Start"), highlightingStyle: .mainButton)
+                    MenuButton(title: Localized.string("Start"), icons: .mainButton)
                 }
+                .padding([.leading, .trailing], 16)
             }
             .padding(24)
         }

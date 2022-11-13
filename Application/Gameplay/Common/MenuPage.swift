@@ -30,7 +30,7 @@ struct MenuPage<Content: View>: View {
                 }
                 .padding()
             }
-            MenuButton(iconName: "arrow.backward", title: Localized.string("Back"))
+            MenuButton(title: Localized.string("Back"), icons: .leftIcon("arrow.backward"))
                 .padding(EdgeInsets(top: 0, leading: 32, bottom: 24, trailing: 0))
         }
     }

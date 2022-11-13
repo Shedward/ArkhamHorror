@@ -48,6 +48,13 @@ struct TextStyle {
             $0.iconStyle = iconStyle
         }
     }
+
+    func toAttributes() -> AttributeContainer {
+        var attributes = AttributeContainer()
+        attributes.font = font
+        attributes.foregroundColor = color
+        return attributes
+    }
 }
 
 extension DesignSystem {
@@ -64,12 +71,22 @@ extension DesignSystem {
                 color: .Design.Content.main
             )
             static let h3 = Arkham_Horror.TextStyle(
+                font: .Design.subsubtitleSC,
+                iconStyle: .init(pointSize: 16, weight: .semibold),
+                color: .Design.Content.main
+            )
+            static let h4 = Arkham_Horror.TextStyle(
                 font: .Design.bodySC,
                 iconStyle: .init(pointSize: 12, weight: .regular),
                 color: .Design.Content.main
             )
             static let body = Arkham_Horror.TextStyle(
                 font: .Design.body,
+                iconStyle: .init(pointSize: 12, weight: .regular),
+                color: .Design.Content.main
+            )
+            static let keyword = Arkham_Horror.TextStyle(
+                font: .Design.keywordSC,
                 iconStyle: .init(pointSize: 12, weight: .regular),
                 color: .Design.Content.main
             )
@@ -80,7 +97,7 @@ extension DesignSystem {
             )
             static let debug = Arkham_Horror.TextStyle(
                 font: .Design.debug,
-                iconStyle: .init(pointSize: 12, weight: .light),
+                iconStyle: .init(pointSize: 12, weight: .regular),
                 color: .Design.Content.main
             )
         }
@@ -129,6 +146,12 @@ extension Text {
     func styled(_ textStyle: TextStyle) -> Text {
         foregroundColor(.init(textStyle.color.cgColor))
             .font(.init(textStyle.font))
+    }
+}
+
+extension AttributedString {
+    func styled(_ textStyle: TextStyle) -> AttributedString {
+        self.mergingAttributes(textStyle.toAttributes())
     }
 }
 

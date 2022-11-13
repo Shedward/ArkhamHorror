@@ -25,7 +25,7 @@ struct SelectedStoryView: View {
                         .frame(maxWidth: 50)
                     MenuButton(
                         title: Localized.string("Start"),
-                        highlightingStyle: .mainButton
+                        icons: .mainButton
                     )
                 }
                 .frame(width: StoryImage.width)
