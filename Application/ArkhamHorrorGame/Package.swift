@@ -26,7 +26,9 @@ let package = Package(
                 "ArkhamHorror"
             ],
             resources: [
-                .process("Resources")
+                .process("Resources/SceeneAssets.scnassets"),
+                .process("Resources/Assets.xcassets"),
+                .copy("Resources/Fonts")
             ]
         ),
         .testTarget(

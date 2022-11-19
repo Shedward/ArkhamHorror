@@ -9,25 +9,34 @@ import SwiftUI
 
 extension DesignSystem {
     enum Color {
+
+        private static func named(_ name: String) -> UColor {
+            #if os(iOS)
+            UColor(named: name, in: .module, compatibleWith: nil)!
+            #elseif os(macOS)
+            UColor(named: name, bundle: .module)!
+            #endif
+        }
+
         enum Background {
-            static let main = UColor(named: "color.background.main", bundle: .module)!
-            static let secondary = UColor(named: "color.background.secondary", bundle: .module)!
-            static let tertiary = UColor(named: "color.background.tertiary", bundle: .module)!
-            static let quaternary = UColor(named: "color.background.quaternary", bundle: .module)!
+            static let main = Color.named("color.background.main")
+            static let secondary = Color.named("color.background.secondary")
+            static let tertiary = Color.named("color.background.tertiary")
+            static let quaternary = Color.named("color.background.quaternary")
         }
 
         enum Content {
-            static let main = UColor(named: "color.content.main", bundle: .module)!
-            static let secondary = UColor(named: "color.content.secondary", bundle: .module)!
+            static let main = Color.named("color.content.main")
+            static let secondary = Color.named("color.content.secondary")
         }
 
         enum Fixed {
-            static let black = UColor(named: "color.fixed.black", bundle: .module)!
+            static let black = Color.named("color.fixed.black")
         }
 
         enum Tint {
-            static let bad = UColor(named: "color.tint.bad", bundle: .module)!
-            static let good = UColor(named: "color.tint.good", bundle: .module)!
+            static let bad = Color.named("color.tint.bad")
+            static let good = Color.named("color.tint.good")
         }
     }
 }
