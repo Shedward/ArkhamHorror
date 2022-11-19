@@ -1,6 +1,6 @@
 //
 //  MapScene.swift
-//  Arkham Horror (macOS)
+//  Arkham Horror
 //
 //  Created by Vladislav Maltsev on 01.08.2022.
 //

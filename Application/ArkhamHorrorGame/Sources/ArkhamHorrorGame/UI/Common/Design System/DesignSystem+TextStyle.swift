@@ -8,6 +8,7 @@
 import Foundation
 import Prelude
 import SwiftUI
+import ArkhamHorror
 
 struct IconStyle {
     #if os(iOS)
@@ -60,59 +61,59 @@ struct TextStyle {
 extension DesignSystem {
     enum TextStyle {
         enum Menu {
-            static let h1 = Arkham_Horror.TextStyle(
+            static let h1 = ArkhamHorrorGame.TextStyle(
                 font: .Design.titleSC,
                 iconStyle: .init(pointSize: 18, weight: .bold),
                 color: .Design.Content.main
             )
-            static let h2 = Arkham_Horror.TextStyle(
+            static let h2 = ArkhamHorrorGame.TextStyle(
                 font: .Design.subtitleSC,
                 iconStyle: .init(pointSize: 18, weight: .semibold),
                 color: .Design.Content.main
             )
-            static let h3 = Arkham_Horror.TextStyle(
+            static let h3 = ArkhamHorrorGame.TextStyle(
                 font: .Design.subsubtitleSC,
                 iconStyle: .init(pointSize: 16, weight: .semibold),
                 color: .Design.Content.main
             )
-            static let h4 = Arkham_Horror.TextStyle(
+            static let h4 = ArkhamHorrorGame.TextStyle(
                 font: .Design.bodySC,
                 iconStyle: .init(pointSize: 12, weight: .regular),
                 color: .Design.Content.main
             )
-            static let body = Arkham_Horror.TextStyle(
+            static let body = ArkhamHorrorGame.TextStyle(
                 font: .Design.body,
                 iconStyle: .init(pointSize: 12, weight: .regular),
                 color: .Design.Content.main
             )
-            static let keyword = Arkham_Horror.TextStyle(
+            static let keyword = ArkhamHorrorGame.TextStyle(
                 font: .Design.keywordSC,
                 iconStyle: .init(pointSize: 12, weight: .regular),
                 color: .Design.Content.main
             )
-            static let story = Arkham_Horror.TextStyle(
+            static let story = ArkhamHorrorGame.TextStyle(
                 font: .Design.bodyItalic,
                 iconStyle: .init(pointSize: 12, weight: .regular),
                 color: .Design.Content.main
             )
-            static let debug = Arkham_Horror.TextStyle(
+            static let debug = ArkhamHorrorGame.TextStyle(
                 font: .Design.debug,
                 iconStyle: .init(pointSize: 12, weight: .regular),
                 color: .Design.Content.main
             )
         }
 
-        static let body = Arkham_Horror.TextStyle(
+        static let body = ArkhamHorrorGame.TextStyle(
             font: .Design.body,
             iconStyle: .init(pointSize: 12, weight: .regular),
             color: .Design.Content.secondary
         )
-        static let keyword = Arkham_Horror.TextStyle(
+        static let keyword = ArkhamHorrorGame.TextStyle(
             font: .Design.keyword,
             iconStyle: .init(pointSize: 12, weight: .bold),
             color: .Design.Content.secondary
         )
-        static let debug = Arkham_Horror.TextStyle(
+        static let debug = ArkhamHorrorGame.TextStyle(
             font: .Design.debug,
             iconStyle: .init(pointSize: 12, weight: .light),
             color: .Design.Content.secondary

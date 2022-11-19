@@ -1,6 +1,6 @@
 //
 //  MainMenuView.swift
-//  Arkham Horror (macOS)
+//  Arkham Horror
 //
 //  Created by Vladislav Maltsev on 17.08.2022.
 //
@@ -8,8 +8,12 @@
 import Prelude
 import SwiftUI
 
-struct MainMenu: View {
-    var body: some View {
+public struct MainMenu: View {
+
+    public init() {
+    }
+
+    public var body: some View {
         MenuPage(title: Localized.string("Arkham Horror")) {
             VStack(spacing: 8) {
                 NavigationLink {

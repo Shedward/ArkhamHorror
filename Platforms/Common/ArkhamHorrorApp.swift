@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ArkhamHorrorGame
 
 @main
 struct ArkhamHorrorApp: App {

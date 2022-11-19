@@ -1,6 +1,6 @@
 //
 //  SelectStoryView.swift
-//  Arkham Horror (macOS)
+//  Arkham Horror
 //
 //  Created by Vladislav Maltsev on 18.09.2022.
 //

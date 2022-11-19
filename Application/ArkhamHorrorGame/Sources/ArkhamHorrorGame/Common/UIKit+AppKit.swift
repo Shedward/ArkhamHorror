@@ -1,6 +1,6 @@
 //
 //  UIKit+AppKit.swift
-//  Arkham Horror (macOS)
+//  Arkham Horror
 //
 //  Created by Vladislav Maltsev on 02.08.2022.
 //

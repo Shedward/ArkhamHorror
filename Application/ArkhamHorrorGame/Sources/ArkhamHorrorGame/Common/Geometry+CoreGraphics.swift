@@ -1,6 +1,6 @@
 //
 //  Geometry+CoreGraphics.swift
-//  Arkham Horror (macOS)
+//  Arkham Horror
 //
 //  Created by Vladislav Maltsev on 16.01.2022.
 //
