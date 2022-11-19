@@ -8,7 +8,6 @@
 import Foundation
 
 public enum DirectoryCampaignStorageError: Error {
-    case rootPathNotFound
     case notImplemented
 }
 
