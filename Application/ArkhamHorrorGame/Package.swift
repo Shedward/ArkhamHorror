@@ -27,8 +27,7 @@ let package = Package(
             ],
             resources: [
                 .process("Resources/SceeneAssets.scnassets"),
-                .process("Resources/Assets.xcassets"),
-                .copy("Resources/Fonts")
+                .process("Resources/Assets.xcassets")
             ]
         ),
         .testTarget(
