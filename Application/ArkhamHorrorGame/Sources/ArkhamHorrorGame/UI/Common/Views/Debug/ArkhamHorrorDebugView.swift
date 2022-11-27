@@ -15,38 +15,36 @@ public struct ArkhamHorrorDebugView: View {
     public var body: some View {
         MenuContainer {
             VStack {
-                Text("Screen 0")
-                    .font(.title)
                 MenuLink {
-                    Text("Go to A")
-                        .underline()
-                        .bold()
+                    MenuButton(title: "Rectangle", icons: .rightIcon("arrow.forward"))
                 } content: {
-                    Text("Screen A")
-                        .font(.title)
+                    Rectangle()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.white)
+                        .menuTitle("Rectangle")
                 }
                 MenuLink {
-                    Text("Go to B")
-                        .underline()
-                        .bold()
+                    MenuButton(title: "Circle", icons: .rightIcon("arrow.forward"))
                 } content: {
                     VStack {
-                        Text("Screen B")
-                            .font(.title)
+                        Circle()
+                            .frame(width: 50, height: 50)
+                            .foregroundColor(.white)
+                            .menuTitle("Circle")
                         MenuLink {
-                            Text("Go to C")
-                                .underline()
-                                .bold()
+                            MenuButton(title: "Ellipse", icons: .rightIcon("arrow.forward"))
                         } content: {
-                            Text("Screen C")
-                                .font(.title)
+                            Ellipse()
+                                .frame(width: 100, height: 50)
+                                .foregroundColor(.white)
+                                .menuTitle("Ellipse")
                         }
 
                     }
+                    .menuTitle("Circle")
                 }
             }
+            .menuTitle("Main")
         }
-        .frame(minWidth: 300, minHeight: 200)
-        .padding()
     }
 }
