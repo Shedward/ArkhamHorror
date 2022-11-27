@@ -70,6 +70,15 @@ public struct MenuContainer: View {
                 self.pageProperties = pageProperties ?? .init()
             }
         }
+        .environment(
+            \.menuNavigator,
+             MenuNavigator(
+                pop: {
+                    nextTransitionEdge.value = .leading
+                    stack = stack.dropLast()
+                }
+             )
+        )
     }
 
     var shoudlShowBackButton: Bool {

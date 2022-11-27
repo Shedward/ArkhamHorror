@@ -10,6 +10,9 @@ import Prelude
 
 struct ConfigureCharacterView: View {
 
+    @Environment(\.menuNavigator)
+    var menuNavigator: MenuNavigator
+
     let name: String
     let profession: String
     let story: String
@@ -154,6 +157,9 @@ struct ConfigureCharacterView: View {
     var buttonsSection: some View {
         HStack {
             MenuButton(title: Localized.string("Back"), icons: .leftIcon("arrow.backward"))
+                .onTapGesture {
+                    menuNavigator.pop()
+                }
             Spacer()
             MenuButton(title: Localized.string("Add"), icons: .rightIcon("arrow.up.right"))
         }
