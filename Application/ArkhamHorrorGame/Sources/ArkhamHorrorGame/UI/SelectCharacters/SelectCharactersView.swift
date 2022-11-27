@@ -16,7 +16,7 @@ struct SelectCharactersView: View {
     }
 
     @SwiftUI.State
-    var state: State = .selectCharacter
+    var state: State = .configureCharacter
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -43,10 +43,10 @@ struct SelectCharactersView: View {
                     }
                     MenuButton(title: Localized.string("Start"), icons: .mainButton)
                 }
-                .padding([.leading, .trailing], 16)
+                .padding(.leading, 16)
             }
-            .padding(24)
         }
+        .menuProperties(showBackButton: false)
     }
 }
 

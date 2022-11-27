@@ -22,7 +22,7 @@ struct SelectStoryView: View {
                 StoryView(title: story.title)
             }
         }
-        .menuTitle(Localized.string("Select story"))
+        .menuProperties(title: Localized.string("Select story"))
     }
 }
 

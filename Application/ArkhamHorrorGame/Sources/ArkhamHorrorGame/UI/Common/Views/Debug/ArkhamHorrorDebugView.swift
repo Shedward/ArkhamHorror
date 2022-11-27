@@ -7,44 +7,49 @@
 
 import SwiftUI
 
-public struct ArkhamHorrorDebugView: View {
 
-    public init() {
+struct DebugPreferenceKey: PreferenceKey {
+    static var defaultValue: String = ""
+
+    static func reduce(value: inout String, nextValue: () -> String) {
+        value = nextValue()
+    }
+}
+
+public struct ArkhamHorrorDebugView<Content: View>: View {
+
+    @State private var preference: String?
+    private let content: Content
+
+    public init(@ViewBuilder content: () -> Content) {
+        self.content = content()
     }
 
     public var body: some View {
-        MenuContainer {
-            VStack {
-                MenuLink {
-                    MenuButton(title: "Rectangle", icons: .rightIcon("arrow.forward"))
-                } content: {
-                    Rectangle()
-                        .frame(width: 50, height: 50)
-                        .foregroundColor(.white)
-                        .menuTitle("Rectangle")
-                }
-                MenuLink {
-                    MenuButton(title: "Circle", icons: .rightIcon("arrow.forward"))
-                } content: {
-                    VStack {
-                        Circle()
-                            .frame(width: 50, height: 50)
-                            .foregroundColor(.white)
-                            .menuTitle("Circle")
-                        MenuLink {
-                            MenuButton(title: "Ellipse", icons: .rightIcon("arrow.forward"))
-                        } content: {
-                            Ellipse()
-                                .frame(width: 100, height: 50)
-                                .foregroundColor(.white)
-                                .menuTitle("Ellipse")
-                        }
-
-                    }
-                    .menuTitle("Circle")
-                }
+        VStack {
+            if let preference {
+                Text(preference)
+            } else {
+                Text("Empty")
             }
-            .menuTitle("Main")
+            content
+        }
+        .onPreferenceChange(DebugPreferenceKey.self) { value in
+            self.preference = value
+        }
+    }
+}
+
+struct ArkhamHorrorDebugView_Previews: PreviewProvider {
+    static var previews: some View {
+        ArkhamHorrorDebugView {
+            VStack {
+                Text("Hello world")
+                    .preference(key: DebugPreferenceKey.self, value: "Hello")
+                Text("Another hello")
+                    .preference(key: DebugPreferenceKey.self, value: "Hello2")
+            }
+            .preference(key: DebugPreferenceKey.self, value: "Hello3")
         }
     }
 }

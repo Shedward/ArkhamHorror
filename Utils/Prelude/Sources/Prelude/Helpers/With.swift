@@ -13,3 +13,18 @@ public func with<T>(_ value: T, _ configure: (inout T) -> Void) -> T {
     return value
 }
 
+public protocol Withable {
+    func with(_ configure: (inout Self) -> Void) -> Self
+}
+
+public extension Withable {
+    func with(_ configure: (inout Self) -> Void) -> Self {
+        Prelude.with(self, configure)
+    }
+}
+
+public extension Withable where Self: Initable {
+    static func with(_ configure: (inout Self) -> Void) -> Self {
+        Prelude.with(Self.init(), configure)
+    }
+}

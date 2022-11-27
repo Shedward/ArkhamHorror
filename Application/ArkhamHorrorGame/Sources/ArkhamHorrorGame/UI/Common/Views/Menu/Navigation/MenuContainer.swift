@@ -9,24 +9,26 @@ import SwiftUI
 import Prelude
 
 public struct MenuContainer: View {
-    @State private var stack: [MenuNavigationItem]
-    @State private var title: String?
+    @State
+    private var pageProperties: MenuPageProperties = .init()
+    @State
+    private var stack: [MenuNavigationItem]
 
     private let nextTransitionEdge: Box<Edge> = .init(.leading)
 
     public init<Content: View>(@ViewBuilder content: () -> Content) {
-        self.stack = [MenuNavigationItem(view: AnyView(content()))]
+        stack = [.init(view: AnyView(content()))]
     }
 
     public var body: some View {
-        return VStack {
+        VStack {
             ZStack(alignment: .bottomLeading) {
                 ZStack(alignment: .center) {
                     Rectangle()
                         .fill(Color(.Design.Background.main))
                         .ignoresSafeArea()
                     VStack(spacing: 32) {
-                        if let title {
+                        if let title = pageProperties.title {
                             VStack(spacing: 0) {
                                 Text(title)
                                     .styled(.Design.Menu.h1)
@@ -35,15 +37,17 @@ public struct MenuContainer: View {
                             .withoutAnimation()
                         }
                         stack.last?.view?
-                            .transition(transition)
-                            .padding([.leading, .trailing, .bottom], 32)
+                            .withoutAnimation()
+                            .padding([.leading, .trailing], 32)
+                            .padding([.top], pageProperties.title != nil ? 0 : 32 )
+                            .padding([.bottom], shoudlShowBackButton ? 0 : 32)
                     }
-                    .padding()
                 }
-                if stack.count > 1 {
+                .transition(transition)
+                if shoudlShowBackButton {
                     MenuButton(title: Localized.string("Back"), icons: .leftIcon("arrow.backward"))
                         .onTapGesture{
-                            withAnimation {
+                            withTransitionAnimations {
                                 nextTransitionEdge.value = .leading
                                 stack = stack.dropLast()
                             }
@@ -55,23 +59,28 @@ public struct MenuContainer: View {
         }
         .onPreferenceChange(MenuNavigationPreferenceKey.self) { navigation in
             if let navigation {
-                withAnimation {
+                withTransitionAnimations {
                     nextTransitionEdge.value = .trailing
                     stack.append(navigation)
                 }
             }
         }
-        .onPreferenceChange(MenuTitlePreferenceKey.self) { title in
-            withAnimation {
-                self.title = title
+        .onPreferenceChange(MenuPagePropertiesPreferenceKey.self) { pageProperties in
+            withTransitionAnimations {
+                self.pageProperties = pageProperties ?? .init()
             }
         }
     }
 
+    var shoudlShowBackButton: Bool {
+        stack.count > 1 && pageProperties.showBackButton
+    }
+
     var transition: AnyTransition {
-        .asymmetric(
-            insertion: .push(from: nextTransitionEdge.value),
-            removal: .opacity
-        )
+        .opacity
+    }
+
+    func withTransitionAnimations(_ actions: () -> Void) {
+        withAnimation(.easeIn(duration: 0.125), actions)
     }
 }

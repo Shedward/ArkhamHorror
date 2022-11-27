@@ -29,7 +29,7 @@ struct SelectedStoryView: View {
             }
             .frame(width: StoryImage.width)
         }
-        .menuTitle(title)
+        .menuProperties(title: title)
     }
 }
 

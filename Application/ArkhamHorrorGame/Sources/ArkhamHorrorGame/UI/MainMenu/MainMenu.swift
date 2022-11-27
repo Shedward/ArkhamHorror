@@ -22,10 +22,10 @@ struct MainMenu: View {
                 MenuButton(title: Localized.string("Settings"))
             } content: {
                 UnderConstructionView(textStyle: .Design.Menu.h1)
-                    .menuTitle(Localized.string("Settings"))
+                    .menuProperties(title: Localized.string("Settings"))
             }
         }
-        .menuTitle(Localized.string("Arkham Horror"))
+        .menuProperties(title: Localized.string("Arkham Horror"))
     }
 }
 
