@@ -23,8 +23,6 @@ struct CharactersList: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            MenuButton(title: Localized.string("Back"), icons: .leftIcon("arrow.backward"))
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
         }
     }
 }

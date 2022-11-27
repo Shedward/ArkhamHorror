@@ -17,13 +17,12 @@ struct SelectStoryView: View {
     let stories: [MockStory]
 
     var body: some View {
-        MenuPage(title: Localized.string("Select story")) {
-            HStack(spacing: 32) {
-                ForEach(stories) { story in
-                    StoryView(title: story.title)
-                }
+        HStack(spacing: 32) {
+            ForEach(stories) { story in
+                StoryView(title: story.title)
             }
         }
+        .menuTitle(Localized.string("Select story"))
     }
 }
 

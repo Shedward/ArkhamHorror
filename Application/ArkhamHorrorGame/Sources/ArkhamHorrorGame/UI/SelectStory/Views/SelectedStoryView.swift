@@ -15,22 +15,21 @@ struct SelectedStoryView: View {
     let description: String
 
     var body: some View {
-        MenuPage(title: title) {
-            HStack(spacing: 16) {
-                StoryImage()
-                VStack {
-                    Text(description)
-                        .styled(.Design.Menu.body)
-                    MenuHSeparator()
-                        .frame(maxWidth: 50)
-                    MenuButton(
-                        title: Localized.string("Start"),
-                        icons: .mainButton
-                    )
-                }
-                .frame(width: StoryImage.width)
+        HStack(spacing: 16) {
+            StoryImage()
+            VStack {
+                Text(description)
+                    .styled(.Design.Menu.body)
+                MenuHSeparator()
+                    .frame(maxWidth: 50)
+                MenuButton(
+                    title: Localized.string("Start"),
+                    icons: .mainButton
+                )
             }
+            .frame(width: StoryImage.width)
         }
+        .menuTitle(title)
     }
 }
 

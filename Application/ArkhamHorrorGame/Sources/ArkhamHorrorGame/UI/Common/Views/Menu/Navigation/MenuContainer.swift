@@ -8,17 +8,17 @@
 import SwiftUI
 import Prelude
 
-struct MenuContainer: View {
+public struct MenuContainer: View {
     @State private var stack: [MenuNavigationItem]
     @State private var title: String?
 
     private let nextTransitionEdge: Box<Edge> = .init(.leading)
 
-    init<Content: View>(@ViewBuilder content: () -> Content) {
+    public init<Content: View>(@ViewBuilder content: () -> Content) {
         self.stack = [MenuNavigationItem(view: AnyView(content()))]
     }
 
-    var body: some View {
+    public var body: some View {
         return VStack {
             ZStack(alignment: .bottomLeading) {
                 ZStack(alignment: .center) {
@@ -31,8 +31,8 @@ struct MenuContainer: View {
                                 Text(title)
                                     .styled(.Design.Menu.h1)
                                 MenuHSeparator().frame(maxWidth: 200)
-                                    .withoutAnimation()
                             }
+                            .withoutAnimation()
                         }
                         stack.last?.view?
                             .transition(transition)
