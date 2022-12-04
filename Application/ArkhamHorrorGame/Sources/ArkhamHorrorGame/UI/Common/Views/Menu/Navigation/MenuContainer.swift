@@ -37,7 +37,7 @@ public struct MenuContainer: View {
                             .withoutAnimation()
                         }
                         stack.last?.view?
-                            .withoutAnimation()
+                            .transition(transition)
                             .padding([.leading, .trailing], 32)
                             .padding([.top], pageProperties.title != nil ? 0 : 32 )
                             .padding([.bottom], shoudlShowBackButton ? 0 : 32)
@@ -74,8 +74,10 @@ public struct MenuContainer: View {
             \.menuNavigator,
              MenuNavigator(
                 pop: {
-                    nextTransitionEdge.value = .leading
-                    stack = stack.dropLast()
+                    withTransitionAnimations {
+                        nextTransitionEdge.value = .leading
+                        stack = stack.dropLast()
+                    }
                 }
              )
         )
@@ -86,10 +88,13 @@ public struct MenuContainer: View {
     }
 
     var transition: AnyTransition {
-        .opacity
+        .asymmetric(
+            insertion: .push(from: nextTransitionEdge.value),
+            removal: .opacity
+        )
     }
 
     func withTransitionAnimations(_ actions: () -> Void) {
-        withAnimation(.easeIn(duration: 0.125), actions)
+        withAnimation(.easeInOut(duration: 0.3), actions)
     }
 }

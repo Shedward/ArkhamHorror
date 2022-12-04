@@ -68,6 +68,7 @@ struct ConfigureCharacterView: View {
             VStack {
                 Text(name)
                     .styled(.Design.Menu.h2)
+                    .lineLimit(2)
                     .multilineTextAlignment(.center)
                 Text(profession)
                     .styled(.Design.Menu.story)
@@ -112,13 +113,13 @@ struct ConfigureCharacterView: View {
                 HStack(spacing: 32) {
                     VStack(spacing: 0) {
                         HStack {
-                            Image("health")
+                            Image("health", bundle: .module)
                                 .foregroundColor(Color(.Design.Content.main))
                             Text(Localized.number(stats.health))
                                 .styled(.Design.Menu.h1)
                         }
                         HStack {
-                            Image("mind")
+                            Image("mind", bundle: .module)
                                 .foregroundColor(Color(.Design.Content.main))
                             Text(Localized.number(stats.mind))
                                 .styled(.Design.Menu.h1)
@@ -137,7 +138,7 @@ struct ConfigureCharacterView: View {
                     HStack(alignment: .bottom, spacing: 8) {
                         ForEach(skills, id: \.icon) { skill in
                             VStack(alignment: .center, spacing: 0) {
-                                Image(skill.icon)
+                                Image(skill.icon, bundle: .module)
                                     .foregroundColor(Color(.Design.Content.main))
                                 Text(Localized.number(skill.value))
                                     .styled(.Design.Menu.h1)
