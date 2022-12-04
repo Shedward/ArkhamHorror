@@ -10,6 +10,10 @@ import Prelude
 import ArkhamHorror
 
 struct SelectedStoryView: View {
+
+    @Environment(\.design)
+    var design: DesignSystem
+
     let title: String
     let image: UImage
     let description: String
@@ -19,7 +23,7 @@ struct SelectedStoryView: View {
             StoryImage()
             VStack {
                 Text(description)
-                    .styled(.Design.Menu.body)
+                    .styled(design.text.menu.body)
                 MenuHSeparator()
                     .frame(maxWidth: 50)
                 MenuButton(
@@ -35,9 +39,7 @@ struct SelectedStoryView: View {
 
 struct SelectedStoryView_Previews: PreviewProvider {
     static var previews: some View {
-        ZStack {
-            Rectangle()
-                .foregroundColor(.init(.Design.Background.main))
+        MenuPreview {
             SelectedStoryView(
                 title: "Story title",
                 image: UImage(),

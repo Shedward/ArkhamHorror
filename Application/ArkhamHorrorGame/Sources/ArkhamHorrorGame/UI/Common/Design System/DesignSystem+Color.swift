@@ -8,41 +8,79 @@
 import SwiftUI
 
 extension DesignSystem {
-    enum Color {
+    typealias ColorKind = KeyPath<ColorTheme, UColor>
 
-        private static func named(_ name: String) -> UColor {
-            #if os(iOS)
-            UColor(named: name, in: .module, compatibleWith: nil)!
-            #elseif os(macOS)
-            UColor(named: name, bundle: .module)!
-            #endif
+    struct ColorTheme {
+        struct Background {
+            let main: UColor
+            let secondary: UColor
+            let tertiary: UColor
+            let quaternary: UColor
         }
 
-        enum Background {
-            static let main = Color.named("color.background.main")
-            static let secondary = Color.named("color.background.secondary")
-            static let tertiary = Color.named("color.background.tertiary")
-            static let quaternary = Color.named("color.background.quaternary")
+        struct Content {
+            let main: UColor
+            let secondary: UColor
         }
 
-        enum Content {
-            static let main = Color.named("color.content.main")
-            static let secondary = Color.named("color.content.secondary")
+        struct Fixed {
+            let black: UColor
         }
 
-        enum Fixed {
-            static let black = Color.named("color.fixed.black")
+        struct Tint {
+            let bad: UColor
+            let good: UColor
         }
 
-        enum Tint {
-            static let bad = Color.named("color.tint.bad")
-            static let good = Color.named("color.tint.good")
+        let background: Background
+        let content: Content
+        let fixed: Fixed
+        let tint: Tint
+
+        func by(_ kind: ColorKind) -> UColor {
+            self[keyPath: kind]
         }
+
+        static func named(_ prefix: String) -> ColorTheme {
+            func color(named name: String) -> UColor {
+                DesignSystem.colorNamed("\(prefix).\(name)")
+            }
+
+            return .init(
+                background: .init(
+                    main: color(named: "background.main"),
+                    secondary: color(named: "background.secondary"),
+                    tertiary: color(named: "background.tertiary"),
+                    quaternary: color(named: "background.quaternary")
+                ),
+                content: .init(
+                    main: color(named: "content.main"),
+                    secondary: color(named: "content.secondary")
+                ),
+                fixed: .init(
+                    black: color(named: "fixed.black")
+                ),
+                tint: .init(
+                    bad: color(named: "tint.bad"),
+                    good: color(named: "tint.good")
+                )
+            )
+        }
+    }
+
+    private static func colorNamed(_ name: String) -> UColor {
+        #if os(iOS)
+        UColor(named: name, in: .module, compatibleWith: nil)!
+        #elseif os(macOS)
+        UColor(named: name, bundle: .module)!
+        #endif
     }
 }
 
 extension UColor {
-    typealias Design = DesignSystem.Color
+    var asColor: Color {
+        Color(self)
+    }
 }
 
 extension Color {
@@ -52,5 +90,15 @@ extension Color {
 #elseif os(macOS)
         self = .init(nsColor: color)
 #endif
+    }
+}
+
+extension View {
+    func foregroundColor(_ color: UColor) -> some View {
+        foregroundColor(Color(color))
+    }
+
+    func border(_ color: UColor) -> some View {
+        border(Color(color))
     }
 }

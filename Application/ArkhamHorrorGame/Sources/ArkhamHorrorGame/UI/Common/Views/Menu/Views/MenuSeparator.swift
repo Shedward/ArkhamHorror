@@ -8,17 +8,23 @@
 import SwiftUI
 
 struct MenuHSeparator: View {
+    @Environment(\.design)
+    var design: DesignSystem
+
     var body: some View {
         Rectangle()
             .frame(height: 1)
-            .foregroundColor(Color(.Design.Content.main))
+            .foregroundColor(design.color.content.main)
     }
 }
 
 struct MenuVSeparator: View {
+    @Environment(\.design)
+    var design: DesignSystem
+
     var body: some View {
         Rectangle()
             .frame(width: 1)
-            .foregroundColor(Color(.Design.Content.main))
+            .foregroundColor(design.color.content.main)
     }
 }

@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct MenuButton: View {
+
+    @Environment(\.design)
+    var design: DesignSystem
+
     struct Icons {
         var leftIconName: String?
         var leftHighlightedIcondName: String?
@@ -39,13 +43,14 @@ struct MenuButton: View {
 
     var title: String
     var icons: Icons = .none
-    var textStyle: TextStyle = .Design.Menu.h2
+    var textKind: DesignSystem.TextKind = \.menu.h2
 
     @State
     private var isHovered: Bool = false
 
     var body: some View {
         HStack(alignment: .center) {
+            let textStyle = design.text.by(textKind)
             let iconTextStyle = textStyle.withIconStyle(textStyle.iconStyle.smaller(by: 6))
 
             if let leftIcon = isHovered
@@ -71,7 +76,7 @@ struct MenuButton_Provider_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Rectangle()
-                .foregroundColor(.init(.Design.Background.main))
+                .foregroundColor(.init(DesignSystem.default.color.content.main))
             VStack {
                 MenuButton(title: "Start", icons: .mainButton)
                 MenuButton(title: "Back", icons: .leftIcon("arrow.backward"))

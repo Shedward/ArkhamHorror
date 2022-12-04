@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct StoryView: View {
+    @Environment(\.design)
+    var design: DesignSystem
+
     let title: String
 
     var body: some View {
@@ -15,7 +18,7 @@ struct StoryView: View {
             StoryImage()
             VStack {
                 Text(title)
-                    .styled(.Design.Menu.h4)
+                    .styled(design.text.menu.h4)
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
                 Spacer()
@@ -28,9 +31,7 @@ struct StoryView: View {
 
 struct StoryView_Previews: PreviewProvider {
     static var previews: some View {
-        ZStack {
-            Rectangle()
-                .foregroundColor(.init(.Design.Background.main))
+        MenuPreview {
             StoryView(title: "Story title")
         }
     }

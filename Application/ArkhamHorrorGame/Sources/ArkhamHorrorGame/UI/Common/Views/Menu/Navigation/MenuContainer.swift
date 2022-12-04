@@ -9,6 +9,9 @@ import SwiftUI
 import Prelude
 
 public struct MenuContainer: View {
+
+    @Environment(\.design)
+    var design: DesignSystem
     @State
     private var pageProperties: MenuPageProperties = .init()
     @State
@@ -25,13 +28,13 @@ public struct MenuContainer: View {
             ZStack(alignment: .bottomLeading) {
                 ZStack(alignment: .center) {
                     Rectangle()
-                        .fill(Color(.Design.Background.main))
+                        .fill(Color(design.color.background.main))
                         .ignoresSafeArea()
                     VStack(spacing: 32) {
                         if let title = pageProperties.title {
                             VStack(spacing: 0) {
                                 Text(title)
-                                    .styled(.Design.Menu.h1)
+                                    .styled(design.text.menu.h1)
                                 MenuHSeparator().frame(maxWidth: 200)
                             }
                             .withoutAnimation()

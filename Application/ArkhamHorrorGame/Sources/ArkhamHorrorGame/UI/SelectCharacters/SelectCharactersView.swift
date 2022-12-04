@@ -15,13 +15,15 @@ struct SelectCharactersView: View {
         case configureCharacter
     }
 
+    @Environment(\.design)
+    var design: DesignSystem
     @SwiftUI.State
     var state: State = .configureCharacter
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             Rectangle()
-                .foregroundColor(.init(.Design.Background.main))
+                .foregroundColor(design.color.background.main)
                 .ignoresSafeArea()
             HStack(alignment: .bottom, spacing: 16) {
                 switch state {
@@ -33,7 +35,7 @@ struct SelectCharactersView: View {
                 MenuVSeparator()
                 VStack(spacing: 16) {
                     Text(Localized.string("2/4"))
-                        .styled(.Design.Menu.h2)
+                        .styled(design.text.menu.h2)
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 16) {
                             ForEach(0..<3) { _ in
@@ -52,6 +54,8 @@ struct SelectCharactersView: View {
 
 struct SelectCharactersView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectCharactersView(state: .configureCharacter)
+        MenuPreview {
+            SelectCharactersView(state: .configureCharacter)
+        }
     }
 }

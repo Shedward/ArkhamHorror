@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct CharacterView: View {
+    @Environment(\.design)
+    var design: DesignSystem
+
     let name: String
 
     var body: some View {
         VStack {
             CharacterPortrait(size: .small)
             Text(name)
-                .styled(.Design.Menu.body)
+                .styled(design.text.menu.body)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
                 .frame(height: 32, alignment: .top)

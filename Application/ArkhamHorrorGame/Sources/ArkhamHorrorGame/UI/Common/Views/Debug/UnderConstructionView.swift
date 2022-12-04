@@ -9,9 +9,13 @@ import SwiftUI
 import Prelude
 
 struct UnderConstructionView: View {
-    let textStyle: TextStyle
+    @Environment(\.design)
+    var design: DesignSystem
+
+    let textKind: DesignSystem.TextKind
 
     var body: some View {
+        let textStyle = design.text.by(textKind)
         VStack {
             Image(systemName: "hammer", withStyle: textStyle)?
                 .foregroundColor(Color(textStyle.color))
@@ -26,6 +30,6 @@ struct UnderConstructionView: View {
 
 struct UnderConstructionView_Previews: PreviewProvider {
     static var previews: some View {
-        UnderConstructionView(textStyle: .Design.debug)
+        UnderConstructionView(textKind: \.content.debug)
     }
 }

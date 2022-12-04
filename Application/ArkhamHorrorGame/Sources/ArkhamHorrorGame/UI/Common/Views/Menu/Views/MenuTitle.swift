@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct MenuTitle: View {
+    @Environment(\.design)
+    var design: DesignSystem
+
     let text: String
 
     var body: some View {
         VStack(spacing: 0) {
             Text(text)
-                .styled(.Design.Menu.h1)
+                .styled(design.text.menu.h1)
             MenuHSeparator().frame(maxWidth: 200)
         }
     }

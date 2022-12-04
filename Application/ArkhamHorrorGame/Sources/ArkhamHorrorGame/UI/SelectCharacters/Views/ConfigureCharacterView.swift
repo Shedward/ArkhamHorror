@@ -12,6 +12,8 @@ struct ConfigureCharacterView: View {
 
     @Environment(\.menuNavigator)
     var menuNavigator: MenuNavigator
+    @Environment(\.design)
+    var design: DesignSystem
 
     let name: String
     let profession: String
@@ -56,7 +58,7 @@ struct ConfigureCharacterView: View {
             MenuVSeparator().padding([.top, .bottom])
             VStack(alignment: .center) {
                 statsSection
-                UnderConstructionView(textStyle: .Design.Menu.debug)
+                UnderConstructionView(textKind: \.menu.debug)
                 buttonsSection
             }
         }
@@ -67,11 +69,11 @@ struct ConfigureCharacterView: View {
             CharacterPortrait(size: .big)
             VStack {
                 Text(name)
-                    .styled(.Design.Menu.h2)
+                    .styled(design.text.menu.h2)
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
                 Text(profession)
-                    .styled(.Design.Menu.story)
+                    .styled(design.text.menu.story)
             }
         }
     }
@@ -81,7 +83,7 @@ struct ConfigureCharacterView: View {
             MenuHSeparator()
                 .frame(maxWidth: 50)
             Text(story)
-                .styled(.Design.Menu.story)
+                .styled(design.text.menu.story)
         }
     }
 
@@ -94,9 +96,9 @@ struct ConfigureCharacterView: View {
                     ForEach(roles, id: \.name) { role in
                         let name = Localized.string("%@ - ", arguments: role.name)
                         let formattedName = AttributedString(name)
-                            .styled(.Design.Menu.keyword)
+                            .styled(design.text.menu.keyword)
                         let formattedDescription = AttributedString(role.description)
-                            .styled(.Design.Menu.body)
+                            .styled(design.text.menu.body)
                         Text(formattedName + formattedDescription)
                     }
                 }
@@ -109,20 +111,20 @@ struct ConfigureCharacterView: View {
         VStack {
             if !skills.isEmpty {
                 Text(Localized.string("Stats"))
-                    .styled(.Design.Menu.h3)
+                    .styled(design.text.menu.h3)
                 HStack(spacing: 32) {
                     VStack(spacing: 0) {
                         HStack {
                             Image("health", bundle: .module)
-                                .foregroundColor(Color(.Design.Content.main))
+                                .foregroundColor(design.color.content.main)
                             Text(Localized.number(stats.health))
-                                .styled(.Design.Menu.h1)
+                                .styled(design.text.menu.h1)
                         }
                         HStack {
                             Image("mind", bundle: .module)
-                                .foregroundColor(Color(.Design.Content.main))
+                                .foregroundColor(Color(design.color.content.main))
                             Text(Localized.number(stats.mind))
-                                .styled(.Design.Menu.h1)
+                                .styled(design.text.menu.h1)
                         }
                     }
                     .padding(
@@ -133,23 +135,23 @@ struct ConfigureCharacterView: View {
                             trailing: 24
                         )
                     )
-                    .border(Color(.Design.Content.main))
+                    .border(design.color.content.main)
 
                     HStack(alignment: .bottom, spacing: 8) {
                         ForEach(skills, id: \.icon) { skill in
                             VStack(alignment: .center, spacing: 0) {
                                 Image(skill.icon, bundle: .module)
-                                    .foregroundColor(Color(.Design.Content.main))
+                                    .foregroundColor(design.color.content.main)
                                 Text(Localized.number(skill.value))
-                                    .styled(.Design.Menu.h1)
+                                    .styled(design.text.menu.h1)
                             }
                         }
                         Text("+ 2")
-                            .styled(.Design.Menu.h1)
+                            .styled(design.text.menu.h1)
                             .padding(.leading)
                     }
                     .padding()
-                    .border(Color(.Design.Content.main))
+                    .border(design.color.content.main)
                 }
             }
         }
@@ -170,9 +172,8 @@ struct ConfigureCharacterView: View {
 
 struct ConfigureCharacterView_Previews: PreviewProvider {
     static var previews: some View {
-        ConfigureCharacterView.mock()
-            .padding(32)
-            .background(Color(.Design.Background.main))
-            .ignoresSafeArea()
+        MenuPreview {
+            ConfigureCharacterView.mock()
+        }
     }
 }

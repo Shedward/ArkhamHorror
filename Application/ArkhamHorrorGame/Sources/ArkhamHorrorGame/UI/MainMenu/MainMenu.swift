@@ -10,6 +10,9 @@ import SwiftUI
 
 struct MainMenu: View {
 
+    @Environment(\.design)
+    var design: DesignSystem
+
     var body: some View {
         VStack(spacing: 8) {
             MenuLink {
@@ -21,7 +24,7 @@ struct MainMenu: View {
             MenuLink {
                 MenuButton(title: Localized.string("Settings"))
             } content: {
-                UnderConstructionView(textStyle: .Design.Menu.h1)
+                UnderConstructionView(textKind: \.menu.h1)
                     .menuProperties(title: Localized.string("Settings"))
             }
         }

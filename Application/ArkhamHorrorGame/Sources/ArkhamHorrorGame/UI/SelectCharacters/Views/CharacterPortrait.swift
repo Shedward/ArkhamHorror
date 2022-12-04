@@ -47,12 +47,15 @@ struct CharacterPortrait: View {
         72 * size.scale
     }
 
+    @Environment(\.design)
+    var design: DesignSystem
+
     var size: Size
 
     var body: some View {
         PortraitArc()
             .cornerRadius(8)
-            .foregroundColor(Color(.Design.Background.secondary))
+            .foregroundColor(design.color.background.secondary)
             .frame(
                 width: CharacterPortrait.width(for: size),
                 height: CharacterPortrait.height(for: size)
