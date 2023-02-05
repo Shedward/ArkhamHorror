@@ -7,6 +7,9 @@
 
 import SwiftUI
 import SceneKit
+import SpriteKit
+
+import HUD
 
 #if os(iOS)
 struct SceneView: UIViewRepresentable {
@@ -40,4 +43,5 @@ struct SceneView: NSViewRepresentable {
 
 private func configureSceneView(_ sceneView: SCNView) {
     sceneView.allowsCameraControl = true
+    sceneView.overlaySKScene = Scenes.main()
 }

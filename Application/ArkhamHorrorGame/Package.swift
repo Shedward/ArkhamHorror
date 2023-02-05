@@ -16,17 +16,18 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "Map", path: "../Domain/Map"),
-        .package(name: "ArkhamHorror", path: "../Domain/ArkhamHorror")
+        .package(name: "ArkhamHorror", path: "../Domain/ArkhamHorror"),
+        .package(name: "HUD", path: "../Application/HUD")
     ],
     targets: [
         .target(
             name: "ArkhamHorrorGame",
             dependencies: [
                 "Map",
-                "ArkhamHorror"
+                "ArkhamHorror",
+                "HUD"
             ],
             resources: [
-                .process("Resources/SceeneAssets.scnassets"),
                 .process("Resources/Assets.xcassets")
             ]
         ),

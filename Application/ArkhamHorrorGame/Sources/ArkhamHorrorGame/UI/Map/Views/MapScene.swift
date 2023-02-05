@@ -16,7 +16,7 @@ struct MapScene: View {
     let map: Map
     let mapGeometry = MapGeometry(hexagonSize: 1, spacing: 0.5)
 
-    private var scene = SCNScene(named: "SceeneAssets.scnassets/Gameboard.scn")!
+    private var scene = SCNScene()
     private let gameboardNode = SCNNode()
 
     var body: some View {
