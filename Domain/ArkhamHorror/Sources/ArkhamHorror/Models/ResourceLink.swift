@@ -12,7 +12,7 @@ public struct ResourceLink: Codable, Equatable {
     public var path: String
 
     public var fullPath: URL {
-        URL(string: prefix)!.appendingPathComponent(path)
+        URL(fileURLWithPath: prefix).appendingPathComponent(path)
     }
 
     public init(prefix: String, path: String) throws {

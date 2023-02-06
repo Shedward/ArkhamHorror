@@ -7,5 +7,5 @@ description:
   невиданных разрушений, которые принесёт Слепой безумный бог, и тем
   самым обрекают человечество на гибель'
 
-- rules:
-  - defaultCountOfActions: 2
+rules:
+  defaultCountOfActions: 2
