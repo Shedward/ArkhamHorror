@@ -28,6 +28,7 @@ let package = Package(
                 "HUD"
             ],
             resources: [
+                .copy("Resources/Campaigns"),
                 .process("Resources/Assets.xcassets")
             ]
         ),
