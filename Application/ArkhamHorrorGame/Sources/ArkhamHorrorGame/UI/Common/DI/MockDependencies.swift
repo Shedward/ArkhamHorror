@@ -8,9 +8,9 @@
 import ArkhamHorror
 
 struct MockDependencies: AllDependencies {
-    var campaignStorage: CampaignStorage
+    var campaignStorage: CampaignLoader
 
     init() {
-        self.campaignStorage = MockCampaignStorage()
+        self.campaignStorage = InMemoryCampaignLoader()
     }
 }

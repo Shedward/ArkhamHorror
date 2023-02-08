@@ -83,6 +83,13 @@
         "identifier" : "ArkhamHorrorTests",
         "name" : "ArkhamHorrorTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Application\/ArkhamHorrorGame",
+        "identifier" : "ArkhamHorrorGameTests",
+        "name" : "ArkhamHorrorGameTests"
+      }
     }
   ],
   "version" : 1

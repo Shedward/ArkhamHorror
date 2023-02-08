@@ -15,18 +15,17 @@ final class ResourceLinkTests: XCTestCase {
     }
 
     func testParsing() throws {
-        let modelString = "link: //some/resource/link"
+        let modelString = "link: //res/test"
 
         let decoder = YAMLDecoder()
         let model = try decoder.decode(
             TestModel.self,
             from: modelString,
-            userInfo: [ResourceLink.CodingUserInfoKey.resourcePrefix: "campaigns/some_campaign"]
+            userInfo: [ResourceLink.CodingUserInfoKey.resourceLoader: resourceLoader()]
         )
 
-        XCTAssertEqual(model.link.path, "some/resource/link")
-        XCTAssertEqual(model.link.prefix, "campaigns/some_campaign")
-        XCTAssertEqual(model.link.fullPath.absoluteString, "campaigns/some_campaign/some/resource/link")
+        XCTAssertEqual(model.link.path, "res/test")
+        XCTAssertNoThrow(try model.link.load())
 
         let encoder = YAMLEncoder()
         let string = try encoder.encode(model)
@@ -44,35 +43,19 @@ final class ResourceLinkTests: XCTestCase {
     }
 
     func testFailingWrongStartOfPath() throws {
-        let modelString = "link: some/resource/link"
+        let modelString = "link: wrong/resource/link"
 
         let decoder = YAMLDecoder()
         XCTAssertThrowsError(try decoder.decode(
             TestModel.self,
             from: modelString,
-            userInfo: [ResourceLink.CodingUserInfoKey.resourcePrefix: "campaigns/some_campaign"]
+            userInfo: [ResourceLink.CodingUserInfoKey.resourceLoader: resourceLoader()]
         ))
     }
 
-    func testFailingInvalidPath() throws {
-        let modelString = "link: //some wrong path"
-
-        let decoder = YAMLDecoder()
-        XCTAssertThrowsError(try decoder.decode(
-            TestModel.self,
-            from: modelString,
-            userInfo: [ResourceLink.CodingUserInfoKey.resourcePrefix: "campaigns/some_campaign"]
-        ))
-    }
-
-    func testFailingInvalidPrefix() throws {
-        let modelString = "link: //some/resource/path"
-
-        let decoder = YAMLDecoder()
-        XCTAssertThrowsError(try decoder.decode(
-            TestModel.self,
-            from: modelString,
-            userInfo: [ResourceLink.CodingUserInfoKey.resourcePrefix: "some wrong path"]
-        ))
+    private func resourceLoader() -> ResourceLoader {
+        let resourceLoader = InMemoryResourceLoader()
+        resourceLoader.addResource(Data(), to: "res/test")
+        return resourceLoader
     }
 }

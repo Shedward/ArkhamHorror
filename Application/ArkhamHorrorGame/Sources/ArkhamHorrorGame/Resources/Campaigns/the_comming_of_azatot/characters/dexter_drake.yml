@@ -1,5 +1,5 @@
 id: dexter_drake
-portrait: @resources/portraits/dexter_drake.png
+portrait: //resources/portraits/dexter_drake.png
 name: Декстер Дрейк
 moto: Лучше бы тебе никогда не видеть настоящего волшебства, малыш. Никому лучше не видеть.
 description:

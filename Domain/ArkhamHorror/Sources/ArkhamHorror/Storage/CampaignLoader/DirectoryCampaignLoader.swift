@@ -1,5 +1,5 @@
 //
-//  DirectoryCampaignStorage.swift
+//  DirectoryCampaignLoader.swift
 //  
 //
 //  Created by Vladislav Maltsev on 14.11.2022.
@@ -9,14 +9,14 @@ import Foundation
 import Prelude
 import Yams
 
-public enum DirectoryCampaignStorageError: Error {
+public enum DirectoryCampaignLoaderError: Error {
     case notImplemented
     case failedToGetContentOfDirectory(Error)
     case failedToLoadCampaignFile(Error)
     case failedToParseCampaign(Error)
 }
 
-public final class DirectoryCampaignStorage: CampaignStorage {
+public final class DirectoryCampaignLoader: CampaignLoader {
     private let rootPath: URL
     private let fileManager: FileManager
 
@@ -26,10 +26,10 @@ public final class DirectoryCampaignStorage: CampaignStorage {
     }
 
     public func campaigns() async throws -> [CampaignDescription] {
-        try await Task(priority: .medium) {
-            let directories = try mappingThrow(DirectoryCampaignStorageError.failedToGetContentOfDirectory) {
-                try fileManager.contentsOfDirectory(
-                    at: rootPath,
+        try await Task(priority: .medium) { [self] in
+            let directories = try mappingThrow(DirectoryCampaignLoaderError.failedToGetContentOfDirectory) {
+                try self.fileManager.contentsOfDirectory(
+                    at: self.rootPath,
                     includingPropertiesForKeys: [.isDirectoryKey]
                 )
             }
@@ -42,15 +42,17 @@ public final class DirectoryCampaignStorage: CampaignStorage {
                 let campaignExists = fileManager.fileExists(atPath: campaignFile.path)
                 guard campaignExists else { return nil }
 
-                let campaignFileData = try mappingThrow(DirectoryCampaignStorageError.failedToLoadCampaignFile) {
+                let campaignFileData = try mappingThrow(DirectoryCampaignLoaderError.failedToLoadCampaignFile) {
                     try Data(contentsOf: campaignFile)
                 }
-                let campaignDescription = try mappingThrow(DirectoryCampaignStorageError.failedToParseCampaign) {
+
+                let campaignDescription = try mappingThrow(DirectoryCampaignLoaderError.failedToParseCampaign) {
                     let decoder = YAMLDecoder()
+                    let resourceLoader = DirectoryResourceLoader(root: campaignDir, fileManager: fileManager)
                     let model = try decoder.decode(
                         CampaignDescription.self,
                         from: campaignFileData,
-                        userInfo: [ResourceLink.CodingUserInfoKey.resourcePrefix: campaignDir]
+                        userInfo: [ResourceLink.CodingUserInfoKey.resourceLoader: resourceLoader]
                     )
                     return model
                 }
@@ -63,6 +65,6 @@ public final class DirectoryCampaignStorage: CampaignStorage {
     }
 
     public func loadCampaign(id: Campaign.Id) async throws -> Campaign {
-        throw DirectoryCampaignStorageError.notImplemented
+        throw DirectoryCampaignLoaderError.notImplemented
     }
 }

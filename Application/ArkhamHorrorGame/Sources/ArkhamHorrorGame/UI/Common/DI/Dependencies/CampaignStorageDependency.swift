@@ -8,5 +8,5 @@
 import ArkhamHorror
 
 protocol CampaignStorageDependency {
-    var campaignStorage: CampaignStorage { get set }
+    var campaignStorage: CampaignLoader { get set }
 }

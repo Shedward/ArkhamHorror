@@ -13,6 +13,7 @@ public struct Character: Codable {
 
     let id: Id
     let name: String
+    let portrait: ResourceLink
     let moto: String
     let description: String
 }
