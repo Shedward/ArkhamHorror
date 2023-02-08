@@ -8,31 +8,18 @@
 import Common
 import Prelude
 
-public struct Campaign: Codable, Identifiable {
+public struct Campaign: Identifiable {
     public enum IdTag {}
     public typealias Id = Tagged<IdTag, String>
 
-    public struct Rules: Codable {
-        let initialPosition: Region.ID
-        let defaultCountOfActions: Int
-    }
-
     public let id: Id
-    public let name: String
-    public let description: String
-    public let rules: Rules
 
+    public let info: CampaignInfo
     public let availableCharacters: [Character]
-}
 
-public struct CampaignDescription: Codable {
-    public let id: Campaign.Id
-    public let name: String
-    public let description: String
-
-    public init(campaign: Campaign) {
-        self.id = campaign.id
-        self.name = campaign.description
-        self.description = campaign.description
+    public init(info: CampaignInfo, availableCharacters: [Character]) {
+        self.id = info.id
+        self.info = info
+        self.availableCharacters = availableCharacters
     }
 }

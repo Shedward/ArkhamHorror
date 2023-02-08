@@ -47,8 +47,8 @@ public struct ResourceLink: Codable {
         try container.encode(rawValue)
     }
 
-    public func load() throws -> Data {
-        try resourceLoader.loadResource(at: path)
+    public func load() async throws -> Data {
+        try await resourceLoader.loadResource(at: path)
     }
 }
 

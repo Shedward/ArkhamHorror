@@ -14,7 +14,7 @@ final class ResourceLinkTests: XCTestCase {
         let link: ResourceLink
     }
 
-    func testParsing() throws {
+    func testParsing() async throws {
         let modelString = "link: //res/test"
 
         let decoder = YAMLDecoder()
@@ -25,7 +25,8 @@ final class ResourceLinkTests: XCTestCase {
         )
 
         XCTAssertEqual(model.link.path, "res/test")
-        XCTAssertNoThrow(try model.link.load())
+        let data = try await model.link.load()
+        XCTAssertTrue(data.isEmpty)
 
         let encoder = YAMLEncoder()
         let string = try encoder.encode(model)

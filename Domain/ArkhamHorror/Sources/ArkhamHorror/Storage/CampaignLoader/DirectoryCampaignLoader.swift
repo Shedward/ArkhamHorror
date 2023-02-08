@@ -25,7 +25,7 @@ public final class DirectoryCampaignLoader: CampaignLoader {
         self.fileManager = fileManager
     }
 
-    public func campaigns() async throws -> [CampaignDescription] {
+    public func campaigns() async throws -> [CampaignInfo] {
         try await Task(priority: .medium) { [self] in
             let directories = try mappingThrow(DirectoryCampaignLoaderError.failedToGetContentOfDirectory) {
                 try self.fileManager.contentsOfDirectory(
@@ -34,7 +34,7 @@ public final class DirectoryCampaignLoader: CampaignLoader {
                 )
             }
 
-            let campaignDescriptions = try directories.compactMap { campaignDir -> CampaignDescription? in
+            let campaignDescriptions = try directories.compactMap { campaignDir -> CampaignInfo? in
                 let isDirectory = try? campaignDir.resourceValues(forKeys: [.isDirectoryKey]).isDirectory
                 guard isDirectory ?? false else { return nil }
 
@@ -50,7 +50,7 @@ public final class DirectoryCampaignLoader: CampaignLoader {
                     let decoder = YAMLDecoder()
                     let resourceLoader = DirectoryResourceLoader(root: campaignDir, fileManager: fileManager)
                     let model = try decoder.decode(
-                        CampaignDescription.self,
+                        CampaignInfo.self,
                         from: campaignFileData,
                         userInfo: [ResourceLink.CodingUserInfoKey.resourceLoader: resourceLoader]
                     )

@@ -31,9 +31,11 @@ public final class DirectoryResourceLoader: ResourceLoader {
         return fileManager.fileExists(atPath: url.path)
     }
 
-    public func loadResource(at path: String) throws -> Data {
-        let url = root.appendingPathComponent(path)
-        return try Data(contentsOf: url)
+    public func loadResource(at path: String) async throws -> Data {
+        try await Task(priority: .userInitiated) {
+            let url = root.appendingPathComponent(path)
+            return try Data(contentsOf: url)
+        }.value
     }
 
     public func sameAs(_ another: ResourceLoader) -> Bool {
