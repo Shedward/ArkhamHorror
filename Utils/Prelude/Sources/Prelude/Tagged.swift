@@ -17,6 +17,12 @@ public struct Tagged<Tag, RawValue> {
 	}
 }
 
+extension Tagged: CustomStringConvertible where RawValue: CustomStringConvertible {
+    public var description: String {
+        rawValue.description
+    }
+}
+
 extension Tagged: Equatable where RawValue: Equatable {
 }
 

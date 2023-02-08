@@ -28,3 +28,15 @@ public func XCTAssertNear<T>(
 		XCTFail("Values \(lhs) and \(rhs) different by \(difference) which is more than expected \(maxDifference)", file: file, line: line)
 	}
 }
+
+public func XCTAssertNoThrowAsync<T>(
+    _ t: @autoclosure () async throws -> T,
+    file: StaticString = #filePath,
+    line: UInt = #line
+) async throws -> T {
+    do {
+        return try await t()
+    } catch {
+        return try XCTUnwrap(nil, "Expected no async throws, but error \(error) was thrown")
+    }
+}

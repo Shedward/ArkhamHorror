@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Prelude
 
 public struct ResourceLink: Codable {
     private let resourceLoader: ResourceLoader
@@ -59,7 +60,7 @@ extension ResourceLink: Equatable {
 }
 
 extension ResourceLink {
-    public enum CodingError: Error {
+    public enum CodingError: AppError {
         case resourceLoaderNotProvided
         case wrongResourceLoader
         case resourceNotExists(path: String)

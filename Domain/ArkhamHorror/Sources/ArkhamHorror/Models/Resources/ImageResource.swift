@@ -13,7 +13,9 @@ import UIKit
 typealias UImage = UIImage
 #endif
 
-public enum ImageResourceError: Error {
+import Prelude
+
+public enum ImageResourceError: AppError {
     case unsuportedFileType(String)
     case failedToLoadImage
 }

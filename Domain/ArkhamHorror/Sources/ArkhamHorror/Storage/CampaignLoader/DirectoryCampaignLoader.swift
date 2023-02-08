@@ -9,13 +9,14 @@ import Foundation
 import Prelude
 import Yams
 
-public enum DirectoryCampaignLoaderError: Error {
+public enum DirectoryCampaignLoaderError: AppError {
     case notImplemented
     case failedToGetContentOfDirectory(Error)
     case failedToLoadCampaignFile(Error)
     case failedToLoadCharacters(Error)
     case failedToLoadCharacter(id: Character.Id, error: Error)
     case failedToParseCampaign(Error)
+    case entityIdDifferentFromFileName(URL, String)
 }
 
 public final class DirectoryCampaignLoader: CampaignLoader {
@@ -47,7 +48,9 @@ public final class DirectoryCampaignLoader: CampaignLoader {
                 guard campaignExists else { return nil }
 
                 let campaignInfo = try mappingThrow(DirectoryCampaignLoaderError.failedToParseCampaign) {
-                    try loadFromFile(CampaignInfo.self, id: campaignId, path: Paths.campaignInfo)
+                    let campaignInfo = try loadFromFile(CampaignInfo.self, id: campaignId, path: Paths.campaignInfo)
+                    try validateId(model: campaignInfo, fileUrl: campaignDir)
+                    return campaignInfo
                 }
 
                 return campaignInfo
@@ -72,7 +75,9 @@ public final class DirectoryCampaignLoader: CampaignLoader {
                     let basename = url.deletingPathExtension().lastPathComponent
                     let characterId = Character.Id(rawValue: basename)
 
-                    return try loadFromFile(Character.self, id: campaignId, path: Paths.character(id: characterId))
+                    let character = try loadFromFile(Character.self, id: campaignId, path: Paths.character(id: characterId))
+                    try validateId(model: character, fileUrl: url)
+                    return character
                 }
 
                 return characters
@@ -91,24 +96,36 @@ public final class DirectoryCampaignLoader: CampaignLoader {
         id campaignId: Campaign.Id,
         path: String
     ) throws -> Model {
-        let campaignInfo = fullPath(campaign: campaignId, path: path)
-        let data = try Data(contentsOf: campaignInfo)
+        let filePath = fullPath(campaign: campaignId, path: path)
+        let data = try Data(contentsOf: filePath)
         let decoder = YAMLDecoder()
         let resourceLoader = DirectoryResourceLoader(
             root: fullPath(campaign: campaignId, path: Paths.campaignRoot),
             fileManager: fileManager
         )
-        return try decoder.decode(
+        let model = try decoder.decode(
             Model.self,
             from: data,
             userInfo: [ResourceLink.CodingUserInfoKey.resourceLoader: resourceLoader]
         )
+        return model
     }
 
     private func fullPath(campaign: Campaign.Id, path: String) -> URL {
         rootPath
             .appendingPathComponent(campaign.rawValue)
             .appendingPathComponent(path)
+    }
+
+    private func validateId<Model: Identifiable>(
+        model: Model,
+        fileUrl: URL
+    ) throws where Model.ID: CustomStringConvertible {
+        let basename = fileUrl.deletingPathExtension().lastPathComponent
+        let idString = String(describing: model.id)
+        if basename != idString {
+            throw DirectoryCampaignLoaderError.entityIdDifferentFromFileName(fileUrl, idString)
+        }
     }
 }
 

@@ -17,7 +17,8 @@ let package = Package(
     dependencies: [
         .package(name: "Map", path: "../Domain/Map"),
         .package(name: "ArkhamHorror", path: "../Domain/ArkhamHorror"),
-        .package(name: "HUD", path: "../Application/HUD")
+        .package(name: "HUD", path: "../Application/HUD"),
+        .package(name: "XCTestUtils", path: "../Utils/XCTestUtils")
     ],
     targets: [
         .target(
@@ -34,6 +35,9 @@ let package = Package(
         ),
         .testTarget(
             name: "ArkhamHorrorGameTests",
-            dependencies: ["ArkhamHorrorGame"]),
+            dependencies: [
+                "ArkhamHorrorGame",
+                "XCTestUtils"
+            ]),
     ]
 )

@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import Prelude
 
-enum DirectoryResourceLoaderError: Error {
+enum DirectoryResourceLoaderError: AppError {
     case fileForResourceNotFound(URL)
 }
 

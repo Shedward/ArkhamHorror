@@ -7,7 +7,7 @@
 
 import Prelude
 
-public struct Character: Codable {
+public struct Character: Codable, Identifiable {
     public enum IdTag {}
     public typealias Id = Tagged<IdTag, String>
 

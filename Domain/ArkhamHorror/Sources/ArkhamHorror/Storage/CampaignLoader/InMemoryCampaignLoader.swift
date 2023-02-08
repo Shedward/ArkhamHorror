@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import Prelude
 
-public enum InMemoryCampaignLoaderError: Error {
+public enum InMemoryCampaignLoaderError: AppError {
     case notFound
 }
 
