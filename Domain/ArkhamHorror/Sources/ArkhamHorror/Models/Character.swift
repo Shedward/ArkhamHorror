@@ -8,12 +8,12 @@
 import Prelude
 
 public struct Character: Codable {
-    enum IdTag {}
-    typealias Id = Tagged<IdTag, String>
+    public enum IdTag {}
+    public typealias Id = Tagged<IdTag, String>
 
-    let id: Id
-    let name: String
-    let portrait: ImageResource
-    let moto: String
-    let description: String
+    public let id: Id
+    public let name: String
+    public let portrait: ImageResource
+    public let moto: String
+    public let description: String
 }

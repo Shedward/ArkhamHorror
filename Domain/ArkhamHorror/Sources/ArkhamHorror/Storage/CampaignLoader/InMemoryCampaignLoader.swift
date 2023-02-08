@@ -18,7 +18,7 @@ public final class InMemoryCampaignLoader: CampaignLoader {
         self.campaigns = campaigns
     }
 
-    public func campaigns() async throws -> [CampaignInfo] {
+    public func campaignsInfo() async throws -> [CampaignInfo] {
         campaigns.map(\.info)
     }
 

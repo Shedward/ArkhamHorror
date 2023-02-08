@@ -6,6 +6,6 @@
 //
 
 public protocol CampaignLoader {
-    func campaigns() async throws -> [CampaignInfo]
+    func campaignsInfo() async throws -> [CampaignInfo]
     func loadCampaign(id: Campaign.Id) async throws -> Campaign
 }
