@@ -86,7 +86,7 @@
     },
     {
       "target" : {
-        "containerPath" : "container:Application\/ArkhamHorrorGame",
+        "containerPath" : "container:UI\/ArkhamHorrorGame",
         "identifier" : "ArkhamHorrorGameTests",
         "name" : "ArkhamHorrorGameTests"
       }
