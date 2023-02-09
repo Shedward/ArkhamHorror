@@ -9,4 +9,9 @@ import Foundation
 
 public enum Resources {
     public static let bundle = Bundle.module
+
+    public static var campaignDirectory: URL? {
+        let path = bundle.resourcePath?.appending("/Campaigns")
+        return path.map { URL(filePath: $0) }
+    }
 }
