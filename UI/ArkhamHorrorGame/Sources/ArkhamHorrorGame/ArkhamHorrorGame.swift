@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapScene
 
 public struct ArkhamHorrorGameApp: View {
 
@@ -14,7 +15,7 @@ public struct ArkhamHorrorGameApp: View {
 
     public var body: some View {
         MenuContainer {
-            MainMenu()
+            LoadMapView()
         }
     }
 }

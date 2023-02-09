@@ -1,5 +1,5 @@
 //
-//  MapView.swift
+//  LoadMapView.swift
 //  Arkham Horror
 //
 //  Created by Vladislav Maltsev on 16.01.2022.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Map
 
-struct MapView: View {
+public struct LoadMapView: View {
 	enum ViewState {
 		case empty
 		case failed(Error)
@@ -21,7 +21,10 @@ struct MapView: View {
 	@Environment(\.colorScheme)
 	var colorScheme
 
-    var body: some View {
+    public init() {
+    }
+
+    public var body: some View {
 		ZStack {
 			switch state {
 			case .empty:
@@ -50,6 +53,6 @@ struct MapView: View {
 
 struct MapDebugView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView()
+        LoadMapView()
     }
 }

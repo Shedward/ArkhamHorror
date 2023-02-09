@@ -16,8 +16,9 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "ArkhamHorror", path: "../Domain/ArkhamHorror"),
-        .package(name: "HUD", path: "../UI/HUD"),
         .package(name: "DesignSystem", path: "../UI/DesignSystem"),
+        .package(name: "HUD", path: "../UI/HUD"),
+        .package(name: "MapScene", path: "../UI/MapScene"),
         .package(name: "XCTestUtils", path: "../Utils/XCTestUtils")
     ],
     targets: [
@@ -26,6 +27,7 @@ let package = Package(
             dependencies: [
                 "ArkhamHorror",
                 "HUD",
+                "MapScene",
                 "DesignSystem"
             ],
             resources: [

@@ -15,7 +15,6 @@ let package = Package(
 			targets: ["ArkhamHorror"]),
     ],
 	dependencies: [
-        .package(url: "https://github.com/hsluv/hsluv-swift.git", from: "2.1.0"),
         .package(name: "Prelude", path: "../Utils/Prelude"),
         .package(name: "Common", path: "../Domain/Common"),
 		.package(name: "Map", path: "../Domain/Map"),
@@ -27,7 +26,6 @@ let package = Package(
                 "Prelude",
                 "Common",
 				"Map",
-                .product(name: "HSLuvSwift", package: "hsluv-swift")
 			]
 		),
 		.testTarget(

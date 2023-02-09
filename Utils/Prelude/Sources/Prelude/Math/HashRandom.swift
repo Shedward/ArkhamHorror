@@ -6,10 +6,9 @@
 //
 
 import Foundation
-import HSLuvSwift
 
 extension Float {
-    static func hashRandom<T: Hashable>(from minValue: Float, to maxValue: Float, for id: T) -> Float {
+    public static func hashRandom<T: Hashable>(from minValue: Float, to maxValue: Float, for id: T) -> Float {
         let progress = abs(Float(id.hashValue) / Float(Int.max))
         let value = (maxValue - minValue) * progress + minValue
         return value
@@ -17,7 +16,7 @@ extension Float {
 }
 
 extension Collection where Index == Int {
-    func hashRandomElement<T: Hashable>(for id: T) -> Element? {
+    public func hashRandomElement<T: Hashable>(for id: T) -> Element? {
         guard !isEmpty else { return nil }
 
         let index = id.hashValue % count
