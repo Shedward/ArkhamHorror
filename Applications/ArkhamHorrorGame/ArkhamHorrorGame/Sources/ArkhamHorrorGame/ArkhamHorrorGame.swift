@@ -8,7 +8,7 @@
 import SwiftUI
 import MapScene
 
-public struct ArkhamHorrorGameApp: View {
+public struct ArkhamHorrorGameMain: View {
 
     public init() {
     }

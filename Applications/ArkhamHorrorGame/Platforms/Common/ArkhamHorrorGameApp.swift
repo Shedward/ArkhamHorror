@@ -9,10 +9,10 @@ import SwiftUI
 import ArkhamHorrorGame
 
 @main
-struct ArkhamHorrorApp: App {
+struct ArkhamHorrorGameApp: App {
     var body: some Scene {
         WindowGroup {
-            ArkhamHorrorGameApp()
+            ArkhamHorrorGameMain()
         }
     }
 }
