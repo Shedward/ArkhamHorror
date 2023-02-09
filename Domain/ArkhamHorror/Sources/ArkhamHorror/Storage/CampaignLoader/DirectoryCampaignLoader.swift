@@ -8,6 +8,7 @@
 import Foundation
 import Prelude
 import Yams
+import Map
 
 public enum DirectoryCampaignLoaderError: AppError {
     case notImplemented
@@ -15,6 +16,7 @@ public enum DirectoryCampaignLoaderError: AppError {
     case failedToLoadCampaignFile(Error)
     case failedToLoadCharacters(Error)
     case failedToLoadCharacter(id: Character.Id, error: Error)
+    case failedToLoadMap(Error)
     case failedToParseCampaign(Error)
     case entityIdDifferentFromFileName(URL, String)
 }
@@ -83,9 +85,17 @@ public final class DirectoryCampaignLoader: CampaignLoader {
                 return characters
             }
 
+            let map: Map = try mappingThrow(DirectoryCampaignLoaderError.failedToLoadMap) {
+                let mapPath = fullPath(campaign: campaignId, path: Paths.map)
+                let fileData = try Data(contentsOf: mapPath)
+                let map = try Map(data: fileData)
+                return map
+            }
+
             return Campaign(
                 info: campaignInfo,
-                availableCharacters: characters
+                availableCharacters: characters,
+                map: map
             )
 
         }.value
@@ -137,9 +147,10 @@ extension DirectoryCampaignLoader {
         static let campaignRoot = ""
         static let campaignInfo = "campaign.yml"
         static let allCharactersDir = "characters"
+        static let map = "map.yml"
 
         static func character(id: Character.Id) -> String {
-            "characters/\(id.rawValue).yml"
+            "\(allCharactersDir)/\(id.rawValue).yml"
         }
     }
 }
