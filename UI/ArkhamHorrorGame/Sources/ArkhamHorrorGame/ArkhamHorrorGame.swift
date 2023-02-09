@@ -14,7 +14,7 @@ public struct ArkhamHorrorGameApp: View {
 
     public var body: some View {
         MenuContainer {
-            MapView()
+            MainMenu()
         }
     }
 }

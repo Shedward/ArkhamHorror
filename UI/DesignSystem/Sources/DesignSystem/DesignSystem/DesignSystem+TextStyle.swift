@@ -6,51 +6,50 @@
 //
 
 import Foundation
-import Prelude
 import SwiftUI
-import ArkhamHorror
+import Prelude
 
-struct IconStyle {
+public struct IconStyle {
     #if os(iOS)
-    typealias Weight = UImage.SymbolWeight
+    public typealias Weight = UImage.SymbolWeight
     #elseif os(macOS)
-    typealias Weight = UFont.Weight
+    public typealias Weight = UFont.Weight
     #endif
 
-    var pointSize: UFloat
-    var weight: Weight
+    public var pointSize: UFloat
+    public var weight: Weight
 
-    func smaller(by sizeDifference: UFloat) -> IconStyle {
+    public func smaller(by sizeDifference: UFloat) -> IconStyle {
         with(self) {
             $0.pointSize -= sizeDifference
         }
     }
 }
 
-struct TextStyle {
-    var font: UFont
-    var iconStyle: IconStyle
-    var color: UColor
+public struct TextStyle {
+    public var font: UFont
+    public var iconStyle: IconStyle
+    public var color: UColor
 
-    init(font: UFont, iconStyle: IconStyle, color: UColor) {
+    public init(font: UFont, iconStyle: IconStyle, color: UColor) {
         self.font = font
         self.iconStyle = iconStyle
         self.color = color
     }
 
-    func withColor(_ color: UColor) -> TextStyle {
+    public func withColor(_ color: UColor) -> TextStyle {
         with(self) {
             $0.color = color
         }
     }
 
-    func withIconStyle(_ iconStyle: IconStyle) -> TextStyle {
+    public func withIconStyle(_ iconStyle: IconStyle) -> TextStyle {
         with(self) {
             $0.iconStyle = iconStyle
         }
     }
 
-    func toAttributes() -> AttributeContainer {
+    public func toAttributes() -> AttributeContainer {
         var attributes = AttributeContainer()
         attributes.font = font
         attributes.foregroundColor = color
@@ -59,34 +58,34 @@ struct TextStyle {
 }
 
 extension DesignSystem {
-    typealias TextKind = KeyPath<TextTheme, TextStyle>
+    public typealias TextKind = KeyPath<TextTheme, TextStyle>
 
-    struct TextTheme {
-        struct Menu {
-            let h1: TextStyle
-            let h2: TextStyle
-            let h3: TextStyle
-            let h4: TextStyle
-            let body: TextStyle
-            let keyword: TextStyle
-            let story: TextStyle
-            let debug: TextStyle
+    public struct TextTheme {
+        public struct Menu {
+            public let h1: TextStyle
+            public let h2: TextStyle
+            public let h3: TextStyle
+            public let h4: TextStyle
+            public let body: TextStyle
+            public let keyword: TextStyle
+            public let story: TextStyle
+            public let debug: TextStyle
         }
 
-        struct Content {
-            let body: TextStyle
-            let keyword: TextStyle
-            let debug: TextStyle
+        public struct Content {
+            public let body: TextStyle
+            public let keyword: TextStyle
+            public let debug: TextStyle
         }
 
-        let menu: Menu
-        let content: Content
+        public let menu: Menu
+        public let content: Content
 
-        func by(_ kind: TextKind) -> TextStyle {
+        public func by(_ kind: TextKind) -> TextStyle {
             self[keyPath: kind]
         }
 
-        static func withColorTheme(_ color: ColorTheme) -> TextTheme {
+        public static func withColorTheme(_ color: ColorTheme) -> TextTheme {
             .init(
                 menu: .init(
                     h1: .init(
@@ -153,7 +152,7 @@ extension DesignSystem {
 }
 
 extension NSAttributedString {
-    convenience init(string: String, style: TextStyle) {
+    public convenience init(string: String, style: TextStyle) {
         self.init(
             string: string,
             attributes: [
@@ -165,26 +164,26 @@ extension NSAttributedString {
 }
 
 extension String {
-    func styled(_ textStyle: TextStyle) -> NSAttributedString {
+    public func styled(_ textStyle: TextStyle) -> NSAttributedString {
         .init(string: self, style: textStyle)
     }
 }
 
 extension Text {
-    func styled(_ textStyle: TextStyle) -> Text {
+    public func styled(_ textStyle: TextStyle) -> Text {
         foregroundColor(.init(textStyle.color.cgColor))
             .font(.init(textStyle.font))
     }
 }
 
 extension AttributedString {
-    func styled(_ textStyle: TextStyle) -> AttributedString {
+    public func styled(_ textStyle: TextStyle) -> AttributedString {
         self.mergingAttributes(textStyle.toAttributes())
     }
 }
 
 struct MyPreviewProvider_Previews: PreviewProvider {
-    static var previews: some View {
+    public static var previews: some View {
 
         let design = DesignSystem.default
         let styles: [TextStyle] = [

@@ -7,6 +7,7 @@
 
 import Prelude
 import SwiftUI
+import DesignSystem
 
 struct MainMenu: View {
 

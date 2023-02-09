@@ -6,6 +6,7 @@
 //
 
 import SceneKit
+import DesignSystem
 
 extension SCNVector3 {
 

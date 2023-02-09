@@ -15,22 +15,21 @@ let package = Package(
             targets: ["ArkhamHorrorGame"]),
     ],
     dependencies: [
-        .package(name: "Map", path: "../Domain/Map"),
         .package(name: "ArkhamHorror", path: "../Domain/ArkhamHorror"),
-        .package(name: "HUD", path: "../Application/HUD"),
+        .package(name: "HUD", path: "../UI/HUD"),
+        .package(name: "DesignSystem", path: "../UI/DesignSystem"),
         .package(name: "XCTestUtils", path: "../Utils/XCTestUtils")
     ],
     targets: [
         .target(
             name: "ArkhamHorrorGame",
             dependencies: [
-                "Map",
                 "ArkhamHorror",
-                "HUD"
+                "HUD",
+                "DesignSystem"
             ],
             resources: [
-                .copy("Resources/Campaigns"),
-                .process("Resources/Assets.xcassets")
+                .copy("Resources/Campaigns")
             ]
         ),
         .testTarget(

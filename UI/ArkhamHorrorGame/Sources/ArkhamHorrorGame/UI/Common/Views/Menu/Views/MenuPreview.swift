@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DesignSystem
 
 struct MenuPreview<Content: View>: View {
     @Environment(\.design)

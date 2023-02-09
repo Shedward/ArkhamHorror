@@ -8,6 +8,7 @@
 import SwiftUI
 import Prelude
 import ArkhamHorror
+import DesignSystem
 
 struct SelectedStoryView: View {
 

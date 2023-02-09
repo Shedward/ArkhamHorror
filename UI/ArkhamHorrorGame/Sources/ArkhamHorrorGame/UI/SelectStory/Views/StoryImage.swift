@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DesignSystem
 
 struct StoryImage: View {
     @Environment(\.design)

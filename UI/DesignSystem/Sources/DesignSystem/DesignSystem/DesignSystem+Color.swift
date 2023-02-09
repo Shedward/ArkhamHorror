@@ -8,34 +8,34 @@
 import SwiftUI
 
 extension DesignSystem {
-    typealias ColorKind = KeyPath<ColorTheme, UColor>
+    public typealias ColorKind = KeyPath<ColorTheme, UColor>
 
-    struct ColorTheme {
-        struct Background {
-            let main: UColor
-            let secondary: UColor
-            let tertiary: UColor
-            let quaternary: UColor
+    public struct ColorTheme {
+        public struct Background {
+            public let main: UColor
+            public let secondary: UColor
+            public let tertiary: UColor
+            public let quaternary: UColor
         }
 
-        struct Content {
-            let main: UColor
-            let secondary: UColor
+        public struct Content {
+            public let main: UColor
+            public let secondary: UColor
         }
 
-        struct Fixed {
-            let black: UColor
+        public struct Fixed {
+            public let black: UColor
         }
 
-        struct Tint {
-            let bad: UColor
-            let good: UColor
+        public struct Tint {
+            public let bad: UColor
+            public let good: UColor
         }
 
-        let background: Background
-        let content: Content
-        let fixed: Fixed
-        let tint: Tint
+        public let background: Background
+        public let content: Content
+        public let fixed: Fixed
+        public let tint: Tint
 
         func by(_ kind: ColorKind) -> UColor {
             self[keyPath: kind]
@@ -78,13 +78,13 @@ extension DesignSystem {
 }
 
 extension UColor {
-    var asColor: Color {
+    public var asColor: Color {
         Color(self)
     }
 }
 
 extension Color {
-    init(_ color: UColor) {
+    public init(_ color: UColor) {
 #if os(iOS)
         self = .init(uiColor: color)
 #elseif os(macOS)
@@ -94,11 +94,11 @@ extension Color {
 }
 
 extension View {
-    func foregroundColor(_ color: UColor) -> some View {
+    public func foregroundColor(_ color: UColor) -> some View {
         foregroundColor(Color(color))
     }
 
-    func border(_ color: UColor) -> some View {
+    public func border(_ color: UColor) -> some View {
         border(Color(color))
     }
 }

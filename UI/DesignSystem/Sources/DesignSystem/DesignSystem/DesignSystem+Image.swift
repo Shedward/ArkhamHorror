@@ -9,7 +9,7 @@ import SwiftUI
 
 extension Image {
     #if os(iOS)
-    init?(systemName: String, withStyle textStyle: TextStyle) {
+    public init?(systemName: String, withStyle textStyle: TextStyle) {
         let fontConfiguration = UImage.SymbolConfiguration(
             pointSize: CGFloat(textStyle.iconStyle.pointSize),
             weight: textStyle.iconStyle.weight
@@ -26,7 +26,7 @@ extension Image {
     }
 
     #elseif os(macOS)
-    init?(systemName: String, withStyle textStyle: TextStyle) {
+    public init?(systemName: String, withStyle textStyle: TextStyle) {
         let fontConfiguration = UImage.SymbolConfiguration(
             pointSize: textStyle.iconStyle.pointSize,
             weight: textStyle.iconStyle.weight

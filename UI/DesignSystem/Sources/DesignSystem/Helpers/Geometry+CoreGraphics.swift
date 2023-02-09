@@ -9,34 +9,34 @@ import Map
 import CoreGraphics
 
 extension Geometry.Point {
-	init(uPoint: UPoint) {
+    public init(uPoint: UPoint) {
 		self.init(
 			x: Double(uPoint.x),
 			y: Double(uPoint.y)
 		)
 	}
 
-	func toUPoint() -> UPoint {
+    public func toUPoint() -> UPoint {
 		UPoint(x: x, y: y)
 	}
 }
 
 extension Geometry.Size {
-	init(uSize: USize) {
+    public init(uSize: USize) {
 		self.init(
 			width: uSize.width,
 			height: uSize.height
 		)
 	}
 
-	func toUSize() -> USize {
+    public func toUSize() -> USize {
 		USize(width: width, height: height)
 	}
 }
 
 
 extension UBezierPath {
-    convenience init(points: [Geometry.Point]) {
+    public convenience init(points: [Geometry.Point]) {
         self.init()
 
         guard let first = points.first else {
@@ -52,7 +52,7 @@ extension UBezierPath {
         close()
     }
 
-    convenience init(lineFrom startPoint: UPoint, to endPoint: UPoint) {
+    public convenience init(lineFrom startPoint: UPoint, to endPoint: UPoint) {
         self.init()
         move(to: startPoint)
         uAddLine(to: endPoint)

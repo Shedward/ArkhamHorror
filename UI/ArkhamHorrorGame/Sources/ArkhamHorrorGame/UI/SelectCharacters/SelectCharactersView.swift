@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Prelude
+import DesignSystem
 
 struct SelectCharactersView: View {
 

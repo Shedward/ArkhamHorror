@@ -6,7 +6,7 @@
 //
 
 extension DesignSystem {
-    struct Spacing {
-        let rawValue: UFloat
+    public struct Spacing {
+        public let rawValue: UFloat
     }
 }

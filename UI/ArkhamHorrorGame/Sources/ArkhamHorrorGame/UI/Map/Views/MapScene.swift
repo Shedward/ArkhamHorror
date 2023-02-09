@@ -11,6 +11,7 @@ import SwiftUI
 import Prelude
 import Common
 import Map
+import DesignSystem
 
 struct MapScene: View {
     let map: Map

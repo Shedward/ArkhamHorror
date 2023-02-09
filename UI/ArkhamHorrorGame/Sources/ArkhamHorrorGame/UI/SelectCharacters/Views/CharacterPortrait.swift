@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DesignSystem
 
 struct PortraitArc: Shape {
     func path(in rect: CGRect) -> Path {

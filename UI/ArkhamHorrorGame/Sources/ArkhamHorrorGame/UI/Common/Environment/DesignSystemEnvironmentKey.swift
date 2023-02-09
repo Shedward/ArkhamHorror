@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DesignSystem
 
 struct DesignSystemEnvironmentKey: EnvironmentKey {
     static var defaultValue = DesignSystem.default

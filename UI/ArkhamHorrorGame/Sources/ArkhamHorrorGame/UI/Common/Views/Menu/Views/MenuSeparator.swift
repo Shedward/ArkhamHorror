@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DesignSystem
 
 struct MenuHSeparator: View {
     @Environment(\.design)

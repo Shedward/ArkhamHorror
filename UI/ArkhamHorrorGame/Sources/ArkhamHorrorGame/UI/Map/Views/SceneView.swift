@@ -8,6 +8,7 @@
 import SwiftUI
 import SceneKit
 import SpriteKit
+import DesignSystem
 
 import HUD
 
