@@ -112,9 +112,12 @@ public final class DirectoryCampaignLoader: CampaignLoader {
     }
 
     private func fullPath(campaign: Campaign.Id, path: String) -> URL {
-        rootPath
-            .appendingPathComponent(campaign.rawValue)
-            .appendingPathComponent(path)
+        let campaignPath = rootPath.appendingPathComponent(campaign.rawValue)
+        guard !path.isEmpty else {
+            return campaignPath
+        }
+
+        return campaignPath.appendingPathComponent(path)
     }
 
     private func validateId<Model: Identifiable>(

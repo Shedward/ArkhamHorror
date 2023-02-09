@@ -11,6 +11,7 @@ import Common
 public struct CampaignInfo: Codable, Identifiable {
     public let id: Campaign.ID
     public let name: String
+    public let image: ImageResource
     public let description: String
     public let rules: CampaignRules
 }
