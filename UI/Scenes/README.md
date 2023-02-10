@@ -1,3 +1,3 @@
-# MapScene
+# Scenes
 
 A description of this package.

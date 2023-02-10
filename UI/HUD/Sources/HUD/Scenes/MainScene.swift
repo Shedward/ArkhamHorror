@@ -26,9 +26,9 @@ final public  class MainScene: SKScene {
         let buttonsStack = HStack(
             views:
                 Button(texture: SKTexture(imageNamed: "wrong"), onTap: nil),
-            Button(texture: SKTexture(imageNamed: "wrong"), onTap: nil),
-            Button(texture: SKTexture(imageNamed: "wrong"), onTap: nil),
-            Button(texture: SKTexture(imageNamed: "wrong"), onTap: nil),
+                Button(texture: SKTexture(imageNamed: "wrong"), onTap: nil),
+                Button(texture: SKTexture(imageNamed: "wrong"), onTap: nil),
+                Button(texture: SKTexture(imageNamed: "wrong"), onTap: nil),
             spacing: 4
         )
 

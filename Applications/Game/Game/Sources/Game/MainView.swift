@@ -7,7 +7,7 @@
 
 import SwiftUI
 import HUD
-import MapScene
+import Scenes
 
 public struct MainView: SwiftUI.View {
     let size: CGSize = .init(width: 1280, height: 720)

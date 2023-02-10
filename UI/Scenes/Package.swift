@@ -4,15 +4,15 @@
 import PackageDescription
 
 let package = Package(
-    name: "MapScene",
+    name: "Scenes",
     platforms: [
         .iOS(.v16),
         .macOS(.v13)
     ],
     products: [
         .library(
-            name: "MapScene",
-            targets: ["MapScene"]),
+            name: "Scenes",
+            targets: ["Scenes"]),
     ],
     dependencies: [
         .package(name: "Map", path: "../Domain/Map"),
@@ -21,7 +21,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "MapScene",
+            name: "Scenes",
             dependencies: [
                 "Map",
                 "DesignSystem",
@@ -29,7 +29,7 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "MapSceneTests",
-            dependencies: ["MapScene"]),
+            name: "ScenesTests",
+            dependencies: ["Scenes"]),
     ]
 )
