@@ -39,8 +39,8 @@ struct ButtonShader: Shader {
         )
 
         shader.attributes = [
-            .init(named: Attributes.size, type: Size.self),
-            .init(named: Attributes.borderWidth, type: Length.self),
+            .init(named: Attributes.size, type: CGSize.self),
+            .init(named: Attributes.borderWidth, type: CGFloat.self),
             .init(named: Attributes.isSelected, type: Bool.self)
         ]
 

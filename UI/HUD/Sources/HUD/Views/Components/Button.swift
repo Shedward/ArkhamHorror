@@ -12,11 +12,11 @@ public class Button: View {
 
     public init(
         texture: SKTexture,
-        size: Size = Size(width: 42, height: 42),
-        borderWidth: Length = 4,
+        size: CGSize = .init(width: 42, height: 42),
+        borderWidth: CGFloat = 4,
         onTap: (() -> Void)?
     ) {
-        let node = ButtonNode(texture: texture, size: size.cgSize())
+        let node = ButtonNode(texture: texture, size: size)
         node.isUserInteractionEnabled = true
         node.anchorPoint = .zero
         node.shader = ButtonShader.shader

@@ -10,7 +10,7 @@ import SpriteKit
 public final class HStack: View {
     public let node: SKNode
 
-    init(views: View..., spacing: Length) {
+    init(views: View..., spacing: CGFloat) {
         node = SKNode()
 
         var originX: CGFloat = 0.0

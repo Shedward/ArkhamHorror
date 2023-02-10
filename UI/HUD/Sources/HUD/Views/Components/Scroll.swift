@@ -12,10 +12,10 @@ public class Scroll: View {
 
     public init(
         texture: SKTexture,
-        size: Size,
+        size: CGSize,
         content: View
     ) {
-        let node = ScrollNode(size: size.cgSize())
+        let node = ScrollNode(size: size)
 
         self.node = node
     }
