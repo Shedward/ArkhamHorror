@@ -15,3 +15,21 @@ public func mappingThrow<Return>(
         throw mapError(error)
     }
 }
+
+public func mappingThrow<Return>(
+    _ description: String,
+    fileID: StaticString = #fileID,
+    line: UInt = #line,
+    action: () throws -> Return
+) throws -> Return {
+    do {
+        return try action()
+    } catch {
+        throw AppError(
+            _: description,
+            underlyingError: error,
+            fileID: fileID,
+            line: line
+        )
+    }
+}

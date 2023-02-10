@@ -8,10 +8,6 @@
 import Foundation
 import Prelude
 
-enum DirectoryResourceLoaderError: AppError {
-    case fileForResourceNotFound(URL)
-}
-
 public final class DirectoryResourceLoader: ResourceLoader {
     private let root: URL
     private let fileManager: FileManager

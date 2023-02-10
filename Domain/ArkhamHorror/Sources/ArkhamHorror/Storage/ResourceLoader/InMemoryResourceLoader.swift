@@ -6,10 +6,7 @@
 //
 
 import Foundation
-
-public enum InMemoryResourceLoaderError {
-    case notFound
-}
+import Prelude
 
 public final class InMemoryResourceLoader: ResourceLoader {
     private var resources: [String: Data]
@@ -34,7 +31,7 @@ public final class InMemoryResourceLoader: ResourceLoader {
         if let data = resources[path] {
             return data
         } else {
-            throw InMemoryCampaignLoaderError.notFound
+            throw AppError("Resource at \(path) not found")
         }
     }
 

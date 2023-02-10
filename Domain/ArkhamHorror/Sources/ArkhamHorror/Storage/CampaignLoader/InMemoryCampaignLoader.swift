@@ -8,10 +8,6 @@
 import Foundation
 import Prelude
 
-public enum InMemoryCampaignLoaderError: AppError {
-    case notFound
-}
-
 public final class InMemoryCampaignLoader: CampaignLoader {
     public var campaigns: [Campaign]
 
@@ -25,7 +21,7 @@ public final class InMemoryCampaignLoader: CampaignLoader {
 
     public func loadCampaign(id: Campaign.Id) async throws -> Campaign {
         guard let campaign = campaigns.first(byId: id) else {
-            throw InMemoryCampaignLoaderError.notFound
+            throw AppError("Campaign \(id) not found")
         }
         return campaign
     }

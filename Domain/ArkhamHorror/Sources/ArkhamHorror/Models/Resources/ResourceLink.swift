@@ -19,24 +19,24 @@ public struct ResourceLink: Codable {
 
     public init(from decoder: Decoder) throws {
         guard let resourceLoaderAny = decoder.userInfo[CodingUserInfoKey.resourceLoader] else {
-            throw CodingError.resourceLoaderNotProvided
+            throw AppError("ResourceLoader is not provided to decoder.userInfo")
         }
 
         guard let resourceLoader = resourceLoaderAny as? ResourceLoader else {
-            throw CodingError.wrongResourceLoader
+            throw AppError("Wrong resource loader. Expected ResourceLoader, found \(resourceLoaderAny)")
         }
 
         let container = try decoder.singleValueContainer()
         let rawValue = try container.decode(String.self)
 
         guard rawValue.starts(with: "//") else {
-            throw CodingError.badLinkFormat(rawLink: rawValue)
+            throw AppError("Wrong link format. Expected //path/to/resource, found \(rawValue)")
         }
 
         let path = String(rawValue.dropFirst(2))
 
         guard resourceLoader.linkExists(at: path) else {
-            throw CodingError.resourceNotExists(path: path)
+            throw AppError("Resource at \(rawValue) does not exists")
         }
 
         self.init(resourceLoader: resourceLoader, path: path)
@@ -60,13 +60,6 @@ extension ResourceLink: Equatable {
 }
 
 extension ResourceLink {
-    public enum CodingError: AppError {
-        case resourceLoaderNotProvided
-        case wrongResourceLoader
-        case resourceNotExists(path: String)
-        case badLinkFormat(rawLink: String)
-    }
-
     public enum CodingUserInfoKey {
         public static let resourceLoader = Swift.CodingUserInfoKey(rawValue: "resourceLink.resourceLoader")!
     }

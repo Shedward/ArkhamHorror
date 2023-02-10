@@ -10,17 +10,6 @@ import Prelude
 import Yams
 import Map
 
-public enum DirectoryCampaignLoaderError: AppError {
-    case notImplemented
-    case failedToGetContentOfDirectory(Error)
-    case failedToLoadCampaignFile(Error)
-    case failedToLoadCharacters(Error)
-    case failedToLoadCharacter(id: Character.Id, error: Error)
-    case failedToLoadMap(Error)
-    case failedToParseCampaign(Error)
-    case entityIdDifferentFromFileName(URL, String)
-}
-
 public final class DirectoryCampaignLoader: CampaignLoader {
 
     private let rootPath: URL
@@ -33,7 +22,7 @@ public final class DirectoryCampaignLoader: CampaignLoader {
 
     public func campaignsInfo() async throws -> [CampaignInfo] {
         try await Task(priority: .medium) { [self] in
-            let directories = try mappingThrow(DirectoryCampaignLoaderError.failedToGetContentOfDirectory) {
+            let directories = try mappingThrow("Failed to get content of directory \(rootPath)") {
                 try self.fileManager.contentsOfDirectory(
                     at: self.rootPath,
                     includingPropertiesForKeys: [.isDirectoryKey]
@@ -49,7 +38,7 @@ public final class DirectoryCampaignLoader: CampaignLoader {
                 let campaignExists = fileManager.fileExists(atPath: campaignInfoFile.path)
                 guard campaignExists else { return nil }
 
-                let campaignInfo = try mappingThrow(DirectoryCampaignLoaderError.failedToParseCampaign) {
+                let campaignInfo = try mappingThrow("Failed to parse campaign \(campaignId)") {
                     let campaignInfo = try loadFromFile(CampaignInfo.self, id: campaignId, path: Paths.campaignInfo)
                     try validateId(model: campaignInfo, fileUrl: campaignDir)
                     return campaignInfo
@@ -64,11 +53,11 @@ public final class DirectoryCampaignLoader: CampaignLoader {
 
     public func loadCampaign(id campaignId: Campaign.Id) async throws -> Campaign {
         try await Task(priority: .medium) {
-            let campaignInfo = try mappingThrow(DirectoryCampaignLoaderError.failedToParseCampaign) {
+            let campaignInfo = try mappingThrow("Failed to parse campaign \(campaignId)") {
                 try loadFromFile(CampaignInfo.self, id: campaignId, path: Paths.campaignInfo)
             }
 
-            let characters: [Character] = try mappingThrow(DirectoryCampaignLoaderError.failedToLoadCharacters) {
+            let characters: [Character] = try mappingThrow("Failed to parse characters") {
                 let allCharacterPath = fullPath(campaign: campaignId, path: Paths.allCharactersDir)
                 let files = try fileManager.contentsOfDirectory(at: allCharacterPath, includingPropertiesForKeys: nil)
                 let ymls = files.filter { $0.pathExtension == "yml" }
@@ -85,7 +74,7 @@ public final class DirectoryCampaignLoader: CampaignLoader {
                 return characters
             }
 
-            let map: Map = try mappingThrow(DirectoryCampaignLoaderError.failedToLoadMap) {
+            let map: Map = try mappingThrow("Failed to load map") {
                 let mapPath = fullPath(campaign: campaignId, path: Paths.map)
                 let fileData = try Data(contentsOf: mapPath)
                 let map = try Map(data: fileData)
@@ -137,7 +126,10 @@ public final class DirectoryCampaignLoader: CampaignLoader {
         let basename = fileUrl.deletingPathExtension().lastPathComponent
         let idString = String(describing: model.id)
         if basename != idString {
-            throw DirectoryCampaignLoaderError.entityIdDifferentFromFileName(fileUrl, idString)
+            throw AppError("""
+            Entites should have filename equal to id. \
+            Model at \(fileUrl) have \(basename), expected \(idString)"
+            """)
         }
     }
 }

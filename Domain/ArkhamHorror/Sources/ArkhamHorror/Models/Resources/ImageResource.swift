@@ -15,11 +15,6 @@ typealias UImage = UIImage
 
 import Prelude
 
-public enum ImageResourceError: AppError {
-    case unsuportedFileType(String)
-    case failedToLoadImage
-}
-
 public struct ImageResource: Codable {
     private let link: ResourceLink
 
@@ -41,7 +36,7 @@ public struct ImageResource: Codable {
         if let image = UImage(data: data) {
             return image
         } else {
-            throw ImageResourceError.failedToLoadImage
+            throw AppError("Failed to load image from \(data)")
         }
     }
 }
