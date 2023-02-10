@@ -8,7 +8,6 @@
 import SpriteKit
 
 final public  class MainScene: SKScene {
-
     public override init(size: CGSize) {
         super.init(size: size)
         configureScene()

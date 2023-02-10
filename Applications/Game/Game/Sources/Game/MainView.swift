@@ -16,7 +16,7 @@ public struct MainView: SwiftUI.View {
     }
 
     public var body: some SwiftUI.View {
-        SceneView(overlay: HUD.MainScene(size: size))
+        SceneView(overlay: HUD.MenuScene(size: size))
             .frame(width: size.width, height: size.height)
     }
 }

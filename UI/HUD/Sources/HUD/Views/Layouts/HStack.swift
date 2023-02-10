@@ -13,10 +13,8 @@ public final class HStack: View {
     init(views: View..., spacing: Length) {
         node = SKNode()
 
-
         var originX: CGFloat = 0.0
         views.forEach { view in
-
             let childNode = view.node
             childNode.position = CGPoint(x: originX, y: 0)
             let childSize = childNode.calculateAccumulatedFrame()
