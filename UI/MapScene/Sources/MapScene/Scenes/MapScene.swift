@@ -1,37 +1,35 @@
 //
 //  MapScene.swift
-//  Arkham Horror
+//  
 //
-//  Created by Vladislav Maltsev on 01.08.2022.
+//  Created by Vladislav Maltsev on 10.02.2023.
 //
 
 import SceneKit
-import SwiftUI
-
+import SpriteKit
 import Prelude
 import Common
 import Map
 import DesignSystem
 import HSLuvSwift
 
-struct MapScene: View {
+final class MapScene: SCNScene {
     let map: Map
     let mapGeometry = MapGeometry(hexagonSize: 1, spacing: 0.5)
 
-    private var scene = SCNScene()
-    private let gameboardNode = SCNNode()
-
-    var body: some View {
-        SceneView(scene: scene)
-            .onAppear(perform: configureScene)
-    }
+    let gameboardNode = SCNNode()
 
     public init(map: Map) {
         self.map = map
+        super.init()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     private func configureScene() {
-        scene.rootNode.addChildNode(gameboardNode)
+        rootNode.addChildNode(gameboardNode)
         configureCamera()
         configureLighting()
         configureGameboard()
@@ -48,18 +46,18 @@ struct MapScene: View {
         node.camera = camera
         node.position = pointOfView()
 
-        scene.rootNode.addChildNode(node)
+        rootNode.addChildNode(node)
     }
 
     private func configureLighting() {
-        scene.background.contents = UColor(white: 0.10, alpha: 1)
+        background.contents = UColor(white: 0.10, alpha: 1)
         let light = createLight(
             type: .ambient,
             color: .white,
             castShadows: false
         )
         light.position = .origin
-        scene.rootNode.addChildNode(light)
+        rootNode.addChildNode(light)
 
         let light1 = createLight(
             type: .omni,
@@ -67,7 +65,7 @@ struct MapScene: View {
             castShadows: true
         )
         light1.position = pointOfView().movedBy(dx: -5, dz: 5)
-        scene.rootNode.addChildNode(light1)
+        rootNode.addChildNode(light1)
 
         let light2 = createLight(
             type: .omni,
@@ -75,7 +73,7 @@ struct MapScene: View {
             castShadows: true
         )
         light2.position = pointOfView().movedBy(dx: 5, dz: 5)
-        scene.rootNode.addChildNode(light2)
+        rootNode.addChildNode(light2)
 
         let light3 = createLight(
             type: .omni,
@@ -83,7 +81,7 @@ struct MapScene: View {
             castShadows: true
         )
         light3.position = pointOfView().movedBy(dy: 5, dz: 5)
-        scene.rootNode.addChildNode(light3)
+        rootNode.addChildNode(light3)
     }
 
     private func createLight(

@@ -4,26 +4,26 @@
 import PackageDescription
 
 let package = Package(
-    name: "ArkhamHorrorGame",
+    name: "Game",
     platforms: [
         .iOS(.v16),
         .macOS(.v13)
     ],
     products: [
         .library(
-            name: "ArkhamHorrorGame",
-            targets: ["ArkhamHorrorGame"]),
+            name: "Game",
+            targets: ["Game"]
+        ),
     ],
     dependencies: [
         .package(name: "ArkhamHorror", path: "../Domain/ArkhamHorror"),
         .package(name: "DesignSystem", path: "../UI/DesignSystem"),
         .package(name: "HUD", path: "../UI/HUD"),
-        .package(name: "MapScene", path: "../UI/MapScene"),
-        .package(name: "XCTestUtils", path: "../Utils/XCTestUtils")
+        .package(name: "MapScene", path: "../UI/MapScene")
     ],
     targets: [
         .target(
-            name: "ArkhamHorrorGame",
+            name: "Game",
             dependencies: [
                 "ArkhamHorror",
                 "HUD",
@@ -31,13 +31,8 @@ let package = Package(
                 "DesignSystem"
             ],
             resources: [
+                .copy("Resources/Campaigns")
             ]
-        ),
-        .testTarget(
-            name: "ArkhamHorrorGameTests",
-            dependencies: [
-                "ArkhamHorrorGame",
-                "XCTestUtils"
-            ]),
+        )
     ]
 )
