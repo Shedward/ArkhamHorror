@@ -1,0 +1,12 @@
+id: wandering_star
+image: //resources/campaignLogo.png
+name: Wandering Star
+description:
+  'The wandering star, a beacon of ominous light, appeared in the night sky, 
+  drawing the curious and the brave to its mysterious allure. 
+  But those who dared to investigate its source soon vanished, 
+  lost to the madness that lay within its grasp.'
+
+rules:
+  defaultCountOfActions: 2
+  initialPosition: train_station

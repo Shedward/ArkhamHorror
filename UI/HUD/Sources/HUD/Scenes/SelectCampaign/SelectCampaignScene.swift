@@ -17,11 +17,10 @@ final class SelectCampaignScene: Scene<SelectCampaignViewModel>, SelectCampaignS
     override func setup() {
         super.setup()
 
-        let cellSize = CGSize(width: 128 + 64, height: 256)
         let cellProvider = FnCollectionCellProvider(createCell: CampaignCell.init)
         let collection = Collection(
             size: size,
-            layout: CenteredRowLayout(itemSize: cellSize, spacing: 64),
+            layout: CenteredRowLayout(itemSize: CampaignCell.size, spacing: 64),
             cellProvider: cellProvider.asAny()
         )
         addChild(collection.node)

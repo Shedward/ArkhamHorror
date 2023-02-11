@@ -11,4 +11,8 @@ public extension CGSize {
     func point() -> CGPoint {
         CGPoint(x: width, y: height)
     }
+
+    func absoluteAnchor(for anchor: CGPoint) -> CGPoint {
+        point() * anchor
+    }
 }

@@ -35,6 +35,7 @@ public final class ErrorAlert: View {
 
         messageLabel.preferredWidth = preferredWidth
         messageLabel.numberOfLines = 0
+        messageLabel.verticalAlignmentMode = .center
         messageLabel.lineBreakMode = .byWordWrapping
 
         let stack = Stack(axis: .vertical, spacing: 16) {

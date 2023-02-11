@@ -23,6 +23,8 @@ public final class Stack: View {
         self.node = node
         self.axis = axis
         self.spacing = spacing
+
+        layoutSubviews()
     }
 
     public convenience init(axis: Axis, spacing: CGFloat, @ArrayBuilder<View> buildViews: () -> [View]) {
@@ -41,6 +43,7 @@ public final class Stack: View {
 
         var currentW: CGFloat = 0.0
         nodes.forEach { childNode in
+            childNode.position = .zero
             let childRect = childNode.calculateAccumulatedFrame()
 
             var point = CGPoint()

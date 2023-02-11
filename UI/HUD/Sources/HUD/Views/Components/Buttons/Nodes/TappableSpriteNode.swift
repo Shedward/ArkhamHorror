@@ -39,7 +39,7 @@ final class TappableSpriteNode: SKSpriteNode {
 
         let touchPoint = event.location(in: scene)
         let touchedNode = scene.atPoint(touchPoint)
-        return touchedNode === self
+        return touchedNode === self || touchedNode.inParentHierarchy(self)
     }
 #endif
 }
