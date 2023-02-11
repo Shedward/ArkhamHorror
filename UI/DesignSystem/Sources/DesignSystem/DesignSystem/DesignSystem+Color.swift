@@ -37,7 +37,7 @@ extension DesignSystem {
         public let fixed: Fixed
         public let tint: Tint
 
-        func by(_ kind: ColorKind) -> UColor {
+        public func by(_ kind: ColorKind) -> UColor {
             self[keyPath: kind]
         }
 

@@ -8,17 +8,62 @@
 import SpriteKit
 import DesignSystem
 
-struct Label: View {
-    let node: SKNode
+public final class Label: View {
 
+    public var node: SKNode {
+        labelNode
+    }
+
+    public var text: String? {
+        didSet {
+            labelNode.text = text
+        }
+    }
+
+    public var preferredWidth: CGFloat = 0 {
+        didSet {
+            labelNode.preferredMaxLayoutWidth = preferredWidth
+        }
+    }
+
+    public var numberOfLines: Int = 0 {
+        didSet {
+            labelNode.numberOfLines = numberOfLines
+        }
+    }
+
+    public var lineBreakMode: NSLineBreakMode = .byTruncatingTail {
+        didSet {
+            labelNode.lineBreakMode = lineBreakMode
+        }
+    }
+
+    public var verticalAlignmentMode: SKLabelVerticalAlignmentMode = .baseline {
+        didSet {
+            labelNode.verticalAlignmentMode = verticalAlignmentMode
+        }
+    }
+
+    public var horizontalAlignmentMode: SKLabelHorizontalAlignmentMode = .center {
+        didSet {
+            labelNode.horizontalAlignmentMode = horizontalAlignmentMode
+        }
+    }
+
+    private let labelNode: SKLabelNode
     private let designSystem = DesignSystem.default
 
-    init(text: String, textKind: DesignSystem.TextKind) {
-        let node = SKLabelNode(text: text)
+    public init(text: String? = nil, textKind: DesignSystem.TextKind) {
+        labelNode = SKLabelNode(text: text)
         let textStyle = designSystem.text.by(textKind)
-        node.fontName = textStyle.font.fontName
-        node.fontSize = textStyle.font.pointSize
-        node.fontColor = textStyle.color
-        self.node = node
+        labelNode.fontName = textStyle.font.fontName
+        labelNode.fontSize = textStyle.font.pointSize
+        labelNode.fontColor = textStyle.color
+
+        labelNode.preferredMaxLayoutWidth = preferredWidth
+        labelNode.numberOfLines = numberOfLines
+        labelNode.lineBreakMode = lineBreakMode
+        labelNode.verticalAlignmentMode = verticalAlignmentMode
+        labelNode.horizontalAlignmentMode = horizontalAlignmentMode
     }
 }

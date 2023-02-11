@@ -7,6 +7,6 @@
 
 import SpriteKit
 
-public protocol View {
+public protocol View: AnyObject {
     var node: SKNode { get }
 }

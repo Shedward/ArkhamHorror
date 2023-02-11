@@ -9,14 +9,14 @@ import SpriteKit
 import ArkhamHorror
 import DesignSystem
 
-struct CampaignCell: View {
+final class CampaignCell: View {
     let node: SKNode
 
     init(data: Data) {
         let buttonTexture = data.image.loadTexture()
 
         let stack = Stack(axis: .vertical, spacing: 16) {
-            Button(texture: buttonTexture, size: .init(width: 256, height: 256), onTap: data.onTap)
+            TextureButton(texture: buttonTexture, size: .init(width: 256, height: 256), onTap: data.onTap)
             Label(text: data.name, textKind: \.menu.h2)
         }
 

@@ -7,8 +7,8 @@
 
 import SpriteKit
 
-public class Scroll: View {
-    public var node: SKNode
+public final class Scroll: View {
+    public let node: SKNode
 
     public init(
         texture: SKTexture,

@@ -78,8 +78,14 @@ extension DesignSystem {
             public let debug: TextStyle
         }
 
+        public struct Failure {
+            public let title: TextStyle
+            public let message: TextStyle
+        }
+
         public let menu: Menu
         public let content: Content
+        public let failure: Failure
 
         public func by(_ kind: TextKind) -> TextStyle {
             self[keyPath: kind]
@@ -144,6 +150,18 @@ extension DesignSystem {
                         font: .Design.debug,
                         iconStyle: .init(pointSize: 12, weight: .light),
                         color: color.content.secondary
+                    )
+                ),
+                failure: .init(
+                    title: .init(
+                        font: .Design.debug,
+                        iconStyle: .init(pointSize: 16, weight: .bold),
+                        color: color.tint.bad
+                    ),
+                    message: .init(
+                        font: .Design.debug,
+                        iconStyle: .init(pointSize: 12, weight: .regular),
+                        color: color.tint.bad
                     )
                 )
             )

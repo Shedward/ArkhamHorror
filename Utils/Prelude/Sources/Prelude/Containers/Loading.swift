@@ -18,6 +18,14 @@ public enum Loading<T> {
         }
     }
 
+    public var error: Error? {
+        if case .failed(let error) = self {
+            return error
+        } else {
+            return nil
+        }
+    }
+
     public static func `async`(_ call: () async throws -> T) async -> Loading<T> {
         do {
             let result = try await call()

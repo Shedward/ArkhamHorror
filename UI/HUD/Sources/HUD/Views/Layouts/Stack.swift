@@ -10,32 +10,22 @@ import Prelude
 
 public final class Stack: View {
     public let node: SKNode
+    public var axis: Axis
+    public var spacing: CGFloat
 
     public init(axis: Axis, spacing: CGFloat, views: [View]) {
-        node = SKNode()
-
-        var currentW: CGFloat = 0.0
-        views.forEach { view in
-            let childNode = view.node
-            let childRect = childNode.calculateAccumulatedFrame()
-
-            var point = CGPoint()
-            point[axis: axis] = currentW - childRect.origin[axis: axis]
-            childNode.position = point
-            node.addChild(childNode)
-
-            currentW += childRect.size[axis: axis] + CGFloat(spacing)
-        }
-
-        currentW -= CGFloat(spacing)
-        let wOffset = 0.5 * currentW
+        let node = SKNode()
 
         views.forEach { view in
-            view.node.position[axis: axis] -= wOffset
+            node.addChild(view.node)
         }
+
+        self.node = node
+        self.axis = axis
+        self.spacing = spacing
     }
 
-    convenience init(axis: Axis, spacing: CGFloat, @ArrayBuilder<View> buildViews: () -> [View]) {
+    public convenience init(axis: Axis, spacing: CGFloat, @ArrayBuilder<View> buildViews: () -> [View]) {
         var views = buildViews()
         if case .vertical = axis {
             // Since in SpriteKit Y axis is increasing from bottom to top
@@ -44,6 +34,28 @@ public final class Stack: View {
             views = views.reversed()
         }
         self.init(axis: axis, spacing: spacing, views: views)
+    }
+
+    public func layoutSubviews() {
+        let nodes = node.children
+
+        var currentW: CGFloat = 0.0
+        nodes.forEach { childNode in
+            let childRect = childNode.calculateAccumulatedFrame()
+
+            var point = CGPoint()
+            point[axis: axis] = currentW - childRect.origin[axis: axis]
+            childNode.position = point
+
+            currentW += childRect.size[axis: axis] + CGFloat(spacing)
+        }
+
+        currentW -= CGFloat(spacing)
+        let wOffset = 0.5 * currentW
+
+        nodes.forEach { node in
+            node.position[axis: axis] -= wOffset
+        }
     }
 }
 

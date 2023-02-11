@@ -22,10 +22,10 @@ final public  class MainScene: SKScene {
         name = "MainScene"
 
         let buttonsStack = Stack(axis: .horizontal, spacing: 4) {
-            Button(texture: SKTexture(imageNamed: "wrong"), onTap: nil)
-            Button(texture: SKTexture(imageNamed: "wrong"), onTap: nil)
-            Button(texture: SKTexture(imageNamed: "wrong"), onTap: nil)
-            Button(texture: SKTexture(imageNamed: "wrong"), onTap: nil)
+            TextureButton(texture: SKTexture(imageNamed: "wrong"), onTap: nil)
+            TextureButton(texture: SKTexture(imageNamed: "wrong"), onTap: nil)
+            TextureButton(texture: SKTexture(imageNamed: "wrong"), onTap: nil)
+            TextureButton(texture: SKTexture(imageNamed: "wrong"), onTap: nil)
         }
 
         addChild(buttonsStack.node)

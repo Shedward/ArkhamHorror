@@ -6,17 +6,15 @@
 //
 
 import SpriteKit
+import Prelude
 
 public final class Centered: View {
     public let node: SKNode
 
     init(_ view: View, size: CGSize) {
         let node = view.node
-        let childSize = node.calculateAccumulatedFrame()
-        let position = CGPoint(
-            x: 0.5 * size.width - 0.5 * childSize.width,
-            y: 0.5 * size.height - 0.5 * childSize.height
-        )
+        let childFrame = node.calculateAccumulatedFrame()
+        let position = 0.5 * size.point() - 0.5 * childFrame.size.point()
         node.position = position
         self.node = node
     }
