@@ -5,6 +5,10 @@ import PackageDescription
 
 let package = Package(
     name: "HUD",
+    platforms: [
+        .iOS(.v14),
+        .macOS(.v10_15)
+    ],
     products: [
         .library(
             name: "HUD",

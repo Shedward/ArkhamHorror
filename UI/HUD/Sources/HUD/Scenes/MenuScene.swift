@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-final public  class MenuScene: SKScene {
+final public class MenuScene: SKScene {
     public override init(size: CGSize) {
         super.init(size: size)
         configureScene()
@@ -21,26 +21,25 @@ final public  class MenuScene: SKScene {
     private func configureScene() {
         scaleMode = .aspectFit
         name = "MenuScene"
+        anchorPoint = .init(x: 0.5, y: 0.5)
 
-        func createButton() -> View {
+        let itemSize = CGSize(width: 128, height: 256)
+
+        let dataSource = ArrayDataSource(data: ["One", "Two", "Three"])
+        let cellProvider = FnCollectionCellProvider { (title: String) -> Button in
             Button(
-                texture: SKTexture(imageNamed: "wrong"),
-                size: .init(width: 128, height: 256),
+                texture: .init(imageNamed: title),
+                size: itemSize,
                 onTap: nil
             )
         }
-
-        let buttonsStack = HStack(
-            views:
-                createButton(),
-                createButton(),
-                createButton(),
-                createButton(),
-            spacing: 4
+        let collection = Collection(
+            size: size,
+            dataSource: dataSource,
+            layout: CenteredRowLayout(itemSize: itemSize, spacing: 32),
+            cellProvider: cellProvider
         )
 
-        let centered = Centered(buttonsStack, size: size)
-
-        addChild(centered.node)
+        addChild(collection.node)
     }
 }

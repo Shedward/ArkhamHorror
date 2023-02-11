@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-public class Scroll: View {
+public struct Scroll: View {
     public var node: SKNode
 
     public init(

@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-public class Button: View {
+public struct Button: View {
     public var node: SKNode
 
     public init(
@@ -18,7 +18,6 @@ public class Button: View {
     ) {
         let node = ButtonNode(texture: texture, size: size)
         node.isUserInteractionEnabled = true
-        node.anchorPoint = .zero
         node.shader = ButtonShader.shader
         node.setValue(size, forAttribute: ButtonShader.Attributes.size)
         node.setValue(borderWidth, forAttribute: ButtonShader.Attributes.borderWidth)
