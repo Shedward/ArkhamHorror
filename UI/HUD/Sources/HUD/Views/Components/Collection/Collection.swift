@@ -8,21 +8,20 @@
 import SpriteKit
 import Prelude
 
-public class Collection<
-    DataSource: CollectionDataSource,
-    CellProdiver: CollectionCellProvider
->: View
-    where DataSource.Model == CellProdiver.Model
-{
-    typealias Model = DataSource.Model
-    typealias Cell = CellProdiver.Cell
+public class Collection<Model, Cell: View>: View {
     typealias Index = Int
 
-    public var node: SKNode
+    public var node: SKNode = .init()
 
-    private let dataSource: DataSource
-    private var layout: CollectionLayout
-    private let cellProvider: CellProdiver
+    var dataSource: AnyCollectionDataSource<Model> {
+        didSet { reloadAll() }
+    }
+    var layout: CollectionLayout {
+        didSet { reloadAll() }
+    }
+    var cellProvider: AnyCollectionCellProvider<Cell, Model> {
+        didSet { reloadAll() }
+    }
 
     private var cells: [Index: Cell] = [:]
     private let size: CGSize
@@ -30,16 +29,17 @@ public class Collection<
 
     public init(
         size: CGSize,
-        dataSource: DataSource,
+        dataSource: AnyCollectionDataSource<Model> = ArrayCollectionDataSource(data: []).asAny(),
         layout: CollectionLayout,
-        cellProvider: CellProdiver
+        cellProvider: AnyCollectionCellProvider<Cell, Model>
     ) {
         self.size = size
-        self.dataSource = dataSource
+        self.dataSource = AnyCollectionDataSource(dataSource)
         self.layout = layout
-        self.cellProvider = cellProvider
-        self.node = SKNode()
+        self.cellProvider = AnyCollectionCellProvider(cellProvider)
+    }
 
+    private func reloadAll() {
         reloadCells(at: allIndices())
         layoutCells(at: allIndices())
     }

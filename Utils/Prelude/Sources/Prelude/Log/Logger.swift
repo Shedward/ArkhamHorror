@@ -12,6 +12,7 @@ public struct Logger {
         case info
         case warning
         case error
+        case debug
     }
 
     private let label: StaticString
@@ -31,6 +32,11 @@ public struct Logger {
     public func error(_ message: @autoclosure () -> String) {
         Self.impl.log(label: label, level: .error, message: message)
     }
+
+    @available(*, deprecated, message: "Debug logs should be removed before commit")
+    public func debug(_ message: @autoclosure () -> String) {
+        Self.impl.log(label: label, level: .debug, message: message)
+    }
 }
 
 public protocol LoggerImplementation {
@@ -38,7 +44,7 @@ public protocol LoggerImplementation {
 }
 
 public struct PrintLoggerImplementation: LoggerImplementation {
-    private let minLevel: Logger.Level
+    public var minLevel: Logger.Level
 
     init(minLevel: Logger.Level) {
         self.minLevel = minLevel
@@ -52,6 +58,8 @@ public struct PrintLoggerImplementation: LoggerImplementation {
 
     private func description(for level: Logger.Level) -> String {
         switch level {
+        case .debug:
+            return "[Debug]"
         case .info:
             return "[Info]"
         case .warning:

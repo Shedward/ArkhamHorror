@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-public struct Button: View {
+public class Button: View {
     public var node: SKNode
 
     public init(

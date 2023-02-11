@@ -1,5 +1,5 @@
 //
-//  ArrayDataSource.swift
+//  ArrayCollectionDataSource.swift
 //  
 //
 //  Created by Vladislav Maltsev on 11.02.2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ArrayDataSource<Model>: CollectionDataSource {
+public struct ArrayCollectionDataSource<Model>: CollectionDataSource {
     private let data: [Model]
 
     public init(data: [Model]) {

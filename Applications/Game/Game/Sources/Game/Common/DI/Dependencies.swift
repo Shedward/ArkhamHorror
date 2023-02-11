@@ -12,12 +12,12 @@ enum DependenciesError: Error {
 }
 
 struct Dependencies: AllDependencies {
-    var campaignStorage: CampaignLoader
+    var campaignLoader: CampaignLoader
 
     init() throws {
         guard let campaignsRootPath = Resources.campaignDirectory else {
             throw DependenciesError.campaignDirectoryNotFound
         }
-        self.campaignStorage = DirectoryCampaignLoader(rootPath: campaignsRootPath)
+        self.campaignLoader = DirectoryCampaignLoader(rootPath: campaignsRootPath)
     }
 }

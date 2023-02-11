@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-public struct Scroll: View {
+public class Scroll: View {
     public var node: SKNode
 
     public init(
@@ -16,7 +16,6 @@ public struct Scroll: View {
         content: View
     ) {
         let node = ScrollNode(size: size)
-
         self.node = node
     }
 }

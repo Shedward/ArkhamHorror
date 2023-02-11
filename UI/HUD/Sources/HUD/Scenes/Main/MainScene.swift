@@ -14,8 +14,7 @@ final public  class MainScene: SKScene {
     }
 
     public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        configureScene()
+        fatalError("init(coder:) has not been implemented")
     }
 
     private func configureScene() {

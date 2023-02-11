@@ -1,5 +1,5 @@
 //
-//  DataSource.swift
+//  CollectionDataSource.swift
 //  
 //
 //  Created by Vladislav Maltsev on 11.02.2023.
