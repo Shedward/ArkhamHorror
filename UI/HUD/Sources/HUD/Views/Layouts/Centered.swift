@@ -11,14 +11,13 @@ public final class Centered: View {
     public let node: SKNode
 
     init(_ view: View, size: CGSize) {
-        node = SKNode()
-        let childNode = view.node
-        let childSize = childNode.calculateAccumulatedFrame()
+        let node = view.node
+        let childSize = node.calculateAccumulatedFrame()
         let position = CGPoint(
             x: 0.5 * size.width - 0.5 * childSize.width,
             y: 0.5 * size.height - 0.5 * childSize.height
         )
-        childNode.position = position
-        node.addChild(childNode)
+        node.position = position
+        self.node = node
     }
 }

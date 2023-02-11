@@ -19,6 +19,7 @@ struct SceneView: NSViewRepresentable {
 
     func updateNSView(_ nsView: SCNView, context: Context) {
         nsView.scene = scene ?? SCNScene()
+        nsView.backgroundColor = .black
         nsView.overlaySKScene = overlay
     }
 }

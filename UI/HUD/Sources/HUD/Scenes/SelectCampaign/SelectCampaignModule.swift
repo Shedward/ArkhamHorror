@@ -10,10 +10,11 @@ import ArkhamHorror
 import SpriteKit
 
 protocol SelectCampaignSceneProtocol: AnyObject {
-    func displayCampaigns(_ loading: Loading<[CampaignInfo]>)
+    func displayCampaigns(_ loading: Loading<[CampaignCell.Data]>)
 }
 
 extension Scenes {
+    @MainActor
     public func selectCampaign(
         campaignLoader: CampaignLoader,
         onCampaignSelected: @escaping (CampaignInfo) -> Void

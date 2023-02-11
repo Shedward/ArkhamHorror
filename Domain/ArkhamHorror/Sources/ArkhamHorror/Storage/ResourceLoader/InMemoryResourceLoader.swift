@@ -27,7 +27,7 @@ public final class InMemoryResourceLoader: ResourceLoader {
         resources.keys.contains(path)
     }
 
-    public func loadResource(at path: String) async throws -> Data {
+    public func loadResource(at path: String) throws -> Data {
         if let data = resources[path] {
             return data
         } else {

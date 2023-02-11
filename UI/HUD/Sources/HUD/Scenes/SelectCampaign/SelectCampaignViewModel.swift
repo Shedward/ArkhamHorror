@@ -26,8 +26,17 @@ final class SelectCampaignViewModel: SceneViewModel {
     private func loadCampaign() {
         Task {
             scene?.displayCampaigns(.loading)
-            let campaignsResult = await Loading.async { try await campaignLoader.campaignsInfo() }
-            scene?.displayCampaigns(campaignsResult)
+            let campaignsResult = await Loading.async { try await self.campaignLoader.campaignsInfo() }
+            let campaignsData = campaignsResult.map {
+                $0.map { info in
+                    CampaignCell.Data(
+                        name: info.name,
+                        image: info.image,
+                        onTap: { self.onCampaignSelected(info) }
+                    )
+                }
+            }
+            scene?.displayCampaigns(campaignsData)
         }
     }
 }

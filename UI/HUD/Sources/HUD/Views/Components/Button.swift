@@ -8,7 +8,7 @@
 import SpriteKit
 
 public class Button: View {
-    public var node: SKNode
+    public let node: SKNode
 
     public init(
         texture: SKTexture,

@@ -9,7 +9,7 @@ import Foundation
 
 public protocol ResourceLoader {
     func linkExists(at path: String) -> Bool
-    func loadResource(at path: String) async throws -> Data
+    func loadResource(at path: String) throws -> Data
 
     func sameAs(_ another: ResourceLoader) -> Bool
 }

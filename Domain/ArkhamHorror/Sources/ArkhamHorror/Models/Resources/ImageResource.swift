@@ -7,16 +7,18 @@
 
 #if os(macOS)
 import AppKit
-typealias UImage = NSImage
+public typealias UImage = NSImage
 #else
 import UIKit
-typealias UImage = UIImage
+public typealias UImage = UIImage
 #endif
 
 import Prelude
+import SpriteKit
 
 public struct ImageResource: Codable {
     private let link: ResourceLink
+    private let logger = Logger()
 
     init(link: ResourceLink) {
         self.link = link
@@ -31,12 +33,29 @@ public struct ImageResource: Codable {
         try link.encode(to: encoder)
     }
 
-    func load() async throws -> UImage {
-        let data = try await link.load()
+    public func load() throws -> UImage {
+        let data = try link.load()
         if let image = UImage(data: data) {
             return image
         } else {
             throw AppError("Failed to load image from \(data)")
+        }
+    }
+
+    public func loadTexture() -> SKTexture {
+        do {
+            let data = try link.load()
+            guard let image = UImage(data: data) else {
+                throw AppError("Failed to parse data \(data) as an Image for resource at \(link)")
+            }
+            let texture = SKTexture(image: image)
+            return texture
+        } catch {
+            logger.error("""
+            Failed to load a texture from \(self): \
+            \(error)
+            """)
+            return SKTexture()
         }
     }
 }

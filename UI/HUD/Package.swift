@@ -6,8 +6,8 @@ import PackageDescription
 let package = Package(
     name: "HUD",
     platforms: [
-        .iOS(.v14),
-        .macOS(.v10_15)
+        .iOS(.v16),
+        .macOS(.v13)
     ],
     products: [
         .library(
@@ -16,12 +16,14 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "ArkhamHorror", path: "../Domain/ArkhamHorror"),
+        .package(name: "DesignSystem", path: "../UI/DesignSystem")
     ],
     targets: [
         .target(
             name: "HUD",
             dependencies: [
-                "ArkhamHorror"
+                "ArkhamHorror",
+                "DesignSystem"
             ]
         ),
         .testTarget(

@@ -37,6 +37,12 @@ public struct Logger {
     public func debug(_ message: @autoclosure () -> String) {
         Self.impl.log(label: label, level: .debug, message: message)
     }
+
+    @available(*, deprecated, message: "Debug logs should be removed before commit")
+    public func track(_ message: @autoclosure () -> String, function: StaticString = #function) {
+        let message = { "- \(function): \(message())" }
+        Self.impl.log(label: label, level: .debug, message: message)
+    }
 }
 
 public protocol LoggerImplementation {

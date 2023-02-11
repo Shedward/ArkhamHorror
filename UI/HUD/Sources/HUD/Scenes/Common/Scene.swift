@@ -9,6 +9,7 @@ import SpriteKit
 import Prelude
 
 
+@MainActor
 open class Scene<ViewModel: SceneViewModel>: SKScene
 {
     public var viewModel: ViewModel
@@ -39,6 +40,7 @@ open class Scene<ViewModel: SceneViewModel>: SKScene
     }
 
     open func setup() {
+        self.backgroundColor = .black
         self.anchorPoint = .init(x: 0.5, y: 0.5)
     }
 }
