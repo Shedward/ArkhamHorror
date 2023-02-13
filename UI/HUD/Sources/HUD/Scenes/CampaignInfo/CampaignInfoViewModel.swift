@@ -12,7 +12,6 @@ final class CampaignInfoViewModel: SceneViewModel {
     public typealias Dependencies =
         CampaignLoaderDependency
 
-
     weak var scene: CampaignInfoSceneProtocol?
 
     private let campaignInfo: CampaignInfo
@@ -30,6 +29,13 @@ final class CampaignInfoViewModel: SceneViewModel {
     }
 
     func sceneDidLoad() {
-
+        Task {
+            scene?.displayInitialInfo(campaignInfo)
+            scene?.displayCampaign(.loading)
+            let campaign = await Loading.async {
+                try await dependencies.campaignLoader.loadCampaign(id: campaignInfo.id)
+            }
+            scene?.displayCampaign(campaign)
+        }
     }
 }

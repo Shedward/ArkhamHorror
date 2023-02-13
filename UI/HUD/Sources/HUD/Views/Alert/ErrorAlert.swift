@@ -14,13 +14,14 @@ public final class ErrorAlert: View {
 
     private let designSystem = DesignSystem.default
 
-    private let messageLabel = Label(textKind: \.failure.message)
+    private let messageLabel: MultilineText
     private let frame = Frame(stroke: \.tint.bad, insets: .init(uniform: 16), fill: \.fixed.black)
     private let secondaryBorder = Shape(stroke: \.tint.bad, fill: \.fixed.black)
     private var stack: Stack?
 
     public init(error: Error? = nil, preferredWidth: CGFloat = 256) {
         self.node = SKNode()
+        messageLabel = MultilineText(textKind: \.failure.message, preferredWidth: preferredWidth)
 
         secondaryBorder.node.position = .init(x: 8, y: 8)
         node.addChild(secondaryBorder.node)
@@ -32,11 +33,6 @@ public final class ErrorAlert: View {
                 self?.display(nil)
             }
         )
-
-        messageLabel.preferredWidth = preferredWidth
-        messageLabel.numberOfLines = 0
-        messageLabel.verticalAlignmentMode = .center
-        messageLabel.lineBreakMode = .byWordWrapping
 
         let stack = Stack(axis: .vertical, spacing: 16) {
             Label(text: Localized.string("Failure"), textKind: \.failure.title)
