@@ -12,7 +12,12 @@ import Game
 struct GameApp: App {
     var body: some Scene {
         WindowGroup {
-            MainView()
+            switch Result { try MainView() } {
+            case .success(let mainView):
+                mainView
+            case .failure(let error):
+                Text("Failed to load the app: \(error.localizedDescription)")
+            }
         }
     }
 }

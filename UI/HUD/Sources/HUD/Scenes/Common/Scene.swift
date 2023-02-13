@@ -40,6 +40,7 @@ open class Scene<ViewModel: SceneViewModel>: SKScene
     }
 
     open func setup() {
+        self.name = String(describing: type(of: self))
         self.backgroundColor = .black
         self.anchorPoint = .init(x: 0.5, y: 0.5)
     }

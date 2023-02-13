@@ -5,16 +5,20 @@
 //  Created by Vladislav Maltsev on 10.02.2023.
 //
 
+import Prelude
 import SwiftUI
 import SpriteKit
 import SceneKit
 
+#if os(macOS)
+
 struct SceneView: NSViewRepresentable {
-    @State var scene: SCNScene?
-    @State var overlay: SKScene?
+    var scene: SCNScene?
+    var overlay: SKScene?
+    private let logger = Logger()
 
     func makeNSView(context: Context) -> SCNView {
-        SCNView()
+        return SCNView()
     }
 
     func updateNSView(_ nsView: SCNView, context: Context) {
@@ -23,3 +27,23 @@ struct SceneView: NSViewRepresentable {
         nsView.overlaySKScene = overlay
     }
 }
+
+#else
+
+struct SceneView: UIViewRepresentable {
+    var scene: SCNScene?
+    var overlay: SKScene?
+    private let logger = Logger()
+
+    func makeUIView(context: Context) -> SCNView {
+        return SCNView()
+    }
+
+    func updateUIView(_ uiView: SCNView, context: Context) {
+        uiView.scene = scene ?? SCNScene()
+        uiView.backgroundColor = .black
+        uiView.overlaySKScene = overlay
+    }
+}
+
+#endif

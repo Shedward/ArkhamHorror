@@ -13,16 +13,18 @@ protocol SelectCampaignSceneProtocol: AnyObject {
     func displayCampaigns(_ loading: Loading<[CampaignCell.Data]>)
 }
 
-extension Scenes {
+public struct SelectCampaignOutput {
+    public let onCampaignSelected: (CampaignInfo) -> Void
+
+    public init(onCampaignSelected: @escaping (CampaignInfo) -> Void) {
+        self.onCampaignSelected = onCampaignSelected
+    }
+}
+
+extension HUDScenes {
     @MainActor
-    public func selectCampaign(
-        campaignLoader: CampaignLoader,
-        onCampaignSelected: @escaping (CampaignInfo) -> Void
-    ) -> SKScene {
-        let viewModel = SelectCampaignViewModel(
-            campaignLoader: campaignLoader,
-            onCampaignSelected: onCampaignSelected
-        )
+    public func selectCampaign(output: SelectCampaignOutput) -> SKScene {
+        let viewModel = SelectCampaignViewModel(dependencies: dependencies, output: output)
         let scene = SelectCampaignScene(size: size, viewModel: viewModel)
         return scene
     }

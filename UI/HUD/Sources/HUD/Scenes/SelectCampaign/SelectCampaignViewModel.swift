@@ -9,14 +9,18 @@ import Prelude
 import ArkhamHorror
 
 final class SelectCampaignViewModel: SceneViewModel {
+    typealias Dependencies =
+        CampaignLoaderDependency
+
     weak var scene: SelectCampaignSceneProtocol?
 
-    private let campaignLoader: CampaignLoader
-    private let onCampaignSelected: (CampaignInfo) -> Void
+    private let dependencies: Dependencies
+    private let output: SelectCampaignOutput
+    private let logger = Logger()
 
-    init(campaignLoader: CampaignLoader, onCampaignSelected: @escaping (CampaignInfo) -> Void) {
-        self.campaignLoader = campaignLoader
-        self.onCampaignSelected = onCampaignSelected
+    init(dependencies: Dependencies, output: SelectCampaignOutput) {
+        self.dependencies = dependencies
+        self.output = output
     }
 
     func sceneDidLoad() {
@@ -26,13 +30,15 @@ final class SelectCampaignViewModel: SceneViewModel {
     private func loadCampaign() {
         Task {
             scene?.displayCampaigns(.loading)
-            let campaignsResult = await Loading.async { try await self.campaignLoader.campaignsInfo() }
+            let campaignsResult = await Loading.async {
+                try await self.dependencies.campaignLoader.campaignsInfo()
+            }
             let campaignsData = campaignsResult.map {
                 $0.map { info in
                     CampaignCell.Data(
                         name: info.name,
                         image: info.image,
-                        onTap: { self.onCampaignSelected(info) }
+                        onTap: { [output] in output.onCampaignSelected(info) }
                     )
                 }
             }

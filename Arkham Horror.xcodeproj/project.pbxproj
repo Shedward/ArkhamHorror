@@ -8,6 +8,44 @@
 
 /* Begin PBXBuildFile section */
 		63087DAE2996CCBB00A3C359 /* Game in Frameworks */ = {isa = PBXBuildFile; productRef = 63087DAD2996CCBB00A3C359 /* Game */; };
+		6320B981299AE709007C7AD3 /* GameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6393C123299693B000131DA5 /* GameApp.swift */; };
+		6320B993299AE739007C7AD3 /* Game in Frameworks */ = {isa = PBXBuildFile; productRef = 6320B992299AE739007C7AD3 /* Game */; };
+		6320B9CC299AE85A007C7AD3 /* VollkornSC-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C3299AE85A007C7AD3 /* VollkornSC-SemiBold.ttf */; };
+		6320B9CD299AE85A007C7AD3 /* VollkornSC-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C3299AE85A007C7AD3 /* VollkornSC-SemiBold.ttf */; };
+		6320B9CE299AE85A007C7AD3 /* VollkornSC-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C3299AE85A007C7AD3 /* VollkornSC-SemiBold.ttf */; };
+		6320B9CF299AE85A007C7AD3 /* VollkornSC-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C3299AE85A007C7AD3 /* VollkornSC-SemiBold.ttf */; };
+		6320B9D0299AE85A007C7AD3 /* Vollkorn-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C4299AE85A007C7AD3 /* Vollkorn-Bold.ttf */; };
+		6320B9D1299AE85A007C7AD3 /* Vollkorn-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C4299AE85A007C7AD3 /* Vollkorn-Bold.ttf */; };
+		6320B9D2299AE85A007C7AD3 /* Vollkorn-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C4299AE85A007C7AD3 /* Vollkorn-Bold.ttf */; };
+		6320B9D3299AE85A007C7AD3 /* Vollkorn-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C4299AE85A007C7AD3 /* Vollkorn-Bold.ttf */; };
+		6320B9D4299AE85A007C7AD3 /* Vollkorn-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C5299AE85A007C7AD3 /* Vollkorn-Regular.ttf */; };
+		6320B9D5299AE85A007C7AD3 /* Vollkorn-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C5299AE85A007C7AD3 /* Vollkorn-Regular.ttf */; };
+		6320B9D6299AE85A007C7AD3 /* Vollkorn-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C5299AE85A007C7AD3 /* Vollkorn-Regular.ttf */; };
+		6320B9D7299AE85A007C7AD3 /* Vollkorn-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C5299AE85A007C7AD3 /* Vollkorn-Regular.ttf */; };
+		6320B9D8299AE85A007C7AD3 /* Podkova-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C6299AE85A007C7AD3 /* Podkova-Regular.ttf */; };
+		6320B9D9299AE85A007C7AD3 /* Podkova-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C6299AE85A007C7AD3 /* Podkova-Regular.ttf */; };
+		6320B9DA299AE85A007C7AD3 /* Podkova-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C6299AE85A007C7AD3 /* Podkova-Regular.ttf */; };
+		6320B9DB299AE85A007C7AD3 /* Podkova-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C6299AE85A007C7AD3 /* Podkova-Regular.ttf */; };
+		6320B9DC299AE85A007C7AD3 /* Vollkorn-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C7299AE85A007C7AD3 /* Vollkorn-Italic.ttf */; };
+		6320B9DD299AE85A007C7AD3 /* Vollkorn-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C7299AE85A007C7AD3 /* Vollkorn-Italic.ttf */; };
+		6320B9DE299AE85A007C7AD3 /* Vollkorn-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C7299AE85A007C7AD3 /* Vollkorn-Italic.ttf */; };
+		6320B9DF299AE85A007C7AD3 /* Vollkorn-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C7299AE85A007C7AD3 /* Vollkorn-Italic.ttf */; };
+		6320B9E0299AE85A007C7AD3 /* VollkornSC-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C8299AE85A007C7AD3 /* VollkornSC-Black.ttf */; };
+		6320B9E1299AE85A007C7AD3 /* VollkornSC-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C8299AE85A007C7AD3 /* VollkornSC-Black.ttf */; };
+		6320B9E2299AE85A007C7AD3 /* VollkornSC-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C8299AE85A007C7AD3 /* VollkornSC-Black.ttf */; };
+		6320B9E3299AE85A007C7AD3 /* VollkornSC-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C8299AE85A007C7AD3 /* VollkornSC-Black.ttf */; };
+		6320B9E4299AE85A007C7AD3 /* VollkornSC-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C9299AE85A007C7AD3 /* VollkornSC-Bold.ttf */; };
+		6320B9E5299AE85A007C7AD3 /* VollkornSC-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C9299AE85A007C7AD3 /* VollkornSC-Bold.ttf */; };
+		6320B9E6299AE85A007C7AD3 /* VollkornSC-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C9299AE85A007C7AD3 /* VollkornSC-Bold.ttf */; };
+		6320B9E7299AE85A007C7AD3 /* VollkornSC-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9C9299AE85A007C7AD3 /* VollkornSC-Bold.ttf */; };
+		6320B9E8299AE85A007C7AD3 /* Vollkorn-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9CA299AE85A007C7AD3 /* Vollkorn-Medium.ttf */; };
+		6320B9E9299AE85A007C7AD3 /* Vollkorn-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9CA299AE85A007C7AD3 /* Vollkorn-Medium.ttf */; };
+		6320B9EA299AE85A007C7AD3 /* Vollkorn-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9CA299AE85A007C7AD3 /* Vollkorn-Medium.ttf */; };
+		6320B9EB299AE85A007C7AD3 /* Vollkorn-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9CA299AE85A007C7AD3 /* Vollkorn-Medium.ttf */; };
+		6320B9EC299AE85A007C7AD3 /* VollkornSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9CB299AE85A007C7AD3 /* VollkornSC-Regular.ttf */; };
+		6320B9ED299AE85A007C7AD3 /* VollkornSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9CB299AE85A007C7AD3 /* VollkornSC-Regular.ttf */; };
+		6320B9EE299AE85A007C7AD3 /* VollkornSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9CB299AE85A007C7AD3 /* VollkornSC-Regular.ttf */; };
+		6320B9EF299AE85A007C7AD3 /* VollkornSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9CB299AE85A007C7AD3 /* VollkornSC-Regular.ttf */; };
 		632EE7A92794616F005D4963 /* ArkhamHorror in Frameworks */ = {isa = PBXBuildFile; productRef = 632EE7A82794616F005D4963 /* ArkhamHorror */; };
 		6393C108299690F600131DA5 /* ArkhamHorrorGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6393C107299690F600131DA5 /* ArkhamHorrorGame.swift */; };
 		6393C109299690F600131DA5 /* ArkhamHorrorGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6393C107299690F600131DA5 /* ArkhamHorrorGame.swift */; };
@@ -15,30 +53,25 @@
 		639F56D62899218A00647FB9 /* ArkhamHorror in Frameworks */ = {isa = PBXBuildFile; productRef = 639F56D52899218A00647FB9 /* ArkhamHorror */; };
 		63BA362129294B80006C571E /* ArkhamHorrorGame in Frameworks */ = {isa = PBXBuildFile; productRef = 63BA362029294B80006C571E /* ArkhamHorrorGame */; };
 		63BA362329294B9D006C571E /* ArkhamHorrorGame in Frameworks */ = {isa = PBXBuildFile; productRef = 63BA362229294B9D006C571E /* ArkhamHorrorGame */; };
-		63BA362E29294CC2006C571E /* VollkornSC-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BA362629294CC2006C571E /* VollkornSC-SemiBold.ttf */; };
-		63BA362F29294CC2006C571E /* VollkornSC-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BA362629294CC2006C571E /* VollkornSC-SemiBold.ttf */; };
-		63BA363029294CC2006C571E /* Vollkorn-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BA362729294CC2006C571E /* Vollkorn-Regular.ttf */; };
-		63BA363129294CC2006C571E /* Vollkorn-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BA362729294CC2006C571E /* Vollkorn-Regular.ttf */; };
-		63BA363229294CC2006C571E /* Podkova-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BA362829294CC2006C571E /* Podkova-Regular.ttf */; };
-		63BA363329294CC2006C571E /* Podkova-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BA362829294CC2006C571E /* Podkova-Regular.ttf */; };
-		63BA363429294CC2006C571E /* Vollkorn-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BA362929294CC2006C571E /* Vollkorn-Italic.ttf */; };
-		63BA363529294CC2006C571E /* Vollkorn-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BA362929294CC2006C571E /* Vollkorn-Italic.ttf */; };
-		63BA363629294CC2006C571E /* VollkornSC-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BA362A29294CC2006C571E /* VollkornSC-Black.ttf */; };
-		63BA363729294CC2006C571E /* VollkornSC-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BA362A29294CC2006C571E /* VollkornSC-Black.ttf */; };
-		63BA363829294CC2006C571E /* VollkornSC-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BA362B29294CC2006C571E /* VollkornSC-Bold.ttf */; };
-		63BA363929294CC2006C571E /* VollkornSC-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BA362B29294CC2006C571E /* VollkornSC-Bold.ttf */; };
-		63BA363A29294CC2006C571E /* Vollkorn-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BA362C29294CC2006C571E /* Vollkorn-Medium.ttf */; };
-		63BA363B29294CC2006C571E /* Vollkorn-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BA362C29294CC2006C571E /* Vollkorn-Medium.ttf */; };
-		63BA363C29294CC2006C571E /* VollkornSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BA362D29294CC2006C571E /* VollkornSC-Regular.ttf */; };
-		63BA363D29294CC2006C571E /* VollkornSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BA362D29294CC2006C571E /* VollkornSC-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		631DCFC929293E2F0049AD0B /* ArkhamHorrorGame */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ArkhamHorrorGame; sourceTree = "<group>"; };
+		6320B9C3299AE85A007C7AD3 /* VollkornSC-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VollkornSC-SemiBold.ttf"; sourceTree = "<group>"; };
+		6320B9C4299AE85A007C7AD3 /* Vollkorn-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Vollkorn-Bold.ttf"; sourceTree = "<group>"; };
+		6320B9C5299AE85A007C7AD3 /* Vollkorn-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Vollkorn-Regular.ttf"; sourceTree = "<group>"; };
+		6320B9C6299AE85A007C7AD3 /* Podkova-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Podkova-Regular.ttf"; sourceTree = "<group>"; };
+		6320B9C7299AE85A007C7AD3 /* Vollkorn-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Vollkorn-Italic.ttf"; sourceTree = "<group>"; };
+		6320B9C8299AE85A007C7AD3 /* VollkornSC-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VollkornSC-Black.ttf"; sourceTree = "<group>"; };
+		6320B9C9299AE85A007C7AD3 /* VollkornSC-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VollkornSC-Bold.ttf"; sourceTree = "<group>"; };
+		6320B9CA299AE85A007C7AD3 /* Vollkorn-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Vollkorn-Medium.ttf"; sourceTree = "<group>"; };
+		6320B9CB299AE85A007C7AD3 /* VollkornSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VollkornSC-Regular.ttf"; sourceTree = "<group>"; };
 		63244679278613B0002101FF /* XCTestUtils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = XCTestUtils; sourceTree = "<group>"; };
 		6324468A27861771002101FF /* UnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UnitTests.xctestplan; sourceTree = "<group>"; };
 		6325A06029958B0E0063E6CA /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DesignSystem; sourceTree = "<group>"; };
 		6325A24127C594330068B1F7 /* Script */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Script; sourceTree = "<group>"; };
+		633FC69F299AE526009281B7 /* Game (iOS).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Game (iOS).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		633FC6AF299AE574009281B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		635823C027BE476200D6036A /* Prelude */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Prelude; sourceTree = "<group>"; };
 		635823C127BE4D6D00D6036A /* Map */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Map; sourceTree = "<group>"; };
 		635F2CA22782019B00E8FC07 /* Deck */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Deck; sourceTree = "<group>"; };
@@ -53,14 +86,6 @@
 		6393C12C299693B100131DA5 /* Game.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Game.entitlements; sourceTree = "<group>"; };
 		639F56C0289920CF00647FB9 /* Arkham Horror (iOS).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Arkham Horror (iOS).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63A41BC32996D730009D21D3 /* HUD */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = HUD; sourceTree = "<group>"; };
-		63BA362629294CC2006C571E /* VollkornSC-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VollkornSC-SemiBold.ttf"; sourceTree = "<group>"; };
-		63BA362729294CC2006C571E /* Vollkorn-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Vollkorn-Regular.ttf"; sourceTree = "<group>"; };
-		63BA362829294CC2006C571E /* Podkova-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Podkova-Regular.ttf"; sourceTree = "<group>"; };
-		63BA362929294CC2006C571E /* Vollkorn-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Vollkorn-Italic.ttf"; sourceTree = "<group>"; };
-		63BA362A29294CC2006C571E /* VollkornSC-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VollkornSC-Black.ttf"; sourceTree = "<group>"; };
-		63BA362B29294CC2006C571E /* VollkornSC-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VollkornSC-Bold.ttf"; sourceTree = "<group>"; };
-		63BA362C29294CC2006C571E /* Vollkorn-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Vollkorn-Medium.ttf"; sourceTree = "<group>"; };
-		63BA362D29294CC2006C571E /* VollkornSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VollkornSC-Regular.ttf"; sourceTree = "<group>"; };
 		63BCC3B5291FAF10007F5134 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63FE56A32780EFC90059A4BE /* Arkham Horror.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Arkham Horror.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63FE56A52780EFC90059A4BE /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
@@ -69,6 +94,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		633FC69C299AE526009281B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6320B993299AE739007C7AD3 /* Game in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6393C11E299693B000131DA5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -119,6 +152,22 @@
 			path = ArkhamHorrorGame;
 			sourceTree = "<group>";
 		};
+		6320B9C2299AE85A007C7AD3 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				6320B9C3299AE85A007C7AD3 /* VollkornSC-SemiBold.ttf */,
+				6320B9C4299AE85A007C7AD3 /* Vollkorn-Bold.ttf */,
+				6320B9C5299AE85A007C7AD3 /* Vollkorn-Regular.ttf */,
+				6320B9C6299AE85A007C7AD3 /* Podkova-Regular.ttf */,
+				6320B9C7299AE85A007C7AD3 /* Vollkorn-Italic.ttf */,
+				6320B9C8299AE85A007C7AD3 /* VollkornSC-Black.ttf */,
+				6320B9C9299AE85A007C7AD3 /* VollkornSC-Bold.ttf */,
+				6320B9CA299AE85A007C7AD3 /* Vollkorn-Medium.ttf */,
+				6320B9CB299AE85A007C7AD3 /* VollkornSC-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		632446892786175B002101FF /* TestPlans */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,12 +183,29 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		633FC6AD299AE563009281B7 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				6393C12C299693B100131DA5 /* Game.entitlements */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
+		633FC6AE299AE56B009281B7 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				633FC6AF299AE574009281B7 /* Info.plist */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
 		6393C10029968EFC00131DA5 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				633FC6AE299AE56B009281B7 /* iOS */,
+				633FC6AD299AE563009281B7 /* macOS */,
 				6393C10129968FBF00131DA5 /* Game */,
 				6393C123299693B000131DA5 /* GameApp.swift */,
-				6393C12C299693B100131DA5 /* Game.entitlements */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -155,24 +221,9 @@
 		63BA362429294CA4006C571E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				63BA362529294CC2006C571E /* Fonts */,
+				6320B9C2299AE85A007C7AD3 /* Fonts */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		63BA362529294CC2006C571E /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				63BA362629294CC2006C571E /* VollkornSC-SemiBold.ttf */,
-				63BA362729294CC2006C571E /* Vollkorn-Regular.ttf */,
-				63BA362829294CC2006C571E /* Podkova-Regular.ttf */,
-				63BA362929294CC2006C571E /* Vollkorn-Italic.ttf */,
-				63BA362A29294CC2006C571E /* VollkornSC-Black.ttf */,
-				63BA362B29294CC2006C571E /* VollkornSC-Bold.ttf */,
-				63BA362C29294CC2006C571E /* Vollkorn-Medium.ttf */,
-				63BA362D29294CC2006C571E /* VollkornSC-Regular.ttf */,
-			);
-			path = Fonts;
 			sourceTree = "<group>";
 		};
 		63BCC3B9291FB199007F5134 /* iOS */ = {
@@ -212,6 +263,7 @@
 				63FE56A32780EFC90059A4BE /* Arkham Horror.app */,
 				639F56C0289920CF00647FB9 /* Arkham Horror (iOS).app */,
 				6393C121299693B000131DA5 /* Game (macOS).app */,
+				633FC69F299AE526009281B7 /* Game (iOS).app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -251,6 +303,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		633FC69E299AE526009281B7 /* Game (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 633FC6AA299AE526009281B7 /* Build configuration list for PBXNativeTarget "Game (iOS)" */;
+			buildPhases = (
+				633FC69B299AE526009281B7 /* Sources */,
+				633FC69C299AE526009281B7 /* Frameworks */,
+				633FC69D299AE526009281B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Game (iOS)";
+			packageProductDependencies = (
+				6320B992299AE739007C7AD3 /* Game */,
+			);
+			productName = Game.iOS;
+			productReference = 633FC69F299AE526009281B7 /* Game (iOS).app */;
+			productType = "com.apple.product-type.application";
+		};
 		6393C120299693B000131DA5 /* Game (macOS) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6393C12D299693B100131DA5 /* Build configuration list for PBXNativeTarget "Game (macOS)" */;
@@ -323,6 +395,9 @@
 				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1410;
 				TargetAttributes = {
+					633FC69E299AE526009281B7 = {
+						CreatedOnToolsVersion = 14.2;
+					};
 					6393C120299693B000131DA5 = {
 						CreatedOnToolsVersion = 14.2;
 					};
@@ -352,15 +427,41 @@
 				63FE56A22780EFC90059A4BE /* Arkham Horror (macOS) */,
 				639F56BF289920CF00647FB9 /* Arkham Horror (iOS) */,
 				6393C120299693B000131DA5 /* Game (macOS) */,
+				633FC69E299AE526009281B7 /* Game (iOS) */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		633FC69D299AE526009281B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6320B9D3299AE85A007C7AD3 /* Vollkorn-Bold.ttf in Resources */,
+				6320B9E3299AE85A007C7AD3 /* VollkornSC-Black.ttf in Resources */,
+				6320B9CF299AE85A007C7AD3 /* VollkornSC-SemiBold.ttf in Resources */,
+				6320B9DF299AE85A007C7AD3 /* Vollkorn-Italic.ttf in Resources */,
+				6320B9EB299AE85A007C7AD3 /* Vollkorn-Medium.ttf in Resources */,
+				6320B9DB299AE85A007C7AD3 /* Podkova-Regular.ttf in Resources */,
+				6320B9E7299AE85A007C7AD3 /* VollkornSC-Bold.ttf in Resources */,
+				6320B9D7299AE85A007C7AD3 /* Vollkorn-Regular.ttf in Resources */,
+				6320B9EF299AE85A007C7AD3 /* VollkornSC-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6393C11F299693B000131DA5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6320B9D2299AE85A007C7AD3 /* Vollkorn-Bold.ttf in Resources */,
+				6320B9E2299AE85A007C7AD3 /* VollkornSC-Black.ttf in Resources */,
+				6320B9CE299AE85A007C7AD3 /* VollkornSC-SemiBold.ttf in Resources */,
+				6320B9DE299AE85A007C7AD3 /* Vollkorn-Italic.ttf in Resources */,
+				6320B9EA299AE85A007C7AD3 /* Vollkorn-Medium.ttf in Resources */,
+				6320B9DA299AE85A007C7AD3 /* Podkova-Regular.ttf in Resources */,
+				6320B9E6299AE85A007C7AD3 /* VollkornSC-Bold.ttf in Resources */,
+				6320B9D6299AE85A007C7AD3 /* Vollkorn-Regular.ttf in Resources */,
+				6320B9EE299AE85A007C7AD3 /* VollkornSC-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,14 +469,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63BA363929294CC2006C571E /* VollkornSC-Bold.ttf in Resources */,
-				63BA363329294CC2006C571E /* Podkova-Regular.ttf in Resources */,
-				63BA363529294CC2006C571E /* Vollkorn-Italic.ttf in Resources */,
-				63BA363129294CC2006C571E /* Vollkorn-Regular.ttf in Resources */,
-				63BA362F29294CC2006C571E /* VollkornSC-SemiBold.ttf in Resources */,
-				63BA363729294CC2006C571E /* VollkornSC-Black.ttf in Resources */,
-				63BA363D29294CC2006C571E /* VollkornSC-Regular.ttf in Resources */,
-				63BA363B29294CC2006C571E /* Vollkorn-Medium.ttf in Resources */,
+				6320B9D1299AE85A007C7AD3 /* Vollkorn-Bold.ttf in Resources */,
+				6320B9E1299AE85A007C7AD3 /* VollkornSC-Black.ttf in Resources */,
+				6320B9CD299AE85A007C7AD3 /* VollkornSC-SemiBold.ttf in Resources */,
+				6320B9DD299AE85A007C7AD3 /* Vollkorn-Italic.ttf in Resources */,
+				6320B9E9299AE85A007C7AD3 /* Vollkorn-Medium.ttf in Resources */,
+				6320B9D9299AE85A007C7AD3 /* Podkova-Regular.ttf in Resources */,
+				6320B9E5299AE85A007C7AD3 /* VollkornSC-Bold.ttf in Resources */,
+				6320B9D5299AE85A007C7AD3 /* Vollkorn-Regular.ttf in Resources */,
+				6320B9ED299AE85A007C7AD3 /* VollkornSC-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,20 +485,29 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63BA363829294CC2006C571E /* VollkornSC-Bold.ttf in Resources */,
-				63BA363229294CC2006C571E /* Podkova-Regular.ttf in Resources */,
-				63BA363429294CC2006C571E /* Vollkorn-Italic.ttf in Resources */,
-				63BA363029294CC2006C571E /* Vollkorn-Regular.ttf in Resources */,
-				63BA362E29294CC2006C571E /* VollkornSC-SemiBold.ttf in Resources */,
-				63BA363629294CC2006C571E /* VollkornSC-Black.ttf in Resources */,
-				63BA363C29294CC2006C571E /* VollkornSC-Regular.ttf in Resources */,
-				63BA363A29294CC2006C571E /* Vollkorn-Medium.ttf in Resources */,
+				6320B9D0299AE85A007C7AD3 /* Vollkorn-Bold.ttf in Resources */,
+				6320B9E0299AE85A007C7AD3 /* VollkornSC-Black.ttf in Resources */,
+				6320B9CC299AE85A007C7AD3 /* VollkornSC-SemiBold.ttf in Resources */,
+				6320B9DC299AE85A007C7AD3 /* Vollkorn-Italic.ttf in Resources */,
+				6320B9E8299AE85A007C7AD3 /* Vollkorn-Medium.ttf in Resources */,
+				6320B9D8299AE85A007C7AD3 /* Podkova-Regular.ttf in Resources */,
+				6320B9E4299AE85A007C7AD3 /* VollkornSC-Bold.ttf in Resources */,
+				6320B9D4299AE85A007C7AD3 /* Vollkorn-Regular.ttf in Resources */,
+				6320B9EC299AE85A007C7AD3 /* VollkornSC-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		633FC69B299AE526009281B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6320B981299AE709007C7AD3 /* GameApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6393C11D299693B000131DA5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -424,13 +535,78 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		633FC6AB299AE526009281B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SKRU67QKG5;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Applications/Game/iOS/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "me.shedward.ArkhamHorror.Game-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		633FC6AC299AE526009281B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SKRU67QKG5;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Applications/Game/iOS/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "me.shedward.ArkhamHorror.Game-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		6393C12E299693B100131DA5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = Applications/Game/Game.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Applications/Game/macOS/Game.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -459,7 +635,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = Applications/Game/Game.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Applications/Game/macOS/Game.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -733,6 +909,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		633FC6AA299AE526009281B7 /* Build configuration list for PBXNativeTarget "Game (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				633FC6AB299AE526009281B7 /* Debug */,
+				633FC6AC299AE526009281B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6393C12D299693B100131DA5 /* Build configuration list for PBXNativeTarget "Game (macOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -773,6 +958,10 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		63087DAD2996CCBB00A3C359 /* Game */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Game;
+		};
+		6320B992299AE739007C7AD3 /* Game */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Game;
 		};
