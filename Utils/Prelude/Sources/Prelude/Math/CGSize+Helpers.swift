@@ -8,6 +8,11 @@
 import CoreGraphics
 
 public extension CGSize {
+
+    init(uniform: CGFloat) {
+        self.init(width: uniform, height: uniform)
+    }
+
     func point() -> CGPoint {
         CGPoint(x: width, y: height)
     }

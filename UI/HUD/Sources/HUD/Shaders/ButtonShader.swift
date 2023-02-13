@@ -26,14 +26,15 @@ struct ButtonShader: Shader {
                     v_tex_coord.x < uvBorderWidth.x || v_tex_coord.y < uvBorderWidth.y
                     || v_tex_coord.x > (1 - uvBorderWidth.x) || v_tex_coord.y > (1 - uvBorderWidth.y)
                 )
-                    ? float4(1.0, 1.0, 1.0, 0.85)
+                    ? float4(2.0, 2.0, 2.0, 1.0)
                     : float4(1.0, 1.0, 1.0, 1.0);
 
-                float4 addition = u_isSelected
-                    ? float4(0.3, 0.3, 0.3, 0.0)
-                    : float4(0.0, 0.0, 0.0, 0.0);
+                // selection highlight
+                float4 highlight = u_isSelected
+                    ? float4(0.5, 0.5, 0.5, 1.0)
+                    : float4(1.0, 1.0, 1.0, 1.0);
 
-                gl_FragColor = borderHighlight * color + addition;
+                gl_FragColor = color * borderHighlight * highlight;
             }
             """
         )

@@ -18,7 +18,12 @@ final class CampaignCell: View {
         let buttonTexture = data.image.loadTexture()
 
         let stack = Stack(axis: .vertical, spacing: 16) {
-            TextureButton(texture: buttonTexture, size: CampaignCell.size, onTap: data.onTap)
+            TextureButton(
+                texture: buttonTexture,
+                size: CGSize(uniform: CampaignCell.size.width),
+                borderWidth: 8,
+                onTap: data.onTap
+            )
             Label(text: data.name, textKind: \.menu.h2)
         }
 
