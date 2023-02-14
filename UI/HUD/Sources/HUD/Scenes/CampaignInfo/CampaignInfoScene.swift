@@ -46,7 +46,7 @@ final class CampaignInfoScene: Scene<CampaignInfoViewModel>, CampaignInfoScenePr
     func displayInitialInfo(_ campaignInfo: CampaignInfo) {
         titleLabel.text = campaignInfo.name
         descriptionText.text = campaignInfo.description
-        layoutIfNeeded()
+        layout()
     }
 
     func displayCampaign(_ loadingCampaign: Loading<Campaign>) {
@@ -54,6 +54,6 @@ final class CampaignInfoScene: Scene<CampaignInfoViewModel>, CampaignInfoScenePr
 
         let portraits = loadingCampaign.value?.availableCharacters.map { $0.portrait } ?? []
         charactersCollection?.dataSource = ArrayCollectionDataSource(data: portraits).asAny()
-        layoutIfNeeded()
+        layout()
     }
 }

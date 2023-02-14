@@ -40,8 +40,8 @@ public class Collection<Model, Cell: View>: View {
 
     private func reloadAll() {
         reloadCells(at: allIndices())
+        layout()
         layoutCells(at: allIndices())
-        setNeedsLayout()
     }
 
     private func reloadCells(at indices: [Index]) {

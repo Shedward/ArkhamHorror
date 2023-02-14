@@ -34,8 +34,8 @@ open class Scene<ViewModel: SceneViewModel>: SKScene {
         view.node.removeFromParent()
     }
 
-    public func layoutIfNeeded() {
-        childs.forEach { $0.layoutIfNeeded() }
+    public func layout() {
+        childs.forEach { $0.layout() }
     }
 
     open override func sceneDidLoad() {

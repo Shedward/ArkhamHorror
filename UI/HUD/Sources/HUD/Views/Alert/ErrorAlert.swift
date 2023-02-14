@@ -37,21 +37,19 @@ public final class ErrorAlert: View {
         }
         self.stack = stack
 
-        addChild(frame)
         addChild(secondaryBorder)
+        addChild(frame)
+        frame.addChild(stack)
         display(nil)
     }
 
     public func display(_ error: Error?) {
         if let error {
             messageLabel.text = error.localizedDescription
-            let frameRect = frame.lastFrame
-            secondaryBorder.path = CGPath(rect: frameRect, transform: nil)
             node.isHidden = false
         } else {
             node.isHidden = true
         }
-        layoutIfNeeded()
     }
 
     public func display<Success, Error>(_ result: Result<Success, Error>) {
@@ -65,5 +63,12 @@ public final class ErrorAlert: View {
 
     public func display<Success>(_ loading: Loading<Success>) {
         display(loading.error)
+    }
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+
+        let frameRect = frame.lastFrame
+        secondaryBorder.path = CGPath(rect: frameRect, transform: nil) 
     }
 }

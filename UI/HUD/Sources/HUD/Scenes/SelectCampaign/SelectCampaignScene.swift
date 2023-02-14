@@ -33,6 +33,6 @@ final class SelectCampaignScene: Scene<SelectCampaignViewModel>, SelectCampaignS
         let campaigns = loading.value ?? []
         collection?.dataSource = ArrayCollectionDataSource(data: campaigns).asAny()
         errorAlert.display(loading)
-        layoutIfNeeded()
+        layout()
     }
 }

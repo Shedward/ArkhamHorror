@@ -18,7 +18,6 @@ public final class Shape: View {
         }
         set {
             shapeNode.path = newValue
-            setNeedsLayout()
         }
     }
 
