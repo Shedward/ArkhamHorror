@@ -12,7 +12,7 @@ import ArkhamHorror
 final class CampaignInfoScene: Scene<CampaignInfoViewModel>, CampaignInfoSceneProtocol {
 
     private let titleLabel = Label(textKind: \.menu.h1)
-    private let descriptionText = MultilineText(textKind: \.menu.body)
+    private let descriptionText = Label.multiline(textKind: \.menu.body)
     private let errorAlert = ErrorAlert()
     private var stack: Stack?
 
@@ -39,14 +39,14 @@ final class CampaignInfoScene: Scene<CampaignInfoViewModel>, CampaignInfoScenePr
             descriptionText
             charactersCollection
         }
-        addChild(stack.node)
+        addChildView(stack)
         self.stack = stack
     }
 
     func displayInitialInfo(_ campaignInfo: CampaignInfo) {
         titleLabel.text = campaignInfo.name
         descriptionText.text = campaignInfo.description
-        stack?.layoutSubviews()
+        layoutIfNeeded()
     }
 
     func displayCampaign(_ loadingCampaign: Loading<Campaign>) {
@@ -54,6 +54,6 @@ final class CampaignInfoScene: Scene<CampaignInfoViewModel>, CampaignInfoScenePr
 
         let portraits = loadingCampaign.value?.availableCharacters.map { $0.portrait } ?? []
         charactersCollection?.dataSource = ArrayCollectionDataSource(data: portraits).asAny()
-        stack?.layoutSubviews()
+        layoutIfNeeded()
     }
 }

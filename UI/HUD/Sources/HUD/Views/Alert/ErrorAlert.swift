@@ -10,21 +10,17 @@ import DesignSystem
 import Prelude
 
 public final class ErrorAlert: View {
-    public let node: SKNode
-
     private let designSystem = DesignSystem.default
 
-    private let messageLabel: MultilineText
+    private let messageLabel: Label
     private let frame = Frame(stroke: \.tint.bad, insets: .init(uniform: 16), fill: \.fixed.black)
     private let secondaryBorder = Shape(stroke: \.tint.bad, fill: \.fixed.black)
     private var stack: Stack?
 
     public init(error: Error? = nil, preferredWidth: CGFloat = 256) {
-        self.node = SKNode()
-        messageLabel = MultilineText(textKind: \.failure.message, preferredWidth: preferredWidth)
-
+        messageLabel = Label.multiline(textKind: \.failure.message, preferredWidth: preferredWidth)
         secondaryBorder.node.position = .init(x: 8, y: 8)
-        node.addChild(secondaryBorder.node)
+        super.init()
 
         let okButton = TextButton(
             text: Localized.string("DISMISS"),
@@ -41,22 +37,21 @@ public final class ErrorAlert: View {
         }
         self.stack = stack
 
+        addChild(frame)
+        addChild(secondaryBorder)
         display(nil)
-        frame.node.addChild(stack.node)
-        node.addChild(frame.node)
     }
 
     public func display(_ error: Error?) {
         if let error {
             messageLabel.text = error.localizedDescription
-
-            stack?.layoutSubviews()
-            let frameRect = frame.reframe()
+            let frameRect = frame.lastFrame
             secondaryBorder.path = CGPath(rect: frameRect, transform: nil)
             node.isHidden = false
         } else {
             node.isHidden = true
         }
+        layoutIfNeeded()
     }
 
     public func display<Success, Error>(_ result: Result<Success, Error>) {

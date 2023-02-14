@@ -23,15 +23,16 @@ final class SelectCampaignScene: Scene<SelectCampaignViewModel>, SelectCampaignS
             layout: CenteredRowLayout(itemSize: CampaignCell.size, spacing: 64),
             cellProvider: cellProvider.asAny()
         )
-        addChild(collection.node)
+        addChildView(collection)
         self.collection = collection
 
-        addChild(errorAlert.node)
+        addChildView(errorAlert)
     }
 
     func displayCampaigns(_ loading: Loading<[CampaignCell.Data]>) {
         let campaigns = loading.value ?? []
         collection?.dataSource = ArrayCollectionDataSource(data: campaigns).asAny()
         errorAlert.display(loading)
+        layoutIfNeeded()
     }
 }

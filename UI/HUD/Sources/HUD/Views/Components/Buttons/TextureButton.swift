@@ -8,8 +8,6 @@
 import SpriteKit
 
 public final class TextureButton: View {
-    public let node: SKNode
-    
     public init(
         texture: SKTexture,
         size: CGSize = .init(width: 42, height: 42),
@@ -26,6 +24,6 @@ public final class TextureButton: View {
         node.onAppearanceChange = { node in
             node.setValue(node.isSelected, forAttribute: ButtonShader.Attributes.isSelected)
         }
-        self.node = node
+        super.init(node: node)
     }
 }

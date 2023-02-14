@@ -10,7 +10,7 @@ import DesignSystem
 import Prelude
 
 public final class Frame: View {
-    public var node: SKNode { frameNode }
+    public private(set) var lastFrame: CGRect = .zero
 
     private let frameNode: SKShapeNode
     private let designSystem = DesignSystem.default
@@ -22,7 +22,7 @@ public final class Frame: View {
         insets: CGEdgeInsets = .zero,
         fill: DesignSystem.ColorKind? = nil
     ) {
-        let frameNode = SKShapeNode()
+        frameNode = SKShapeNode()
         if let fill {
             frameNode.fillColor = designSystem.color.by(fill)
         }
@@ -30,15 +30,17 @@ public final class Frame: View {
             frameNode.strokeColor = designSystem.color.by(stroke)
         }
         frameNode.lineWidth = borderWidth
-        self.frameNode = frameNode
+
         self.insets = insets
+        super.init(node: frameNode)
     }
 
-    @discardableResult
-    public func reframe() -> CGRect {
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+
         let framingRect = node.calculateAccumulatedFrame()
         let insetedRect = framingRect.inset(by: insets)
         frameNode.path = CGPath(rect: insetedRect, transform: nil)
-        return insetedRect
+        lastFrame = insetedRect
     }
 }

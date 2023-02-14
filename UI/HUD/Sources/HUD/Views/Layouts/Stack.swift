@@ -9,22 +9,18 @@ import SpriteKit
 import Prelude
 
 public final class Stack: View {
-    public let node: SKNode
     public var axis: Axis
     public var spacing: CGFloat
 
     public init(axis: Axis, spacing: CGFloat, views: [View]) {
-        let node = SKNode()
-
-        views.forEach { view in
-            node.addChild(view.node)
-        }
-
-        self.node = node
         self.axis = axis
         self.spacing = spacing
 
-        layoutSubviews()
+        super.init()
+
+        views.forEach { view in
+            addChild(view)
+        }
     }
 
     public convenience init(axis: Axis, spacing: CGFloat, @ArrayBuilder<View> buildViews: () -> [View]) {
@@ -38,7 +34,9 @@ public final class Stack: View {
         self.init(axis: axis, spacing: spacing, views: views)
     }
 
-    public func layoutSubviews() {
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+
         let nodes = node.children
 
         var currentW: CGFloat = 0.0

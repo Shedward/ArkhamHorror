@@ -9,9 +9,7 @@ import SpriteKit
 import DesignSystem
 
 public final class Shape: View {
-    public var node: SKNode { shapeNode }
     private let shapeNode: SKShapeNode = .init()
-
     private let designSystem = DesignSystem.default
 
     var path: CGPath? {
@@ -20,6 +18,7 @@ public final class Shape: View {
         }
         set {
             shapeNode.path = newValue
+            setNeedsLayout()
         }
     }
 
@@ -32,5 +31,6 @@ public final class Shape: View {
         shapeNode.fillColor = designSystem.color.by(fill)
         shapeNode.strokeColor = designSystem.color.by(stroke)
         shapeNode.lineWidth = borderWidth
+        super.init(node: shapeNode)
     }
 }

@@ -8,15 +8,13 @@
 import SpriteKit
 
 public final class Scroll: View {
-    public let node: SKNode
-
     public init(
         texture: SKTexture,
         size: CGSize,
         content: View
     ) {
         let node = ScrollNode(size: size)
-        self.node = node
+        super.init(node: node)
     }
 }
 

@@ -9,44 +9,45 @@ import SpriteKit
 import DesignSystem
 
 public final class Label: View {
-
-    public var node: SKNode {
-        labelNode
-    }
-
     public var text: String? {
         didSet {
             labelNode.text = text
+            setNeedsLayout()
         }
     }
 
     public var preferredWidth: CGFloat = 0 {
         didSet {
             labelNode.preferredMaxLayoutWidth = preferredWidth
+            setNeedsLayout()
         }
     }
 
     public var numberOfLines: Int = 0 {
         didSet {
             labelNode.numberOfLines = numberOfLines
+            setNeedsLayout()
         }
     }
 
     public var lineBreakMode: NSLineBreakMode = .byTruncatingTail {
         didSet {
             labelNode.lineBreakMode = lineBreakMode
+            setNeedsLayout()
         }
     }
 
     public var verticalAlignmentMode: SKLabelVerticalAlignmentMode = .baseline {
         didSet {
             labelNode.verticalAlignmentMode = verticalAlignmentMode
+            setNeedsLayout()
         }
     }
 
     public var horizontalAlignmentMode: SKLabelHorizontalAlignmentMode = .center {
         didSet {
             labelNode.horizontalAlignmentMode = horizontalAlignmentMode
+            setNeedsLayout()
         }
     }
 
@@ -65,5 +66,6 @@ public final class Label: View {
         labelNode.lineBreakMode = lineBreakMode
         labelNode.verticalAlignmentMode = verticalAlignmentMode
         labelNode.horizontalAlignmentMode = horizontalAlignmentMode
+        super.init(node: labelNode)
     }
 }

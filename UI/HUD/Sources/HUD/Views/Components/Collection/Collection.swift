@@ -11,8 +11,6 @@ import Prelude
 public class Collection<Model, Cell: View>: View {
     typealias Index = Int
 
-    public var node: SKNode = .init()
-
     var dataSource: AnyCollectionDataSource<Model> {
         didSet { reloadAll() }
     }
@@ -37,11 +35,13 @@ public class Collection<Model, Cell: View>: View {
         self.dataSource = AnyCollectionDataSource(dataSource)
         self.layout = layout
         self.cellProvider = AnyCollectionCellProvider(cellProvider)
+        super.init()
     }
 
     private func reloadAll() {
         reloadCells(at: allIndices())
         layoutCells(at: allIndices())
+        setNeedsLayout()
     }
 
     private func reloadCells(at indices: [Index]) {
@@ -79,10 +79,16 @@ public class Collection<Model, Cell: View>: View {
     }
 
     private func presentCell(_ cell: Cell) {
-        node.addChild(cell.node)
+        addChild(cell)
     }
 
     private func dismissCell(_ cell: Cell) {
-        cell.node.removeFromParent()
+        cell.removeFromSuperview()
+    }
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+
+        layoutCells(at: allIndices())
     }
 }

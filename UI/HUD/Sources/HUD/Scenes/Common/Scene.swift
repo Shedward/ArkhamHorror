@@ -10,10 +10,10 @@ import Prelude
 
 
 @MainActor
-open class Scene<ViewModel: SceneViewModel>: SKScene
-{
+open class Scene<ViewModel: SceneViewModel>: SKScene {
     public var viewModel: ViewModel
     private let logger = Logger()
+    private var childs: [View] = []
 
     public init(size: CGSize, viewModel: ViewModel) {
         self.viewModel = viewModel
@@ -22,6 +22,20 @@ open class Scene<ViewModel: SceneViewModel>: SKScene
 
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    public func addChildView(_ view: View) {
+        childs.append(view)
+        addChild(view.node)
+    }
+
+    public func removeChild(_ view: View) {
+        childs = childs.filter { $0 !== view }
+        view.node.removeFromParent()
+    }
+
+    public func layoutIfNeeded() {
+        childs.forEach { $0.layoutIfNeeded() }
     }
 
     open override func sceneDidLoad() {
