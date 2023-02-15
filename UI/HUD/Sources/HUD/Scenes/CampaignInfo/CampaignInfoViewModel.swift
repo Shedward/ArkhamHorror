@@ -30,12 +30,27 @@ final class CampaignInfoViewModel: SceneViewModel {
 
     func sceneDidLoad() {
         Task {
-            scene?.displayInitialInfo(campaignInfo)
+            let campaignInfoData = CampaignInfoScene.CampaignInfoData(
+                campaignLogo: campaignInfo.image,
+                title: campaignInfo.name,
+                description: campaignInfo.description
+            )
+            scene?.displayInitialInfo(campaignInfoData)
+
             scene?.displayCampaign(.loading)
             let campaign = await Loading.async {
                 try await dependencies.campaignLoader.loadCampaign(id: campaignInfo.id)
             }
-            scene?.displayCampaign(campaign)
+
+            let campaignData = campaign.map { campaign in
+                CampaignInfoScene.CampaignLoadedData(
+                    portratis: campaign.availableCharacters.map(\.portrait),
+                    onStart: { [output] in
+                        output.onStartCampaign(campaign)
+                    }
+                )
+            }
+            scene?.displayCampaign(campaignData)
         }
     }
 }

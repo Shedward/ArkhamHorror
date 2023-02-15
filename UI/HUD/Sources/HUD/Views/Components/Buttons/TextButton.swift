@@ -11,30 +11,40 @@ import DesignSystem
 
 public final class TextButton: View {
     static let defaultSize: CGSize = .init(width: 128, height: 32)
+    private let tappableNode: TappableShapeNode
     private let designSystem = DesignSystem.default
+
+    public var onTap: (() -> Void)? {
+        didSet {
+            tappableNode.onTap = onTap
+        }
+    }
 
     init(
         text: String,
         textKind: DesignSystem.TextKind,
         size: CGSize = TextButton.defaultSize,
         border: CGFloat = 4.0,
-        onTap: @escaping () -> Void
+        onTap: (() -> Void)? = nil
     ) {
-        let node = TappableShapeNode(rect: .centeredRect(of: size))
-        node.isUserInteractionEnabled = true
-        node.onTap = onTap
-        node.onAppearanceChange = { node in
-            node.alpha = node.isSelected ? 0.8 : 1.0
+        tappableNode = TappableShapeNode(rect: .centeredRect(of: size))
+        self.onTap = onTap
+        super.init(node: tappableNode)
+
+        tappableNode.isUserInteractionEnabled = true
+        tappableNode.onTap = onTap
+        tappableNode.onAppearanceChange = { [weak self] node in
+            guard let self else { return }
+            self.tappableNode.alpha = self.tappableNode.isSelected ? 0.8 : 1.0
         }
 
-        node.lineWidth = border
-        node.strokeColor = designSystem.text.by(textKind).color
+        tappableNode.lineWidth = border
+        tappableNode.strokeColor = designSystem.text.by(textKind).color
 
         let textLabel = Label(text: text, textKind: textKind)
         textLabel.verticalAlignmentMode = .center
         textLabel.preferredWidth = size.width
 
-        super.init(node: node)
         addChild(textLabel)
     }
 }

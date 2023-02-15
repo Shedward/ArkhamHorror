@@ -11,6 +11,8 @@ import ArkhamHorror
 
 final class CampaignInfoScene: Scene<CampaignInfoViewModel>, CampaignInfoSceneProtocol {
 
+    private let campaignLogo = Image()
+    private let startButton = TextButton(text: Localized.string("Start"), textKind: \.menu.h1)
     private let titleLabel = Label(textKind: \.menu.h1)
     private let descriptionText = Label.multiline(textKind: \.menu.body)
     private let errorAlert = ErrorAlert()
@@ -34,26 +36,47 @@ final class CampaignInfoScene: Scene<CampaignInfoViewModel>, CampaignInfoScenePr
         )
         self.charactersCollection = charactersCollection
 
-        let stack = Stack(axis: .vertical, spacing: 8) {
+        let vStack = Stack(axis: .vertical, spacing: 16) {
             titleLabel
             descriptionText
             charactersCollection
+            startButton
         }
+
+        let stack = Stack(axis: .horizontal, spacing: 16) {
+            campaignLogo
+            vStack
+        }
+
         addChildView(stack)
         self.stack = stack
     }
 
-    func displayInitialInfo(_ campaignInfo: CampaignInfo) {
-        titleLabel.text = campaignInfo.name
-        descriptionText.text = campaignInfo.description
+    func displayInitialInfo(_ info: CampaignInfoData) {
+        campaignLogo.image = info.campaignLogo
+        titleLabel.text = info.title
+        descriptionText.text = info.description
         layout()
     }
 
-    func displayCampaign(_ loadingCampaign: Loading<Campaign>) {
-        errorAlert.display(loadingCampaign.error)
-
-        let portraits = loadingCampaign.value?.availableCharacters.map { $0.portrait } ?? []
+    func displayCampaign(_ loadedData: Loading<CampaignLoadedData>) {
+        errorAlert.display(loadedData.error)
+        startButton.onTap = loadedData.value?.onStart
+        let portraits = loadedData.value?.portratis ?? []
         charactersCollection?.dataSource = ArrayCollectionDataSource(data: portraits).asAny()
         layout()
+    }
+}
+
+extension CampaignInfoScene {
+    struct CampaignInfoData {
+        let campaignLogo: ImageResource
+        let title: String
+        let description: String
+    }
+
+    struct CampaignLoadedData {
+        let portratis: [ImageResource]
+        let onStart: () -> Void
     }
 }

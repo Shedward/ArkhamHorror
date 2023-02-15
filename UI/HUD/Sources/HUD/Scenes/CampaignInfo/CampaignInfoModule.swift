@@ -10,8 +10,8 @@ import ArkhamHorror
 import SpriteKit
 
 protocol CampaignInfoSceneProtocol: AnyObject {
-    func displayInitialInfo(_ campaignInfo: CampaignInfo)
-    func displayCampaign(_ loading: Loading<Campaign>)
+    func displayInitialInfo(_ campaignInfo: CampaignInfoScene.CampaignInfoData)
+    func displayCampaign(_ loading: Loading<CampaignInfoScene.CampaignLoadedData>)
 }
 
 public struct CampaignInfoOutput {

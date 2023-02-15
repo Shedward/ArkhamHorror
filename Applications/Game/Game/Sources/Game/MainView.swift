@@ -46,7 +46,7 @@ public struct MainView: SwiftUI.View {
     private func displayCampaignInfo(_ campaignInfo: CampaignInfo) {
         let output = CampaignInfoOutput(
             onStartCampaign: { campaign in
-                logger.debug("Open campaign \(campaign)")
+                logger.info("Open campaign \(campaign)")
             }
         )
 
