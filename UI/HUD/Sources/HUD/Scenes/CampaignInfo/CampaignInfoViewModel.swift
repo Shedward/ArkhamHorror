@@ -45,6 +45,9 @@ final class CampaignInfoViewModel: SceneViewModel {
             let campaignData = campaign.map { campaign in
                 CampaignInfoScene.CampaignLoadedData(
                     portratis: campaign.availableCharacters.map(\.portrait),
+                    onBack: { [output] in
+                        output.onBack()
+                    },
                     onStart: { [output] in
                         output.onStartCampaign(campaign)
                     }

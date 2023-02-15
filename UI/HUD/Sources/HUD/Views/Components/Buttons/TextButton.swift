@@ -22,7 +22,7 @@ public final class TextButton: View {
 
     init(
         text: String,
-        textKind: DesignSystem.TextKind,
+        textKind: DesignSystem.TextKind = \.menu.h3,
         size: CGSize = TextButton.defaultSize,
         border: CGFloat = 4.0,
         onTap: (() -> Void)? = nil

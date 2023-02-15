@@ -16,9 +16,14 @@ protocol CampaignInfoSceneProtocol: AnyObject {
 
 public struct CampaignInfoOutput {
     public let onStartCampaign: (Campaign) -> Void
+    public let onBack: () -> Void
 
-    public init(onStartCampaign: @escaping (Campaign) -> Void) {
+    public init(
+        onStartCampaign: @escaping (Campaign) -> Void,
+        onBack: @escaping () -> Void
+    ) {
         self.onStartCampaign = onStartCampaign
+        self.onBack = onBack
     }
 }
 

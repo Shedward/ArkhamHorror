@@ -24,7 +24,7 @@ public final class ErrorAlert: View {
 
         let okButton = TextButton(
             text: Localized.string("DISMISS"),
-            textKind: \.failure.message,
+            textKind: \.failure.title,
             onTap: { [weak self] in
                 self?.display(nil)
             }

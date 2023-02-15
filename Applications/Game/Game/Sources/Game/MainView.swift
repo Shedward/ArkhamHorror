@@ -30,23 +30,37 @@ public struct MainView: SwiftUI.View {
     }
 
     public var body: some SwiftUI.View {
-        SceneView(overlay: overlay ?? displayCampaigns())
+        SceneView(overlay: overlay ?? displayCampaignsOverlay())
             .frame(width: size.width, height: size.height)
     }
 
-    private func displayCampaigns() -> SKScene {
+    private func displayCampaignsOverlay() -> SKScene {
         let output = SelectCampaignOutput(
             onCampaignSelected: { campaignInfo in
                 displayCampaignInfo(campaignInfo)
             }
         )
+
         return hudScenes.selectCampaign(output: output)
+    }
+
+    private func displayCampaigns() {
+        let output = SelectCampaignOutput(
+            onCampaignSelected: { campaignInfo in
+                displayCampaignInfo(campaignInfo)
+            }
+        )
+
+        overlay = hudScenes.selectCampaign(output: output)
     }
 
     private func displayCampaignInfo(_ campaignInfo: CampaignInfo) {
         let output = CampaignInfoOutput(
             onStartCampaign: { campaign in
                 logger.info("Open campaign \(campaign)")
+            },
+            onBack: {
+                displayCampaigns()
             }
         )
 

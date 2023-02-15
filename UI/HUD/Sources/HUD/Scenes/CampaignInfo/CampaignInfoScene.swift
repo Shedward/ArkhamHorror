@@ -12,7 +12,8 @@ import ArkhamHorror
 final class CampaignInfoScene: Scene<CampaignInfoViewModel>, CampaignInfoSceneProtocol {
 
     private let campaignLogo = Image()
-    private let startButton = TextButton(text: Localized.string("Start"), textKind: \.menu.h1)
+    private let backButton = TextButton(text: Localized.string("Back"))
+    private let startButton = TextButton(text: Localized.string("Start"))
     private let titleLabel = Label(textKind: \.menu.h1)
     private let descriptionText = Label.multiline(textKind: \.menu.body)
     private let errorAlert = ErrorAlert()
@@ -40,7 +41,10 @@ final class CampaignInfoScene: Scene<CampaignInfoViewModel>, CampaignInfoScenePr
             titleLabel
             descriptionText
             charactersCollection
-            startButton
+            Stack(axis: .horizontal, spacing: 8) {
+                backButton
+                startButton
+            }
         }
 
         let stack = Stack(axis: .horizontal, spacing: 16) {
@@ -49,6 +53,7 @@ final class CampaignInfoScene: Scene<CampaignInfoViewModel>, CampaignInfoScenePr
         }
 
         addChildView(stack)
+        addChildView(errorAlert)
         self.stack = stack
     }
 
@@ -61,6 +66,7 @@ final class CampaignInfoScene: Scene<CampaignInfoViewModel>, CampaignInfoScenePr
 
     func displayCampaign(_ loadedData: Loading<CampaignLoadedData>) {
         errorAlert.display(loadedData.error)
+        backButton.onTap = loadedData.value?.onBack
         startButton.onTap = loadedData.value?.onStart
         let portraits = loadedData.value?.portratis ?? []
         charactersCollection?.dataSource = ArrayCollectionDataSource(data: portraits).asAny()
@@ -77,6 +83,7 @@ extension CampaignInfoScene {
 
     struct CampaignLoadedData {
         let portratis: [ImageResource]
+        let onBack: () -> Void
         let onStart: () -> Void
     }
 }
