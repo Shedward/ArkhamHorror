@@ -22,6 +22,7 @@ final class MapScene: SCNScene {
     public init(map: Map) {
         self.map = map
         super.init()
+        configureScene()
     }
 
     required init?(coder: NSCoder) {
@@ -246,7 +247,7 @@ final class MapScene: SCNScene {
 
     private func startWandering(node: SCNNode) {
         class WanderingState {
-            var currentRegionId: Region.ID = "arkham_advertiser"
+            var currentRegionId: Region.ID = "graveyard"
         }
 
         let wanderingState = WanderingState()
@@ -268,5 +269,12 @@ final class MapScene: SCNScene {
         let rotation = SCNAction.repeatForever(.rotate(by: .pi2, around: .zAxis, duration: 1))
         node.runAction(wanderingForever)
         node.runAction(rotation)
+    }
+}
+
+public extension Scenes {
+    static func mapScene(_ map: Map) -> SCNScene {
+        let scene = MapScene(map: map)
+        return scene
     }
 }

@@ -9,4 +9,4 @@ description:
 
 rules:
   defaultCountOfActions: 2
-  initialPosition: train_station
+  initialPosition: graveyard

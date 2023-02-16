@@ -26,6 +26,7 @@ open class Scene<ViewModel: SceneViewModel>: SKScene {
 
     public func addChildView(_ view: View) {
         childs.append(view)
+        view.layout()
         addChild(view.node)
     }
 
@@ -50,6 +51,7 @@ open class Scene<ViewModel: SceneViewModel>: SKScene {
         }
 
         setup()
+        layout()
         viewModel.sceneDidLoad()
     }
 

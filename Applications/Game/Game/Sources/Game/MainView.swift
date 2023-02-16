@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SceneKit
 import SpriteKit
 
 import Prelude
@@ -22,6 +23,8 @@ public struct MainView: SwiftUI.View {
     let logger = Logger()
 
     @State
+    private var scene: SCNScene?
+    @State
     private var overlay: SKScene?
 
     public init() throws {
@@ -30,18 +33,11 @@ public struct MainView: SwiftUI.View {
     }
 
     public var body: some SwiftUI.View {
-        SceneView(overlay: overlay ?? displayCampaignsOverlay())
+        SceneView(scene: scene, overlay: overlay)
             .frame(width: size.width, height: size.height)
-    }
-
-    private func displayCampaignsOverlay() -> SKScene {
-        let output = SelectCampaignOutput(
-            onCampaignSelected: { campaignInfo in
-                displayCampaignInfo(campaignInfo)
+            .onAppear {
+                displayCampaigns()
             }
-        )
-
-        return hudScenes.selectCampaign(output: output)
     }
 
     private func displayCampaigns() {
@@ -52,12 +48,13 @@ public struct MainView: SwiftUI.View {
         )
 
         overlay = hudScenes.selectCampaign(output: output)
+        scene = nil
     }
 
     private func displayCampaignInfo(_ campaignInfo: CampaignInfo) {
         let output = CampaignInfoOutput(
             onStartCampaign: { campaign in
-                logger.info("Open campaign \(campaign)")
+                displayCampaignGameboard(campaign)
             },
             onBack: {
                 displayCampaigns()
@@ -65,5 +62,16 @@ public struct MainView: SwiftUI.View {
         )
 
         overlay = hudScenes.campaignInfo(campaignInfo, output: output)
+        scene = nil
+    }
+
+    private func displayCampaignGameboard(_ campaign: Campaign) {
+        let output = CampaignGameboardOutput(
+            onBack: {
+                displayCampaigns()
+            }
+        )
+        overlay = hudScenes.campaignGameboard(campaign, output: output)
+        scene = Scenes.mapScene(campaign.map)
     }
 }
