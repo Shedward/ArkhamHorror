@@ -31,103 +31,54 @@ final class MapScene: SCNScene {
 
     private func configureScene() {
         rootNode.addChildNode(gameboardNode)
-        configureCamera()
-        configureLighting()
+        configureEnvironment()
         configureGameboard()
         configurePlayers()
     }
 
-    private func configureCamera() {
-        let camera = SCNCamera()
-        camera.usesOrthographicProjection = true
-        camera.orthographicScale = 4
-        camera.fieldOfView = 20
+    private func configureEnvironment() {
+        let pointOfView = pointOfView()
+        let camera = Camera(at: pointOfView, lookingAt: gameboardNode.simdPosition)
+        rootNode.addChildNode(camera.node)
 
-        let node = SCNNode()
-        node.camera = camera
-        node.position = pointOfView()
-
-        rootNode.addChildNode(node)
-    }
-
-    private func configureLighting() {
         background.contents = UColor(white: 0.10, alpha: 1)
-        let light = createLight(
+        let ambientLight = Light(
+            at: .zero,
             type: .ambient,
-            color: .white,
-            castShadows: false
+            color: .white
         )
-        light.position = .origin
-        rootNode.addChildNode(light)
+        rootNode.addChildNode(ambientLight.node)
 
-        let light1 = createLight(
+        let redLight = Light(
+            at: pointOfView.movedBy(dx: -5, dz: 5),
             type: .omni,
-            color: .init(hue: 0, saturation: 100, lightness: 80, alpha: 1.0),
+            color: .init(hue: 0, saturation: 100, lightness: 100, alpha: 1.0),
             castShadows: true
         )
-        light1.position = pointOfView().movedBy(dx: -5, dz: 5)
-        rootNode.addChildNode(light1)
+        rootNode.addChildNode(redLight.node)
 
-        let light2 = createLight(
+        let greenLight = Light(
+            at: pointOfView.movedBy(dx: 5, dz: 5),
             type: .omni,
             color: .init(hue: 120, saturation: 100, lightness: 80, alpha: 1.0),
             castShadows: true
         )
-        light2.position = pointOfView().movedBy(dx: 5, dz: 5)
-        rootNode.addChildNode(light2)
+        rootNode.addChildNode(greenLight.node)
 
-        let light3 = createLight(
+        let blueLight = Light(
+            at: pointOfView.movedBy(dy: 5, dz: -5),
             type: .omni,
             color: .init(hue: 240, saturation: 100, lightness: 80, alpha: 1.0),
             castShadows: true
         )
-        light3.position = pointOfView().movedBy(dy: 5, dz: 5)
-        rootNode.addChildNode(light3)
-    }
-
-    private func createLight(
-        type: SCNLight.LightType,
-        color: UColor,
-        intencity: CGFloat = 1000,
-        temperature: CGFloat = 6500,
-        castShadows: Bool
-    ) -> SCNNode {
-        let light = SCNLight()
-        light.color = color
-        light.type = type
-        light.intensity = intencity
-        light.castsShadow = castShadows
-        light.temperature = temperature
-
-        let node = SCNNode()
-        node.light = light
-        return node
+        rootNode.addChildNode(blueLight.node)
     }
 
     private func configurePlayers() {
-        createPlayerNode(color: UColor(rgb: 0xf2950e))
-        createPlayerNode(color: UColor(rgb: 0x0dac98))
-    }
-
-    private func createPlayerNode(color: UColor) {
-        let geometry = SCNPyramid(width: 0.125, height: 0.5, length: 0.25)
-
-        geometry.materials = [regionMaterial(color: color)]
-
-        let playerNode = with(SCNNode()) { node in
-            node.light = with(SCNLight()) { light in
-                light.type = .omni
-                light.color = color
-                light.intensity = 3000
-                light.castsShadow = true
-            }
-
-            node.geometry = geometry
-            node.orientation = .init(axis: .xAxis, radians: .pi2)
-            node.position.z = regionHeight() + 0.05
-        }
-        gameboardNode.addChildNode(playerNode)
-        startWandering(node: playerNode)
+        let player1 = Player(color: UColor(rgb: 0xf2950e))
+        gameboardNode.addChildNode(player1.node)
+        let player2 = Player(color: UColor(rgb: 0x0dac98))
+        gameboardNode.addChildNode(player2.node)
     }
 
     private func configureGameboard() {
@@ -148,7 +99,7 @@ final class MapScene: SCNScene {
         return size.toSize()
     }
 
-    private func pointOfView() -> SCNVector3 {
+    private func pointOfView() -> vector_float3 {
         let boardSize = self.boardSize()
         return .init(boardSize.width / 2, boardSize.height / 2, boardSize.maxDimention * 3.0)
     }
@@ -163,14 +114,8 @@ final class MapScene: SCNScene {
 
         let node = SCNNode()
         for (region, regionId) in regions {
-            let regionNode = createRegionNode(
-                title: regionId.rawValue,
-                region: region,
-                color: UColor(white: 0.30, alpha: 1.0),
-                contentColor: UColor(white: 0.15, alpha: 1.0),
-                height: regionHeight()
-            )
-            node.addChildNode(regionNode)
+            let mapRegion = MapRegion(title: regionId.rawValue, region: region)
+            node.addChildNode(mapRegion.node)
         }
 
         let nodePosition = mapGeometry.origin(at: neighboarhood.position.toHexagonPosition())
@@ -186,89 +131,11 @@ final class MapScene: SCNScene {
         )
 
         let region = bridge.region()
-        let node = createRegionNode(
+        let mapRegion = MapRegion(
             title: street.regionId.rawValue,
-            region: region,
-            color: UColor(white: 0.15, alpha: 1.0),
-            contentColor: UColor(white: 0.30, alpha: 1.0),
-            height: regionHeight() / 2
+            region: region
         )
-        return node
-    }
-
-    private func createRegionNode(
-        title: String?,
-        region: MapGeometry.Region,
-        color: UColor,
-        contentColor: UColor,
-        height: UFloat
-    ) -> SCNNode {
-        let bezierPath = UBezierPath(points: region.border)
-
-        let regionShape = SCNShape(path: bezierPath, extrusionDepth: CGFloat(height))
-        let champferRadius = regionHeight() / 5
-
-        regionShape.chamferRadius = CGFloat(regionHeight() / 5)
-        regionShape.chamferMode = .front
-        regionShape.chamferProfile = UBezierPath(lineFrom: .init(x: 0, y: 1), to: .init(x: 1, y: 0))
-        regionShape.materials = [regionMaterial(color: color)]
-        let shapeNode = SCNNode(geometry: regionShape)
-
-        let text = SCNText(string: title, extrusionDepth: 1)
-        let fontSize: CGFloat = 12.0
-        text.font = .init(name: "AmericanTypewriter", size: fontSize)
-        text.materials = [regionMaterial(color: contentColor)]
-        let textNode = SCNNode(geometry: text)
-        textNode.position.xy = .init(x: champferRadius, y: champferRadius)
-        textNode.scale = .uniformScale(1 / UFloat(fontSize * 10))
-
-        let regionLegendNode = SCNNode()
-        regionLegendNode.position.xy = region.axis.start.toUPoint()
-        regionLegendNode.position.z = height / 2
-        regionLegendNode.orientation = .init(axis: .zAxis, radians: Float(region.axis.angle))
-        regionLegendNode.addChildNode(textNode)
-
-        let containerNode = SCNNode()
-        containerNode.addChildNode(shapeNode)
-        containerNode.addChildNode(regionLegendNode)
-        return containerNode
-    }
-
-    private func regionMaterial(color: UColor) -> SCNMaterial {
-        let material = SCNMaterial()
-        material.lightingModel = .blinn
-        material.diffuse.contents = color
-        return material
-    }
-
-    private func regionHeight() -> UFloat {
-        return 0.2
-    }
-
-    private func startWandering(node: SCNNode) {
-        class WanderingState {
-            var currentRegionId: Region.ID = "graveyard"
-        }
-
-        let wanderingState = WanderingState()
-
-        let wanderAction = SCNAction.run { [map, mapGeometry] node in
-            guard let nextRegionId = map.neighbors(for: wanderingState.currentRegionId).randomElement() else { return }
-            guard let geometryRegion = map.geometryRegion(by: nextRegionId, geometry: mapGeometry) else { return }
-
-            SCNTransaction.begin()
-            SCNTransaction.animationDuration = 0.75
-            node.position.xy = geometryRegion.center.toUPoint()
-            SCNTransaction.commit()
-
-            wanderingState.currentRegionId = nextRegionId
-        }
-
-        let wanderingForever = SCNAction.repeatForever(.sequence([wanderAction, .wait(duration: 1.25)]))
-
-        let rotation = SCNAction.repeatForever(.rotate(by: .pi2, around: .zAxis, duration: 1))
-        node.runAction(wanderingForever)
-        node.runAction(rotation)
+        return mapRegion.node
     }
 }
 

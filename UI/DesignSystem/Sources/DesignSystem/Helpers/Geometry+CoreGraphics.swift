@@ -11,26 +11,26 @@ import CoreGraphics
 extension Geometry.Point {
     public init(uPoint: UPoint) {
 		self.init(
-			x: Double(uPoint.x),
-			y: Double(uPoint.y)
+            x: Geometry.LengthUnit(uPoint.x),
+            y: Geometry.LengthUnit(uPoint.y)
 		)
 	}
 
     public func toUPoint() -> UPoint {
-		UPoint(x: x, y: y)
+		UPoint(x: UFloat(x), y: UFloat(y))
 	}
 }
 
 extension Geometry.Size {
     public init(uSize: USize) {
 		self.init(
-			width: uSize.width,
-			height: uSize.height
+            width: Geometry.LengthUnit(uSize.width),
+            height: Geometry.LengthUnit(uSize.height)
 		)
 	}
 
     public func toUSize() -> USize {
-		USize(width: width, height: height)
+		USize(width: CGFloat(width), height: CGFloat(height))
 	}
 }
 

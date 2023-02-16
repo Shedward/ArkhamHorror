@@ -8,8 +8,8 @@
 import Darwin
 
 public enum Geometry {
-	public typealias LengthUnit = Double
-    public typealias AngleUnit = Double
+	public typealias LengthUnit = Float
+    public typealias AngleUnit = Float
 
 	public struct Point {
 		public var x: LengthUnit

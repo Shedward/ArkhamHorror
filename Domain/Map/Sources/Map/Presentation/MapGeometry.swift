@@ -5,7 +5,7 @@
 //  Created by Vladislav Maltsev on 10.01.2022.
 //
 
-private let sqrt3: Geometry.LengthUnit = 3.squareRoot()
+private let sqrt3: Geometry.LengthUnit = Float(3.0).squareRoot()
 
 /// Abstraction for map geometry.
 /// Details and reasoning: https://www.craft.do/s/gIx3P2RZKDB8Nj
