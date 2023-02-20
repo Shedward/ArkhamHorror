@@ -14,14 +14,12 @@ public class Game {
         var players: [Player]
     }
 
+    private var campaign: Campaign
     private var state: State
     var presentation: Presentation = .init()
 
-    init(initialState: State) {
-        self.state = initialState
-    }
-
     public init(campaign: Campaign, selectedPlayers: [Player]) {
+        self.campaign = campaign
         self.state = .init(
             campaignId: campaign.id,
             players: selectedPlayers

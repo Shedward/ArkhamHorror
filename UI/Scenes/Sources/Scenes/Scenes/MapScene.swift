@@ -38,7 +38,7 @@ final class MapScene: SCNScene {
 
     private func configureEnvironment() {
         let pointOfView = pointOfView()
-        let camera = Camera(at: pointOfView, lookingAt: gameboardNode.simdPosition)
+        let camera = Camera(at: pointOfView, lookingAt: pointOfView.with(z: 0))
         rootNode.addChildNode(camera.node)
 
         background.contents = UColor(white: 0.10, alpha: 1)

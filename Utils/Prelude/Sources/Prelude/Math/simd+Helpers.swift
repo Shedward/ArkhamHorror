@@ -18,4 +18,11 @@ extension vector_float3 {
     public func movedBy(dx: Float = 0, dy: Float = 0, dz: Float = 0) -> vector_float3 {
         self + vector_float3(dx, dy, dz)
     }
+
+    @inlinable
+    public func with(z: Float) -> vector_float3 {
+        var v = self
+        v.z = z
+        return v
+    }
 }
