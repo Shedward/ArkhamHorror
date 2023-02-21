@@ -9,11 +9,19 @@ import SpriteKit
 import Prelude
 
 public final class Centered: View {
-    init(_ view: View, size: CGSize) {
-        let node = view.node
+    private let size: CGSize
+
+    public init(_ view: View, size: CGSize) {
+        self.size = size
+        super.init()
+        addChild(view)
+    }
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+
         let childFrame = node.calculateAccumulatedFrame()
         let position = 0.5 * size.point() - 0.5 * childFrame.size.point()
         node.position = position
-        super.init(node: node)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  GameEpisodeModel.swift
+//  GameEpisodeViewModel.swift
 //  
 //
 //  Created by Vladislav Maltsev on 20.02.2023.
@@ -11,9 +11,13 @@ protocol GameEpisodeViewModel {
     var episode: Episode? { get set }
 
     func didBegin()
+    func willEnd()
 }
 
 extension GameEpisodeViewModel {
     func didBegin() {
+    }
+
+    func willEnd() {
     }
 }

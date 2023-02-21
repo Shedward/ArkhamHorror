@@ -10,7 +10,7 @@ import Prelude
 import DesignSystem
 
 public final class TextButton: View {
-    static let defaultSize: CGSize = .init(width: 128, height: 32)
+    public static let defaultSize: CGSize = .init(width: 128, height: 32)
     private let tappableNode: TappableShapeNode
     private let designSystem = DesignSystem.default
 
@@ -20,7 +20,7 @@ public final class TextButton: View {
         }
     }
 
-    init(
+    public init(
         text: String,
         textKind: DesignSystem.TextKind = \.menu.h3,
         size: CGSize = TextButton.defaultSize,

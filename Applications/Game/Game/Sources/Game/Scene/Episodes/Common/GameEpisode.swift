@@ -12,12 +12,14 @@ import Prelude
 import HUD
 import Scenes
 
+@MainActor
 protocol GameEpisodeProtocol: AnyObject {
     var scene: GameScene? { get set }
     func begin() async
     func end() async
 }
 
+@MainActor
 class GameEpisode<ViewModel: GameEpisodeViewModel>: GameEpisodeProtocol {
     private var presentedViews: [PresentedView] = []
     private var presentedObjects: [PresentedObject] = []
@@ -26,13 +28,17 @@ class GameEpisode<ViewModel: GameEpisodeViewModel>: GameEpisodeProtocol {
 
     weak var scene: GameScene?
 
+    var overlaySize: CGSize {
+        scene?.overlay.size ?? .zero
+    }
+
     init(viewModel: ViewModel) {
         self.viewModel = viewModel
     }
 
     func begin() async {
         viewModel.episode = self as? ViewModel.Episode
-        if viewModel.episode != nil {
+        if viewModel.episode == nil {
             logger.error("""
             GameEpisode failed to cast episode \(self) \
             to \(ViewModel.Episode.self)
@@ -44,6 +50,7 @@ class GameEpisode<ViewModel: GameEpisodeViewModel>: GameEpisodeProtocol {
     }
 
     func end() async {
+        viewModel.willEnd()
         await removeAll()
     }
 
@@ -53,6 +60,10 @@ class GameEpisode<ViewModel: GameEpisodeViewModel>: GameEpisodeProtocol {
 
     func endEpisode() async {
         await scene?.endEpisode(self)
+    }
+
+    func layout() {
+        presentedViews.forEach { $0.view.layout() }
     }
 
     func removeAll() async {
@@ -91,6 +102,7 @@ class GameEpisode<ViewModel: GameEpisodeViewModel>: GameEpisodeProtocol {
 
     func addView(_ view: View) async {
         await addView(view, transition: BasicSpriteTransition())
+        view.layout()
     }
 
     func removeView(_ view: View) async {

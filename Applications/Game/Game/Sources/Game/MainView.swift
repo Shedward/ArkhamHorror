@@ -19,21 +19,19 @@ import Scenes
 public struct MainView: SwiftUI.View {
     let size: CGSize = .init(width: 1280, height: 720)
     let dependencies: Dependencies
-    let hudScenes: HUDScenes
+    let episodes: Episodes
     let logger = Logger()
 
-    @State
-    private var scene: SCNScene?
-    @State
-    private var overlay: SKScene?
+    private let gameScene: GameScene
 
     public init() throws {
+        gameScene = GameScene(size: size)
         dependencies = try Dependencies()
-        hudScenes = HUDScenes(size: size, dependencies: dependencies)
+        episodes = Episodes(size: size, dependencies: dependencies)
     }
 
     public var body: some SwiftUI.View {
-        SceneView(scene: scene, overlay: overlay)
+        SceneView(scene: gameScene.scene3d, overlay: gameScene.overlay)
             .frame(width: size.width, height: size.height)
             .onAppear {
                 displayCampaigns()
@@ -42,36 +40,15 @@ public struct MainView: SwiftUI.View {
 
     private func displayCampaigns() {
         let output = SelectCampaignOutput(
-            onCampaignSelected: { campaignInfo in
-                displayCampaignInfo(campaignInfo)
+            didSelectCampaign: { info in
+                displaySelectedCampaign(info: info)
             }
         )
-
-        overlay = hudScenes.selectCampaign(output: output)
-        scene = nil
+        let selectCampaignEpisode = episodes.selectCampaign(output: output)
+        Task { await gameScene.startEpisode(selectCampaignEpisode) }
     }
 
-    private func displayCampaignInfo(_ campaignInfo: CampaignInfo) {
-        let output = CampaignInfoOutput(
-            onStartCampaign: { campaign in
-                displayCampaignGameboard(campaign)
-            },
-            onBack: {
-                displayCampaigns()
-            }
-        )
+    private func displaySelectedCampaign(info: CampaignInfo) {
 
-        overlay = hudScenes.campaignInfo(campaignInfo, output: output)
-        scene = nil
-    }
-
-    private func displayCampaignGameboard(_ campaign: Campaign) {
-        let output = CampaignGameboardOutput(
-            onBack: {
-                displayCampaigns()
-            }
-        )
-        overlay = hudScenes.campaignGameboard(campaign, output: output)
-        scene = Scenes.mapScene(campaign.map)
     }
 }

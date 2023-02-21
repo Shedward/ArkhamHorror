@@ -9,10 +9,10 @@ import SpriteKit
 import ArkhamHorror
 import DesignSystem
 
-final class CampaignCell: View {
-    static let size: CGSize = CGSize(width: 256, height: 256 + 16 + 16)
+final public class CampaignCell: View, CollectionCell {
+    public static let size: CGSize = CGSize(width: 256, height: 256 + 16 + 16)
 
-    init(data: Data) {
+    public init(data: Data) {
         super.init()
 
         let buttonTexture = data.image.loadTexture()
@@ -30,9 +30,15 @@ final class CampaignCell: View {
 }
 
 extension CampaignCell {
-    struct Data {
-        let name: String
-        let image: ImageResource
-        let onTap: () -> Void
+    public struct Data {
+        public var name: String
+        public var image: ImageResource
+        public var onTap: () -> Void
+
+        public init(name: String, image: ImageResource, onTap: @escaping () -> Void) {
+            self.name = name
+            self.image = image
+            self.onTap = onTap
+        }
     }
 }

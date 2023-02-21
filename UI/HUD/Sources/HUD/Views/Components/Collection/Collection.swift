@@ -11,13 +11,13 @@ import Prelude
 public class Collection<Model, Cell: View>: View {
     typealias Index = Int
 
-    var dataSource: AnyCollectionDataSource<Model> {
+    public var dataSource: AnyCollectionDataSource<Model> {
         didSet { reloadAll() }
     }
-    var layout: CollectionLayout {
+    public var layout: CollectionLayout {
         didSet { reloadAll() }
     }
-    var cellProvider: AnyCollectionCellProvider<Cell, Model> {
+    public var cellProvider: AnyCollectionCellProvider<Cell, Model> {
         didSet { reloadAll() }
     }
 
@@ -36,6 +36,19 @@ public class Collection<Model, Cell: View>: View {
         self.layout = layout
         self.cellProvider = AnyCollectionCellProvider(cellProvider)
         super.init()
+    }
+
+    public convenience init(
+        size: CGSize,
+        of cellType: Cell.Type,
+        layout: CollectionLayout,
+        dataSource: AnyCollectionDataSource<Model> = ArrayCollectionDataSource(data: []).asAny()
+    ) where Cell: CollectionCell, Cell.Data == Model {
+        self.init(
+            size: size,
+            layout: layout,
+            cellProvider: ProtocolCollectionCellProvider<Cell>().asAny()
+        )
     }
 
     private func reloadAll() {

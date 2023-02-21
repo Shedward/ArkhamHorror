@@ -9,11 +9,22 @@ import SpriteKit
 import SceneKit
 import ArkhamHorror
 
+@MainActor
 final class GameScene {
-    let overlay: SKScene = .init()
-    let scene3d: SCNScene = .init()
+
+
+    let overlay: SKScene
+    let scene3d: SCNScene
 
     private var episodes: [GameEpisodeProtocol] = []
+
+    init(size: CGSize) {
+        overlay = SKScene(size: size)
+        overlay.backgroundColor = .black
+        overlay.anchorPoint = .init(x: 0.5, y: 0.5)
+
+        scene3d = SCNScene()
+    }
 
     func startEpisode(_ episode: GameEpisodeProtocol) async {
         episode.scene = self
