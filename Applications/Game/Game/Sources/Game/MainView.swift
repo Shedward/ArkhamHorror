@@ -21,6 +21,7 @@ public struct MainView: SwiftUI.View {
     let dependencies: Dependencies
     let episodes: Episodes
     let logger = Logger()
+    let navigation: EpisodeStackNavigation
 
     private let gameScene: GameScene
 
@@ -28,6 +29,7 @@ public struct MainView: SwiftUI.View {
         gameScene = GameScene(size: size)
         dependencies = try Dependencies()
         episodes = Episodes(size: size, dependencies: dependencies)
+        navigation = EpisodeStackNavigation(scene: gameScene)
     }
 
     public var body: some SwiftUI.View {
@@ -44,11 +46,17 @@ public struct MainView: SwiftUI.View {
                 displaySelectedCampaign(info: info)
             }
         )
-        let selectCampaignEpisode = episodes.selectCampaign(output: output)
-        Task { await gameScene.startEpisode(selectCampaignEpisode) }
+        let episode = episodes.selectCampaign(output: output)
+        navigation.push(episode)
     }
 
     private func displaySelectedCampaign(info: CampaignInfo) {
-
+        let output = CampaignDetailsOutput(
+            onBack: {
+                navigation.pop()
+            }
+        )
+        let episode = episodes.campaignDetails(info: info, output: output)
+        navigation.push(episode)
     }
 }

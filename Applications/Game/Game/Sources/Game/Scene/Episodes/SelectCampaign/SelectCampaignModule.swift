@@ -9,7 +9,7 @@ import Prelude
 import ArkhamHorror
 import HUD
 
-protocol SelectCampaignEpisodeProtocol {
+protocol SelectCampaignEpisodeProtocol: AnyObject {
     func displayCampaigns(_ loadingCampaigns: Loading<[CampaignCell.Data]>)
 }
 

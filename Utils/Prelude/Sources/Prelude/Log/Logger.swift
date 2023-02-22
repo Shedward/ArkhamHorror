@@ -6,7 +6,7 @@
 //
 
 public struct Logger {
-    static var impl: LoggerImplementation = PrintLoggerImplementation(minLevel: .warning)
+    static var impl: LoggerImplementation = PrintLoggerImplementation(minLevel: .info)
 
     public enum Level: Int {
         case info

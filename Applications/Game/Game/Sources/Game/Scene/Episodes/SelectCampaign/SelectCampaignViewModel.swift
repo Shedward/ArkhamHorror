@@ -12,7 +12,7 @@ import Prelude
 final class SelectCampaignViewModel: GameEpisodeViewModel {
     typealias Dependencies = CampaignLoaderDependency
 
-    var episode: SelectCampaignEpisodeProtocol?
+    weak var episode: SelectCampaignEpisodeProtocol?
     private let dependencies: Dependencies
     private let output: SelectCampaignOutput
 

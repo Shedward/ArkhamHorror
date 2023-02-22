@@ -15,9 +15,7 @@ final class SelectCampaignEpisode: GameEpisode<SelectCampaignViewModel>, SelectC
     private var campaignCollection: Collection<CampaignCell.Data, CampaignCell>?
     private var errorAlert: ErrorAlert?
 
-    override func begin() async {
-        await super.begin()
-
+    override func willBegin() async {
         let campaignCollection = Collection(
             size: overlaySize,
             of: CampaignCell.self,

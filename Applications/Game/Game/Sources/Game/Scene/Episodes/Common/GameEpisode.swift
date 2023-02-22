@@ -46,12 +46,20 @@ class GameEpisode<ViewModel: GameEpisodeViewModel>: GameEpisodeProtocol {
             assertionFailure()
         }
 
+        await willBegin()
         viewModel.didBegin()
+    }
+
+    func willBegin() async {
     }
 
     func end() async {
         viewModel.willEnd()
         await removeAll()
+        await didEnd()
+    }
+
+    func didEnd() async {
     }
 
     func startEpisode(_ episode: GameEpisodeProtocol) async {
