@@ -19,9 +19,9 @@ struct CampaignOutput {
 
 extension Episodes {
     @MainActor
-    func campaign(campaign: Campaign, output: CampaignOutput) -> GameEpisodeProtocol {
+    func campaign(campaign: Campaign, output: CampaignOutput) -> BaseGameEpisode {
         let viewModel = CampaignViewModel(campaign: campaign, output: output)
-        let episode = CampaignEpisode(viewModel: viewModel)
+        let episode = CampaignEpisode(episodes: self, viewModel: viewModel)
         return episode
     }
 }

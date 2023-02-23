@@ -22,13 +22,13 @@ struct CampaignDetailsOutput {
 
 extension Episodes {
     @MainActor
-    func campaignDetails(info: CampaignInfo, output: CampaignDetailsOutput) -> GameEpisodeProtocol {
+    func campaignDetails(info: CampaignInfo, output: CampaignDetailsOutput) -> BaseGameEpisode {
         let viewModel = CampaignDetailsViewModel(
             info: info,
             dependencies: dependencies,
             output: output
         )
-        let episode = CampaignDetailsEpisode(viewModel: viewModel)
+        let episode = CampaignDetailsEpisode(episodes: self, viewModel: viewModel)
         return episode
     }
 }

@@ -19,9 +19,9 @@ struct SelectCampaignOutput {
 
 extension Episodes {
     @MainActor
-    func selectCampaign(output: SelectCampaignOutput) -> GameEpisodeProtocol {
+    func selectCampaign(output: SelectCampaignOutput) -> BaseGameEpisode {
         let viewModel = SelectCampaignViewModel(dependencies: dependencies, output: output)
-        let episode = SelectCampaignEpisode(viewModel: viewModel)
+        let episode = SelectCampaignEpisode(episodes: self, viewModel: viewModel)
         return episode
     }
 }

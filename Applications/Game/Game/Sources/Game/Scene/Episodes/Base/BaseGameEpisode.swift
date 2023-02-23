@@ -13,20 +13,16 @@ import HUD
 import Scenes
 
 @MainActor
-protocol GameEpisodeProtocol: AnyObject {
-    var scene: GameScene? { get set }
-    func begin()
-    func end()
-}
-
-@MainActor
-class GameEpisode<ViewModel: GameEpisodeViewModel>: GameEpisodeProtocol {
+class BaseGameEpisode {
     private var presentedViews: [PresentedView] = []
     private var presentedObjects: [PresentedObject] = []
-    private var viewModel: ViewModel
     private let logger = Logger()
 
-    weak var scene: GameScene?
+    private var parentEpisode: BaseGameEpisode?
+    private var childEpisodes: [BaseGameEpisode] = []
+
+    private var scene: GameScene?
+    let episodes: Episodes
 
     var defaultOverlayTransition: AnyNodeTransition<SKNode> =
         NonSymmericalTransition(
@@ -38,49 +34,52 @@ class GameEpisode<ViewModel: GameEpisodeViewModel>: GameEpisodeProtocol {
         scene?.overlay.size ?? .zero
     }
 
-    init(viewModel: ViewModel) {
-        self.viewModel = viewModel
-    }
+    // MARK: - Lifecycle
 
-    func begin() {
-        viewModel.episode = self as? ViewModel.Episode
-        if viewModel.episode == nil {
-            logger.error("""
-            GameEpisode failed to cast episode \(self) \
-            to \(ViewModel.Episode.self)
-            """)
-            assertionFailure()
-        }
-
-        willBegin()
-        Task { await viewModel.didBegin() }
-    }
-
-    func willBegin() {
-    }
-
-    func end() {
-        viewModel.willEnd()
-        removeAll()
-        didEnd()
+    init(episodes: Episodes) {
+        self.episodes = episodes
     }
 
     func didEnd() {
     }
 
-    func startEpisode(_ episode: GameEpisodeProtocol) {
-        scene?.startEpisode(episode)
+    func willBegin() {
     }
 
-    func endEpisode() async {
-        scene?.endEpisode(self)
+    func prepare() {
+        willBegin()
     }
+
+    func finalize() {
+        removeAll()
+        didEnd()
+    }
+
+    // MARK: - Subepisodes
+
+    func start(in scene: GameScene) {
+        self.scene = scene
+        prepare()
+    }
+
+    func startChildEpisode(_ childEpisode: BaseGameEpisode) {
+        childEpisodes.append(childEpisode)
+        childEpisode.scene = scene
+        childEpisode.prepare()
+    }
+
+    func end() {
+        finalize()
+        parentEpisode?.childEpisodes.removeAll { $0 === self }
+    }
+
+    // MARK: - View and object managment
 
     func layout() {
         presentedViews.forEach { $0.view.layout() }
     }
 
-    func removeAll() {
+    private func removeAll() {
         for presentedObject in presentedObjects {
             removeObject(presentedObject.object, transition: presentedObject.transition)
         }
@@ -93,7 +92,14 @@ class GameEpisode<ViewModel: GameEpisodeViewModel>: GameEpisodeProtocol {
         _ view: View,
         transition: Transition
     ) where Transition.Node == SKNode {
-        guard let scene else { return }
+        guard let scene else {
+            logger.error("""
+            Tried to add view \(view) to episode \(self) without scene. \
+            Make sure that scene was setted in root episode.
+            """)
+            assertionFailure()
+            return
+        }
         let presentedView = PresentedView(view: view, transition: transition.asAny())
         presentedViews.append(presentedView)
         transition.enter(node: view.node, in: scene.overlay)
@@ -103,7 +109,14 @@ class GameEpisode<ViewModel: GameEpisodeViewModel>: GameEpisodeProtocol {
         _ view: View,
         transition: Transition
     ) where Transition.Node == SKNode {
-        guard let scene else { return }
+        guard let scene else {
+            logger.error("""
+            Tried to remove view \(view) from episode \(self) without scene. \
+            Make sure that scene was setted in root episode.
+            """)
+            assertionFailure()
+            return
+        }
         presentedViews.removeAll { $0.view === view }
         transition.leave(node: view.node, in: scene.overlay)
     }
@@ -121,7 +134,14 @@ class GameEpisode<ViewModel: GameEpisodeViewModel>: GameEpisodeProtocol {
         _ object: SceneObject,
         transition: Transition
     ) where Transition.Node == SCNNode {
-        guard let scene else { return }
+        guard let scene else {
+            logger.error("""
+            Tried to add object \(object) to episode \(self) without scene. \
+            Make sure that scene was setted in root episode.
+            """)
+            assertionFailure()
+            return
+        }
         let presentedObject = PresentedObject(object: object, transition: transition.asAny())
         presentedObjects.append(presentedObject)
         transition.enter(node: object.node, in: scene.scene3d.rootNode)
@@ -131,7 +151,14 @@ class GameEpisode<ViewModel: GameEpisodeViewModel>: GameEpisodeProtocol {
         _ object: SceneObject,
         transition: Transition
     ) where Transition.Node == SCNNode {
-        guard let scene else { return }
+        guard let scene else {
+            logger.error("""
+            Tried to remove object \(object) from episode \(self) without scene. \
+            Make sure that scene was setted in root episode.
+            """)
+            assertionFailure()
+            return
+        }
         presentedObjects.removeAll { $0.object === object }
         transition.leave(node: object.node, in: scene.scene3d.rootNode)
     }
@@ -145,7 +172,9 @@ class GameEpisode<ViewModel: GameEpisodeViewModel>: GameEpisodeProtocol {
     }
 }
 
-extension GameEpisode {
+// MARK: - Models
+
+extension BaseGameEpisode {
     private struct PresentedView {
         let view: View
         let transition: AnyNodeTransition<SKNode>
