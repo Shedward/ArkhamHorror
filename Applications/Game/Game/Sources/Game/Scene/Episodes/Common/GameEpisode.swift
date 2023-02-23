@@ -28,6 +28,12 @@ class GameEpisode<ViewModel: GameEpisodeViewModel>: GameEpisodeProtocol {
 
     weak var scene: GameScene?
 
+    var defaultOverlayTransition: AnyNodeTransition<SKNode> =
+        NonSymmericalTransition(
+            enter: FadeSpriteTransition(),
+            leave: BasicSpriteTransition()
+        ).asAny()
+
     var overlaySize: CGSize {
         scene?.overlay.size ?? .zero
     }
@@ -103,12 +109,12 @@ class GameEpisode<ViewModel: GameEpisodeViewModel>: GameEpisodeProtocol {
     }
 
     func addView(_ view: View) {
-        addView(view, transition: BasicSpriteTransition())
+        addView(view, transition: defaultOverlayTransition)
         view.layout()
     }
 
     func removeView(_ view: View) {
-        removeView(view, transition: BasicSpriteTransition())
+        removeView(view, transition: defaultOverlayTransition)
     }
 
     func addObject<Transition: NodeTransition>(

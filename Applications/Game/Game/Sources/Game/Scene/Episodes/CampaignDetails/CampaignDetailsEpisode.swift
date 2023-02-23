@@ -20,7 +20,6 @@ final class CampaignDetailsEpisode: GameEpisode<CampaignDetailsViewModel>, Campa
     private var errorAlert: ErrorAlert?
 
     override func willBegin() {
-
         let backButton = TextButton(text: Localized.string("Back"))
         self.backButton = backButton
         let backContainer = AlignedToTopLeft(backButton, size: overlaySize)
