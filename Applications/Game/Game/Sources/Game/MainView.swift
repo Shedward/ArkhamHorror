@@ -64,5 +64,12 @@ public struct MainView: SwiftUI.View {
     }
 
     private func displayCampaign(_ campaign: Campaign) {
+        let output = CampaignOutput(
+            onBack: {
+                navigation.pop()
+            }
+        )
+        let episode = episodes.campaign(campaign: campaign, output: output)
+        navigation.push(episode)
     }
 }

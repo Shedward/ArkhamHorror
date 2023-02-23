@@ -23,28 +23,26 @@ final class CampaignDetailsViewModel: GameEpisodeViewModel {
         self.output = output
     }
 
-    func didBegin() {
-        Task {
-            episode?.displayBackAction(output.onBack)
+    func didBegin() async {
+        episode?.displayBackAction(output.onBack)
 
-            let infoData = CampaignDetailsEpisode.CampaignInfoData(
-                title: info.name,
-                description: info.description,
-                image: info.image
-            )
-            episode?.displayCampaignInfo(infoData)
-            let campaignResult = await asyncResult {
-                try await dependencies.campaignLoader.loadCampaign(id: info.id)
-            }
-
-            let campaignData = campaignResult.map { campaign in
-                CampaignDetailsEpisode.LoadedCampaignData(
-                    onStart: { [output] in
-                        output.onStartCampaign(campaign)
-                    }
-                )
-            }
-            episode?.displayCampaignData(campaignData)
+        let infoData = CampaignDetailsEpisode.CampaignInfoData(
+            title: info.name,
+            description: info.description,
+            image: info.image
+        )
+        episode?.displayCampaignInfo(infoData)
+        let campaignResult = await asyncResult {
+            try await dependencies.campaignLoader.loadCampaign(id: info.id)
         }
+
+        let campaignData = campaignResult.map { campaign in
+            CampaignDetailsEpisode.LoadedCampaignData(
+                onStart: { [output] in
+                    output.onStartCampaign(campaign)
+                }
+            )
+        }
+        episode?.displayCampaignData(campaignData)
     }
 }

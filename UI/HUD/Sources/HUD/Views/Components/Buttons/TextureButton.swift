@@ -12,7 +12,7 @@ public final class TextureButton: View {
         texture: SKTexture,
         size: CGSize = .init(width: 42, height: 42),
         borderWidth: CGFloat = 4,
-        onTap: (() -> Void)?
+        onTap: (() -> Void)? = nil
     ) {
         let node = TappableSpriteNode(texture: texture, size: size)
         node.isUserInteractionEnabled = true

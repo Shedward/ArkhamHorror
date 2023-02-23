@@ -47,7 +47,7 @@ class GameEpisode<ViewModel: GameEpisodeViewModel>: GameEpisodeProtocol {
         }
 
         willBegin()
-        viewModel.didBegin()
+        Task { await viewModel.didBegin() }
     }
 
     func willBegin() {

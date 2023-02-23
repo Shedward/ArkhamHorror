@@ -10,12 +10,12 @@ protocol GameEpisodeViewModel {
 
     var episode: Episode? { get set }
 
-    func didBegin()
+    func didBegin() async
     func willEnd()
 }
 
 extension GameEpisodeViewModel {
-    func didBegin() {
+    func didBegin() async {
     }
 
     func willEnd() {

@@ -6,7 +6,7 @@
 //
 
 public struct Logger {
-    static var impl: LoggerImplementation = PrintLoggerImplementation(minLevel: .info)
+    static var impl: LoggerImplementation = PrintLoggerImplementation(minLevel: .warning)
 
     public enum Level: Int {
         case info
@@ -65,13 +65,13 @@ public struct PrintLoggerImplementation: LoggerImplementation {
     private func description(for level: Logger.Level) -> String {
         switch level {
         case .debug:
-            return "[Debug]"
+            return "▫️"
         case .info:
-            return "[Info]"
+            return "🔹"
         case .warning:
-            return "[Warn]"
+            return "🔸"
         case .error:
-            return "[Error]"
+            return "🔺"
         }
     }
 }
