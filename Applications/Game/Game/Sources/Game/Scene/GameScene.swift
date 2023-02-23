@@ -26,15 +26,15 @@ final class GameScene {
         scene3d = SCNScene()
     }
 
-    func startEpisode(_ episode: GameEpisodeProtocol) async {
+    func startEpisode(_ episode: GameEpisodeProtocol) {
         episode.scene = self
-        await episode.begin()
+        episode.begin()
         logger.info("Started episode \(episode)")
         episodes.append(episode)
     }
 
-    func endEpisode(_ episode: GameEpisodeProtocol) async {
-        await episode.end()
+    func endEpisode(_ episode: GameEpisodeProtocol) {
+        episode.end()
         logger.info("Ended episode \(episode)")
         episodes.removeAll { $0 === episode }
     }
@@ -42,10 +42,10 @@ final class GameScene {
     func endEpisode<Episode: GameEpisodeProtocol>(
         _ type: Episode.Type,
         where test: (Episode) -> Bool = { _ in true }
-    ) async {
+    ) {
         guard let episode = episodes.first(
             where: { $0 is Episode && test($0 as! Episode) }
         ) else { return }
-        await endEpisode(episode)
+        endEpisode(episode)
     }
 }

@@ -17,11 +17,11 @@ struct NonSymmericalTransition<Node>: NodeTransition {
         leaveAction = leave.leave
     }
 
-    func enter(node: Node, in parent: Node) async {
-        await enterAction(node, parent)
+    func enter(node: Node, in parent: Node) {
+        enterAction(node, parent)
     }
 
-    func leave(node: Node, in parent: Node) async {
-        await leaveAction(node, parent)
+    func leave(node: Node, in parent: Node) {
+        leaveAction(node, parent)
     }
 }

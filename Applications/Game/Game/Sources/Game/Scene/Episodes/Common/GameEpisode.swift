@@ -15,8 +15,8 @@ import Scenes
 @MainActor
 protocol GameEpisodeProtocol: AnyObject {
     var scene: GameScene? { get set }
-    func begin() async
-    func end() async
+    func begin()
+    func end()
 }
 
 @MainActor
@@ -36,7 +36,7 @@ class GameEpisode<ViewModel: GameEpisodeViewModel>: GameEpisodeProtocol {
         self.viewModel = viewModel
     }
 
-    func begin() async {
+    func begin() {
         viewModel.episode = self as? ViewModel.Episode
         if viewModel.episode == nil {
             logger.error("""
@@ -46,102 +46,96 @@ class GameEpisode<ViewModel: GameEpisodeViewModel>: GameEpisodeProtocol {
             assertionFailure()
         }
 
-        await willBegin()
+        willBegin()
         viewModel.didBegin()
     }
 
-    func willBegin() async {
+    func willBegin() {
     }
 
-    func end() async {
+    func end() {
         viewModel.willEnd()
-        await removeAll()
-        await didEnd()
+        removeAll()
+        didEnd()
     }
 
-    func didEnd() async {
+    func didEnd() {
     }
 
-    func startEpisode(_ episode: GameEpisodeProtocol) async {
-        await scene?.startEpisode(episode)
+    func startEpisode(_ episode: GameEpisodeProtocol) {
+        scene?.startEpisode(episode)
     }
 
     func endEpisode() async {
-        await scene?.endEpisode(self)
+        scene?.endEpisode(self)
     }
 
     func layout() {
         presentedViews.forEach { $0.view.layout() }
     }
 
-    func removeAll() async {
-        await withTaskGroup(of: Void.self) { group in
-            for presentedObject in presentedObjects {
-                group.addTask {
-                    await self.removeObject(presentedObject.object, transition: presentedObject.transition)
-                }
-            }
-            for presentedView in presentedViews {
-                group.addTask {
-                    await self.removeView(presentedView.view, transition: presentedView.transition)
-                }
-            }
+    func removeAll() {
+        for presentedObject in presentedObjects {
+            removeObject(presentedObject.object, transition: presentedObject.transition)
+        }
+        for presentedView in presentedViews {
+            removeView(presentedView.view, transition: presentedView.transition)
         }
     }
 
     func addView<Transition: NodeTransition>(
         _ view: View,
         transition: Transition
-    ) async where Transition.Node == SKNode {
+    ) where Transition.Node == SKNode {
         guard let scene else { return }
         let presentedView = PresentedView(view: view, transition: transition.asAny())
         presentedViews.append(presentedView)
-        await transition.enter(node: view.node, in: scene.overlay)
+        transition.enter(node: view.node, in: scene.overlay)
     }
 
     func removeView<Transition: NodeTransition>(
         _ view: View,
         transition: Transition
-    ) async where Transition.Node == SKNode {
+    ) where Transition.Node == SKNode {
         guard let scene else { return }
         presentedViews.removeAll { $0.view === view }
-        await transition.leave(node: view.node, in: scene.overlay)
+        transition.leave(node: view.node, in: scene.overlay)
     }
 
-    func addView(_ view: View) async {
-        await addView(view, transition: BasicSpriteTransition())
+    func addView(_ view: View) {
+        addView(view, transition: BasicSpriteTransition())
         view.layout()
     }
 
-    func removeView(_ view: View) async {
-        await removeView(view, transition: BasicSpriteTransition())
+    func removeView(_ view: View) {
+        removeView(view, transition: BasicSpriteTransition())
     }
 
     func addObject<Transition: NodeTransition>(
         _ object: SceneObject,
         transition: Transition
-    ) async where Transition.Node == SCNNode {
+    ) where Transition.Node == SCNNode {
         guard let scene else { return }
         let presentedObject = PresentedObject(object: object, transition: transition.asAny())
         presentedObjects.append(presentedObject)
-        await transition.enter(node: object.node, in: scene.scene3d.rootNode)
+        transition.enter(node: object.node, in: scene.scene3d.rootNode)
     }
 
     func removeObject<Transition: NodeTransition>(
         _ object: SceneObject,
         transition: Transition
-    ) async where Transition.Node == SCNNode {
+    ) where Transition.Node == SCNNode {
         guard let scene else { return }
         presentedObjects.removeAll { $0.object === object }
-        await transition.leave(node: object.node, in: scene.scene3d.rootNode)
+        transition.leave(node: object.node, in: scene.scene3d.rootNode)
     }
 
-    func addObject(_ object: SceneObject) async {
-        await addObject(object, transition: BasicSceneTransition())
+    func addObject(_ object: SceneObject) {
+        addObject(object, transition: BasicSceneTransition())
     }
 
-    func removeObject(_ object: SceneObject) async {
-        await removeObject(object, transition: BasicSceneTransition())
+    func removeObject(_ object: SceneObject) {
+        removeObject(object, transition: BasicSceneTransition())
     }
 }
 

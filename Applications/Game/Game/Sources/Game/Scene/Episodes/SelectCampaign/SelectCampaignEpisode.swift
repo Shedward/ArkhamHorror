@@ -15,17 +15,17 @@ final class SelectCampaignEpisode: GameEpisode<SelectCampaignViewModel>, SelectC
     private var campaignCollection: Collection<CampaignCell.Data, CampaignCell>?
     private var errorAlert: ErrorAlert?
 
-    override func willBegin() async {
+    override func willBegin() {
         let campaignCollection = Collection(
             size: overlaySize,
             of: CampaignCell.self,
             layout: CenteredRowLayout(itemSize: CampaignCell.size, spacing: 64)
         )
-        await addView(campaignCollection)
+        addView(campaignCollection)
         self.campaignCollection = campaignCollection
 
         let errorAlert = ErrorAlert()
-        await addView(errorAlert)
+        addView(errorAlert)
         self.errorAlert = errorAlert
     }
 

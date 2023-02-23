@@ -17,12 +17,12 @@ final class CampaignDetailsEpisode: GameEpisode<CampaignDetailsViewModel>, Campa
     private var titleLabel: Label?
     private var descriptionLabel: Label?
 
-    override func willBegin() async {
+    override func willBegin() {
 
         let backButton = TextButton(text: Localized.string("Back"))
         self.backButton = backButton
         let backContainer = AlignedToTopLeft(backButton, size: overlaySize)
-        await addView(backContainer)
+        addView(backContainer)
 
         let titleLabel = Label(textKind: \.menu.h1)
         self.titleLabel = titleLabel
@@ -41,7 +41,7 @@ final class CampaignDetailsEpisode: GameEpisode<CampaignDetailsViewModel>, Campa
             }
         }
 
-        await addView(content)
+        addView(content)
     }
 
     func displayCampaignInfo(_ info: CampaignInfoData) {

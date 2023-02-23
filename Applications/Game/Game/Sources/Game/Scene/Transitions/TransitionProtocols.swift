@@ -5,13 +5,13 @@
 //  Created by Vladislav Maltsev on 18.02.2023.
 //
 
-typealias TransitionAction<Node> = (Node, Node) async -> Void
+typealias TransitionAction<Node> = (Node, Node) -> Void
 
 protocol NodeTransition {
     associatedtype Node
 
-    func enter(node: Node, in parent: Node) async
-    func leave(node: Node, in parent: Node) async
+    func enter(node: Node, in parent: Node)
+    func leave(node: Node, in parent: Node)
 }
 
 struct AnyNodeTransition<Node>: NodeTransition {
@@ -23,12 +23,12 @@ struct AnyNodeTransition<Node>: NodeTransition {
         self.leaveAction = wrapped.leave
     }
 
-    func enter(node: Node, in parent: Node) async {
-        await enterAction(node, parent)
+    func enter(node: Node, in parent: Node) {
+        enterAction(node, parent)
     }
 
-    func leave(node: Node, in parent: Node) async {
-        await leaveAction(node, parent)
+    func leave(node: Node, in parent: Node) {
+        leaveAction(node, parent)
     }
 }
 
