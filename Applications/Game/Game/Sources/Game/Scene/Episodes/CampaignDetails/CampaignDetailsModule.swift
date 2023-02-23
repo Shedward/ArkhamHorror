@@ -11,12 +11,13 @@ import HUD
 
 protocol CampaignDetailsEpisodeProtocol: AnyObject {
     func displayCampaignInfo(_ info:  CampaignDetailsEpisode.CampaignInfoData)
-    func displayBackAction(_ action: Action)
-    func displayCharacters(_ loadingCharacters: Loading<[CampaignDetailsEpisode.CharacterData]>)
+    func displayBackAction(_ onBack: Action)
+    func displayCampaignData(_ campaignData: Result<CampaignDetailsEpisode.LoadedCampaignData, Error>)
 }
 
 struct CampaignDetailsOutput {
     let onBack: () -> Void
+    let onStartCampaign: (Campaign) -> Void
 }
 
 extension Episodes {

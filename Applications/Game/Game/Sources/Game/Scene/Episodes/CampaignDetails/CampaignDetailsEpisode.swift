@@ -16,6 +16,8 @@ final class CampaignDetailsEpisode: GameEpisode<CampaignDetailsViewModel>, Campa
     private var campaignLogoImage: Image?
     private var titleLabel: Label?
     private var descriptionLabel: Label?
+    private var startButton: TextButton?
+    private var errorAlert: ErrorAlert?
 
     override func willBegin() {
 
@@ -33,15 +35,22 @@ final class CampaignDetailsEpisode: GameEpisode<CampaignDetailsViewModel>, Campa
         let descriptionLabel = Label.multiline(textKind: \.menu.body)
         self.descriptionLabel = descriptionLabel
 
+        let startButton = TextButton(text: Localized.string("Start"))
+        self.startButton = startButton
+
         let content = Stack(axis: .horizontal, spacing: 16) {
             campaignLogoImage
             Stack(axis: .vertical, spacing: 8) {
                 titleLabel
                 descriptionLabel
+                startButton
             }
         }
-
         addView(content)
+
+        let errorAlert = ErrorAlert()
+        self.errorAlert = errorAlert
+        addView(errorAlert)
     }
 
     func displayCampaignInfo(_ info: CampaignInfoData) {
@@ -51,12 +60,23 @@ final class CampaignDetailsEpisode: GameEpisode<CampaignDetailsViewModel>, Campa
         layout()
     }
 
-    func displayBackAction(_ action: Action) {
-        backButton?.onTap = action
+    func displayBackAction(_ onBack: Action) {
+        backButton?.onTap = onBack
     }
 
-    func displayCharacters(_ loading: Loading<[CharacterData]>) {
-        layout()
+    func displayCampaignData(_ campaignData: Result<LoadedCampaignData, Error>) {
+        switch campaignData {
+        case .success(let data):
+            startButton?.onTap = data.onStart
+            errorAlert?.display(nil)
+        case .failure(let error):
+            startButton?.onTap = nil
+            errorAlert?.display(error)
+        }
+    }
+
+    func displayStartCampaignAction(_ onStartCampaign: Action) {
+        startButton?.onTap = onStartCampaign
     }
 }
 
@@ -67,8 +87,7 @@ extension CampaignDetailsEpisode {
         let image: ImageResource
     }
 
-    struct CharacterData {
-        let name: String
-        let portrait: ImageResource
+    struct LoadedCampaignData {
+        let onStart: () -> Void
     }
 }

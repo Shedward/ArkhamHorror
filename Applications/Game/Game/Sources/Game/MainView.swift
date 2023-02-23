@@ -54,9 +54,15 @@ public struct MainView: SwiftUI.View {
         let output = CampaignDetailsOutput(
             onBack: {
                 navigation.pop()
+            },
+            onStartCampaign: { campaign in
+                displayCampaign(campaign)
             }
         )
         let episode = episodes.campaignDetails(info: info, output: output)
         navigation.push(episode)
+    }
+
+    private func displayCampaign(_ campaign: Campaign) {
     }
 }

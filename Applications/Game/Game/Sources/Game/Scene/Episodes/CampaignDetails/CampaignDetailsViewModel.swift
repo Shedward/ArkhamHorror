@@ -33,18 +33,18 @@ final class CampaignDetailsViewModel: GameEpisodeViewModel {
                 image: info.image
             )
             episode?.displayCampaignInfo(infoData)
-            let loadingCampaign = await Loading.async {
+            let campaignResult = await asyncResult {
                 try await dependencies.campaignLoader.loadCampaign(id: info.id)
             }
-            let loadingCharacters = loadingCampaign.map { campaign in
-                campaign.availableCharacters.map { character in
-                    CampaignDetailsEpisode.CharacterData(
-                        name: character.name,
-                        portrait: character.portrait
-                    )
-                }
+
+            let campaignData = campaignResult.map { campaign in
+                CampaignDetailsEpisode.LoadedCampaignData(
+                    onStart: { [output] in
+                        output.onStartCampaign(campaign)
+                    }
+                )
             }
-            episode?.displayCharacters(loadingCharacters)
+            episode?.displayCampaignData(campaignData)
         }
     }
 }
