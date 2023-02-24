@@ -15,18 +15,18 @@ protocol CampaignDetailsEpisodeProtocol: AnyObject {
     func displayCampaignData(_ campaignData: Result<CampaignDetailsEpisode.LoadedCampaignData, Error>)
 }
 
-struct CampaignDetailsOutput {
+struct CampaignDetailsData {
+    let info: CampaignInfo
     let onBack: () -> Void
     let onStartCampaign: (Campaign) -> Void
 }
 
 extension Episodes {
     @MainActor
-    func campaignDetails(info: CampaignInfo, output: CampaignDetailsOutput) -> BaseGameEpisode {
+    func campaignDetails(data: CampaignDetailsData) -> BaseGameEpisode {
         let viewModel = CampaignDetailsViewModel(
-            info: info,
-            dependencies: dependencies,
-            output: output
+            data: data,
+            dependencies: dependencies
         )
         let episode = CampaignDetailsEpisode(episodes: self, viewModel: viewModel)
         return episode

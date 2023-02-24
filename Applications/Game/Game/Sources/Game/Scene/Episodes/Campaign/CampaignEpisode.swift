@@ -9,7 +9,7 @@ import HUD
 import CoreGraphics
 import Prelude
 
-final class CampaignEpisode: GameEpisode<CampaignViewModel>, CampaignEpisodeProtocol {
+final class CampaignEpisode: GameEpisode<CampaignViewModel> {
 
     private var backButton: TextButton?
     private var charactersCollection: Collection<CharacterCell.Data, CharacterCell>?
@@ -29,7 +29,9 @@ final class CampaignEpisode: GameEpisode<CampaignViewModel>, CampaignEpisodeProt
         let charactersContainer = AlignedToBottom(charactersCollection, size: overlaySize)
         addView(charactersContainer)
     }
+}
 
+extension CampaignEpisode: CampaignEpisodeProtocol {
     func displayBackAction(_ back: Action) {
         backButton?.onTap = back
     }

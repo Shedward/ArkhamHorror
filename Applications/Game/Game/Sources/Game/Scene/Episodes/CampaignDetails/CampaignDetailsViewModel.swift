@@ -13,33 +13,30 @@ final class CampaignDetailsViewModel: GameEpisodeViewModel {
 
     weak var episode: CampaignDetailsEpisodeProtocol?
     private let dependencies: Dependencies
-    private let output: CampaignDetailsOutput
+    private let data: CampaignDetailsData
 
-    private let info: CampaignInfo
-
-    init(info: CampaignInfo, dependencies: Dependencies, output: CampaignDetailsOutput) {
-        self.info = info
+    init(data: CampaignDetailsData, dependencies: Dependencies) {
+        self.data = data
         self.dependencies = dependencies
-        self.output = output
     }
 
     func didBegin() async {
-        episode?.displayBackAction(output.onBack)
+        episode?.displayBackAction(data.onBack)
 
         let infoData = CampaignDetailsEpisode.CampaignInfoData(
-            title: info.name,
-            description: info.description,
-            image: info.image
+            title: data.info.name,
+            description: data.info.description,
+            image: data.info.image
         )
         episode?.displayCampaignInfo(infoData)
         let campaignResult = await asyncResult {
-            try await dependencies.campaignLoader.loadCampaign(id: info.id)
+            try await dependencies.campaignLoader.loadCampaign(id: data.info.id)
         }
 
         let campaignData = campaignResult.map { campaign in
             CampaignDetailsEpisode.LoadedCampaignData(
-                onStart: { [output] in
-                    output.onStartCampaign(campaign)
+                onStart: { [data] in
+                    data.onStartCampaign(campaign)
                 }
             )
         }

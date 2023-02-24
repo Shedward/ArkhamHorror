@@ -30,7 +30,8 @@ final class MainEpisode: BaseGameEpisode {
     }
 
     private func displaySelectedCampaign(info: CampaignInfo) {
-        let output = CampaignDetailsOutput(
+        let data = CampaignDetailsData(
+            info: info,
             onBack: { [weak self] in
                 self?.navigation?.pop()
             },
@@ -38,17 +39,18 @@ final class MainEpisode: BaseGameEpisode {
                 self?.displayCampaign(campaign)
             }
         )
-        let episode = episodes.campaignDetails(info: info, output: output)
+        let episode = episodes.campaignDetails(data: data)
         navigation?.push(episode)
     }
 
     private func displayCampaign(_ campaign: Campaign) {
-        let output = CampaignOutput(
+        let data = CampaignData(
+            campaign: campaign,
             onBack: { [weak self] in
                 self?.navigation?.pop()
             }
         )
-        let episode = episodes.campaign(campaign: campaign, output: output)
+        let episode = episodes.campaign(data: data)
         navigation?.push(episode)
     }
 }
