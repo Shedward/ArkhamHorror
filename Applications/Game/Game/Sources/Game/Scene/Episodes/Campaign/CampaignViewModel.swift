@@ -9,7 +9,7 @@ import ArkhamHorror
 
 final class CampaignViewModel: GameEpisodeViewModel {
 
-    weak var episode: CampaignEpisodeProtocol?
+    weak var episode: CampaignView?
     private let data: CampaignData
 
     init(data: CampaignData) {
@@ -20,7 +20,12 @@ final class CampaignViewModel: GameEpisodeViewModel {
         episode?.displayBackAction(data.onBack)
         let charactersData = data.campaign.availableCharacters.map { character in
             CharacterCell.Data(
-                portrait: character.portrait
+                id: character.id,
+                portrait: character.portrait,
+                onTap: { [weak self] in
+                    let data = SelectActionData(id: character.id)
+                    self?.episode?.openActions(data)
+                }
             )
         }
         episode?.displayCharacters(charactersData)

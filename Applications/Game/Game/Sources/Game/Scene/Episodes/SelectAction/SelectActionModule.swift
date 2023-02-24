@@ -5,20 +5,26 @@
 //  Created by Vladislav Maltsev.
 //
 
-protocol SelectActionEpisodeProtocol: AnyObject {
+import ArkhamHorror
+import HUD
+
+protocol SelectActionView: AnyObject {
+    func displayActions(_ actions: [ActionCell.Data])
+    func end()
 }
 
 struct SelectActionData {
+    let id: Character.Id
 }
 
 extension Episodes {
     @MainActor
-    func selectAction(data: SelectActionData) -> BaseGameEpisode {
+    func selectAction(data: SelectActionData, from anchor: View) -> BaseGameEpisode {
         let viewModel = SelectActionViewModel(
             data: data,
             dependencies: dependencies
         )
-        let episode = SelectActionEpisode(episodes: self, viewModel: viewModel)
+        let episode = SelectActionEpisode(episodes: self, viewModel: viewModel, from: anchor)
         return episode
     }
 }

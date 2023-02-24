@@ -8,15 +8,24 @@
 final class SelectActionViewModel: GameEpisodeViewModel {
     typealias Dependencies = Any
 
-    weak var episode: SelectActionEpisodeProtocol?
+    weak var episode: SelectActionView?
     private let dependencies: Dependencies
-    private let output: SelectActionOutput
+    private let data: SelectActionData
 
-    init(dependencies: Dependencies, output: SelectActionOutput) {
+    init(data: SelectActionData, dependencies: Dependencies) {
+        self.data = data
         self.dependencies = dependencies
-        self.output = output
     }
 
     func didBegin() {
+        let dismiss: () -> Void = { [weak self] in
+            self?.episode?.end()
+        }
+        let actions: [ActionCell.Data] = [
+            ActionCell.Data(title: "Move", onTap: dismiss),
+            ActionCell.Data(title: "Research", onTap: dismiss),
+            ActionCell.Data(title: "Ward", onTap: dismiss)
+        ]
+        episode?.displayActions(actions)
     }
 }

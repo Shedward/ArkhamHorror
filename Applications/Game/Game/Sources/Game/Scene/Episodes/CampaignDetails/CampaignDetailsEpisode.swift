@@ -10,7 +10,7 @@ import ArkhamHorror
 import HUD
 import Prelude
 
-final class CampaignDetailsEpisode: GameEpisode<CampaignDetailsViewModel>, CampaignDetailsEpisodeProtocol {
+final class CampaignDetailsEpisode: GameEpisode<CampaignDetailsViewModel> {
 
     private var backButton: TextButton?
     private var campaignLogoImage: Image?
@@ -51,7 +51,9 @@ final class CampaignDetailsEpisode: GameEpisode<CampaignDetailsViewModel>, Campa
         self.errorAlert = errorAlert
         addView(errorAlert)
     }
+}
 
+extension CampaignDetailsEpisode: CampaignDetailsView {
     func displayCampaignInfo(_ info: CampaignInfoData) {
         titleLabel?.text = info.title
         campaignLogoImage?.image = info.image

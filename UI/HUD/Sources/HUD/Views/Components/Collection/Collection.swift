@@ -20,8 +20,11 @@ public class Collection<Model, Cell: View>: View {
     public var cellProvider: AnyCollectionCellProvider<Cell, Model> {
         didSet { reloadAll() }
     }
+    public var cells: [Cell] {
+        Array(cellsByIndex.values)
+    }
 
-    private var cells: [Index: Cell] = [:]
+    private var cellsByIndex: [Index: Cell] = [:]
     private let size: CGSize
     private let logger = Logger()
 
@@ -61,11 +64,11 @@ public class Collection<Model, Cell: View>: View {
         indices.forEach { index in
             let model = dataSource.model(at: index)
             let cell = cellProvider.cell(for: model)
-            if let oldCell = cells[index] {
+            if let oldCell = cellsByIndex[index] {
                 dismissCell(oldCell)
             }
             presentCell(cell)
-            cells[index] = cell
+            cellsByIndex[index] = cell
         }
     }
 
@@ -76,7 +79,7 @@ public class Collection<Model, Cell: View>: View {
         )
         indices.forEach { index in
             let layout = layout.cellLayout(at: index, context: context)
-            if let node = cells[index]?.node {
+            if let node = cellsByIndex[index]?.node {
                 node.position = layout.position
             } else {
                 logger.warning("""

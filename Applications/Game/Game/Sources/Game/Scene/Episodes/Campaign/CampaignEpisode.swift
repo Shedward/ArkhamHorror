@@ -31,7 +31,7 @@ final class CampaignEpisode: GameEpisode<CampaignViewModel> {
     }
 }
 
-extension CampaignEpisode: CampaignEpisodeProtocol {
+extension CampaignEpisode: CampaignView {
     func displayBackAction(_ back: Action) {
         backButton?.onTap = back
     }
@@ -39,6 +39,13 @@ extension CampaignEpisode: CampaignEpisodeProtocol {
     func displayCharacters(_ characters: [CharacterCell.Data]) {
         charactersCollection?.dataSource = ArrayCollectionDataSource(data: characters).asAny()
         layout()
+    }
+
+    func openActions(_ data: SelectActionData) {
+        let cell = charactersCollection?.cells.first { $0.id == data.id }
+        guard let anchor = cell ?? charactersCollection else { return }
+        let episode = episodes.selectAction(data: data, from: anchor)
+        startChildEpisode(episode)
     }
 }
 

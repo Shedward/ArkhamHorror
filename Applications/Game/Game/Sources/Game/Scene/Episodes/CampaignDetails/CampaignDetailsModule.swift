@@ -9,7 +9,7 @@ import Prelude
 import ArkhamHorror
 import HUD
 
-protocol CampaignDetailsEpisodeProtocol: AnyObject {
+protocol CampaignDetailsView: AnyObject {
     func displayCampaignInfo(_ info:  CampaignDetailsEpisode.CampaignInfoData)
     func displayBackAction(_ onBack: Action)
     func displayCampaignData(_ campaignData: Result<CampaignDetailsEpisode.LoadedCampaignData, Error>)

@@ -42,4 +42,7 @@ open class View {
 
     public func layoutSubviews() {
     }
+
+    public func didLayoutSubviews() {
+    }
 }

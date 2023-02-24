@@ -11,7 +11,7 @@ import Prelude
 final class CampaignDetailsViewModel: GameEpisodeViewModel {
     typealias Dependencies = CampaignLoaderDependency
 
-    weak var episode: CampaignDetailsEpisodeProtocol?
+    weak var episode: CampaignDetailsView?
     private let dependencies: Dependencies
     private let data: CampaignDetailsData
 
