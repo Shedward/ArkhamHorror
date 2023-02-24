@@ -19,7 +19,7 @@ struct ButtonShader: Shader {
             """
             void main() {
                 float2 uvBorderWidth = u_borderWidth / u_size;
-                float4 color = texture2D(u_texture, v_tex_coord);
+                float4 color = SKDefaultShading();
 
                 // border
                 float4 borderHighlight = (

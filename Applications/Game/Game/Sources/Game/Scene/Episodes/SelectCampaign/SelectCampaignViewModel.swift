@@ -21,20 +21,18 @@ final class SelectCampaignViewModel: GameEpisodeViewModel {
         self.output = output
     }
 
-    func didBegin() {
-        Task {
-            episode?.displayCampaigns(.loading)
-            let loadingCampaignInfo = await Loading.async { try await dependencies.campaignLoader.campaignsInfo() }
-            let loadingCampaignData = loadingCampaignInfo.map { infos in
-                infos.map { info in
-                    CampaignCell.Data(
-                        name: info.name,
-                        image: info.image,
-                        onTap: { [output] in output.didSelectCampaign(info) }
-                    )
-                }
+    func didBegin() async {
+        episode?.displayCampaigns(.loading)
+        let loadingCampaignInfo = await Loading.async { try await dependencies.campaignLoader.campaignsInfo() }
+        let loadingCampaignData = loadingCampaignInfo.map { infos in
+            infos.map { info in
+                CampaignCell.Data(
+                    name: info.name,
+                    image: info.image,
+                    onTap: { [output] in output.didSelectCampaign(info) }
+                )
             }
-            episode?.displayCampaigns(loadingCampaignData)
         }
+        episode?.displayCampaigns(loadingCampaignData)
     }
 }

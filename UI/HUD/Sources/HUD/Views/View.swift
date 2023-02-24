@@ -10,7 +10,7 @@ import Prelude
 
 open class View {
     public var node: SKNode
-    public private(set) var superview: View?
+    public private(set) weak var superview: View?
     public private(set) var childs: [View]
 
     public init(node: SKNode = .init()) {

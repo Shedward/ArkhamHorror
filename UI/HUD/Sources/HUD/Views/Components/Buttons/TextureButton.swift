@@ -19,6 +19,7 @@ public final class TextureButton: View {
         node.shader = ButtonShader.shader
         node.setValue(size, forAttribute: ButtonShader.Attributes.size)
         node.setValue(borderWidth, forAttribute: ButtonShader.Attributes.borderWidth)
+        node.setValue(node.isSelected, forAttribute: ButtonShader.Attributes.isSelected)
         
         node.onTap = onTap
         node.onAppearanceChange = { node in
