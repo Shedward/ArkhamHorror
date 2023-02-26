@@ -6,6 +6,7 @@
 //
 
 import Darwin
+import simd
 
 public enum Geometry {
 	public typealias LengthUnit = Float
@@ -38,6 +39,10 @@ public enum Geometry {
 
         public func toSize() -> Size {
             .init(width: x, height: y)
+        }
+
+        public func toVec3() -> vector_float3 {
+            .init(x: x, y: y, z: 0)
         }
 	}
 

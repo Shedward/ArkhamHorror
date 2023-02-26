@@ -6,10 +6,11 @@
 //
 
 import SceneKit
+import Common
 import Map
 import DesignSystem
 
-final class MapRegion: SceneObject {
+public final class MapRegion: SceneObject {
     static let height: Float = 0.2
 
     static func material(color: UColor) -> SCNMaterial {
@@ -19,7 +20,10 @@ final class MapRegion: SceneObject {
         return material
     }
 
-    init(title: String, region: MapGeometry.Region) {
+    public let id: Region.ID
+
+    public init(id: Region.ID, title: String, region: MapGeometry.Region) {
+        self.id = id
         let color = UColor(white: 0.15, alpha: 1.0)
         let contentColor = UColor(white: 0.30, alpha: 1.0)
         let height = MapRegion.height / 2.0

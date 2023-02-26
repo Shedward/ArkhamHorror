@@ -12,6 +12,7 @@ protocol CampaignView: AnyObject {
     func displayBackAction(_ back: Action)
     func displayCharacters(_ characters: [CharacterCell.Data])
 
+    func openMap(_ data: MapData)
     func openActions(_ data: SelectActionData)
 }
 

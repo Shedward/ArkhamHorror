@@ -29,5 +29,6 @@ final class CampaignViewModel: GameEpisodeViewModel {
             )
         }
         episode?.displayCharacters(charactersData)
+        episode?.openMap(.init(map: data.campaign.map))
     }
 }

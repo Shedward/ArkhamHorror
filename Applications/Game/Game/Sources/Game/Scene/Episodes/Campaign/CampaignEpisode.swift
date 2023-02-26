@@ -47,6 +47,11 @@ extension CampaignEpisode: CampaignView {
         let episode = episodes.selectAction(data: data, from: anchor)
         startChildEpisode(episode)
     }
+
+    func openMap(_ data: MapData) {
+        let episode = episodes.map(data: data)
+        startChildEpisode(episode)
+    }
 }
 
 
