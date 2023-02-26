@@ -1,5 +1,5 @@
 //
-//  MapEpisode.swift
+//  GameboardEpisode.swift
 //  
 //
 //  Created by Vladislav Maltsev.
@@ -9,12 +9,11 @@ import HUD
 import Scenes
 import Map
 
-final class MapEpisode: GameEpisode<MapViewModel> {
-
+final class GameboardEpisode: GameEpisode<GameboardViewModel> {
     private var gameboard: Gameboard?
 }
 
-extension MapEpisode: MapView {
+extension GameboardEpisode: GameboardView {
     func displayMap(_ map: Map) {
         if let gameboard {
             removeObject(gameboard)

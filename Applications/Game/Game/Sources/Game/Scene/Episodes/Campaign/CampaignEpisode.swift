@@ -48,7 +48,7 @@ extension CampaignEpisode: CampaignView {
         startChildEpisode(episode)
     }
 
-    func openMap(_ data: MapData) {
+    func openGameboard(_ data: GameboardData) {
         let episode = episodes.map(data: data)
         startChildEpisode(episode)
     }

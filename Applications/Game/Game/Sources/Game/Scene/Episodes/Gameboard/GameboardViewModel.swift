@@ -1,18 +1,18 @@
 //
-//  MapViewModel.swift
+//  GameboardViewModel.swift
 //  
 //
 //  Created by Vladislav Maltsev on 23.02.2023.
 //
 
-final class MapViewModel: GameEpisodeViewModel {
+final class GameboardViewModel: GameEpisodeViewModel {
     typealias Dependencies = Any
 
-    weak var episode: MapView?
+    weak var episode: GameboardView?
     private let dependencies: Dependencies
-    private let data: MapData
+    private let data: GameboardData
 
-    init(data: MapData, dependencies: Dependencies) {
+    init(data: GameboardData, dependencies: Dependencies) {
         self.data = data
         self.dependencies = dependencies
     }
