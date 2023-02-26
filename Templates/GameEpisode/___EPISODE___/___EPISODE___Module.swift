@@ -5,20 +5,20 @@
 //  Created by Vladislav Maltsev.
 //
 
-protocol ___EPISODE___EpisodeProtocol: AnyObject {
+protocol ___EPISODE___View: AnyObject {
 }
 
-struct ___EPISODE___Output {
+struct ___EPISODE___Data {
 }
 
 extension Episodes {
     @MainActor
-    func ___episode___(output: ___EPISODE___Output) -> GameEpisodeProtocol {
+    func ___episode___(data: ___EPISODE___Data) -> BaseGameEpisode {
         let viewModel = ___EPISODE___ViewModel(
-            dependencies: dependencies,
-            output: output
+            data: data,
+            dependencies: dependencies
         )
-        let episode = ___EPISODE___Episode(viewModel: viewModel)
+        let episode = ___EPISODE___Episode(episodes: self, viewModel: viewModel)
         return episode
     }
 }

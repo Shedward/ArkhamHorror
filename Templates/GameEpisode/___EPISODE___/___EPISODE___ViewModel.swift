@@ -8,13 +8,13 @@
 final class ___EPISODE___ViewModel: GameEpisodeViewModel {
     typealias Dependencies = Any
 
-    weak var episode: ___EPISODE___EpisodeProtocol?
+    weak var episode: ___EPISODE___View?
     private let dependencies: Dependencies
-    private let output: ___EPISODE___Output
+    private let data: ___EPISODE___Data
 
-    init(dependencies: Dependencies, output: ___EPISODE___Output) {
+    init(data: ___EPISODE___Data, dependencies: Dependencies) {
+        self.data = data
         self.dependencies = dependencies
-        self.output = output
     }
 
     func didBegin() {

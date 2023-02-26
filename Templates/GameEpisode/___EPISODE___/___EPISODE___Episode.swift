@@ -7,11 +7,12 @@
 
 import HUD
 
-final class ___EPISODE___Episode: GameEpisode<___EPISODE___ViewModel>, ___EPISODE___EpisodeProtocol {
+final class ___EPISODE___Episode: GameEpisode<___EPISODE___ViewModel> {
 
     override func willBegin() {
         <#Implementation#>
     }
 }
 
-
+extension ___EPISODE___Episode: ___EPISODE___View {
+}

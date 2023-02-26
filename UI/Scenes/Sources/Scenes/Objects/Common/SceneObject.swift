@@ -9,7 +9,7 @@ import SceneKit
 
 open class SceneObject {
     public var node: SCNNode
-    public private(set) var parrent: SceneObject?
+    public private(set) weak var parrent: SceneObject?
     public private(set) var childs: [SceneObject] = []
 
     public init(node: SCNNode = SCNNode()) {
