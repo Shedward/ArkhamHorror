@@ -10,6 +10,7 @@ import HUD
 
 protocol SelectActionView: AnyObject {
     func displayActions(_ actions: [ActionCell.Data])
+    func openSubactions(over actionId: String)
     func end()
 }
 

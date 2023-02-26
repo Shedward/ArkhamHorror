@@ -51,6 +51,7 @@ class BaseGameEpisode {
     }
 
     func finalize() {
+        childEpisodes.forEach { $0.end() }
         removeAll()
         didEnd()
     }

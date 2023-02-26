@@ -34,6 +34,13 @@ extension SelectActionEpisode: SelectActionView {
         actionsCollection?.dataSource = ArrayCollectionDataSource(data: actions).asAny()
         layout()
     }
+
+    func openSubactions(over actionId: String) {
+        let cell = actionsCollection?.cells.first { $0.id == actionId }
+        guard let cell else { return }
+        let episode = episodes.selectAction(data: .init(id: .init(rawValue: actionId)), from: cell)
+        startChildEpisode(episode)
+    }
 }
 
 

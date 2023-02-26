@@ -18,13 +18,23 @@ final class SelectActionViewModel: GameEpisodeViewModel {
     }
 
     func didBegin() {
-        let dismiss: () -> Void = { [weak self] in
-            self?.episode?.end()
+        func dismiss() -> () -> Void {
+            { [weak self] in
+                self?.episode?.end()
+            }
         }
+
+        func openSubactions(_ id: String) -> () -> Void {
+            { [weak self] in
+                self?.episode?.openSubactions(over: id)
+            }
+        }
+
         let actions: [ActionCell.Data] = [
-            ActionCell.Data(title: "Move", onTap: dismiss),
-            ActionCell.Data(title: "Research", onTap: dismiss),
-            ActionCell.Data(title: "Ward", onTap: dismiss)
+            ActionCell.Data(id: "move", title: "Move", onTap: openSubactions("move")),
+            ActionCell.Data(id: "research", title: "Research", onTap: openSubactions("research")),
+            ActionCell.Data(id: "close", title: "Close", onTap: dismiss()),
+            ActionCell.Data(id: "another", title: "Another", onTap: openSubactions("another"))
         ]
         episode?.displayActions(actions)
     }
