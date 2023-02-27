@@ -47,6 +47,7 @@
 		6320B9EE299AE85A007C7AD3 /* VollkornSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9CB299AE85A007C7AD3 /* VollkornSC-Regular.ttf */; };
 		6320B9EF299AE85A007C7AD3 /* VollkornSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6320B9CB299AE85A007C7AD3 /* VollkornSC-Regular.ttf */; };
 		632EE7A92794616F005D4963 /* ArkhamHorror in Frameworks */ = {isa = PBXBuildFile; productRef = 632EE7A82794616F005D4963 /* ArkhamHorror */; };
+		637B0CF829ABFEFE00651CDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 637B0CF729ABFEFE00651CDF /* Assets.xcassets */; };
 		6393C108299690F600131DA5 /* ArkhamHorrorGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6393C107299690F600131DA5 /* ArkhamHorrorGame.swift */; };
 		6393C109299690F600131DA5 /* ArkhamHorrorGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6393C107299690F600131DA5 /* ArkhamHorrorGame.swift */; };
 		6393C124299693B000131DA5 /* GameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6393C123299693B000131DA5 /* GameApp.swift */; };
@@ -75,6 +76,7 @@
 		635823C027BE476200D6036A /* Prelude */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Prelude; sourceTree = "<group>"; };
 		635823C127BE4D6D00D6036A /* Map */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Map; sourceTree = "<group>"; };
 		635F2CA22782019B00E8FC07 /* Deck */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Deck; sourceTree = "<group>"; };
+		637B0CF729ABFEFE00651CDF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		638282502996D5620020DAC2 /* Scenes */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Scenes; sourceTree = "<group>"; };
 		638B2FDD27C810650050648B /* Cards */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Cards; sourceTree = "<group>"; };
 		638B2FDE27C83ACB0050648B /* Common */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Common; sourceTree = "<group>"; };
@@ -199,9 +201,18 @@
 			path = iOS;
 			sourceTree = "<group>";
 		};
+		637B0CF429ABFC5000651CDF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				637B0CF729ABFEFE00651CDF /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		6393C10029968EFC00131DA5 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				637B0CF429ABFC5000651CDF /* Resources */,
 				633FC6AE299AE56B009281B7 /* iOS */,
 				633FC6AD299AE563009281B7 /* macOS */,
 				6393C10129968FBF00131DA5 /* Game */,
@@ -457,6 +468,7 @@
 				6320B9E2299AE85A007C7AD3 /* VollkornSC-Black.ttf in Resources */,
 				6320B9CE299AE85A007C7AD3 /* VollkornSC-SemiBold.ttf in Resources */,
 				6320B9DE299AE85A007C7AD3 /* Vollkorn-Italic.ttf in Resources */,
+				637B0CF829ABFEFE00651CDF /* Assets.xcassets in Resources */,
 				6320B9EA299AE85A007C7AD3 /* Vollkorn-Medium.ttf in Resources */,
 				6320B9DA299AE85A007C7AD3 /* Podkova-Regular.ttf in Resources */,
 				6320B9E6299AE85A007C7AD3 /* VollkornSC-Bold.ttf in Resources */,
