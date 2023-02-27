@@ -12,8 +12,8 @@ protocol CampaignView: AnyObject {
     func displayBackAction(_ back: Action)
     func displayCharacters(_ characters: [CharacterCell.Data])
 
-    func openGameboard(_ data: GameboardData)
-    func openActions(_ data: SelectActionData)
+    func presentGameboard(_ data: GameboardData)
+    func presentActions(_ data: SelectActionData)
 }
 
 struct CampaignData {

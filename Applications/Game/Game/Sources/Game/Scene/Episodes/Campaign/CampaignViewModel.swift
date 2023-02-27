@@ -24,11 +24,11 @@ final class CampaignViewModel: GameEpisodeViewModel {
                 portrait: character.portrait,
                 onTap: { [weak self] in
                     let data = SelectActionData(id: character.id)
-                    self?.episode?.openActions(data)
+                    self?.episode?.presentActions(data)
                 }
             )
         }
         episode?.displayCharacters(charactersData)
-        episode?.openGameboard(.init(map: data.campaign.map))
+        episode?.presentGameboard(.init(map: data.campaign.map))
     }
 }

@@ -1,23 +1,23 @@
 //
-//  GameboardViewModel.swift
+//  PlayersViewModel.swift
 //  
 //
 //  Created by Vladislav Maltsev on 23.02.2023.
 //
 
-final class GameboardViewModel: GameEpisodeViewModel {
+final class PlayersViewModel: GameEpisodeViewModel {
     typealias Dependencies = NoDependencies
 
-    weak var episode: GameboardView?
+    weak var episode: PlayersView?
     private let dependencies: Dependencies
-    private let data: GameboardData
+    private let data: PlayersData
 
-    init(data: GameboardData, dependencies: Dependencies) {
+    init(data: PlayersData, dependencies: Dependencies) {
         self.data = data
         self.dependencies = dependencies
     }
 
     func didBegin() {
-        episode?.displayMap(data.map)
+        <#Implementation#>
     }
 }

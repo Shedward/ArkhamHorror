@@ -41,14 +41,14 @@ extension CampaignEpisode: CampaignView {
         layout()
     }
 
-    func openActions(_ data: SelectActionData) {
+    func presentActions(_ data: SelectActionData) {
         let cell = charactersCollection?.cells.first { $0.id == data.id }
         guard let anchor = cell ?? charactersCollection else { return }
         let episode = episodes.selectAction(data: data, from: anchor)
         startChildEpisode(episode)
     }
 
-    func openGameboard(_ data: GameboardData) {
+    func presentGameboard(_ data: GameboardData) {
         let episode = episodes.map(data: data)
         startChildEpisode(episode)
     }

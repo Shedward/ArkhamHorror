@@ -5,8 +5,10 @@
 //  Created by Vladislav Maltsev.
 //
 
+import Prelude
+
 final class SelectActionViewModel: GameEpisodeViewModel {
-    typealias Dependencies = Any
+    typealias Dependencies = NoDependencies
 
     weak var episode: SelectActionView?
     private let dependencies: Dependencies
@@ -25,8 +27,16 @@ final class SelectActionViewModel: GameEpisodeViewModel {
         }
 
         let actions: [ActionCell.Data] = [
-            ActionCell.Data(id: "move", title: "Move", onTap: openSubactions("move")),
-            ActionCell.Data(id: "research", title: "Research", onTap: openSubactions("research")),
+            ActionCell.Data(
+                id: "move",
+                title: Localized.string("Move"),
+                onTap: openSubactions("move")
+            ),
+            ActionCell.Data(
+                id: "research",
+                title: Localized.string("Research"),
+                onTap: openSubactions("research")
+            ),
         ]
         episode?.displayActions(actions)
     }
