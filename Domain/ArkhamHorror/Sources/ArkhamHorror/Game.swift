@@ -8,50 +8,19 @@
 import Common
 import Prelude
 
-public class Game {
-    public struct State {
-        var campaignId: Campaign.Id
-        var players: [Player]
-    }
-
-    private var campaign: Campaign
-    private var state: State
-    var presentation: Presentation = .init()
+public final class Game {
+    private(set) var campaign: Campaign
+    private(set) var players: [Player]
 
     public init(campaign: Campaign, selectedPlayers: [Player]) {
         self.campaign = campaign
-        self.state = .init(
-            campaignId: campaign.id,
-            players: selectedPlayers
-        )
-    }
-
-    public func players() -> [Player] {
-        state.players
-    }
-
-    public func movePlayer(_ playerId: Player.ID, path regionIds: [Region.ID]) {
-        guard
-            var player = state.players[id: playerId],
-            player.availableActions > 0,
-            let finalDestination = regionIds.last
-        else { return }
-
-        let initialPosition = player.position
-
-        player.position = finalDestination
-        player.availableActions -= 1
-
-        state.players[id: playerId] = player
-
-        presentation.map?.move(player: playerId, through: [initialPosition] + regionIds)
-        presentation.players[playerId]?.value?.updateAvailableActions(player.availableActions)
+        self.players = selectedPlayers
     }
 
     public func endTurn() {
-        state.players.mutatingForEach { player in
-            player.availableActions = 2
-            presentation.players[player.id]?.value?.updateAvailableActions(player.availableActions)
+        players.forEach { player in
+            player.refreshActions(to: campaign.info.rules.defaultCountOfActions)
         }
     }
 }
+

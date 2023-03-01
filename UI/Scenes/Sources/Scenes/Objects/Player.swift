@@ -8,11 +8,15 @@
 import SceneKit
 import Prelude
 import DesignSystem
+import ArkhamHorror
 
-final class Player: SceneObject {
+public final class Player: SceneObject {
     static let regionHeight: Float = 0.2
 
-    init(color: UColor) {
+    public let id: ArkhamHorror.Player.ID
+
+    public init(id: ArkhamHorror.Player.ID, color: UColor) {
+        self.id = id
         let geometry = SCNPyramid(width: 0.125, height: 0.5, length: 0.25)
         geometry.materials = [MapRegion.material(color: color)]
 

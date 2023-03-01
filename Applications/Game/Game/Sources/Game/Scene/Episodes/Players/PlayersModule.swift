@@ -5,10 +5,15 @@
 //  Created by Vladislav Maltsev.
 //
 
+import Map
+import Common
+import ArkhamHorror
+
 protocol PlayersView: AnyObject {
 }
 
 struct PlayersData {
+    let players: [Player]
 }
 
 extension Episodes {

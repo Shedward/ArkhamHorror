@@ -16,8 +16,4 @@ final class PlayersViewModel: GameEpisodeViewModel {
         self.data = data
         self.dependencies = dependencies
     }
-
-    func didBegin() {
-        <#Implementation#>
-    }
 }
