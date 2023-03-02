@@ -36,7 +36,8 @@ final class CampaignDetailsViewModel: GameEpisodeViewModel {
         let campaignData = campaignResult.map { campaign in
             CampaignDetailsEpisode.LoadedCampaignData(
                 onStart: { [data] in
-                    data.onStartCampaign(campaign)
+                    let game = Game(campaign: campaign, selectedCharacters: campaign.availableCharacters)
+                    data.onStartGame(game)
                 }
             )
         }

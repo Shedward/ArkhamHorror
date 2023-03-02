@@ -74,6 +74,7 @@ extension CampaignDetailsEpisode: CampaignDetailsView {
             startButton?.onTap = nil
             errorAlert?.display(error)
         }
+        layout()
     }
 
     func displayStartCampaignAction(_ onStartCampaign: Action) {

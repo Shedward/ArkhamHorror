@@ -13,12 +13,12 @@ protocol PlayersView: AnyObject {
 }
 
 struct PlayersData {
-    let players: [Player]
+    let game: Game
 }
 
 extension Episodes {
     @MainActor
-    func Players(data: PlayersData) -> BaseGameEpisode {
+    func players(data: PlayersData) -> BaseGameEpisode {
         let viewModel = PlayersViewModel(
             data: data,
             dependencies: dependencies

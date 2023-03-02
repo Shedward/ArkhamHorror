@@ -7,14 +7,26 @@
 
 import Common
 import Prelude
+import Combine
+import Foundation
 
 public final class Game {
-    private(set) var campaign: Campaign
-    private(set) var players: [Player]
+    public private(set) var campaign: Campaign
+    public private(set) var players: [Player]
 
-    public init(campaign: Campaign, selectedPlayers: [Player]) {
+    public init(campaign: Campaign, selectedCharacters: [Character]) {
         self.campaign = campaign
-        self.players = selectedPlayers
+        self.players = []
+
+        players = selectedCharacters.map { character in
+            Player(
+                id: .init(rawValue: UUID().uuidString),
+                game: self,
+                character: character,
+                position: campaign.info.rules.initialPosition,
+                availableActions: campaign.info.rules.defaultCountOfActions
+            )
+        }
     }
 
     public func endTurn() {

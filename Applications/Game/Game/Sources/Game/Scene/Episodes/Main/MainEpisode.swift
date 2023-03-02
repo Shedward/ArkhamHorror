@@ -35,17 +35,17 @@ final class MainEpisode: BaseGameEpisode {
             onBack: { [weak self] in
                 self?.navigation?.pop()
             },
-            onStartCampaign: { [weak self] campaign in
-                self?.displayCampaign(campaign)
+            onStartGame: { [weak self] game in
+                self?.displayCampaign(game)
             }
         )
         let episode = episodes.campaignDetails(data: data)
         navigation?.push(episode)
     }
 
-    private func displayCampaign(_ campaign: Campaign) {
+    private func displayCampaign(_ game: Game) {
         let data = CampaignData(
-            campaign: campaign,
+            game: game,
             onBack: { [weak self] in
                 self?.navigation?.pop()
             }

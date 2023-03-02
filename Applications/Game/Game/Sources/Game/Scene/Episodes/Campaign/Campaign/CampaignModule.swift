@@ -17,7 +17,7 @@ protocol CampaignView: AnyObject {
 }
 
 struct CampaignData {
-    let campaign: Campaign
+    let game: Game
     let onBack: () -> Void
 }
 

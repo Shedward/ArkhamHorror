@@ -18,7 +18,7 @@ final class CampaignViewModel: GameEpisodeViewModel {
 
     func didBegin() async {
         episode?.displayBackAction(data.onBack)
-        let charactersData = data.campaign.availableCharacters.map { character in
+        let charactersData = data.game.campaign.availableCharacters.map { character in
             CharacterCell.Data(
                 id: character.id,
                 portrait: character.portrait,
@@ -29,6 +29,6 @@ final class CampaignViewModel: GameEpisodeViewModel {
             )
         }
         episode?.displayCharacters(charactersData)
-        episode?.presentGameboard(.init(map: data.campaign.map))
+        episode?.presentGameboard(.init(map: data.game.campaign.map))
     }
 }

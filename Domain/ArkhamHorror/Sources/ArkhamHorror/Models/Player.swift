@@ -12,22 +12,28 @@ import Combine
 
 public class Player: Identifiable {
     public let id: ID
-    public let characterId: Character.Id
+    public let character: Character
+    public private(set) weak var game: Game?
+
+    @Published
     public private(set) var position: Region.ID
-    public private(set) var availableActions: Int {
-        didSet {
-            events.actionsCountChangedSubject.value = availableActions
-        }
+    @Published
+    public private(set) var availableActions: Int
+    @Published
+    public private(set) var availableMovePoints: Int
+
+    private let movedSubject = EventSubject<Events.Moved>()
+    public var moved: EventPublisher<Events.Moved> {
+        movedSubject.eraseToAnyPublisher()
     }
 
-    public let events = Events()
-
-    init(id: ID, characterId: Character.Id, position: Region.ID, availableActions: Int) {
+    init(id: ID, game: Game, character: Character, position: Region.ID, availableActions: Int) {
         self.id = id
-        self.characterId = characterId
+        self.game = game
+        self.character = character
         self.position = position
         self.availableActions = availableActions
-        events.actionsCountChangedSubject.value = availableActions
+        self.availableMovePoints = character.rules.availableMovePoints
     }
 
     public func move(to region: Region.ID) throws {
@@ -44,7 +50,7 @@ public class Player: Identifiable {
         }
         try spendAction()
         position = pathEnd
-        events.movedSubject.send(.init(path: path))
+        movedSubject.send(.init(path: path))
     }
 
     public func spendAction() throws {
@@ -63,19 +69,9 @@ extension Player {
     public enum IdTag {}
     public typealias ID = Tagged<IdTag, String>
 
-    public struct Events {
+    public enum Events {
         public struct Moved {
             public let path: [Region.ID]
-        }
-
-        fileprivate let movedSubject = EventSubject<Moved>()
-        var moved: EventPublisher<Moved> {
-            movedSubject.eraseToAnyPublisher()
-        }
-
-        fileprivate let actionsCountChangedSubject = ValueSubject(0)
-        var actionsCountChanged: ValuePublisher<Int> {
-            actionsCountChangedSubject.eraseToAnyPublisher()
         }
     }
 }

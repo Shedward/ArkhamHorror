@@ -18,7 +18,7 @@ protocol CampaignDetailsView: AnyObject {
 struct CampaignDetailsData {
     let info: CampaignInfo
     let onBack: () -> Void
-    let onStartCampaign: (Campaign) -> Void
+    let onStartGame: (Game) -> Void
 }
 
 extension Episodes {
