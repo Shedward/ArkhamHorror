@@ -10,8 +10,10 @@ import simd
 import HSLuvSwift
 
 public final class Gameboard: SceneObject {
-    public let mapGeometry = MapGeometry(hexagonSize: 1, spacing: 0.5)
+    public static let mapGeometry = MapGeometry(hexagonSize: 1, spacing: 0.5)
+
     public let map: Map
+    public let mapGeometry = Gameboard.mapGeometry
     public private(set) var regions: [MapRegion] = []
     public private(set) var neighboarhoods: [MapNegihbourhood] = []
 
@@ -83,8 +85,8 @@ public final class Gameboard: SceneObject {
     }
 
     private func createNeighbourhood(for neighboarhood: MapLayout.Neighboarhood) -> MapNegihbourhood {
+        let zeroHexagon = mapGeometry.hexagon()
         let regions = neighboarhood.regions.compactMap { regionId -> MapRegion? in
-            let zeroHexagon = mapGeometry.hexagon()
             guard let edge = neighboarhood.edge(for: regionId) else { return nil }
             let region = zeroHexagon.region(at: edge)
             let mapRegion = MapRegion(

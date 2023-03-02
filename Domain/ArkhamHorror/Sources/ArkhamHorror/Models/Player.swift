@@ -23,7 +23,7 @@ public class Player: Identifiable {
     public private(set) var availableMovePoints: Int
 
     private let movedSubject = EventSubject<Events.Moved>()
-    public var moved: EventPublisher<Events.Moved> {
+    public var movedEvents: EventPublisher<Events.Moved> {
         movedSubject.eraseToAnyPublisher()
     }
 

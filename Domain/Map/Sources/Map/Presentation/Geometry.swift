@@ -41,6 +41,10 @@ public enum Geometry {
             .init(width: x, height: y)
         }
 
+        public func toVec2() -> vector_float2 {
+            .init(x: x, y: y)
+        }
+
         public func toVec3() -> vector_float3 {
             .init(x: x, y: y, z: 0)
         }

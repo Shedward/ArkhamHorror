@@ -13,4 +13,4 @@ public typealias EventPublisher<Output> = AnyPublisher<Output, Never>
 public typealias ValueSubject<Value> = CurrentValueSubject<Value, Never>
 public typealias ValuePublisher<Value> = AnyPublisher<Value, Never>
 
-public typealias Subscriptions = [AnyCancellable]
+public typealias SubscriptionsBag = [AnyCancellable]

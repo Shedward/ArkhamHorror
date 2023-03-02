@@ -13,6 +13,7 @@ protocol CampaignView: AnyObject {
     func displayCharacters(_ characters: [CharacterCell.Data])
 
     func presentGameboard(_ data: GameboardData)
+    func presentPlayers(_ data: PlayersData)
     func presentActions(_ data: SelectActionData)
 }
 

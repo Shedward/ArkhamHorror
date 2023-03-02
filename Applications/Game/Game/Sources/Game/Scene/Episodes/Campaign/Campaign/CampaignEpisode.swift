@@ -52,6 +52,11 @@ extension CampaignEpisode: CampaignView {
         let episode = episodes.map(data: data)
         startChildEpisode(episode)
     }
+
+    func presentPlayers(_ data: PlayersData) {
+        let episode = episodes.players(data: data)
+        startChildEpisode(episode)
+    }
 }
 
 

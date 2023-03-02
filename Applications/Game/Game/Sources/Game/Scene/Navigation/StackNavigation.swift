@@ -23,11 +23,10 @@ final class StackNavigation {
 
     func push(_ episode: BaseGameEpisode) {
         guard let rootEpisode else {
-            logger.error("""
+            logger.assertionError("""
             Tried to push episode \(episode) to navigation \
             which does not have root episode.
             """)
-            assertionFailure()
             return
         }
 
@@ -40,11 +39,10 @@ final class StackNavigation {
 
     func pop() {
         guard let rootEpisode else {
-            logger.error("""
+            logger.assertionError("""
             Tried to pop episode from navigation \
             which does not have root episode.
             """)
-            assertionFailure()
             return
         }
 
@@ -52,12 +50,11 @@ final class StackNavigation {
             let previousEpisode = episodes.suffix(2).first,
             let currentEpisode
         else {
-            logger.error("""
+            logger.assertionError("""
             Tried to pop episode from navigation \
             which have only \(episodes.count) episodes: \
             \(episodes)
             """)
-            assertionFailure()
             return
         }
 

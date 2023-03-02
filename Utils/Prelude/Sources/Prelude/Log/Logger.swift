@@ -33,6 +33,11 @@ public struct Logger {
         Self.impl.log(label: label, level: .error, message: message)
     }
 
+    public func assertionError(_ message: @autoclosure () -> String) {
+        Self.impl.log(label: label, level: .error, message: message)
+        assertionFailure(message())
+    }
+
     @available(*, deprecated, message: "Debug logs should be removed before commit")
     public func debug(_ message: @autoclosure () -> String) {
         Self.impl.log(label: label, level: .debug, message: message)

@@ -134,6 +134,13 @@ public struct MapLayout {
 		self.streets = streets
 	}
 
+    public func position(of regionId: Region.ID) {
+        neighboarhoods.forEach { neighboarhood in
+            let edge = neighboarhood.edge(for: regionId)
+            
+        }
+    }
+
     public func maxPosition() -> NeighborhoodPosition {
         let positions = neighboarhoods.map { $0.position }
         var maxX: Int = 0

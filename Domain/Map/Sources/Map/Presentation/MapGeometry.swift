@@ -22,6 +22,10 @@ public struct MapGeometry {
 		}
 	}
 
+    public enum RegionPosition {
+
+    }
+
 	public struct Hexagon {
 		public enum Vertex: Int {
 			case v0 = 0

@@ -10,7 +10,7 @@ import Prelude
 import DesignSystem
 import ArkhamHorror
 
-public final class Player: SceneObject {
+public final class Player: SceneObject, Identifiable {
     static let regionHeight: Float = 0.2
 
     public let id: ArkhamHorror.Player.ID
@@ -33,5 +33,9 @@ public final class Player: SceneObject {
         node.simdPosition.z = MapRegion.height + 0.05
 
         super.init(node: node)
+    }
+
+    public func moveTo(_ position: vector_float2) {
+        node.simdPosition = .init(position, Player.regionHeight)
     }
 }

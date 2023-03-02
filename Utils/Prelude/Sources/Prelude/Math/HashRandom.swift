@@ -15,6 +15,14 @@ extension Float {
     }
 }
 
+extension Double {
+    public static func hashRandom<T: Hashable>(from minValue: Double, to maxValue: Double, for id: T) -> Double {
+        let progress = abs(Double(id.hashValue) / Double(Int.max))
+        let value = (maxValue - minValue) * progress + minValue
+        return value
+    }
+}
+
 extension Collection where Index == Int {
     public func hashRandomElement<T: Hashable>(for id: T) -> Element? {
         guard !isEmpty else { return nil }

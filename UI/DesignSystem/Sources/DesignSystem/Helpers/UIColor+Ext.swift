@@ -6,6 +6,7 @@
 //
 
 import CoreGraphics
+import HSLuvSwift
 
 extension UColor {
     public convenience init(red: Int, green: Int, blue: Int, alpha: CGFloat = 1.0) {
@@ -23,5 +24,29 @@ extension UColor {
             blue: rgb & 0xFF,
             alpha: alpha
         )
+    }
+
+    public convenience init<T: Hashable>(
+        randomForHashOf object: T,
+        saturation: Double = 100.0,
+        lightness: Double = 50.0,
+        alpha: Double = 1.0,
+        usePastelSaturation: Bool = false
+    ) {
+        if usePastelSaturation {
+            self.init(
+                hue: Double.hashRandom(from: 0.0, to: 360.0, for: object),
+                pastelSaturation: saturation,
+                lightness: lightness,
+                alpha: alpha
+            )
+        } else {
+            self.init(
+                hue: Double.hashRandom(from: 0.0, to: 360.0, for: object),
+                saturation: saturation,
+                lightness: lightness,
+                alpha: alpha
+            )
+        }
     }
 }

@@ -30,5 +30,6 @@ final class CampaignViewModel: GameEpisodeViewModel {
         }
         episode?.displayCharacters(charactersData)
         episode?.presentGameboard(.init(map: data.game.campaign.map))
+        episode?.presentPlayers(.init(game: data.game))
     }
 }
