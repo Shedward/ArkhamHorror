@@ -53,6 +53,14 @@ public class Player: Identifiable {
         movedSubject.send(.init(path: path))
     }
 
+    public func moveToRandomNeighbourRegion() throws {
+        guard let game else { return }
+        guard let randomNeighbourRegion = game.campaign.map.neighbors(for: position).randomElement() else {
+            throw AppError("Player have no neighbour regions to it's current position \(position)")
+        }
+        try move(to: randomNeighbourRegion)
+    }
+
     public func spendAction() throws {
         guard availableActions > 0 else {
             throw AppError("Can't spend action. There is no actions left")

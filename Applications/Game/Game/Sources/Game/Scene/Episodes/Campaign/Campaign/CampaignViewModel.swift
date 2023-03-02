@@ -18,12 +18,12 @@ final class CampaignViewModel: GameEpisodeViewModel {
 
     func didBegin() async {
         episode?.displayBackAction(data.onBack)
-        let charactersData = data.game.campaign.availableCharacters.map { character in
-            CharacterCell.Data(
-                id: character.id,
-                portrait: character.portrait,
+        let charactersData = data.game.players.map { player in
+            PlayerCell.Data(
+                id: player.id,
+                portrait: player.character.portrait,
                 onTap: { [weak self] in
-                    let data = SelectActionData(id: character.id)
+                    let data = SelectActionData(player: player)
                     self?.episode?.presentActions(data)
                 }
             )

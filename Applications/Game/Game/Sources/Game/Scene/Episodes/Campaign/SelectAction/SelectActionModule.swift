@@ -14,7 +14,7 @@ protocol SelectActionView: AnyObject {
 }
 
 struct SelectActionData {
-    let id: Character.Id
+    let player: Player
 }
 
 extension Episodes {

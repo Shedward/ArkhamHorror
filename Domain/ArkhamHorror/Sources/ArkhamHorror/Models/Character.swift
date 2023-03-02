@@ -9,9 +9,9 @@ import Prelude
 
 public struct Character: Codable, Identifiable {
     public enum IdTag {}
-    public typealias Id = Tagged<IdTag, String>
+    public typealias ID = Tagged<IdTag, String>
 
-    public let id: Id
+    public let id: ID
     public let name: String
     public let portrait: ImageResource
     public let moto: String
@@ -22,7 +22,7 @@ public struct Character: Codable, Identifiable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(Character.Id.self, forKey: .id)
+        self.id = try container.decode(Character.ID.self, forKey: .id)
         self.name = try container.decode(String.self, forKey: .name)
         self.portrait = try container.decode(ImageResource.self, forKey: .portrait)
         self.moto = try container.decode(String.self, forKey: .moto)

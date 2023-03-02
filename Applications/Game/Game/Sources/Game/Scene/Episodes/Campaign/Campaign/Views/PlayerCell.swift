@@ -1,5 +1,5 @@
 //
-//  CharacterCell.swift
+//  PlayerCell.swift
 //  
 //
 //  Created by Vladislav Maltsev on 23.02.2023.
@@ -9,10 +9,10 @@ import HUD
 import ArkhamHorror
 import CoreGraphics
 
-final class CharacterCell: View, CollectionCell {
+final class PlayerCell: View, CollectionCell {
     static let size = CGSize(width: 64, height: 64)
 
-    let id: Character.Id
+    let id: Player.ID
     private let portraitButton: TextureButton
 
     init(data: Data) {
@@ -27,9 +27,9 @@ final class CharacterCell: View, CollectionCell {
     }
 }
 
-extension CharacterCell {
+extension PlayerCell {
     struct Data {
-        let id: Character.Id
+        let id: Player.ID
         let portrait: ImageResource
         let onTap: () -> Void
     }

@@ -64,7 +64,7 @@ public final class DirectoryCampaignLoader: CampaignLoader {
 
                 let characters = try ymls.map { url -> Character in
                     let basename = url.deletingPathExtension().lastPathComponent
-                    let characterId = Character.Id(rawValue: basename)
+                    let characterId = Character.ID(rawValue: basename)
 
                     let character = try loadFromFile(Character.self, id: campaignId, path: Paths.character(id: characterId))
                     try validateId(model: character, fileUrl: url)
@@ -141,7 +141,7 @@ extension DirectoryCampaignLoader {
         static let allCharactersDir = "characters"
         static let map = "map.yml"
 
-        static func character(id: Character.Id) -> String {
+        static func character(id: Character.ID) -> String {
             "\(allCharactersDir)/\(id.rawValue).yml"
         }
     }

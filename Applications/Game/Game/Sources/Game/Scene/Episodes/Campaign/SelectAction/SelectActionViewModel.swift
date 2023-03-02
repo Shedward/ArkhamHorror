@@ -22,7 +22,9 @@ final class SelectActionViewModel: GameEpisodeViewModel {
     func didBegin() {
         func openSubactions(_ id: String) -> () -> Void {
             { [weak self] in
-                self?.episode?.end()
+                guard let self else { return }
+                try! self.data.player.moveToRandomNeighbourRegion()
+                self.episode?.end()
             }
         }
 

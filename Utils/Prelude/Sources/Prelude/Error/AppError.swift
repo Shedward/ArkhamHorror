@@ -35,12 +35,12 @@ public struct AppError: Error, CustomStringConvertible, LocalizedError {
         if let underlyingError, let stackError = underlyingError as? AppError {
             return """
             \(position):\(message)
-            \(stackError.description)
+             \(stackError.description)
             """
         } else {
             return """
             \(position):\(message)
-            \(underlyingError.debugDescription)
+             \(underlyingError.debugDescription)
             """
         }
     }
