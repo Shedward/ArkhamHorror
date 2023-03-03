@@ -154,12 +154,12 @@ extension DesignSystem {
                 ),
                 failure: .init(
                     title: .init(
-                        font: .Design.debug,
+                        font: .Design.bodySC,
                         iconStyle: .init(pointSize: 16, weight: .bold),
                         color: color.tint.bad
                     ),
                     message: .init(
-                        font: .Design.debug,
+                        font: .Design.bodySC,
                         iconStyle: .init(pointSize: 12, weight: .regular),
                         color: color.tint.bad
                     )

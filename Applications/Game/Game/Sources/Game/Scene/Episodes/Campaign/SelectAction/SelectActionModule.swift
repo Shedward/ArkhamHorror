@@ -8,7 +8,7 @@
 import ArkhamHorror
 import HUD
 
-protocol SelectActionView: AnyObject {
+protocol SelectActionView: AnyObject, DisplayingError {
     func displayActions(_ actions: [ActionCell.Data])
     func end()
 }

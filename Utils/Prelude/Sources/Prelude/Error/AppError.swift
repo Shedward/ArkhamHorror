@@ -46,6 +46,6 @@ public struct AppError: Error, CustomStringConvertible, LocalizedError {
     }
 
     public var errorDescription: String? {
-        description
+        message
     }
 }

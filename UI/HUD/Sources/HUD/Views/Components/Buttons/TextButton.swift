@@ -13,6 +13,7 @@ public final class TextButton: View {
     public static let defaultSize: CGSize = .init(width: 128, height: 32)
     private let tappableNode: TappableShapeNode
     private let designSystem = DesignSystem.default
+    private let titleLabel: Label
 
     public var onTap: (() -> Void)? {
         didSet {
@@ -21,13 +22,15 @@ public final class TextButton: View {
     }
 
     public init(
-        text: String,
+        text: String? = nil,
         textKind: DesignSystem.TextKind = \.menu.h3,
         size: CGSize = TextButton.defaultSize,
         border: CGFloat = 4.0,
         onTap: (() -> Void)? = nil
     ) {
         tappableNode = TappableShapeNode(rect: .centeredRect(of: size))
+        titleLabel = Label(text: text, textKind: textKind)
+
         self.onTap = onTap
         super.init(node: tappableNode)
 
@@ -41,10 +44,25 @@ public final class TextButton: View {
         tappableNode.lineWidth = border
         tappableNode.strokeColor = designSystem.text.by(textKind).color
 
-        let textLabel = Label(text: text, textKind: textKind)
-        textLabel.verticalAlignmentMode = .center
-        textLabel.preferredWidth = size.width
+        titleLabel.verticalAlignmentMode = .center
+        titleLabel.preferredWidth = size.width
+        addChild(titleLabel)
+    }
 
-        addChild(textLabel)
+    public func configure(with data: Data) {
+        titleLabel.text = data.title
+        onTap = data.onTap
+    }
+}
+
+extension TextButton {
+    public struct Data {
+        public var title: String
+        public var onTap: () -> Void
+
+        public init(title: String, onTap: @escaping () -> Void) {
+            self.title = title
+            self.onTap = onTap
+        }
     }
 }

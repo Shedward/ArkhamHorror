@@ -20,26 +20,24 @@ final class SelectActionViewModel: GameEpisodeViewModel {
     }
 
     func didBegin() {
-        func openSubactions(_ id: String) -> () -> Void {
-            { [weak self] in
-                guard let self else { return }
-                try! self.data.player.moveToRandomNeighbourRegion()
-                self.episode?.end()
-            }
-        }
-
         let actions: [ActionCell.Data] = [
             ActionCell.Data(
                 id: "move",
                 title: Localized.string("Move"),
-                onTap: openSubactions("move")
-            ),
-            ActionCell.Data(
-                id: "research",
-                title: Localized.string("Research"),
-                onTap: openSubactions("research")
-            ),
+                onTap: { [weak self] in self?.movePlayerToRandomNeighbourRegion() }
+            )
         ]
         episode?.displayActions(actions)
+    }
+
+    private func movePlayerToRandomNeighbourRegion() {
+        do {
+            try data.player.moveToRandomNeighbourRegion()
+            episode?.end()
+        } catch {
+            episode?.displayError(error) { [weak self] in
+                self?.episode?.end()
+            }
+        }
     }
 }

@@ -12,28 +12,29 @@ import Prelude
 public final class ErrorAlert: View {
     private let designSystem = DesignSystem.default
 
+    private let titleLabel: Label
     private let messageLabel: Label
-    private let frame = Frame(stroke: \.tint.bad, insets: .init(uniform: 16), fill: \.fixed.black)
+    private let actionButton: TextButton
+    private let frame = Frame(stroke: \.tint.bad, insets: .init(uniform: 8), fill: \.fixed.black)
     private let secondaryBorder = Shape(stroke: \.tint.bad, fill: \.fixed.black)
     private var stack: Stack?
 
     public init(error: Error? = nil, preferredWidth: CGFloat = 256) {
+        titleLabel = Label(text: Localized.string("Failure"), textKind: \.failure.title)
         messageLabel = Label.multiline(textKind: \.failure.message, preferredWidth: preferredWidth)
+        actionButton = TextButton(text: Localized.string("Dismiss"), textKind: \.failure.title, border: 3.0)
         secondaryBorder.node.position = .init(x: 8, y: 8)
+
         super.init()
 
-        let okButton = TextButton(
-            text: Localized.string("DISMISS"),
-            textKind: \.failure.title,
-            onTap: { [weak self] in
-                self?.display(nil)
-            }
-        )
+        actionButton.onTap = { [weak self] in
+            self?.display(nil)
+        }
 
-        let stack = Stack(axis: .vertical, spacing: 16) {
-            Label(text: Localized.string("Failure"), textKind: \.failure.title)
+        let stack = Stack(axis: .vertical, spacing: 12) {
+            titleLabel
             messageLabel
-            okButton
+            actionButton
         }
         self.stack = stack
 
@@ -65,10 +66,45 @@ public final class ErrorAlert: View {
         display(loading.error)
     }
 
+    public func configure(with data: Data) {
+        node.isHidden = false
+        titleLabel.text = data.title
+        messageLabel.text = data.message
+        actionButton.configure(with: data.actionButton)
+    }
+
     public override func layoutSubviews() {
         super.layoutSubviews()
 
         let frameRect = frame.lastFrame
         secondaryBorder.path = CGPath(rect: frameRect, transform: nil) 
+    }
+}
+
+extension ErrorAlert {
+    public struct Data {
+        public var title: String
+        public var message: String
+        public var actionButton: TextButton.Data
+
+        public init(
+            title: String = Localized.string("Failure"),
+            message: String,
+            actionButton: TextButton.Data
+        ) {
+            self.title = title
+            self.message = message
+            self.actionButton = actionButton
+        }
+
+        public init(
+            title: String = Localized.string("Failure"),
+            error: Error,
+            actionButton: TextButton.Data
+        ) {
+            self.title = title
+            self.message = error.localizedDescription
+            self.actionButton = actionButton
+        }
     }
 }
