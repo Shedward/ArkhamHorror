@@ -27,3 +27,23 @@ public struct FadeSpriteTransition: NodeTransition {
         }
     }
 }
+
+public struct FadeObjectTransition: NodeTransition {
+    public let duration: TimeInterval
+
+    public init(duration: TimeInterval = 0.25) {
+        self.duration = duration
+    }
+
+    public func enter(node: SCNNode, in parent: SCNNode) {
+        node.opacity = 0.0
+        parent.addChildNode(node)
+        node.runAction(.fadeIn(duration: duration))
+    }
+
+    public func leave(node: SCNNode, in parent: SCNNode) {
+        node.runAction(.fadeOut(duration: duration)) {
+            node.removeFromParentNode()
+        }
+    }
+}
