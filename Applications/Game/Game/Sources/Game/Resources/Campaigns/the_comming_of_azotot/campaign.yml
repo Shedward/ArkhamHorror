@@ -8,5 +8,5 @@ description:
   самым обрекают человечество на гибель'
 
 rules:
-  defaultCountOfActions: 2
+  defaultCountOfActions: 10
   initialPosition: train_station

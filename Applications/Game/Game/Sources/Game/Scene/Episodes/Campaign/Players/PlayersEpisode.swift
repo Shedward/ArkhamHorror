@@ -25,8 +25,10 @@ extension PlayersEpisode: PlayersView {
         }
     }
 
-    func movePlayer(_ id: ArkhamHorror.Player.ID, to position: vector_float2) {
-        playerObjects[id: id]?.moveTo(position, animated: true)
+    func movePlayer(_ id: ArkhamHorror.Player.ID, along path: [vector_float2]) {
+        for pathPoint in path {
+            playerObjects[id: id]?.moveTo(pathPoint, animated: true)
+        }
     }
 }
 

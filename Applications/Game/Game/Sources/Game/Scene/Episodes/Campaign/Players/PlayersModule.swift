@@ -13,7 +13,7 @@ import simd
 
 protocol PlayersView: AnyObject {
     func displayPlayers(_ players: [PlayersEpisode.PlayerData])
-    func movePlayer(_ id: ArkhamHorror.Player.ID, to position: vector_float2)
+    func movePlayer(_ id: ArkhamHorror.Player.ID, along path: [vector_float2])
 }
 
 struct PlayersData {

@@ -7,6 +7,7 @@
 
 import Prelude
 import DesignSystem
+import Common
 
 final class SelectActionViewModel: GameEpisodeViewModel {
     typealias Dependencies = AnimationQueueDependency
@@ -26,24 +27,27 @@ final class SelectActionViewModel: GameEpisodeViewModel {
                 id: "move",
                 title: Localized.string("Move"),
                 onTap: { [weak self] in
-                    self?.dependencies.animationQueue.enqueue {
-                        self?.movePlayerToRandomNeighbourRegion()
-                        self?.movePlayerToRandomNeighbourRegion()
-                    }
+                    self?.presentSelectPath()
                 }
             )
         ]
         episode?.displayActions(actions)
     }
 
-    private func movePlayerToRandomNeighbourRegion() {
-        do {
-            try data.player.moveToRandomNeighbourRegion()
-            episode?.end()
-        } catch {
-            episode?.displayError(error) { [weak self] in
-                self?.episode?.end()
+    private func presentSelectPath() {
+        let data = SelectPathEpisodeData(
+            game: data.game,
+            fromPlayer: data.player,
+            onSelected: { [weak self] path in
+                self?.movePlayer(path: path)
             }
+        )
+        episode?.presentSelectPath(data)
+    }
+
+    private func movePlayer(path: [Region.ID]) {
+        dependencies.animationQueue.enqueue {
+            try! data.player.move(path: path)
         }
     }
 }

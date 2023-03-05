@@ -11,7 +11,7 @@ import DesignSystem
 import ArkhamHorror
 
 public final class Player: SceneObject, Identifiable {
-    static let regionHeight: Float = 0.2
+    public static let elevation: Float = 0.2
 
     public let id: ArkhamHorror.Player.ID
 
@@ -37,12 +37,12 @@ public final class Player: SceneObject, Identifiable {
 
     public func moveTo(_ position: vector_float2, animated: Bool) {
         if animated {
-            let newPosition = SCNVector3(position.x, position.y, Player.regionHeight)
+            let newPosition = SCNVector3(position.x, position.y, Player.elevation)
             let action = SCNAction.move(to: newPosition, duration: 0.25)
             action.timingMode = .easeIn
             node.enqueueAction(name: "movePlayer", action: action)
         } else {
-            node.simdPosition = .init(position, Player.regionHeight)
+            node.simdPosition = .init(position, Player.elevation)
         }
     }
 }

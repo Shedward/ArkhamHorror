@@ -10,10 +10,12 @@ import HUD
 
 protocol SelectActionView: AnyObject, DisplayingError {
     func displayActions(_ actions: [ActionCell.Data])
+    func presentSelectPath(_ data: SelectPathEpisodeData)
     func end()
 }
 
 struct SelectActionData {
+    let game: Game
     let player: Player
 }
 

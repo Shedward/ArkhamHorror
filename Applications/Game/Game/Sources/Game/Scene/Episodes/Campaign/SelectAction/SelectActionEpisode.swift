@@ -34,6 +34,11 @@ extension SelectActionEpisode: SelectActionView {
         actionsCollection?.dataSource = ArrayCollectionDataSource(data: actions).asAny()
         layout()
     }
+
+    func presentSelectPath(_ data: SelectPathEpisodeData) {
+        let episode = episodes.selectPath(data: data)
+        startChildEpisode(episode)
+    }
 }
 
 

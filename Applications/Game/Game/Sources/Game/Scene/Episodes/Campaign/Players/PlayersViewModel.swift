@@ -36,9 +36,9 @@ final class PlayersViewModel: GameEpisodeViewModel {
         let playersData = data.game.players.map { player -> PlayersEpisode.PlayerData in
             let playerId = player.id
 
-            player.$position
-                .sink { [weak self] regionId in
-                    self?.movePlayer(playerId, to: regionId)
+            player.movedEvents
+                .sink { [weak self] event in
+                    self?.movePlayer(playerId, path: event.path)
                 }
                 .store(in: &subscriptions)
 
@@ -52,15 +52,11 @@ final class PlayersViewModel: GameEpisodeViewModel {
         episode?.displayPlayers(playersData)
     }
 
-    private func movePlayer(_ playerId: Player.ID, to regionId: Region.ID) {
-        guard let regionPosition = mapCoordinateSystem.position(for: regionId) else {
-            logger.assertionError("""
-            Tried to move player \(playerId) to region \(regionId) \
-            which is not found in mapCoordinateSystem
-            """)
-            return
+    private func movePlayer(_ playerId: Player.ID, path: [Region.ID]) {
+        let pointsPath = path.compactMap {
+            mapCoordinateSystem.position(for: $0)?.toVec2()
         }
 
-        episode?.movePlayer(playerId, to: regionPosition.toVec2())
+        episode?.movePlayer(playerId, along: pointsPath)
     }
 }

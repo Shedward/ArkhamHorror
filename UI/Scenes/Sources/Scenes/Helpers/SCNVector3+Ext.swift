@@ -8,7 +8,7 @@
 import SceneKit
 import DesignSystem
 
-extension SCNVector3 {
+public extension SCNVector3 {
 
     static let origin = SCNVector3(0, 0, 0)
     static let xAxis = SCNVector3(1, 0, 0)
@@ -53,4 +53,8 @@ extension SCNVector3 {
         }
     }
     #endif
+
+    static func + (_ lhs: SCNVector3, _ rhs: SCNVector3) -> SCNVector3 {
+        SCNVector3(x: lhs.x + rhs.x, y: lhs.y + rhs.y, z: lhs.z + rhs.z)
+    }
 }
