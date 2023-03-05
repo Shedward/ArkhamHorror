@@ -11,6 +11,7 @@ import SceneKit
 import Prelude
 import HUD
 import Scenes
+import DesignSystem
 
 @MainActor
 class BaseGameEpisode {

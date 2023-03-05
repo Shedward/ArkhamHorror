@@ -6,9 +6,10 @@
 //
 
 import Prelude
+import DesignSystem
 
 final class SelectActionViewModel: GameEpisodeViewModel {
-    typealias Dependencies = NoDependencies
+    typealias Dependencies = AnimationQueueDependency
 
     weak var episode: SelectActionView?
     private let dependencies: Dependencies
@@ -24,7 +25,12 @@ final class SelectActionViewModel: GameEpisodeViewModel {
             ActionCell.Data(
                 id: "move",
                 title: Localized.string("Move"),
-                onTap: { [weak self] in self?.movePlayerToRandomNeighbourRegion() }
+                onTap: { [weak self] in
+                    self?.dependencies.animationQueue.enqueue {
+                        self?.movePlayerToRandomNeighbourRegion()
+                        self?.movePlayerToRandomNeighbourRegion()
+                    }
+                }
             )
         ]
         episode?.displayActions(actions)

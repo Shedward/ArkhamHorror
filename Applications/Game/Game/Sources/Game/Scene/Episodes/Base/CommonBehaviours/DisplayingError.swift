@@ -7,6 +7,7 @@
 
 import HUD
 import Prelude
+import DesignSystem
 
 protocol DisplayingError {
     func displayError(_ error: Error, onDismiss: (() -> Void)?)

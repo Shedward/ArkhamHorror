@@ -20,11 +20,10 @@ class GameEpisode<ViewModel: GameEpisodeViewModel>: BaseGameEpisode {
     override func prepare() {
         viewModel.episode = self as? ViewModel.Episode
         if viewModel.episode == nil {
-            logger.error("""
+            logger.assertionError("""
             GameEpisode failed to cast episode \(self) \
             to \(ViewModel.Episode.self)
             """)
-            assertionFailure()
         }
 
         super.prepare()

@@ -6,11 +6,14 @@
 //
 
 import ArkhamHorror
+import DesignSystem
 
 struct MockDependencies: AllDependencies {
     var campaignLoader: CampaignLoader
+    var animationQueue: AnimationQueue
 
     init() {
         self.campaignLoader = InMemoryCampaignLoader()
+        self.animationQueue = AnimationQueue()
     }
 }

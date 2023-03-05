@@ -8,16 +8,20 @@
 import SpriteKit
 import SceneKit
 
-struct FadeSpriteTransition: NodeTransition {
-    let duration: TimeInterval = 0.25
+public struct FadeSpriteTransition: NodeTransition {
+    public let duration: TimeInterval
 
-    func enter(node: SKNode, in parent: SKNode) {
+    public init(duration: TimeInterval = 0.25) {
+        self.duration = duration
+    }
+
+    public func enter(node: SKNode, in parent: SKNode) {
         node.alpha = 0.0
         parent.addChild(node)
         node.run(.fadeIn(withDuration: duration))
     }
 
-    func leave(node: SKNode, in parent: SKNode) {
+    public func leave(node: SKNode, in parent: SKNode) {
         node.run(.fadeOut(withDuration: duration)) {
             node.removeFromParent()
         }

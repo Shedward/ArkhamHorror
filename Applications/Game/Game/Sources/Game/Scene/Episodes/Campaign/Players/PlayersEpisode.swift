@@ -20,13 +20,13 @@ extension PlayersEpisode: PlayersView {
         playerObjects = players.map { playerData in
             let player = Scenes.Player(id: playerData.id, color: playerData.color)
             addObject(player)
-            player.moveTo(playerData.position)
+            player.moveTo(playerData.position, animated: false)
             return player
         }
     }
 
     func movePlayer(_ id: ArkhamHorror.Player.ID, to position: vector_float2) {
-        playerObjects[id: id]?.moveTo(position)
+        playerObjects[id: id]?.moveTo(position, animated: true)
     }
 }
 

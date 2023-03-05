@@ -35,7 +35,14 @@ public final class Player: SceneObject, Identifiable {
         super.init(node: node)
     }
 
-    public func moveTo(_ position: vector_float2) {
-        node.simdPosition = .init(position, Player.regionHeight)
+    public func moveTo(_ position: vector_float2, animated: Bool) {
+        if animated {
+            let newPosition = SCNVector3(position.x, position.y, Player.regionHeight)
+            let action = SCNAction.move(to: newPosition, duration: 0.25)
+            action.timingMode = .easeIn
+            node.enqueueAction(name: "movePlayer", action: action)
+        } else {
+            node.simdPosition = .init(position, Player.regionHeight)
+        }
     }
 }

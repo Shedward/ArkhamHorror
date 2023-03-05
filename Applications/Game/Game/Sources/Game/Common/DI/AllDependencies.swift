@@ -7,9 +7,11 @@
 
 import HUD
 import ArkhamHorror
+import DesignSystem
 
 typealias NoDependencies = Any
 
 typealias AllDependencies =
     ArkhamHorrorDependencies
+    & DesignSystemDependencies
     & HUDDependencies
