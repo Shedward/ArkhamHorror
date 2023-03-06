@@ -16,7 +16,7 @@ public struct Character: Codable, Identifiable {
     public let portrait: ImageResource
     public let moto: String
     public let description: String
-
+    public let tintColor: Color
     public let rules: CharacterRules
 
 
@@ -27,6 +27,7 @@ public struct Character: Codable, Identifiable {
         self.portrait = try container.decode(ImageResource.self, forKey: .portrait)
         self.moto = try container.decode(String.self, forKey: .moto)
         self.description = try container.decode(String.self, forKey: .description)
+        self.tintColor = try container.decode(Color.self, forKey: .tintColor)
         self.rules = (try? container.decode(CharacterRules.self, forKey: .rules)) ?? CharacterRules.default
     }
 }

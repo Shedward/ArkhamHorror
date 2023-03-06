@@ -44,7 +44,7 @@ final class PlayersViewModel: GameEpisodeViewModel {
 
             let playerData = PlayersEpisode.PlayerData(
                 id: playerId,
-                color: UColor(randomForHashOf: playerId),
+                color: player.character.tintColor.toUColor(),
                 position: mapCoordinateSystem.position(for: player.position)?.toVec2() ?? .zero
             )
             return playerData
