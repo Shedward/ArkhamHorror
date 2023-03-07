@@ -12,8 +12,10 @@ import ArkhamHorror
 import simd
 
 protocol PlayersView: AnyObject {
+    func displayPlayerCells(_ characters: [PlayerCell.Data])
     func displayPlayers(_ players: [PlayersEpisode.PlayerData])
     func movePlayer(_ id: ArkhamHorror.Player.ID, along path: [vector_float2])
+    func presentActions(_ data: SelectActionData)
 }
 
 struct PlayersData {

@@ -50,6 +50,19 @@ final class PlayersViewModel: GameEpisodeViewModel {
             return playerData
         }
         episode?.displayPlayers(playersData)
+
+        let game = data.game
+        let charactersData = data.game.players.map { player in
+            PlayerCell.Data(
+                id: player.id,
+                portrait: player.character.portrait,
+                onTap: { [weak self] in
+                    let data = SelectActionData(game: game, player: player)
+                    self?.episode?.presentActions(data)
+                }
+            )
+        }
+        episode?.displayPlayerCells(charactersData)
     }
 
     private func movePlayer(_ playerId: Player.ID, path: [Region.ID]) {

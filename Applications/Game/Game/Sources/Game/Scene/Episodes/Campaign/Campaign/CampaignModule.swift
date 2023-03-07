@@ -10,11 +10,9 @@ import ArkhamHorror
 
 protocol CampaignView: AnyObject {
     func displayBackAction(_ back: Action)
-    func displayCharacters(_ characters: [PlayerCell.Data])
 
     func presentGameboard(_ data: GameboardData)
     func presentPlayers(_ data: PlayersData)
-    func presentActions(_ data: SelectActionData)
 }
 
 struct CampaignData {
