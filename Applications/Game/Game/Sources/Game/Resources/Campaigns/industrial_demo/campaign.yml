@@ -1,0 +1,8 @@
+id: industrial_demo
+image: //resources/campaignLogo.png
+name: Industrial
+description: It's a testable project with many action and resources
+
+rules:
+  defaultCountOfActions: 10
+  initialPosition: train_station

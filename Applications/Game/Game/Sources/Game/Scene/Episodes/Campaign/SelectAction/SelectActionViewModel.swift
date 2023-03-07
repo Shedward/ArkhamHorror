@@ -40,6 +40,7 @@ final class SelectActionViewModel: GameEpisodeViewModel {
             fromPlayer: data.player,
             onSelected: { [weak self] path in
                 self?.movePlayer(path: path)
+                self?.episode?.end()
             }
         )
         episode?.presentSelectPath(data)

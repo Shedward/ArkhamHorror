@@ -18,6 +18,7 @@ public final class ErrorAlert: View {
     private let frame = Frame(stroke: \.tint.bad, insets: .init(uniform: 8), fill: \.fixed.black)
     private let secondaryBorder = Shape(stroke: \.tint.bad, fill: \.fixed.black)
     private var stack: Stack?
+    private let logger = Logger()
 
     public init(error: Error? = nil, preferredWidth: CGFloat = 256) {
         titleLabel = Label(text: Localized.string("Failure"), textKind: \.failure.title)
@@ -46,6 +47,7 @@ public final class ErrorAlert: View {
 
     public func display(_ error: Error?) {
         if let error {
+            logger.error("Alert: \(error)")
             messageLabel.text = error.localizedDescription
             node.isHidden = false
         } else {

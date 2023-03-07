@@ -1,0 +1,6 @@
+id: red_one
+portrait: //resources/portraits/red_one.png
+name: Red One
+moto: I'm a red one
+tintColor: "#ff0000"
+description: Red is a color of power
