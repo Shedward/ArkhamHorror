@@ -22,6 +22,8 @@ class BaseGameEpisode {
     private var parentEpisode: BaseGameEpisode?
     private var childEpisodes: [BaseGameEpisode] = []
 
+    private var onEnd: (() -> Void)?
+
     private var scene: GameScene?
     let episodes: Episodes
 
@@ -64,15 +66,17 @@ class BaseGameEpisode {
         prepare()
     }
 
-    func startChildEpisode(_ childEpisode: BaseGameEpisode) {
+    func startChildEpisode(_ childEpisode: BaseGameEpisode, _ onEnd: (() -> Void)? = nil) {
         childEpisodes.append(childEpisode)
         childEpisode.scene = scene
         childEpisode.prepare()
+        childEpisode.onEnd = onEnd
     }
 
     func end() {
         finalize()
         parentEpisode?.childEpisodes.removeAll { $0 === self }
+        onEnd?()
     }
 
     // MARK: - View and object managment

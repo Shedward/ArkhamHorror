@@ -13,6 +13,14 @@ open class View {
     public private(set) weak var superview: View?
     public private(set) var childs: [View]
 
+    public var isEnabled: Bool {
+        get { node.isUserInteractionEnabled }
+        set {
+            node.isUserInteractionEnabled = newValue
+            childs.forEach { $0.isEnabled = newValue }
+        }
+    }
+
     public init(node: SKNode = .init()) {
         self.node = node
         self.childs = []

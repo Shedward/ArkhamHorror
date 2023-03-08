@@ -53,7 +53,11 @@ extension PlayersEpisode: PlayersView {
         let cell = playersCollection?.cells.first { $0.id == data.player.id }
         guard let anchor = cell ?? playersCollection else { return }
         let episode = episodes.selectAction(data: data, from: anchor)
-        startChildEpisode(episode)
+
+        playersCollection?.isEnabled = false
+        startChildEpisode(episode) { [weak self] in
+            self?.playersCollection?.isEnabled = true
+        }
     }
 }
 
