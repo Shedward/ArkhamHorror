@@ -29,8 +29,11 @@ final class SelectPathEpisodeViewModel: GameEpisodeViewModel {
     }
 
     func didBegin() {
-        let (path, points) = makeRandomPath(length: 5)
-        episode?.displayPathHighlight(at: points)
+        let (path, points) = makeRandomPath(length: 10)
+        episode?.displayPathHighlight(
+            at: points,
+            color: data.fromPlayer.character.tintColor.toUColor()
+        )
 
         delayToMain(1) {
             self.data.onSelected(path)

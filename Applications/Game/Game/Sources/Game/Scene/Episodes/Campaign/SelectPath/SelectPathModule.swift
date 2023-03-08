@@ -8,9 +8,10 @@
 import Common
 import ArkhamHorror
 import simd
+import DesignSystem
 
 protocol SelectPathEpisodeView: AnyObject {
-    func displayPathHighlight(at points: [vector_float2])
+    func displayPathHighlight(at points: [vector_float2], color: UColor)
     func hidePathHighlight()
 }
 

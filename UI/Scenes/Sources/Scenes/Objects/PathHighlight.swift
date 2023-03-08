@@ -13,12 +13,14 @@ import SceneKit
 public final class PathHightlight: SceneObject {
     private let points: [vector_float2]
     private let elevation: Float
+    private let color: UColor
 
     private var lineNodes: [SCNNode] = []
 
-    public init(points: [vector_float2], elevation: Float) {
+    public init(points: [vector_float2], elevation: Float, color: UColor) {
         self.points = points
         self.elevation = elevation
+        self.color = color
 
         super.init()
 
@@ -47,6 +49,7 @@ public final class PathHightlight: SceneObject {
         lineGeometry.height = CGFloat(distance)
         lineGeometry.radialSegmentCount = 3
         lineGeometry.heightSegmentCount = 1
+        lineGeometry.firstMaterial?.diffuse.contents = color
 
         let lineNode = SCNNode(geometry: lineGeometry)
         lineNode.position = vec3(at: midPoint)

@@ -15,9 +15,9 @@ final class SelectPathEpisode: GameEpisode<SelectPathEpisodeViewModel> {
 }
 
 extension SelectPathEpisode: SelectPathEpisodeView {
-    func displayPathHighlight(at points: [vector_float2]) {
+    func displayPathHighlight(at points: [vector_float2], color: UColor) {
         hidePathHighlight()
-        let pathHighlight = PathHightlight(points: points, elevation: Scenes.Player.elevation)
+        let pathHighlight = PathHightlight(points: points, elevation: Scenes.Player.elevation, color: color)
         addObject(pathHighlight, transition: FadeObjectTransition())
         self.pathHighlight = pathHighlight
     }
