@@ -7,6 +7,7 @@
 
 import Foundation
 import Common
+import Prelude
 
 public struct CampaignInfo: Codable, Identifiable {
     public let id: Campaign.ID

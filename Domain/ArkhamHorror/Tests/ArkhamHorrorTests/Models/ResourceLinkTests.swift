@@ -25,7 +25,7 @@ final class ResourceLinkTests: XCTestCase {
         )
 
         XCTAssertEqual(model.link.path, "res/test")
-        let data = try await model.link.load()
+        let data = try model.link.load()
         XCTAssertTrue(data.isEmpty)
 
         let encoder = YAMLEncoder()

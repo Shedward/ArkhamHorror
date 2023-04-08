@@ -12,7 +12,7 @@ import Game
 struct GameApp: App {
     var body: some Scene {
         WindowGroup {
-            switch Result { try MainView() } {
+            switch Result(catching: { try MainView() }) {
             case .success(let mainView):
                 mainView
             case .failure(let error):

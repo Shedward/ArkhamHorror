@@ -10,6 +10,7 @@ import Common
 import Map
 import Scenes
 import Prelude
+import DesignSystem
 
 final class SelectPathEpisodeViewModel: GameEpisodeViewModel {
     typealias Dependencies = NoDependencies
