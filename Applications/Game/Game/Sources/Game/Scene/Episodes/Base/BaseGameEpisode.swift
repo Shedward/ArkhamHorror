@@ -99,11 +99,10 @@ class BaseGameEpisode {
         transition: Transition
     ) where Transition.Node == SKNode {
         guard let scene else {
-            logger.error("""
+            logger.assertionError("""
             Tried to add view \(view) to episode \(self) without scene. \
             Make sure that scene was setted in root episode.
             """)
-            assertionFailure()
             return
         }
         let presentedView = PresentedView(view: view, transition: transition.asAny())
@@ -116,11 +115,10 @@ class BaseGameEpisode {
         transition: Transition
     ) where Transition.Node == SKNode {
         guard let scene else {
-            logger.error("""
+            logger.assertionError("""
             Tried to remove view \(view) from episode \(self) without scene. \
             Make sure that scene was setted in root episode.
             """)
-            assertionFailure()
             return
         }
         presentedViews.removeAll { $0.view === view }
@@ -141,11 +139,10 @@ class BaseGameEpisode {
         transition: Transition
     ) where Transition.Node == SCNNode {
         guard let scene else {
-            logger.error("""
+            logger.assertionError("""
             Tried to add object \(object) to episode \(self) without scene. \
             Make sure that scene was setted in root episode.
             """)
-            assertionFailure()
             return
         }
         let presentedObject = PresentedObject(object: object, transition: transition.asAny())
@@ -158,11 +155,10 @@ class BaseGameEpisode {
         transition: Transition
     ) where Transition.Node == SCNNode {
         guard let scene else {
-            logger.error("""
+            logger.assertionError("""
             Tried to remove object \(object) from episode \(self) without scene. \
             Make sure that scene was setted in root episode.
             """)
-            assertionFailure()
             return
         }
         presentedObjects.removeAll { $0.object === object }

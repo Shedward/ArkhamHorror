@@ -16,14 +16,16 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "Prelude", path: "../Utils/Prelude"),
-        .package(name: "Map", path: "../Domain/Map")
+        .package(name: "Map", path: "../Domain/Map"),
+        .package(name: "ArkhamHorror", path: "../Domain/ArkhamHorror"),
     ],
     targets: [
         .target(
             name: "DesignSystem",
             dependencies: [
                 "Prelude",
-                "Map"
+                "Map",
+                "ArkhamHorror",
             ],
             resources: [
                 .process("Resources/Assets.xcassets")

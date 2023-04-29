@@ -35,7 +35,7 @@ public struct Logger {
 
     public func assertionError(_ message: @autoclosure () -> String) {
         Self.impl.log(label: label, level: .error, message: message)
-        assertionFailure(message())
+        assertionFailure("\(label): \(message())")
     }
 
     @available(*, deprecated, message: "Debug logs should be removed before commit")

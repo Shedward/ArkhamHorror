@@ -6,6 +6,7 @@
 //
 
 import Common
+import Prelude
 
 public struct MapLayout {
 	public struct NeighborhoodPosition {
@@ -182,23 +183,23 @@ public struct MapLayout {
 		}
 
 		guard let fromNeighbourhood = fromNeighbourhood else {
-			assertionFailure("Map layout could not find starting neighbourhood for street \(street)")
+            Logger().assertionError("Map layout could not find starting neighbourhood for street \(street)")
 			return nil
 		}
 		guard let fromEdge = fromEdge else {
-			assertionFailure("Map layout could not find starting edge for street \(street)")
+            Logger().assertionError("Map layout could not find starting edge for street \(street)")
 			return nil
 		}
 		guard let toNeighbourhood = toNeighbourhood else {
-			assertionFailure("Map layout could not find ending neighbourhood for street \(street)")
+            Logger().assertionError("Map layout could not find ending neighbourhood for street \(street)")
 			return nil
 		}
 		guard let toEdge = toEdge else {
-			assertionFailure("Map layout could not find ending edge for street \(street)")
+            Logger().assertionError("Map layout could not find ending edge for street \(street)")
 			return nil
 		}
 		guard fromEdge == toEdge.opposite else {
-			assertionFailure("fromEdge in not opposite to toEdge in street \(street)")
+            Logger().assertionError("fromEdge in not opposite to toEdge in street \(street)")
 			return nil
 		}
 
