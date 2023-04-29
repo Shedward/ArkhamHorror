@@ -33,3 +33,10 @@ extension SKAttributableNode {
         return AttachedShader(node: self, shader: S.self)
     }
 }
+
+extension SKShapeNode {
+    func attachStrokeShader<S: Shader>(_ type: S.Type) -> AttachedShader<S> {
+        self.strokeShader = S.shader
+        return AttachedShader(node: self, shader: S.self)
+    }
+}
