@@ -6,7 +6,7 @@
 //
 
 final class ___EPISODE___ViewModel: GameEpisodeViewModel {
-    typealias Dependencies = Any
+    typealias Dependencies = NoDependencies
 
     weak var episode: ___EPISODE___View?
     private let dependencies: Dependencies
