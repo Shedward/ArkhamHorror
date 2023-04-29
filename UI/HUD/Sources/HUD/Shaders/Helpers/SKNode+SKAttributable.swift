@@ -7,7 +7,16 @@
 
 import SpriteKit
 
-extension SKSpriteNode {
+protocol SKAttributableNode: SKNode {
+    var shader: SKShader? { get set }
+
+    func setValue<T: SKAttributable, K: RawRepresentable>(
+        _ value: T,
+        forAttribute attribute: K
+    ) where K.RawValue == String
+}
+
+extension SKSpriteNode: SKAttributableNode {
     func setValue<T: SKAttributable, K: RawRepresentable>(
         _ value: T,
         forAttribute attribute: K
@@ -16,7 +25,7 @@ extension SKSpriteNode {
     }
 }
 
-extension SKEffectNode {
+extension SKEffectNode: SKAttributableNode {
     func setValue<T: SKAttributable, K: RawRepresentable>(
         _ value: T,
         forAttribute attribute: K
@@ -25,7 +34,12 @@ extension SKEffectNode {
     }
 }
 
-extension SKShapeNode {
+extension SKShapeNode: SKAttributableNode {
+    var shader: SKShader? {
+        get { fillShader }
+        set { fillShader = newValue }
+    }
+
     func setValue<T: SKAttributable, K: RawRepresentable>(
         _ value: T,
         forAttribute attribute: K

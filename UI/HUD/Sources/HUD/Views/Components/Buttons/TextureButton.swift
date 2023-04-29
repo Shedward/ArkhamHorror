@@ -16,14 +16,14 @@ public final class TextureButton: View {
     ) {
         let node = TappableSpriteNode(texture: texture, size: size)
         node.isUserInteractionEnabled = true
-        node.shader = ButtonShader.shader
-        node.setValue(size, forAttribute: ButtonShader.Attributes.size)
-        node.setValue(borderWidth, forAttribute: ButtonShader.Attributes.borderWidth)
-        node.setValue(node.isSelected, forAttribute: ButtonShader.Attributes.isSelected)
+        let shader = node.attachShader(ButtonShader.self)
+        shader.setValue(size, forAttribute: .size)
+        shader.setValue(borderWidth, forAttribute: .borderWidth)
+        shader.setValue(node.isSelected, forAttribute: .isSelected)
         
         node.onTap = onTap
         node.onAppearanceChange = { node in
-            node.setValue(node.isSelected, forAttribute: ButtonShader.Attributes.isSelected)
+            shader.setValue(node.isSelected, forAttribute: .isSelected)
         }
         super.init(node: node)
     }
