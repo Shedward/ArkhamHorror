@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import argparse
 import tempfile
 import os
 import shutil
@@ -7,7 +8,14 @@ import shutil
 template_path = "./Templates/GameEpisode"
 game_episodes_path = "./Applications/Game/Game/Sources/Game/Scene/Episodes"
 
-episode_name = "Test"
+parser = argparse.ArgumentParser(
+    prog="make_game_episode",
+    description="Generates template of Game episode")
+parser.add_argument('episode_name', help="prefix used for episode")
+args = parser.parse_args()
+
+
+episode_name = args.episode_name
 episode_key = "___EPISODE___"
 
 with tempfile.TemporaryDirectory() as working_dir:
