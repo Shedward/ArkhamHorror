@@ -19,6 +19,7 @@ let package = Package(
         .package(name: "ArkhamHorror", path: "../Domain/ArkhamHorror"),
         .package(name: "DesignSystem", path: "../UI/DesignSystem"),
         .package(name: "HUD", path: "../UI/HUD"),
+        .package(name: "Map", path: "../Domain/Map"),
         .package(name: "Scenes", path: "../UI/Scenes")
     ],
     targets: [
@@ -27,8 +28,9 @@ let package = Package(
             dependencies: [
                 "ArkhamHorror",
                 "HUD",
+                "Map",
                 "Scenes",
-                "DesignSystem"
+                "DesignSystem",
             ],
             resources: [
                 .copy("Resources/Campaigns")

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import MapScene
 
 public struct MainView: View {
 
@@ -15,7 +14,6 @@ public struct MainView: View {
 
     public var body: some View {
         MenuContainer {
-            LoadMapView()
         }
     }
 }

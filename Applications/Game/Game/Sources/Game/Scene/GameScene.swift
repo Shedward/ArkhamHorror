@@ -9,6 +9,7 @@ import SpriteKit
 import SceneKit
 import ArkhamHorror
 import Prelude
+import Scenes
 
 @MainActor
 final class GameScene {

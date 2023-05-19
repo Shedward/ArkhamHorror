@@ -11,7 +11,7 @@ import HUD
 
 protocol CampaignDetailsView: AnyObject {
     func displayCampaignInfo(_ info:  CampaignDetailsEpisode.CampaignInfoData)
-    func displayBackAction(_ onBack: Action)
+    func displayBackAction(_ onBack: Action?)
     func displayCampaignData(_ campaignData: Result<CampaignDetailsEpisode.LoadedCampaignData, Error>)
 }
 
