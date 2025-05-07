@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import MapScene
+import Scenes
 
 public struct MainView: View {
 

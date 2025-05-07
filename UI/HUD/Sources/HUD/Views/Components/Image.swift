@@ -10,7 +10,7 @@ import ArkhamHorror
 
 public class Image: View {
 
-    public var image: ImageResource? {
+    public var image: ArkhamHorror.ImageResource? {
         didSet {
             updateTexture()
         }
@@ -18,7 +18,7 @@ public class Image: View {
 
     private let spriteNode = SKSpriteNode()
 
-    public init(image: ImageResource? = nil, size: CGSize = .init(width: 256, height: 256)) {
+    public init(image: ArkhamHorror.ImageResource? = nil, size: CGSize = .init(width: 256, height: 256)) {
         self.spriteNode.size = size
         self.image = image
         super.init(node: spriteNode)

@@ -32,10 +32,10 @@ final public class CampaignCell: View, CollectionCell {
 extension CampaignCell {
     public struct Data {
         public var name: String
-        public var image: ImageResource
+        public var image: ArkhamHorror.ImageResource
         public var onTap: () -> Void
 
-        public init(name: String, image: ImageResource, onTap: @escaping () -> Void) {
+        public init(name: String, image: ArkhamHorror.ImageResource, onTap: @escaping () -> Void) {
             self.name = name
             self.image = image
             self.onTap = onTap
