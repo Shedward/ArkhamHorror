@@ -54,7 +54,7 @@ public enum Geometry {
 		public var width: LengthUnit
 		public var height: LengthUnit
 
-        public var maxDimention: LengthUnit {
+        public var maxDimension: LengthUnit {
             max(width, height)
         }
 

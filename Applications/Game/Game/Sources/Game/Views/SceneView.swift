@@ -15,16 +15,19 @@ import SceneKit
 struct SceneView: NSViewRepresentable {
     var scene: SCNScene?
     var overlay: SKScene?
+    var onTilt: ((Tilt) -> Void)?
+
     private let logger = Logger()
 
-    func makeNSView(context: Context) -> SCNView {
-        return SCNView()
+    func makeNSView(context: Context) -> GameSceneView {
+        return GameSceneView(frame: .zero)
     }
 
-    func updateNSView(_ nsView: SCNView, context: Context) {
+    func updateNSView(_ nsView: GameSceneView, context: Context) {
         nsView.scene = scene ?? SCNScene()
         nsView.overlaySKScene = overlay ?? SKScene()
         nsView.backgroundColor = .black
+        nsView.onTilt = onTilt
     }
 }
 
@@ -33,17 +36,28 @@ struct SceneView: NSViewRepresentable {
 struct SceneView: UIViewRepresentable {
     var scene: SCNScene?
     var overlay: SKScene?
+    var onTilt: ((Tilt) -> Void)?
+
     private let logger = Logger()
 
-    func makeUIView(context: Context) -> SCNView {
-        return SCNView()
+    func makeUIView(context: Context) -> GameSceneView {
+        return GameSceneView(frame: .zero)
     }
 
-    func updateUIView(_ uiView: SCNView, context: Context) {
+    func updateUIView(_ uiView: GameSceneView, context: Context) {
         uiView.scene = scene ?? SCNScene()
         uiView.backgroundColor = .black
         uiView.overlaySKScene = overlay
+        uiView.onTilt = onTilt
     }
 }
 
 #endif
+
+extension SceneView {
+    func onTilt(_ onTiltAction: @escaping (Tilt) -> Void) -> Self {
+        var result = self
+        result.onTilt = onTiltAction
+        return result
+    }
+}

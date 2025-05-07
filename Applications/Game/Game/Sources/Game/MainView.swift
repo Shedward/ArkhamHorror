@@ -11,13 +11,13 @@ import SpriteKit
 
 import Prelude
 import ArkhamHorror
+import DesignSystem
 import HUD
 import Scenes
 
 
 @MainActor
 public struct MainView: SwiftUI.View {
-    let size: CGSize = .init(width: 1280, height: 720)
     let dependencies: Dependencies
     let episodes: Episodes
     let logger = Logger()
@@ -25,7 +25,11 @@ public struct MainView: SwiftUI.View {
     private let gameScene: GameScene
     private let mainEpisode: BaseGameEpisode
 
+    @Environment(\.design)
+    var design: DesignSystem
+
     public init() throws {
+        let size = Self.screenSize
         gameScene = GameScene(size: size)
         dependencies = try Dependencies()
         episodes = Episodes(size: size, dependencies: dependencies)
@@ -34,7 +38,9 @@ public struct MainView: SwiftUI.View {
 
     public var body: some SwiftUI.View {
         SceneView(scene: gameScene.scene3d, overlay: gameScene.overlay)
-            .frame(width: size.width, height: size.height)
+            .onTilt { tilt in gameScene.tilt.send(tilt) }
+            .aspectRatio(gameScene.size.width / gameScene.size.height, contentMode: .fit)
+            .background(Color(design.color.background.main))
             .onAppear {
                 startMainEpisode()
             }
@@ -42,5 +48,16 @@ public struct MainView: SwiftUI.View {
 
     func startMainEpisode() {
         mainEpisode.start(in: gameScene)
+    }
+
+    static var screenSize: CGSize {
+        let defaultSize = CGSize(width: 1280, height: 720)
+        #if os(macOS)
+        return NSScreen.main?.frame.size ?? defaultSize
+        #elseif os(iOS)
+        return UIScreen.main?.frame.size ?? defaultSize
+        #else
+        return defaultSize
+        #endif
     }
 }

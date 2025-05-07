@@ -10,7 +10,7 @@ import simd
 import HSLuvSwift
 
 public final class Gameboard: SceneObject {
-    public static let mapGeometry = MapGeometry(hexagonSize: 1, spacing: 0.5)
+    public static let mapGeometry = MapGeometry(hexagonSize: 1.2, spacing: 1.0)
 
     public let map: Map
     public let mapGeometry = Gameboard.mapGeometry
@@ -33,7 +33,7 @@ public final class Gameboard: SceneObject {
 
     private func pointOfView() -> vector_float3 {
         let boardSize = self.boardSize()
-        return .init(boardSize.width / 2, boardSize.height / 2, boardSize.maxDimention * 3.0)
+        return .init(boardSize.width / 2, boardSize.height / 2, boardSize.maxDimension * 3.0)
     }
 
     private func configureEnvironment() {
