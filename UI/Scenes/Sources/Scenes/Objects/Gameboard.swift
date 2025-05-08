@@ -5,8 +5,10 @@
 //  Created by Vladislav Maltsev on 26.02.2023.
 //
 
+import Prelude
 import Map
 import simd
+import SceneKit
 import HSLuvSwift
 
 public final class Gameboard: SceneObject {
@@ -17,12 +19,20 @@ public final class Gameboard: SceneObject {
     public private(set) var regions: [MapRegion] = []
     public private(set) var neighboarhoods: [MapNegihbourhood] = []
 
+    private var orbitingCamera: OrbitingCamera?
+
     public init(map: Map) {
         self.map = map
         super.init()
 
         configureEnvironment()
         configureGameboard()
+    }
+
+    public func tilt(by delta: CGFloat) {
+        let orbit = (0...100.0).remap(delta, to: 0...CGFloat.pi3, clamp: true)
+        debugPrint(delta, orbit)
+        orbitingCamera?.orbitX(Float(orbit))
     }
 
     private func boardSize() -> Geometry.Size {
@@ -38,7 +48,8 @@ public final class Gameboard: SceneObject {
 
     private func configureEnvironment() {
         let pointOfView = pointOfView()
-        let camera = Camera(at: pointOfView, lookingAt: pointOfView.with(z: 0))
+        let camera = OrbitingCamera(around: pointOfView, position: .init(x: 0, y: 20, z: 20))
+        self.orbitingCamera = camera
         addChild(camera)
 
         let ambientLight = Light(

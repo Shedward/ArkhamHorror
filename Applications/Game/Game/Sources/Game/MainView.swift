@@ -38,7 +38,13 @@ public struct MainView: SwiftUI.View {
 
     public var body: some SwiftUI.View {
         SceneView(scene: gameScene.scene3d, overlay: gameScene.overlay)
-            .onTilt { tilt in gameScene.tilt.send(tilt) }
+            .onTilt { tilt in
+                let tiltVector = CGVector(
+                    dx: tilt.dx,
+                    dy: tilt.dy
+                )                
+                gameScene.tilt.send(tiltVector)
+            }
             .aspectRatio(gameScene.size.width / gameScene.size.height, contentMode: .fit)
             .background(Color(design.color.background.main))
             .onAppear {

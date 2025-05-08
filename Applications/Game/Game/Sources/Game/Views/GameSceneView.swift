@@ -5,17 +5,17 @@
 //  Created by Vlad Maltsev on 07.05.2025.
 //
 
+import Prelude
 import SceneKit
 
-public struct Tilt {
-    static let zero: Tilt = .init(dx: 0, dy: 0)
-
-    public let dx: CGFloat
-    public let dy: CGFloat
-}
-
 public class GameSceneView: SCNView {
-    var onTilt: ((Tilt) -> Void)?
+    var onTilt: ((CGVector) -> Void)?
+
+    private var collectedTilt: CGVector = .zero {
+        didSet {
+            onTilt?(collectedTilt)
+        }
+    }
 
     override public init(frame: NSRect, options: [String : Any]? = nil) {
         super.init(frame: frame, options: options)
@@ -33,8 +33,11 @@ public class GameSceneView: SCNView {
 
     #if os(macOS)
     override public func scrollWheel(with event: NSEvent) {
-        let tilt = Tilt(dx: event.scrollingDeltaX, dy: event.scrollingDeltaY)
-        onTilt?(tilt)
+        let maxTilt = 100.0
+        collectedTilt = CGVector(
+            dx: clamp(collectedTilt.dx + event.scrollingDeltaX, min: 0, max: maxTilt),
+            dy: clamp(collectedTilt.dy + event.scrollingDeltaY, min: 0, max: maxTilt)
+        )
     }
     #elseif os(iOS)
     @objc func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {

@@ -15,7 +15,7 @@ import SceneKit
 struct SceneView: NSViewRepresentable {
     var scene: SCNScene?
     var overlay: SKScene?
-    var onTilt: ((Tilt) -> Void)?
+    var onTilt: ((CGVector) -> Void)?
 
     private let logger = Logger()
 
@@ -55,7 +55,7 @@ struct SceneView: UIViewRepresentable {
 #endif
 
 extension SceneView {
-    func onTilt(_ onTiltAction: @escaping (Tilt) -> Void) -> Self {
+    func onTilt(_ onTiltAction: @escaping (CGVector) -> Void) -> Self {
         var result = self
         result.onTilt = onTiltAction
         return result

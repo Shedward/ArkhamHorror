@@ -8,9 +8,12 @@
 import SceneKit
 import simd
 
-final class Camera: SceneObject {
-    init(at position: vector_float3, lookingAt: vector_float3) {
+final class OrbitingCamera: SceneObject {
+    let orbit: SCNNode = SCNNode()
+
+    init(around: vector_float3, position: vector_float3) {
         let camera = SCNCamera()
+        camera.name = "Orbital Camera"
         camera.usesOrthographicProjection = true
         camera.orthographicScale = 4
         camera.fieldOfView = 20
@@ -18,7 +21,19 @@ final class Camera: SceneObject {
         let node = SCNNode()
         node.camera = camera
         node.simdPosition = position
-        node.simdLook(at: lookingAt)
-        super.init(node: node)
+        node.simdLook(at: .zero)
+
+        orbit.simdPosition = around
+        orbit.addChildNode(node)
+
+        super.init(node: orbit)
+    }
+
+    func look(at point: vector_float3) {
+        orbit.simdLook(at: point)
+    }
+
+    func orbitX(_ angle: Float) {
+        orbit.simdEulerAngles.x = angle
     }
 }

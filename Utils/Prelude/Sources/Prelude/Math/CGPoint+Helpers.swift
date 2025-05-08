@@ -12,6 +12,7 @@ public extension CGPoint {
         CGSize(width: x, height: y)
     }
 
+    @inlinable
     static func + (_ lhs: CGPoint, _ rhs: CGPoint) -> CGPoint {
         CGPoint(
             x: lhs.x + rhs.x,
@@ -19,6 +20,7 @@ public extension CGPoint {
         )
     }
 
+    @inlinable
     static func * (_ lhs: CGPoint, _ rhs: CGPoint) -> CGPoint {
         CGPoint(
             x: lhs.x * rhs.x,
@@ -26,10 +28,12 @@ public extension CGPoint {
         )
     }
 
+    @inlinable
     static func - (_ lhs: CGPoint, _ rhs: CGPoint) -> CGPoint {
         lhs + (-rhs)
     }
 
+    @inlinable
     static prefix func - (_ lhs: CGPoint) -> CGPoint {
         CGPoint(
             x: -lhs.x,
@@ -37,6 +41,7 @@ public extension CGPoint {
         )
     }
 
+    @inlinable
     static func + (_ lhs: CGFloat, _ rhs: CGPoint) -> CGPoint {
         CGPoint(
             x: lhs + rhs.x,
@@ -44,10 +49,12 @@ public extension CGPoint {
         )
     }
 
+    @inlinable
     static func + (_ lhs: CGPoint, _ rhs: CGFloat) -> CGPoint {
         rhs + lhs
     }
 
+    @inlinable
     static func * (_ lhs: CGFloat, _ rhs: CGPoint) -> CGPoint {
         CGPoint(
             x: lhs * rhs.x,
@@ -55,6 +62,7 @@ public extension CGPoint {
         )
     }
 
+    @inlinable
     static func * (_ lhs: CGPoint, _ rhs: CGFloat) -> CGPoint {
         rhs * lhs
     }

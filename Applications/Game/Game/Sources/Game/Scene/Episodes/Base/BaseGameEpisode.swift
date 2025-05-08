@@ -24,7 +24,7 @@ class BaseGameEpisode {
 
     private var onEnd: (() -> Void)?
 
-    private var scene: GameScene?
+    private(set) var scene: GameScene?
     let episodes: Episodes
 
     var defaultOverlayTransition: AnyNodeTransition<SKNode> =
