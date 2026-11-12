@@ -9,6 +9,7 @@ import SceneKit
 import Common
 import Map
 import DesignSystem
+import Prelude
 
 public final class MapRegion: SceneObject {
     static let height: Float = 0.2
@@ -37,7 +38,10 @@ public final class MapRegion: SceneObject {
         regionShape.chamferMode = .front
         regionShape.chamferProfile = UBezierPath(lineFrom: .init(x: 0, y: 1), to: .init(x: 1, y: 0))
         regionShape.materials = [MapRegion.material(color: color)]
-        let shapeNode = SCNNode(geometry: regionShape)
+        let shapeNode = SCNSelectableNode()
+        shapeNode.geometry = regionShape
+        shapeNode.isUserInteractionEnabled = true
+        shapeNode.onTap = { Logger().debug("Node was selected \(id.rawValue)") }
 
         let text = SCNText(string: title, extrusionDepth: 1)
         let fontSize: CGFloat = 12.0

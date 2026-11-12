@@ -7,6 +7,13 @@
 
 import Prelude
 import SceneKit
+import Scenes
+
+#if os(macOS)
+private typealias BoardTapRecognizer = NSClickGestureRecognizer
+#else
+private typealias BoardTapRecognizer = UITapGestureRecognizer
+#endif
 
 public class GameSceneView: SCNView {
     var onTilt: ((CGVector) -> Void)?
@@ -20,6 +27,14 @@ public class GameSceneView: SCNView {
     override public init(frame: CGRect, options: [String : Any]? = nil) {
         super.init(frame: frame, options: options)
 
+        let tap = BoardTapRecognizer(target: self, action: #selector(handleBoardTap(_:)))
+        #if os(macOS)
+        tap.delaysPrimaryMouseButtonEvents = false
+        #else
+        tap.cancelsTouchesInView = false
+        #endif
+        addGestureRecognizer(tap)
+
         #if os(iOS)
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         panGestureRecognizer.minimumNumberOfTouches = 2
@@ -29,6 +44,13 @@ public class GameSceneView: SCNView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    @objc private func handleBoardTap(_ gesture: BoardTapRecognizer) {
+        let hits = hitTest(gesture.location(in: self), options: [
+            .categoryBitMask: NodeCategory.userInteractionEnabled.asNSNumber()
+        ])
+        (hits.first?.node as? SCNSelectableNode)?.didTap()
     }
 
     #if os(macOS)

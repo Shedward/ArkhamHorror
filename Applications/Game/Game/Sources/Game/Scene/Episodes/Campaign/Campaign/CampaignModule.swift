@@ -9,7 +9,7 @@ import Prelude
 import ArkhamHorror
 
 protocol CampaignView: AnyObject {
-    func displayBackAction(_ back: Action)
+    func displayBackAction(_ back: Action?)
 
     func presentGameboard(_ data: GameboardData)
     func presentPlayers(_ data: PlayersData)

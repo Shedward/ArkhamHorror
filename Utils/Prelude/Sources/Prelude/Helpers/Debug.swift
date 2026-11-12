@@ -12,3 +12,8 @@ import Foundation
 public func delayToMain(_ time: TimeInterval, action: @escaping () -> Void) {
     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Int(time * 1000)), execute: action)
 }
+
+@available(*, deprecated, message: "Not implemented")
+public func notImplemented() -> Never {
+    fatalError("Not implemented")
+}

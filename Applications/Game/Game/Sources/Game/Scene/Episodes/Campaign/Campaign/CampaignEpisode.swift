@@ -22,7 +22,7 @@ final class CampaignEpisode: GameEpisode<CampaignViewModel> {
 }
 
 extension CampaignEpisode: CampaignView {
-    func displayBackAction(_ back: Action) {
+    func displayBackAction(_ back: Action?) {
         backButton?.onTap = back
     }
 

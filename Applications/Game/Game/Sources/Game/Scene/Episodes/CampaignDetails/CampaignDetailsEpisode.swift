@@ -61,7 +61,7 @@ extension CampaignDetailsEpisode: CampaignDetailsView {
         layout()
     }
 
-    func displayBackAction(_ onBack: Action) {
+    func displayBackAction(_ onBack: Action?) {
         backButton?.onTap = onBack
     }
 
@@ -77,7 +77,7 @@ extension CampaignDetailsEpisode: CampaignDetailsView {
         layout()
     }
 
-    func displayStartCampaignAction(_ onStartCampaign: Action) {
+    func displayStartCampaignAction(_ onStartCampaign: Action?) {
         startButton?.onTap = onStartCampaign
     }
 }
