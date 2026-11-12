@@ -8,6 +8,10 @@
 import SwiftUI
 
 extension Image {
+    public init(designSystemAsset name: String) {
+        self.init(name, bundle: .module)
+    }
+
     #if os(iOS)
     public init?(systemName: String, withStyle textStyle: TextStyle) {
         let fontConfiguration = UImage.SymbolConfiguration(

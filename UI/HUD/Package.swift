@@ -15,13 +15,15 @@ let package = Package(
             targets: ["HUD"]),
     ],
     dependencies: [
-        .package(name: "ArkhamHorror", path: "../Domain/ArkhamHorror"),
-        .package(name: "DesignSystem", path: "../UI/DesignSystem")
+        .package(path: "../../Utils/Prelude"),
+        .package(path: "../../Domain/ArkhamHorror"),
+        .package(path: "../DesignSystem")
     ],
     targets: [
         .target(
             name: "HUD",
             dependencies: [
+                "Prelude",
                 "ArkhamHorror",
                 "DesignSystem"
             ]

@@ -16,15 +16,21 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(name: "ArkhamHorror", path: "../Domain/ArkhamHorror"),
-        .package(name: "DesignSystem", path: "../UI/DesignSystem"),
-        .package(name: "HUD", path: "../UI/HUD"),
-        .package(name: "Scenes", path: "../UI/Scenes")
+        .package(path: "../../../Utils/Prelude"),
+        .package(path: "../../../Domain/Common"),
+        .package(path: "../../../Domain/Map"),
+        .package(path: "../../../Domain/ArkhamHorror"),
+        .package(path: "../../../UI/DesignSystem"),
+        .package(path: "../../../UI/HUD"),
+        .package(path: "../../../UI/Scenes")
     ],
     targets: [
         .target(
             name: "Game",
             dependencies: [
+                "Prelude",
+                "Common",
+                "Map",
                 "ArkhamHorror",
                 "HUD",
                 "Scenes",
@@ -33,6 +39,7 @@ let package = Package(
             resources: [
                 .copy("Resources/Campaigns")
             ]
-        )
+        ),
+        .testTarget(name: "GameTests", dependencies: ["Game", "ArkhamHorror"])
     ]
 )

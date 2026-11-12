@@ -14,7 +14,7 @@ final class TappableSpriteNode: SKSpriteNode {
         }
     }
 
-    var onTap: (() -> Void)?;
+    var onTap: (() -> Void)?
     var onAppearanceChange: ((TappableSpriteNode) -> Void)?
 
 #if os(macOS)
@@ -27,19 +27,25 @@ final class TappableSpriteNode: SKSpriteNode {
         super.mouseUp(with: event)
         isSelected = false
 
-        if containsTouches(event) {
+        if let scene, containsHit(at: event.location(in: scene), in: scene) {
             onTap?()
         }
     }
 
-    private func containsTouches(_ event: NSEvent) -> Bool {
-        guard let scene else {
-            return false
-        }
+#elseif os(iOS)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        isSelected = true
+    }
 
-        let touchPoint = event.location(in: scene)
-        let touchedNode = scene.atPoint(touchPoint)
-        return touchedNode === self || touchedNode.inParentHierarchy(self)
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        isSelected = false
+        if let touch = touches.first, let scene, containsHit(at: touch.location(in: scene), in: scene) {
+            onTap?()
+        }
+    }
+
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        isSelected = false
     }
 #endif
 }

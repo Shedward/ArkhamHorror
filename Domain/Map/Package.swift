@@ -16,10 +16,10 @@ let package = Package(
     ],
 	dependencies: [
         .package(url: "https://github.com/jpsim/Yams.git", from: "5.0.0"),
-		.package(name: "Graph", path: "../Utils/Graph"),
-		.package(name: "XCTestUtils", path: "../Utils/XCTestUtils"),
-		.package(name: "Prelude", path: "../Utils/Prelude"),
-		.package(name: "Common", path: "../Utils/Common")
+		.package(path: "../../Utils/Graph"),
+		.package(path: "../../Utils/XCTestUtils"),
+		.package(path: "../../Utils/Prelude"),
+		.package(path: "../Common")
 	],
     targets: [
         .target(

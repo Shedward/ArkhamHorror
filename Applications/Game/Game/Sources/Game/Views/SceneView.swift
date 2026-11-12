@@ -36,7 +36,7 @@ struct SceneView: NSViewRepresentable {
 struct SceneView: UIViewRepresentable {
     var scene: SCNScene?
     var overlay: SKScene?
-    var onTilt: ((Tilt) -> Void)?
+    var onTilt: ((CGVector) -> Void)?
 
     private let logger = Logger()
 

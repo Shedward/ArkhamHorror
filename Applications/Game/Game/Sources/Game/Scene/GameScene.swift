@@ -23,7 +23,7 @@ final class GameScene {
         self.size = size
 
         overlay = SKScene(size: size)
-        overlay.backgroundColor = .black
+        overlay.backgroundColor = .clear
         overlay.anchorPoint = .init(x: 0.5, y: 0.5)
 
         scene3d = SCNScene()

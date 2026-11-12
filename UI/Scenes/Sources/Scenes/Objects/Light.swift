@@ -26,6 +26,7 @@ final class Light: SceneObject {
         light.temperature = temperature
 
         let node = SCNNode()
+        node.simdPosition = at
         node.light = light
         super.init(node: node)
     }

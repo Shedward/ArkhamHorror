@@ -15,14 +15,16 @@ let package = Package(
 			targets: ["ArkhamHorror"]),
     ],
 	dependencies: [
-        .package(name: "Prelude", path: "../Utils/Prelude"),
-        .package(name: "Common", path: "../Domain/Common"),
-		.package(name: "Map", path: "../Domain/Map"),
+        .package(url: "https://github.com/jpsim/Yams.git", from: "5.0.0"),
+        .package(path: "../../Utils/Prelude"),
+        .package(path: "../Common"),
+		.package(path: "../Map"),
 	],
     targets: [
         .target(
 			name: "ArkhamHorror",
 			dependencies: [
+                "Yams",
                 "Prelude",
                 "Common",
 				"Map",

@@ -6,14 +6,13 @@
 //
 
 import SwiftUI
-import DesignSystem
 
-struct DesignSystemEnvironmentKey: EnvironmentKey {
-    static var defaultValue = DesignSystem.default
+private struct DesignSystemEnvironmentKey: EnvironmentKey {
+    static let defaultValue = DesignSystem.default
 }
 
 extension EnvironmentValues {
-    var design: DesignSystem {
+    public var design: DesignSystem {
         get { self[DesignSystemEnvironmentKey.self] }
         set { self[DesignSystemEnvironmentKey.self] = newValue }
     }

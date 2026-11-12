@@ -3,7 +3,7 @@
     "pins": [
       {
         "package": "HSLuvSwift",
-        "repositoryURL": "https://github.com/hsluv/hsluv-swift.git",
+        "repositoryURL": "https://github.com/hsluv/hsluv-apple.git",
         "state": {
           "branch": null,
           "revision": "9dee4378180f2a9a33c96bc20284cf64158dbe1b",

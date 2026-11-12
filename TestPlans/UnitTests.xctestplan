@@ -15,6 +15,14 @@
     {
       "parallelizable" : true,
       "target" : {
+        "containerPath" : "container:Applications/Game/Game",
+        "identifier" : "GameTests",
+        "name" : "GameTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
         "containerPath" : "container:Utils\/Prelude",
         "identifier" : "PreludeTests",
         "name" : "PreludeTests"

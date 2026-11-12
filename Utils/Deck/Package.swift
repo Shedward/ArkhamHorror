@@ -15,7 +15,7 @@ let package = Package(
             targets: ["Deck"]),
     ],
     dependencies: [
-		.package(name: "XCTestUtils", path: "../Utils/XCTestUtils")
+		.package(path: "../XCTestUtils")
 	],
     targets: [
         .target(

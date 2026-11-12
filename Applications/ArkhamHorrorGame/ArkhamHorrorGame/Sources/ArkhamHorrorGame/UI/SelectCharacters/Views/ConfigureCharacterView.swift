@@ -116,13 +116,13 @@ struct ConfigureCharacterView: View {
                 HStack(spacing: 32) {
                     VStack(spacing: 0) {
                         HStack {
-                            Image("health", bundle: .module)
+                            Image(designSystemAsset: "health")
                                 .foregroundColor(design.color.content.main)
                             Text(Localized.number(stats.health))
                                 .styled(design.text.menu.h1)
                         }
                         HStack {
-                            Image("mind", bundle: .module)
+                            Image(designSystemAsset: "mind")
                                 .foregroundColor(Color(design.color.content.main))
                             Text(Localized.number(stats.mind))
                                 .styled(design.text.menu.h1)
@@ -141,7 +141,7 @@ struct ConfigureCharacterView: View {
                     HStack(alignment: .bottom, spacing: 8) {
                         ForEach(skills, id: \.icon) { skill in
                             VStack(alignment: .center, spacing: 0) {
-                                Image(skill.icon, bundle: .module)
+                                Image(designSystemAsset: skill.icon)
                                     .foregroundColor(design.color.content.main)
                                 Text(Localized.number(skill.value))
                                     .styled(design.text.menu.h1)

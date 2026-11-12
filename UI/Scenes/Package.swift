@@ -15,17 +15,23 @@ let package = Package(
             targets: ["Scenes"]),
     ],
     dependencies: [
-        .package(name: "Map", path: "../Domain/Map"),
-        .package(name: "DesignSystem", path: "../UI/DesignSystem"),
-        .package(url: "https://github.com/hsluv/hsluv-swift.git", from: "2.1.0"),
+        .package(path: "../../Utils/Prelude"),
+        .package(path: "../../Domain/Common"),
+        .package(path: "../../Domain/ArkhamHorror"),
+        .package(path: "../../Domain/Map"),
+        .package(path: "../DesignSystem"),
+        .package(url: "https://github.com/hsluv/hsluv-apple.git", from: "2.1.0"),
     ],
     targets: [
         .target(
             name: "Scenes",
             dependencies: [
+                "Prelude",
+                "Common",
+                "ArkhamHorror",
                 "Map",
                 "DesignSystem",
-                .product(name: "HSLuvSwift", package: "hsluv-swift")
+                .product(name: "HSLuvSwift", package: "hsluv-apple")
             ]
         ),
         .testTarget(

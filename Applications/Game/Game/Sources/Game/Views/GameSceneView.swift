@@ -17,7 +17,7 @@ public class GameSceneView: SCNView {
         }
     }
 
-    override public init(frame: NSRect, options: [String : Any]? = nil) {
+    override public init(frame: CGRect, options: [String : Any]? = nil) {
         super.init(frame: frame, options: options)
 
         #if os(iOS)
@@ -42,7 +42,7 @@ public class GameSceneView: SCNView {
     #elseif os(iOS)
     @objc func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
         let translation = gestureRecognizer.translation(in: self)
-        let tilt = Tilt(dx: translation.x, dy: translation.y)
+        let tilt = CGVector(dx: translation.x, dy: translation.y)
         onTilt?(tilt)
     }
     #endif

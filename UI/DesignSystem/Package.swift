@@ -15,9 +15,10 @@ let package = Package(
             targets: ["DesignSystem"]),
     ],
     dependencies: [
-        .package(name: "Prelude", path: "../Utils/Prelude"),
-        .package(name: "Map", path: "../Domain/Map"),
-        .package(name: "ArkhamHorror", path: "../Domain/ArkhamHorror"),
+        .package(url: "https://github.com/hsluv/hsluv-apple.git", from: "2.1.0"),
+        .package(path: "../../Utils/Prelude"),
+        .package(path: "../../Domain/Map"),
+        .package(path: "../../Domain/ArkhamHorror"),
     ],
     targets: [
         .target(
@@ -26,6 +27,7 @@ let package = Package(
                 "Prelude",
                 "Map",
                 "ArkhamHorror",
+                .product(name: "HSLuvSwift", package: "hsluv-apple"),
             ],
             resources: [
                 .process("Resources/Assets.xcassets")

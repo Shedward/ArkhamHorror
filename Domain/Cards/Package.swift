@@ -16,10 +16,10 @@ let package = Package(
     ],
     dependencies: [
 		.package(url: "https://github.com/jpsim/Yams.git", from: "5.0.0"),
-		.package(name: "Prelude", path: "../Utils/Prelude"),
-		.package(name: "Script", path: "../Utils/Script"),
-		.package(name: "FormattedText", path: "../Utils/FormattedText"),
-		.package(name: "Common", path: "../Domain/Common")
+		.package(path: "../../Utils/Prelude"),
+		.package(path: "../../Utils/Script"),
+		.package(path: "../../Utils/FormattedText"),
+		.package(path: "../Common")
     ],
     targets: [
         .target(

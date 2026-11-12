@@ -61,7 +61,7 @@ public struct MainView: SwiftUI.View {
         #if os(macOS)
         return NSScreen.main?.frame.size ?? defaultSize
         #elseif os(iOS)
-        return UIScreen.main?.frame.size ?? defaultSize
+        return UIScreen.main.bounds.size
         #else
         return defaultSize
         #endif

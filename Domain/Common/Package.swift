@@ -15,7 +15,7 @@ let package = Package(
             targets: ["Common"]),
     ],
     dependencies: [
-		.package(name: "Prelude", path: "../Utils/Prelude")
+		.package(path: "../../Utils/Prelude")
 	],
     targets: [
         .target(

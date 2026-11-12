@@ -11,12 +11,12 @@ import simd
 final class OrbitingCamera: SceneObject {
     let orbit: SCNNode = SCNNode()
 
-    init(around: vector_float3, position: vector_float3) {
+    init(around: vector_float3, position: vector_float3, verticalScale: Double) {
         let camera = SCNCamera()
         camera.name = "Orbital Camera"
         camera.usesOrthographicProjection = true
-        camera.orthographicScale = 4
-        camera.fieldOfView = 20
+        camera.projectionDirection = .vertical
+        camera.orthographicScale = verticalScale
 
         let node = SCNNode()
         node.camera = camera

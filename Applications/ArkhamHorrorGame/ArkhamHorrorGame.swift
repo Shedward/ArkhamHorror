@@ -12,7 +12,7 @@ import ArkhamHorrorGame
 struct ArkhamHorrorGameApp: App {
     var body: some Scene {
         WindowGroup {
-            ArkhamHorrorGameMain()
+            MainView()
         }
     }
 }

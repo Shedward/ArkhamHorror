@@ -29,7 +29,7 @@ extension GameboardEpisode: GameboardView {
         if let gameboard {
             removeObject(gameboard)
         }
-        let gameboard = Gameboard(map: map)
+        let gameboard = Gameboard(map: map, viewportSize: overlaySize)
         self.gameboard = gameboard
         addObject(gameboard)
     }

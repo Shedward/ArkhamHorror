@@ -21,17 +21,16 @@ public final class Gameboard: SceneObject {
 
     private var orbitingCamera: OrbitingCamera?
 
-    public init(map: Map) {
+    public init(map: Map, viewportSize: CGSize = CGSize(width: 1, height: 1)) {
         self.map = map
         super.init()
 
-        configureEnvironment()
+        configureEnvironment(viewportSize: viewportSize)
         configureGameboard()
     }
 
     public func tilt(by delta: CGFloat) {
         let orbit = (0...100.0).remap(delta, to: 0...CGFloat.pi3, clamp: true)
-        debugPrint(delta, orbit)
         orbitingCamera?.orbitX(Float(orbit))
     }
 
@@ -41,14 +40,17 @@ public final class Gameboard: SceneObject {
         return size.toSize()
     }
 
-    private func pointOfView() -> vector_float3 {
-        let boardSize = self.boardSize()
-        return .init(boardSize.width / 2, boardSize.height / 2, boardSize.maxDimension * 3.0)
-    }
-
-    private func configureEnvironment() {
-        let pointOfView = pointOfView()
-        let camera = OrbitingCamera(around: pointOfView, position: .init(x: 0, y: 20, z: 20))
+    private func configureEnvironment(viewportSize: CGSize) {
+        let size = boardSize()
+        let center = vector_float3(size.width / 2, size.height / 2, 0)
+        let aspect = viewportSize.width > 0 && viewportSize.height > 0
+            ? Float(viewportSize.width / viewportSize.height) : 1
+        let visibleHeight = max(size.height, size.width / aspect)
+        let camera = OrbitingCamera(
+            around: center,
+            position: .init(0, 0, size.maxDimension * 3),
+            verticalScale: Double(visibleHeight) * 0.55
+        )
         self.orbitingCamera = camera
         addChild(camera)
 
@@ -60,7 +62,7 @@ public final class Gameboard: SceneObject {
         addChild(ambientLight)
 
         let redLight = Light(
-            at: pointOfView.movedBy(dx: -5, dz: 5),
+            at: center.movedBy(dx: -5, dz: 5),
             type: .omni,
             color: .init(hue: 0, saturation: 100, lightness: 100, alpha: 1.0),
             castShadows: true
@@ -68,7 +70,7 @@ public final class Gameboard: SceneObject {
         addChild(redLight)
 
         let greenLight = Light(
-            at: pointOfView.movedBy(dx: 5, dz: 5),
+            at: center.movedBy(dx: 5, dz: 5),
             type: .omni,
             color: .init(hue: 120, saturation: 100, lightness: 80, alpha: 1.0),
             castShadows: true
@@ -76,7 +78,7 @@ public final class Gameboard: SceneObject {
         addChild(greenLight)
 
         let blueLight = Light(
-            at: pointOfView.movedBy(dy: 5, dz: -5),
+            at: center.movedBy(dy: 5, dz: -5),
             type: .omni,
             color: .init(hue: 240, saturation: 100, lightness: 80, alpha: 1.0),
             castShadows: true
