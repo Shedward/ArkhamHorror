@@ -16,7 +16,7 @@
 В Git остался более содержательный образец, чем Industrial. Перед `a4b7011`, в `de7e7f5`, каталог `the_comming_of_azotot` содержал завязку «Пришествия Азатота», Даниэлу и Декстера с биографиями, портреты и обложку. Его карта побайтно совпадает с картой Industrial. В соседнем `wandering_star` остались завязка, обложка и частичная карта, но нет персонажей. В этих каталогах нет цепочки событий и финалов. Посмотреть состав без переключения ветки:
 
 ```sh
-git ls-tree -r --name-only de7e7f5 -- Applications/Game/Game/Sources/Game/Resources/Campaigns
+git ls-tree --full-tree -r --name-only de7e7f5 -- Applications/Game/Game/Sources/Game/Resources/Campaigns
 ```
 
 ## Что действительно работает

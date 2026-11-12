@@ -1,4 +1,6 @@
 # Arkham Horror
 
-Some domain models implementation based on Arkham Horror board game.
-Not intended to become something real. Mostly study case for modeling complex domain logic and multimodal project structure.
+Корень репозитория свободен для нового проекта. Предыдущий прототип целиком сохранён в [Reference](Reference/).
+
+- [Сборка и запуск прототипа](Reference/AGENTS.md#сборка-и-тесты)
+- [Архитектурное ревью и материалы для переноса](Reference/docs/architecture-review.md)
