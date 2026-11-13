@@ -1,0 +1,78 @@
+{
+  "default-configuration": "Release",
+  "configurations": [
+    "Debug",
+    "Release",
+  ],
+  "localizations": {
+    "development": "en",
+    "supported": [
+      "Base",
+    ],
+  },
+  "packages": [
+    {
+      "kind": "local",
+      "path": "Packages/App/DistrictDeckUI",
+    },
+  ],
+  "files": [
+    {
+      "kind": "group",
+      "name": "Products",
+      "children": [
+        { "path": "<PRODUCTS>/DistrictDeck.app", "id": "6328539030A76BAA00FFFFFF", "type": "wrapper.application", "index": false },
+      ],
+    },
+    { "kind": "folder", "path": "Apps/DistrictDeck", "target-membership": [ "DistrictDeck" ] },
+  ],
+  "targets": [
+    {
+      "name": "DistrictDeck",
+      "id": "6328538F30A76BAA00FFFFFF",
+      "product": "Products/DistrictDeck.app",
+      "product-type": "application",
+      "build-phases": [
+        "compile-sources",
+        "frameworks",
+        "resources",
+      ],
+      "package-product-members": [
+        {
+          "package": "DistrictDeckUI",
+          "product-name": "DistrictDeckUI",
+          "build-phase": { "build-phase": "frameworks" },
+        },
+      ],
+      "build-settings": {
+        "CODE_SIGN_STYLE": "Automatic",
+        "CURRENT_PROJECT_VERSION": "1",
+        "ENABLE_APP_SANDBOX": "YES",
+        "GENERATE_INFOPLIST_FILE": "YES",
+        "INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphone*]": "YES",
+        "INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphone*]": "YES",
+        "LD_RUNPATH_SEARCH_PATHS": "@executable_path/Frameworks",
+        "LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]": "@executable_path/../Frameworks",
+        "MARKETING_VERSION": "0.1",
+        "PRODUCT_BUNDLE_IDENTIFIER": "me.shedward.DistrictDeck",
+        "PRODUCT_NAME": "$(TARGET_NAME)",
+        "SDKROOT": "auto",
+        "SUPPORTED_PLATFORMS": "iphoneos iphonesimulator macosx",
+        "SUPPORTS_MACCATALYST": "NO",
+        "TARGETED_DEVICE_FAMILY": "1,2",
+      },
+    },
+  ],
+  "build-settings": {
+    "ALWAYS_SEARCH_USER_PATHS": "NO",
+    "DEBUG_INFORMATION_FORMAT[config=Debug]": "dwarf",
+    "DEBUG_INFORMATION_FORMAT[config=Release]": "dwarf-with-dsym",
+    "ENABLE_TESTABILITY[config=Debug]": "YES",
+    "IPHONEOS_DEPLOYMENT_TARGET": "16.0",
+    "MACOSX_DEPLOYMENT_TARGET": "13.0",
+    "SWIFT_ACTIVE_COMPILATION_CONDITIONS[config=Debug]": "DEBUG $(inherited)",
+    "SWIFT_COMPILATION_MODE[config=Release]": "wholemodule",
+    "SWIFT_OPTIMIZATION_LEVEL[config=Debug]": "-Onone",
+    "SWIFT_VERSION": "6.0",
+  },
+}
