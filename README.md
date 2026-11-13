@@ -9,6 +9,7 @@ DistrictDeck — рабочее название движка для сюжет�
 - [Apps/DistrictDeck](Apps/DistrictDeck/) — точка входа общего SwiftUI-приложения для iOS 16+ и macOS 13+.
 - [Packages](Packages/) — дерево локальных Swift-пакетов. Первый пакет, [DistrictDeckUI](Packages/App/DistrictDeckUI/Package.swift), содержит стартовый экран.
 - [project.xcproj](DistrictDeck.xcodeproj/project.xcproj) — конфигурация приложения в штатном формате JSON Xcode 27.
+- В `Documentation/` храним [принципы проекта](Documentation/Principles.md) и [карточки задач](Documentation/Tasks/).
 
 ## Как добавить пакет
 
