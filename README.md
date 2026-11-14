@@ -2,14 +2,14 @@
 
 DistrictDeck — рабочее название движка для сюжетных настольных игр с игровым полем, ходами и колодами событий.
 
-Открой [DistrictDeck.xcworkspace](DistrictDeck.xcworkspace/) в Xcode 27.2, выбери схему **DistrictDeck** и **My Mac** или симулятор iPhone, затем нажми Run. Стартовый экран показывает название приложения.
+Открой [DistrictDeck.xcworkspace](DistrictDeck.xcworkspace/) в Xcode 27.2, выбери схему **DistrictDeck** и **My Mac** или симулятор iPad, затем нажми Run. Стартовый экран показывает название приложения.
 
 ## Структура
 
-- [Apps/DistrictDeck](Apps/DistrictDeck/) — точка входа общего SwiftUI-приложения для iOS 16+ и macOS 13+.
+- [Apps/DistrictDeck](Apps/DistrictDeck/) — точка входа общего SwiftUI-приложения для macOS 15+ и iOS/iPadOS 18+.
 - [Packages](Packages/) — дерево локальных Swift-пакетов. Первый пакет, [DistrictDeckUI](Packages/App/DistrictDeckUI/Package.swift), содержит стартовый экран.
 - [project.xcproj](DistrictDeck.xcodeproj/project.xcproj) — конфигурация приложения в штатном формате JSON Xcode 27.
-- В `Documentation/` храним [принципы проекта](Documentation/Principles.md) и [карточки задач](Documentation/Tasks/).
+- В `Documentation/` храним [архитектуру и выбранный стек](Documentation/Architecture.md), [принципы проекта](Documentation/Principles.md), [базовые правила игры](Documentation/GameRules.md), [сценарий «Последний поезд»](Documentation/Campaigns/LastTrain.md) и [карточки задач](Documentation/Tasks/).
 
 ## Как добавить пакет
 

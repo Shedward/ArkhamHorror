@@ -3,7 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "DistrictDeckUI",
-    platforms: [.iOS(.v16), .macOS(.v13)],
+    platforms: [.iOS(.v18), .macOS(.v15)],
     products: [
         .library(name: "DistrictDeckUI", targets: ["DistrictDeckUI"])
     ],
