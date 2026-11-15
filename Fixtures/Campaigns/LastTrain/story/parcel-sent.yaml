@@ -1,0 +1,4 @@
+id: parcel-sent
+text: Проводник принимает посылку. Поезд трогается.
+onEnter: |
+  (removeObject .train)

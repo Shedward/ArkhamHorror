@@ -1,0 +1,27 @@
+id: send-parcel
+text: >-
+  Поезд прибудет к началу третьего раунда. Передайте посылку проводнику на вокзале до конца пятого раунда.
+  Курьер на площади отдаст её за пять монет, а на почте её можно забрать бесплатно.
+goal: Отправить посылку
+onEnter: |
+  (startQuest .collect-parcel)
+onRoundEnd: |
+  (addItem .despair)
+track:
+  maxHope: 1
+  maxDespair: 5
+  milestones:
+    - at: { despair: 2 }
+      description: Прибытие поезда
+      script: |
+        (do
+          (addObject .train)
+          (say "Последний поезд прибывает на вокзал."))
+  transitions:
+    - at: { hope: 1 }
+      when: "(hasItem .conductor-note in: all)"
+      description: Передайте посылку проводнику.
+      to: parcel-sent
+    - at: { despair: 5 }
+      description: Опоздание — конец партии.
+      to: train-left

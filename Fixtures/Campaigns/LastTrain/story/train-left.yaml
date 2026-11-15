@@ -1,0 +1,4 @@
+id: train-left
+text: Поезд ушёл. За крышами ещё слышен стук колёс, но передать посылку уже некому.
+onEnter: |
+  (removeObject .train)

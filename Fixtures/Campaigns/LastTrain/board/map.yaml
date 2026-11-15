@@ -1,0 +1,22 @@
+territories:
+  station: { name: Вокзал }
+  square: { name: Площадь }
+  post-office: { name: Почта }
+
+cells:
+  station-start: { name: Вокзал · старт, territory: station }
+  street: { name: Улица }
+  crossroads: { name: Перекрёсток }
+  square: { name: Площадь, territory: square }
+  alley: { name: Переулок }
+  post-office: { name: Почта, territory: post-office }
+  station-entrance: { name: Вокзал · вход, territory: station }
+
+edges:
+  - [station-start, street]
+  - [street, crossroads]
+  - [crossroads, square]
+  - [square, alley]
+  - [alley, post-office]
+  - [crossroads, station-entrance]
+  - [square, station-entrance]

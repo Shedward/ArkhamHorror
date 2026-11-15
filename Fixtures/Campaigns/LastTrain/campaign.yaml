@@ -1,0 +1,19 @@
+id: last-train
+name: Последний поезд
+version: "1.0"
+
+characters:
+  required: ivan
+  maxCount: 1
+
+rules:
+  actionPoints:
+    - count: 1
+      actions: [move]
+  actionLimits: { move: 1 }
+  movementRange: 2
+
+initialPoint: station-start
+onStart: |
+  (addItem .coin in: .ivan count: 5)
+initialStoryPoint: send-parcel

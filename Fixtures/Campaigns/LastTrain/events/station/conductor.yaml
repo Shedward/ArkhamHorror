@@ -1,0 +1,15 @@
+id: conductor
+text: |-
+  Проводник достаёт из кармана карандаш.
+
+  — Давайте сюда. Я оставлю вам расписку.
+hint:
+  description: Передать посылку
+  highlight: mainQuest
+script: |
+  (chooseOne
+    (case "Передать посылку"
+      (do
+        (removeItem .parcel)
+        (addItem .conductor-note)
+        (addItem .hope))))

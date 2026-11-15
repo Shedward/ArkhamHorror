@@ -1,0 +1,10 @@
+id: collect-parcel
+goal: Забрать посылку
+text: Курьер на площади возьмёт пять монет за доставку. На почте посылку выдадут бесплатно.
+onStart: |
+  (do
+    (placeEvent .courier .square position: top forQuest: (currentQuest))
+    (placeEvent .post-office .post-office position: top forQuest: (currentQuest)))
+completeWhen: "(hasItem .parcel in: all)"
+onComplete: |
+  (placeEvent .conductor .station position: top)

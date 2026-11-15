@@ -1,0 +1,15 @@
+id: courier
+text: |-
+  Курьер сидит на краю фонтана. При виде Ивана он поднимает свёрток.
+
+  — За посылкой? С вас пять монет за доставку. А на почте заберёте бесплатно.
+hint:
+  description: Заплатить 5 монет
+  highlight: mainQuest
+script: |
+  (chooseOne
+    (caseIf "Заплатить 5 монет"
+      (hasItem .coin atLeast: 5 hint: "Нужно 5 монет")
+      (do (removeItem .coin count: 5) (addItem .parcel)))
+    (case "Отказаться"
+      (say "Тогда заберёте посылку на почте.")))

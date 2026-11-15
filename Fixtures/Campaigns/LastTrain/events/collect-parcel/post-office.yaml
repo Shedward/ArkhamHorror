@@ -1,0 +1,11 @@
+id: post-office
+text: |-
+  Служащая снимает с полки свёрток и сверяет фамилию на обёртке.
+
+  — Всё верно. Получите, пожалуйста.
+hint:
+  description: Получить посылку
+  highlight: mainQuest
+script: |
+  (chooseOne
+    (case "Забрать посылку" (addItem .parcel)))
