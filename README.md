@@ -9,6 +9,7 @@ DistrictDeck — рабочее название движка для сюжет�
 - [Apps/DistrictDeck](Apps/DistrictDeck/) — точка входа общего SwiftUI-приложения для macOS 15+ и iOS/iPadOS 18+.
 - [Packages](Packages/) — дерево локальных Swift-пакетов. Первый пакет, [DistrictDeckUI](Packages/App/DistrictDeckUI/Package.swift), содержит стартовый экран.
 - [project.xcproj](DistrictDeck.xcodeproj/project.xcproj) — конфигурация приложения в штатном формате JSON Xcode 27.
+- [Исходники «Последнего поезда»](Fixtures/Campaigns/LastTrain/) — тестовая кампания. [Руководство по формату](Documentation/CampaignFormat.md) объясняет, как устроены её YAML и ресурсы.
 - В `Documentation/` храним [архитектуру и выбранный стек](Documentation/Architecture.md), [принципы проекта](Documentation/Principles.md), [доменную модель кампании и партии](Documentation/DomainModel.md), [базовые правила игры](Documentation/GameRules.md), [язык скриптов кампаний](Documentation/ScriptLanguage.md), [сценарий «Последний поезд»](Documentation/Campaigns/LastTrain.md) и [карточки задач](Documentation/Tasks/).
 
 ## Как добавить пакет
