@@ -1,6 +1,7 @@
 ---
 type: make
-status: open
+status: in-progress
+next: "user: ревью подзадачи компилятора и команд встречи"
 effort: medium
 impact: high
 depends-on:
