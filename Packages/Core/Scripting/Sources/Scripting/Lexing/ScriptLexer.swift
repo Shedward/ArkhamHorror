@@ -1,13 +1,3 @@
-struct ScriptToken {
-    enum Kind: Equatable {
-        case open, close, end
-        case name(String), label(String), id(String), text(String), integer(Int)
-    }
-
-    let kind: Kind
-    let location: ScriptLocation
-}
-
 struct ScriptLexer {
     private static func isSpace(_ scalar: Unicode.Scalar) -> Bool {
         scalar == " " || scalar == "\t" || scalar == "\n" || scalar == "\r"
@@ -84,6 +74,12 @@ struct ScriptLexer {
         }
         if word.wholeMatch(of: /-?[0-9]+/) != nil, let value = Int(word) {
             return .integer(value)
+        }
+        if word.wholeMatch(of: /-?[0-9]+\.[0-9]+/) != nil {
+            guard let value = Float(word), value.isFinite else {
+                throw start.error("Float literal is out of range")
+            }
+            return .float(value)
         }
         throw ScriptDiagnostic(location: start, reason: "Invalid token '\(word.isEmpty ? ":" : word)'")
     }

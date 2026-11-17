@@ -1,5 +1,5 @@
 import Foundation
-import GameEngine
+@testable import GameEngine
 import Scripting
 import Testing
 import Yams
@@ -7,7 +7,6 @@ import Yams
 private let courierPath = "events/collect-parcel/courier.yaml"
 private let items: Set<String> = ["coin", "parcel"]
 
-// Use the campaign author's file, including its indentation, as the test input.
 private func compileCourier(replacing old: String? = nil, with new: String = "") throws -> EncounterScript {
     let campaign = URL(filePath: #filePath).deletingLastPathComponent()
         .appending(path: "../../../../../Fixtures/Campaigns/LastTrain")
@@ -121,11 +120,24 @@ private func compile(_ source: String) throws -> EncounterScript {
     try EncounterScript.compile(source, at: .init(path: "script.yaml", line: 1, column: 1), itemIDs: items)
 }
 
+@Test func choiceReturnsSelectedFloat() async throws {
+    var registry = ExpressionRegistry<EncounterContext>()
+    try registry.registerChoices()
+    let script = try registry.compile(
+        #"(chooseOne (case "quarter" 0.25) (case "half" 0.5))"#,
+        returning: Float.self,
+        at: ScriptLocation(path: "script.yaml", line: 1, column: 1)
+    )
+    let session = EncounterTestSession(coins: 0, answer: 1)
+    #expect(try await script.run(in: session.context) == 0.5)
+}
+
 @Test(arguments: [
     #"(do (hasItem .coin) (say "next"))"#,
     #"(chooseOne (case "yes" (addItem .parcel)) (case "no" (hasItem .coin)))"#,
     #"(chooseOne (caseIf "yes" (if true true (do (removeItem .coin) true)) (addItem .parcel)))"#,
     #"(chooseOne (case (do (say "side effect") "title") (addItem .parcel)))"#,
+    "(addItem .coin count: 1.5)",
     "(chooseOne)", "(addItem .coin count: 0)", "(addItem .coin count: 1 count: 2)",
     "(addItem .coin in: all)", "(addItem .coin in: .missing)", "(addItem .coin count: 1 .parcel)",
     "(addItem .coin hnt: 2)", "(addItem .coin) (do)", "(do", #"(say "unterminated)"#,
@@ -133,6 +145,20 @@ private func compile(_ source: String) throws -> EncounterScript {
 ])
 func rejectsInvalidEncounterScripts(_ source: String) {
     #expect(throws: ScriptDiagnostic.self) { try compile(source) }
+}
+
+@Test(arguments: [
+    ("addItem", ".parcel"), ("removeItem", ".coin"),
+    ("say", #""Hello""#), ("chooseOne", #"(case "ask" (say "Hello"))"#)
+])
+func rejectsEffectsInChoiceTitles(_ command: String, arguments: String) {
+    let source = "(chooseOne (case (do\n  (\(command) \(arguments)) \"title\") (addItem .parcel)))"
+    #expect(throws: ScriptDiagnostic(
+        location: ScriptLocation(path: "script.yaml", line: 2, column: 4),
+        reason: "Command '\(command)' is unavailable in a read-only expression"
+    )) {
+        try compile(source)
+    }
 }
 
 @Test func choiceCanReturnAValueAndNamedArgumentsCanBeReordered() async throws {

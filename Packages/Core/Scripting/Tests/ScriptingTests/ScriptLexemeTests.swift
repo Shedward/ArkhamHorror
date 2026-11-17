@@ -7,7 +7,6 @@ private let origin = ScriptLocation(path: "events/example.yaml", line: 8, column
 
 private func literal(_ text: String) throws -> ParsableArgument<LexemeContext> {
     let source = try SourceTokens(text, origin: origin)
-    // Each example must consume exactly one token before the end of input.
     try #require(source.tokens.count == 2 && source.tokens[1].kind == .end)
     return ParsableArgument(source: source, index: 0, registry: .init(), metadata: .init())
 }
@@ -38,6 +37,31 @@ func parsesReservedBooleanLiterals(_ text: String, expected: Bool) throws {
 @Test(arguments: [("0", 0), ("1", 1), ("42", 42), ("-2", -2)])
 func parsesDecimalIntegers(_ text: String, expected: Int) throws {
     #expect(try literal(text).asInt() == expected)
+}
+
+@Test(arguments: [("0.25", Float(0.25)), ("-1.5", -1.5), ("2.0", 2), ("0.0", 0)])
+func parsesFloatLiterals(_ text: String, expected: Float) async throws {
+    let argument = try literal(text)
+    #expect(try argument.asFloat() == expected)
+    #expect(throws: ScriptDiagnostic.self) { try argument.asInt() }
+
+    let registry = ExpressionRegistry<LexemeContext>()
+    let script = try registry.compile("(do (if true \(text) 0.5))", returning: Float.self, at: origin)
+    #expect(try await script.run(in: LexemeContext()) == expected)
+}
+
+@Test func readsExactlyRepresentableIntegersAsFloat() throws {
+    #expect(try literal("42").asFloat() == 42)
+    #expect(throws: ScriptDiagnostic(location: origin, reason: "Integer cannot be represented exactly as Float")) {
+        try literal("16777217").asFloat()
+    }
+}
+
+@Test func locatesOutOfRangeFloat() {
+    let text = String(repeating: "9", count: 40) + ".0"
+    #expect(throws: ScriptDiagnostic(location: origin, reason: "Float literal is out of range")) {
+        try literal(text)
+    }
 }
 
 @Test(arguments: [".a", ".parcel", ".collect-parcel", ".platform-2", ".a2-3b-c4"])
@@ -72,7 +96,7 @@ func separatesNestedFormsAndLabels(_ newline: String) throws {
 @Test(arguments: [
     "_", "имя", "2name", "some-name", "some_name",
     ".", ".2train", ".Train", ".поезд", ".-post", ".post-", ".post--office", ".post_office",
-    "-", "1.5", "1e2", "1_000", ";"
+    "-", "1.", ".5", "1.2.3", "1e2", "1_000", ";"
 ])
 func rejectsInvalidAtomsAtTheirStart(_ atom: String) {
     #expect(throws: ScriptDiagnostic(

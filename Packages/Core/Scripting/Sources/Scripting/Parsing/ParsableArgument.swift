@@ -3,8 +3,14 @@ public struct ParsableArgument<Context: ScriptContext> {
     let index: Int
     let registry: ExpressionRegistry<Context>
     public let metadata: ParserMetadata
-    var location: ScriptLocation { source.tokens[index].location }
-    var commandLocation: ScriptLocation { source.tokens[index + 1].location }
+
+    var location: ScriptLocation {
+        source.tokens[index].location
+    }
+
+    var commandLocation: ScriptLocation {
+        source.tokens[index + 1].location
+    }
 
     public var name: String? {
         guard case .open = source.tokens[index].kind, case let .name(name) = source.tokens[index + 1].kind else {
@@ -13,7 +19,6 @@ public struct ParsableArgument<Context: ScriptContext> {
         return name
     }
 
-    /// Restricts this argument and its entire subtree to read-only commands.
     public var readOnly: Self {
         Self(source: source, index: index, registry: registry.restrictingToReadOnly(), metadata: metadata)
     }
@@ -40,8 +45,17 @@ public struct ParsableArgument<Context: ScriptContext> {
     }
 
     public func asFloat() throws -> Float {
-        guard let value = Float(exactly: try asInt()) else { throw location.error("Integer cannot be represented exactly as Float") }
-        return value
+        switch source.tokens[index].kind {
+            case let .float(value):
+                return value
+            case let .integer(integer):
+                guard let value = Float(exactly: integer) else {
+                    throw location.error("Integer cannot be represented exactly as Float")
+                }
+                return value
+            default:
+                throw location.error("Expected a Float literal")
+        }
     }
 
     public func asString() throws -> String {
@@ -89,6 +103,8 @@ public struct ParsableArgument<Context: ScriptContext> {
                 return try registry.build(name, returning: type, argument: self)
             case .integer:
                 return try literal(asInt(), as: type)
+            case let .float(value):
+                return try literal(value, as: type)
             case .text:
                 return try literal(asString(), as: type)
             case .name("true"), .name("false"):

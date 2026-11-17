@@ -43,7 +43,7 @@ xcodebuild -workspace DistrictDeck.xcworkspace -scheme DistrictDeck -destination
 
 ## SwiftLint
 
-Установи SwiftLint командой `brew install swiftlint`. При сборке схемы **DistrictDeck** Xcode проверяет код приложения, пакетов и тестов по [общим правилам проекта](.swiftlint.yml). Чтобы проверить его из корня репозитория и получить ненулевой код выхода при любом замечании, запусти `swiftlint lint --strict`.
+Установи SwiftLint командой `brew install swiftlint`. При сборке схемы **DistrictDeck** Xcode проверяет приложение, пакеты и тесты по [правилам SwiftLint](.swiftlint.yml) и [стилю проекта](Documentation/CodeStyle.md). Для полной проверки с ненулевым кодом выхода при любом замечании запусти `Tools/lint --strict` из корня репозитория.
 
 ## Референс
 

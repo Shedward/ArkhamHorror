@@ -2,6 +2,8 @@ import Scripting
 
 struct Say: Expression {
     static let name = "say"
+    static let isMutating = true
+
     let text: AnyExpression<String, EncounterContext>
 
     init(_ parser: inout ExpressionParser<EncounterContext>) throws {

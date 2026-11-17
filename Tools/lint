@@ -1,0 +1,19 @@
+#!/bin/sh
+set -eu
+cd "$(dirname "$0")/.."
+export PATH="$PATH:/opt/homebrew/bin:/usr/local/bin"
+lint_status=0
+if command -v swiftlint >/dev/null 2>&1; then
+    swiftlint lint --quiet --no-cache --config .swiftlint.yml "$@" || lint_status=$?
+else
+    echo "warning: SwiftLint is not installed. Run brew install swiftlint."
+    if [ "${1:-}" = "--strict" ]; then lint_status=1; fi
+fi
+
+swift_bin=$(xcrun --find swift)
+host_libs="$(dirname "$swift_bin")/../lib/swift/host"
+mac_sdk=$(xcrun --sdk macosx --show-sdk-path)
+find "$PWD/Apps" "$PWD/Packages" "$PWD/Tools" -name .build -prune -o -type f -name '*.swift' -exec \
+    "$swift_bin" -sdk "$mac_sdk" -I "$host_libs" -L "$host_libs" -Xlinker -rpath -Xlinker "$host_libs" \
+    Tools/CodeStyle.swift "$@" {} +
+exit "$lint_status"

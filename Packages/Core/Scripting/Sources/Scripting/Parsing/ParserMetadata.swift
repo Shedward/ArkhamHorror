@@ -9,7 +9,11 @@ public struct ParserMetadata {
     }
 
     public subscript<K: MetadataKey>(_ key: K.Type) -> K.Value? {
-        get { values[ObjectIdentifier(key)] as? K.Value }
-        set { values[ObjectIdentifier(key)] = newValue }
+        get {
+            values[ObjectIdentifier(key)] as? K.Value
+        }
+        set {
+            values[ObjectIdentifier(key)] = newValue
+        }
     }
 }

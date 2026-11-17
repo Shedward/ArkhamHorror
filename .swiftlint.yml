@@ -1,6 +1,7 @@
 included:
   - Apps
   - Packages
+  - Tools
 
 excluded:
   - "**/.build"

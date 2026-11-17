@@ -1,10 +1,4 @@
 public struct ExpressionRegistry<Context: ScriptContext> {
-    private struct Entry {
-        let model: ObjectIdentifier
-        let readOnly: Bool
-        let build: (ParsableArgument<Context>) throws -> Any
-    }
-
     private var entries: [String: [ObjectIdentifier: Entry]] = [:]
     private var requiresReadOnly = false
 
@@ -12,23 +6,24 @@ public struct ExpressionRegistry<Context: ScriptContext> {
         installControlFlow(Void.self)
         installControlFlow(Bool.self)
         installControlFlow(Int.self)
+        installControlFlow(Float.self)
         installControlFlow(String.self)
     }
 
     private mutating func installControlFlow<T: Sendable>(_ output: T.Type) {
-        install(DoExpression<T, Context>.self, readOnly: true)
-        install(IfExpression<T, Context>.self, readOnly: true)
+        install(DoExpression<T, Context>.self)
+        install(IfExpression<T, Context>.self)
     }
 
-    public mutating func register<Node: Expression>(_ type: Node.Type, readOnly: Bool = false) throws where Node.Context == Context {
+    public mutating func register<Node: Expression>(_ type: Node.Type) throws where Node.Context == Context {
         guard entries[Node.name]?[ObjectIdentifier(Node.Output.self)] == nil else {
             throw ScriptError("Duplicate registration for '\(Node.name)' returning \(Node.Output.self)")
         }
-        install(type, readOnly: readOnly)
+        install(type)
     }
 
-    private mutating func install<Node: Expression>(_ type: Node.Type, readOnly: Bool) where Node.Context == Context {
-        entries[Node.name, default: [:]][ObjectIdentifier(Node.Output.self)] = Entry(model: ObjectIdentifier(type), readOnly: readOnly) { arg in
+    private mutating func install<Node: Expression>(_ type: Node.Type) where Node.Context == Context {
+        let entry = Entry(model: ObjectIdentifier(type), isMutating: Node.isMutating) { arg in
             let node = try arg.asExpression(type)
             let location = arg.commandLocation
             return AnyExpression<Node.Output, Context>(location: arg.location) { context in
@@ -39,6 +34,7 @@ public struct ExpressionRegistry<Context: ScriptContext> {
                 }
             }
         }
+        entries[Node.name, default: [:]][ObjectIdentifier(Node.Output.self)] = entry
     }
 
     func restrictingToReadOnly() -> Self {
@@ -69,7 +65,7 @@ public struct ExpressionRegistry<Context: ScriptContext> {
         guard let entry = entries[Node.name]?[ObjectIdentifier(Node.Output.self)] else {
             return false
         }
-        return entry.model == ObjectIdentifier(type) && (!requiresReadOnly || entry.readOnly)
+        return entry.model == ObjectIdentifier(type) && (!requiresReadOnly || !entry.isMutating)
     }
 
     func build<T: Sendable>(_ name: String, returning: T.Type, argument: ParsableArgument<Context>) throws
@@ -80,7 +76,7 @@ public struct ExpressionRegistry<Context: ScriptContext> {
         guard let entry = forms[ObjectIdentifier(T.self)] else {
             throw argument.commandLocation.error("'\(name)' cannot return \(T.self)")
         }
-        guard !requiresReadOnly || entry.readOnly else {
+        guard !requiresReadOnly || !entry.isMutating else {
             throw argument.commandLocation.error("Command '\(name)' is unavailable in a read-only expression")
         }
         let node = try entry.build(argument)
@@ -88,5 +84,13 @@ public struct ExpressionRegistry<Context: ScriptContext> {
             preconditionFailure("The registered factory must produce its declared output type")
         }
         return typed
+    }
+}
+
+extension ExpressionRegistry {
+    private struct Entry {
+        let model: ObjectIdentifier
+        let isMutating: Bool
+        let build: (ParsableArgument<Context>) throws -> Any
     }
 }

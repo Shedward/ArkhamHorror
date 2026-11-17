@@ -1,7 +1,7 @@
 ---
 type: make
 status: in-progress
-next: "user: продолжить ревью WIP-коммита в codex/compile-encounter-script относительно main"
+next: "user: проверить правки по ревью в codex/compile-encounter-script"
 effort: medium
 impact: high
 depends-on:
@@ -25,3 +25,4 @@ depends-on:
 - 2026-11-15: По итогам ревью задача возвращена на доработку. Общий перечень операций и разбор их аргументов в одном switch заменим регистрацией самостоятельных типов выражений. [Типизированный скрипт в референсе](../../../Reference/Utils/Script/Sources/Script/Script/Script.swift)
 - 2026-11-15: Ядро и DSL выделены в `Packages/Core/Scripting`. `GameEngine` подключает команды встречи и валидатор предметов. Тесты компилируют настоящий `courier.yaml`, разыгрывают оплату и отказ и сверяют позиции ошибок в исходном YAML.
 - 2026-11-15: Ревью начато и отложено до следующей сессии. Текущая реализация сохранена как WIP в ветке `codex/compile-encounter-script`. Прошли 4 теста `Scripting` и 7 тестов `GameEngine`. Для продолжения ревью открыть `git diff main...codex/compile-encounter-script`.
+- 2026-11-17: По ревью разделены файлы парсера и базовых выражений. Компилятор принимает литералы `Float` и проверяет побочные эффекты по свойству типа выражения. На Mac и симуляторе iPad прошли 16 тестов `Scripting` и 9 тестов `GameEngine`.

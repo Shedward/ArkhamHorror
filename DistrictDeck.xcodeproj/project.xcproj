@@ -40,16 +40,13 @@
           "run-on-every-build": true,
           "input-paths": [
             "$(SRCROOT)/.swiftlint.yml",
+            "$(SRCROOT)/Tools",
             "$(SRCROOT)/Apps",
             "$(SRCROOT)/Packages",
           ],
           "shell": "/bin/sh",
           "script": [
-            "export PATH=\"$PATH:/opt/homebrew/bin:/usr/local/bin\"",
-            "if command -v swiftlint >/dev/null 2>&1; then",
-            "    exec swiftlint lint --quiet --no-cache --config \"$SRCROOT/.swiftlint.yml\"",
-            "fi",
-            "echo \"warning: SwiftLint is not installed. Run brew install swiftlint.\"",
+            "exec \"$SRCROOT/Tools/lint\"",
           ],
         },
         "compile-sources",
