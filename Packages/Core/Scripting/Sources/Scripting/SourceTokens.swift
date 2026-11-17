@@ -14,21 +14,24 @@ struct SourceTokens {
             let i = tokens.count
             tokens.append(token)
             switch token.kind {
-            case .open:
-                guard openings.count < 32 else { throw token.location.error("Maximum expression nesting exceeded") }
-                openings.append(i)
-            case .close:
-                guard let start = openings.popLast() else { throw token.location.error("Unexpected closing parenthesis") }
-                closing[start] = i
-            case .end:
-                if let start = openings.last { throw tokens[start].location.error("Unclosed parenthesis") }
-                self.tokens = tokens
-                self.closing = closing
-                return
-            default: break
+                case .open:
+                    guard openings.count < 32 else { throw token.location.error("Maximum expression nesting exceeded") }
+                    openings.append(i)
+                case .close:
+                    guard let start = openings.popLast() else { throw token.location.error("Unexpected closing parenthesis") }
+                    closing[start] = i
+                case .end:
+                    if let start = openings.last { throw tokens[start].location.error("Unclosed parenthesis") }
+                    self.tokens = tokens
+                    self.closing = closing
+                    return
+                default:
+                    break
             }
         }
     }
 
-    func end(of index: Int) -> Int { (closing[index] ?? index) + 1 }
+    func end(of index: Int) -> Int {
+        (closing[index] ?? index) + 1
+    }
 }

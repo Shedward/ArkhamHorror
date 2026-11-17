@@ -2,9 +2,13 @@ import Scripting
 
 public typealias EncounterScript = Script<Void, EncounterContext>
 
-extension Script where Output == Void, C == EncounterContext {
-    public static func compile(_ source: String, at origin: ScriptLocation, items: [String: ItemOwner],
-                               characterIDs: Set<String> = []) throws -> Self {
+extension Script where Output == Void, Context == EncounterContext {
+    public static func compile(
+        _ source: String,
+        at origin: ScriptLocation,
+        items: [String: ItemOwner],
+        characterIDs: Set<String> = []
+    ) throws -> Self {
         var commands = ExpressionRegistry<EncounterContext>()
         try commands.register(HasItem.self, readOnly: true)
         try commands.register(AddItem.self)

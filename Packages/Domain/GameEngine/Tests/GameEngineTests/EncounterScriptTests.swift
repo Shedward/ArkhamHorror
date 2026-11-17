@@ -1,8 +1,8 @@
 import Foundation
-import Testing
-import Yams
 import GameEngine
 import Scripting
+import Testing
+import Yams
 
 private let courierPath = "events/collect-parcel/courier.yaml"
 private let items: Set<String> = ["coin", "parcel"]
@@ -35,23 +35,26 @@ private actor EncounterTestSession: EncounterInventory {
     private(set) var operations: [String] = []
     private(set) var messages: [String] = []
 
+    nonisolated var context: EncounterContext {
+        EncounterContext(inventory: self, choose: { await self.select($0) }, say: { await self.show($0) })
+    }
+
     init(coins: Int, answer: Int, failRemoval: Bool = false) {
         self.coins = coins
         self.answer = answer
         self.failRemoval = failRemoval
     }
 
-    nonisolated var context: EncounterContext {
-        EncounterContext(inventory: self, choose: { await self.select($0) }, say: { await self.show($0) })
-    }
-
     func select(_ choices: [EncounterChoice]) -> Int {
         self.choices = choices
         return answer
     }
-    func show(_ message: String) { messages.append(message) }
 
-    func itemCount(_ id: String, in target: InventoryTarget) throws -> Int {
+    func show(_ message: String) {
+        messages.append(message)
+    }
+
+    func itemCount(_ id: String, in target: InventoryTarget) -> Int {
         #expect(target == .current)
         #expect(id == "coin")
         return coins
@@ -90,20 +93,26 @@ private actor EncounterTestSession: EncounterInventory {
 @Test func failingCourierPaymentPreservesTheInnermostCallPosition() async throws {
     let courier = try compileCourier()
     let session = EncounterTestSession(coins: 5, answer: 0, failRemoval: true)
-    await #expect(throws: ScriptDiagnostic(location: .init(path: courierPath, line: 13, column: 12),
-                                          reason: "Inventory unavailable")) {
+    await #expect(throws: ScriptDiagnostic(
+        location: .init(path: courierPath, line: 13, column: 12),
+        reason: "Inventory unavailable"
+    )) {
         try await courier.run(in: session.context)
     }
     #expect(await session.operations.isEmpty)
 }
 
 @Test func checksIdsAndTypesInBothBranchesBeforePlay() {
-    #expect(throws: ScriptDiagnostic(location: .init(path: courierPath, line: 13, column: 48),
-                                    reason: "Unknown item ID .parcle")) {
+    #expect(throws: ScriptDiagnostic(
+        location: .init(path: courierPath, line: 13, column: 48),
+        reason: "Unknown item ID .parcle"
+    )) {
         try compileCourier(replacing: ".parcel", with: ".parcle")
     }
-    #expect(throws: ScriptDiagnostic(location: .init(path: courierPath, line: 15, column: 12),
-                                    reason: "Expected String, got Int")) {
+    #expect(throws: ScriptDiagnostic(
+        location: .init(path: courierPath, line: 15, column: 12),
+        reason: "Expected String, got Int"
+    )) {
         try compileCourier(replacing: #""Тогда заберёте посылку на почте.""#, with: "42")
     }
 }
@@ -127,7 +136,13 @@ func rejectsInvalidEncounterScripts(_ source: String) {
 }
 
 @Test func choiceCanReturnAValueAndNamedArgumentsCanBeReordered() async throws {
-    let script = try compile(#"(if (chooseOne (caseIf "yes" (hasItem .coin hint: "hint" atLeast: 5) true) (case "no" false)) (addItem .parcel) (say "refused"))"#)
+    let script = try compile("""
+        (if (chooseOne
+              (caseIf "yes" (hasItem .coin hint: "hint" atLeast: 5) true)
+              (case "no" false))
+            (addItem .parcel)
+            (say "refused"))
+        """)
     let session = EncounterTestSession(coins: 5, answer: 0)
     try await script.run(in: session.context)
     #expect(await session.operations == ["+1 parcel"])
@@ -136,8 +151,10 @@ func rejectsInvalidEncounterScripts(_ source: String) {
 @Test func noAvailableChoiceReportsTheChooseOnePosition() async throws {
     let script = try compile(#"(chooseOne (caseIf "pay" (hasItem .coin) (removeItem .coin)))"#)
     let session = EncounterTestSession(coins: 0, answer: 0)
-    await #expect(throws: ScriptDiagnostic(location: .init(path: "script.yaml", line: 1, column: 2),
-                                          reason: "No choices available")) {
+    await #expect(throws: ScriptDiagnostic(
+        location: .init(path: "script.yaml", line: 1, column: 2),
+        reason: "No choices available"
+    )) {
         try await script.run(in: session.context)
     }
     #expect(await session.choices.isEmpty)
@@ -148,8 +165,10 @@ func rejectsInvalidEncounterScripts(_ source: String) {
     let zero = try compile("(removeItem .coin count: (if true 0 1))")
     try await zero.run(in: session.context)
     let negative = try compile("(removeItem .coin count: (if true -1 1))")
-    await #expect(throws: ScriptDiagnostic(location: .init(path: "script.yaml", line: 1, column: 26),
-                                          reason: "Item count cannot be negative")) {
+    await #expect(throws: ScriptDiagnostic(
+        location: .init(path: "script.yaml", line: 1, column: 26),
+        reason: "Item count cannot be negative"
+    )) {
         try await negative.run(in: session.context)
     }
     #expect(await session.operations.isEmpty)

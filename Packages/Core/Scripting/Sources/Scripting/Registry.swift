@@ -1,9 +1,10 @@
-public struct ExpressionRegistry<C: ScriptContext> {
+public struct ExpressionRegistry<Context: ScriptContext> {
     private struct Entry {
         let model: ObjectIdentifier
         let readOnly: Bool
-        let build: (ParsableArgument<C>) throws -> Any
+        let build: (ParsableArgument<Context>) throws -> Any
     }
+
     private var entries: [String: [ObjectIdentifier: Entry]] = [:]
     private var requiresReadOnly = false
 
@@ -15,24 +16,27 @@ public struct ExpressionRegistry<C: ScriptContext> {
     }
 
     private mutating func installControlFlow<T: Sendable>(_ output: T.Type) {
-        install(Do<T, C>.self, readOnly: true)
-        install(If<T, C>.self, readOnly: true)
+        install(DoExpression<T, Context>.self, readOnly: true)
+        install(IfExpression<T, Context>.self, readOnly: true)
     }
 
-    public mutating func register<E: Expression>(_ type: E.Type, readOnly: Bool = false) throws where E.Context == C {
-        guard entries[E.name]?[ObjectIdentifier(E.Output.self)] == nil else {
-            throw ScriptError("Duplicate registration for '\(E.name)' returning \(E.Output.self)")
+    public mutating func register<Node: Expression>(_ type: Node.Type, readOnly: Bool = false) throws where Node.Context == Context {
+        guard entries[Node.name]?[ObjectIdentifier(Node.Output.self)] == nil else {
+            throw ScriptError("Duplicate registration for '\(Node.name)' returning \(Node.Output.self)")
         }
         install(type, readOnly: readOnly)
     }
 
-    private mutating func install<E: Expression>(_ type: E.Type, readOnly: Bool) where E.Context == C {
-        entries[E.name, default: [:]][ObjectIdentifier(E.Output.self)] = Entry(model: ObjectIdentifier(type), readOnly: readOnly) { arg in
+    private mutating func install<Node: Expression>(_ type: Node.Type, readOnly: Bool) where Node.Context == Context {
+        entries[Node.name, default: [:]][ObjectIdentifier(Node.Output.self)] = Entry(model: ObjectIdentifier(type), readOnly: readOnly) { arg in
             let node = try arg.asExpression(type)
             let location = arg.commandLocation
-            return AnyExpression<E.Output, C>(location: arg.location) { context in
-                do { return try await node.run(in: context) }
-                catch { throw location.wrap(error) }
+            return AnyExpression<Node.Output, Context>(location: arg.location) { context in
+                do {
+                    return try await node.run(in: context)
+                } catch {
+                    throw location.wrap(error)
+                }
             }
         }
     }
@@ -43,8 +47,12 @@ public struct ExpressionRegistry<C: ScriptContext> {
         return restricted
     }
 
-    public func compile<T: Sendable>(_ text: String, returning: T.Type, metadata: ParserMetadata = .init(),
-                                     at origin: ScriptLocation) throws -> Script<T, C> {
+    public func compile<T: Sendable>(
+        _ text: String,
+        returning: T.Type,
+        metadata: ParserMetadata = .init(),
+        at origin: ScriptLocation
+    ) throws -> Script<T, Context> {
         let source = try SourceTokens(text, origin: origin)
         guard source.tokens[0].kind == .open else {
             throw source.tokens[0].location.error("Expected a parenthesized root expression")
@@ -57,13 +65,15 @@ public struct ExpressionRegistry<C: ScriptContext> {
         return try Script(root: root.asAnyExpression(T.self))
     }
 
-    func supports<E: Expression>(_ type: E.Type) -> Bool where E.Context == C {
-        guard let entry = entries[E.name]?[ObjectIdentifier(E.Output.self)] else { return false }
+    func supports<Node: Expression>(_ type: Node.Type) -> Bool where Node.Context == Context {
+        guard let entry = entries[Node.name]?[ObjectIdentifier(Node.Output.self)] else {
+            return false
+        }
         return entry.model == ObjectIdentifier(type) && (!requiresReadOnly || entry.readOnly)
     }
 
-    func build<T: Sendable>(_ name: String, returning: T.Type, argument: ParsableArgument<C>) throws
-        -> AnyExpression<T, C> {
+    func build<T: Sendable>(_ name: String, returning: T.Type, argument: ParsableArgument<Context>) throws
+        -> AnyExpression<T, Context> {
         guard let forms = entries[name] else {
             throw argument.commandLocation.error("Unknown command '\(name)'")
         }
@@ -74,7 +84,7 @@ public struct ExpressionRegistry<C: ScriptContext> {
             throw argument.commandLocation.error("Command '\(name)' is unavailable in a read-only expression")
         }
         let node = try entry.build(argument)
-        guard let typed = node as? AnyExpression<T, C> else {
+        guard let typed = node as? AnyExpression<T, Context> else {
             preconditionFailure("The registered factory must produce its declared output type")
         }
         return typed

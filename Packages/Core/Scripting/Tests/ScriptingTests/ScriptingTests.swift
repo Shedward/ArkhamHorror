@@ -1,15 +1,23 @@
-import Testing
 import Scripting
+import Testing
 
 private actor Counter: ScriptContext {
     private(set) var value = 0
-    func increment() { value += 1 }
+
+    func increment() {
+        value += 1
+    }
 }
 
 private struct Tick: Expression {
     static let name = "tick"
-    init(_ p: inout ExpressionParser<Counter>) {}
-    func run(in context: Counter) async { await context.increment() }
+
+    init(_ parser: inout ExpressionParser<Counter>) {
+    }
+
+    func run(in context: Counter) async {
+        await context.increment()
+    }
 }
 
 private let origin = ScriptLocation(path: "example.yaml", line: 2, column: 3)

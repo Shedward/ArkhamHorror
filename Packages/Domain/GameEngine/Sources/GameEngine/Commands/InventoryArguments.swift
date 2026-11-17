@@ -23,7 +23,7 @@ struct ItemReference: Parsable {
     }
 
     func check(_ target: InventoryTarget) throws {
-        if defaultTarget == .party && target != .party {
+        if defaultTarget == .party, target != .party {
             throw ScriptError("Party item .\(id) cannot have a character recipient")
         }
     }
@@ -33,9 +33,12 @@ extension InventoryTarget: Parsable {
     public init(argument: ParsableArgument<EncounterContext>) throws {
         if let symbol = try? argument.asSymbol() {
             switch symbol {
-            case "current": self = .current
-            case "all": self = .all
-            default: throw ScriptError("Unknown inventory selector '\(symbol)'")
+                case "current":
+                    self = .current
+                case "all":
+                    self = .all
+                default:
+                    throw ScriptError("Unknown inventory selector '\(symbol)'")
             }
         } else {
             let id = try argument.asId()
@@ -48,17 +51,20 @@ extension InventoryTarget: Parsable {
 }
 
 struct ItemQuantity: Parsable {
-    let expression: AnyExpression<Int, EncounterContext>
     static var one: Self { Self(expression: .constant(1)) }
 
-    private init(expression: AnyExpression<Int, EncounterContext>) { self.expression = expression }
+    let expression: AnyExpression<Int, EncounterContext>
+
+    private init(expression: AnyExpression<Int, EncounterContext>) {
+        self.expression = expression
+    }
 
     init(argument: ParsableArgument<EncounterContext>) throws {
-        if let n = try? argument.asInt(), n <= 0 {
+        if let count = try? argument.asInt(), count <= 0 {
             throw ScriptError("The 'count:' literal must be greater than zero")
         }
-        expression = try argument.asAnyExpression(Int.self).validating { n in
-            guard n >= 0 else { throw ScriptError("Item count cannot be negative") }
+        expression = try argument.asAnyExpression(Int.self).validating { count in
+            guard count >= 0 else { throw ScriptError("Item count cannot be negative") }
         }
     }
 }

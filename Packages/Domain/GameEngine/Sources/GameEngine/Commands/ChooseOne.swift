@@ -15,9 +15,9 @@ private struct Case<Output: Sendable>: Expression {
     let title: AnyExpression<String, EncounterContext>
     let body: AnyExpression<Output, EncounterContext>
 
-    init(_ p: inout ExpressionParser<EncounterContext>) throws {
-        title = try p.nextArgument().readOnly.asAnyExpression(String.self)
-        body = try p.nextArgument().asAnyExpression(Output.self)
+    init(_ parser: inout ExpressionParser<EncounterContext>) throws {
+        title = try parser.nextArgument().readOnly.asAnyExpression(String.self)
+        body = try parser.nextArgument().asAnyExpression(Output.self)
     }
 
     func run(in context: EncounterContext) async throws -> Answer<Output> {
@@ -31,7 +31,9 @@ private struct HasItemAvailability: Expression {
     static let name = HasItem.name
     let check: HasItem
 
-    init(_ p: inout ExpressionParser<EncounterContext>) throws { check = try HasItem(&p) }
+    init(_ parser: inout ExpressionParser<EncounterContext>) throws {
+        check = try HasItem(&parser)
+    }
 
     func run(in context: EncounterContext) async throws -> Availability {
         let hint = try await check.disabledHint(in: context)
@@ -45,9 +47,9 @@ private struct CaseIf<Output: Sendable>: Expression {
     let availability: @Sendable (EncounterContext) async throws -> Availability
     let body: AnyExpression<Output, EncounterContext>
 
-    init(_ p: inout ExpressionParser<EncounterContext>) throws {
-        title = try p.nextArgument().readOnly.asAnyExpression(String.self)
-        let condition = try p.nextArgument().readOnly
+    init(_ parser: inout ExpressionParser<EncounterContext>) throws {
+        title = try parser.nextArgument().readOnly.asAnyExpression(String.self)
+        let condition = try parser.nextArgument().readOnly
         if condition.name == HasItem.name {
             availability = try condition.asAnyExpression(Availability.self).run
         } else {
@@ -56,7 +58,7 @@ private struct CaseIf<Output: Sendable>: Expression {
                 try await Availability(enabled: check.run(in: context), hint: nil)
             }
         }
-        body = try p.nextArgument().asAnyExpression(Output.self)
+        body = try parser.nextArgument().asAnyExpression(Output.self)
     }
 
     func run(in context: EncounterContext) async throws -> Answer<Output> {
@@ -70,9 +72,9 @@ private struct ChooseOne<Output: Sendable>: Expression {
     static var name: String { "chooseOne" }
     let answers: [AnyExpression<Answer<Output>, EncounterContext>]
 
-    init(_ p: inout ExpressionParser<EncounterContext>) throws {
-        var answers = [try p.nextArgument().asAnyExpression(Answer<Output>.self)]
-        while let argument = try? p.nextArgument() {
+    init(_ parser: inout ExpressionParser<EncounterContext>) throws {
+        var answers = [try parser.nextArgument().asAnyExpression(Answer<Output>.self)]
+        while let argument = try? parser.nextArgument() {
             answers.append(try argument.asAnyExpression(Answer<Output>.self))
         }
         self.answers = answers
@@ -91,7 +93,7 @@ private struct ChooseOne<Output: Sendable>: Expression {
     }
 }
 
-extension ExpressionRegistry where C == EncounterContext {
+extension ExpressionRegistry where Context == EncounterContext {
     mutating func registerChoices() throws {
         try register(HasItemAvailability.self, readOnly: true)
         try registerChoices(returning: Void.self)

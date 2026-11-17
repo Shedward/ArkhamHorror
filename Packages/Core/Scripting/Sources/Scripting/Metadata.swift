@@ -4,7 +4,9 @@ public protocol MetadataKey {
 
 public struct ParserMetadata {
     private var values: [ObjectIdentifier: Any] = [:]
-    public init() {}
+
+    public init() {
+    }
 
     public subscript<K: MetadataKey>(_ key: K.Type) -> K.Value? {
         get { values[ObjectIdentifier(key)] as? K.Value }

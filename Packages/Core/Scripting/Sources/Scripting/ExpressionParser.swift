@@ -2,13 +2,13 @@ public struct EndOfArguments: Error {
     let diagnostic: ScriptDiagnostic
 }
 
-public struct ExpressionParser<C: ScriptContext> {
+public struct ExpressionParser<Context: ScriptContext> {
     public let metadata: ParserMetadata
     private let missing: EndOfArguments
-    private var positional: ArraySlice<ParsableArgument<C>> = []
-    private var named: [String: (label: ScriptLocation, value: ParsableArgument<C>)] = [:]
+    private var positional: ArraySlice<ParsableArgument<Context>> = []
+    private var named: [String: (label: ScriptLocation, value: ParsableArgument<Context>)] = [:]
 
-    init(call: ParsableArgument<C>) throws {
+    init(call: ParsableArgument<Context>) throws {
         metadata = call.metadata
         let source = call.source
         let end = source.end(of: call.index) - 1
@@ -34,12 +34,12 @@ public struct ExpressionParser<C: ScriptContext> {
         missing = EndOfArguments(diagnostic: source.tokens[end].location.error(reason))
     }
 
-    public mutating func nextArgument() throws(EndOfArguments) -> ParsableArgument<C> {
+    public mutating func nextArgument() throws(EndOfArguments) -> ParsableArgument<Context> {
         guard let arg = positional.popFirst() else { throw missing }
         return arg
     }
 
-    public mutating func namedArgument(_ key: String) -> ParsableArgument<C>? {
+    public mutating func namedArgument(_ key: String) -> ParsableArgument<Context>? {
         named.removeValue(forKey: key)?.value
     }
 

@@ -31,6 +31,10 @@ xcodebuild -workspace DistrictDeck.xcworkspace -scheme DistrictDeck -destination
 xcodebuild -workspace DistrictDeck.xcworkspace -scheme DistrictDeck -destination 'generic/platform=iOS Simulator' build
 ```
 
+## SwiftLint
+
+Установи SwiftLint командой `brew install swiftlint`. При сборке схемы **DistrictDeck** Xcode проверяет код приложения, пакетов и тестов по [общим правилам проекта](.swiftlint.yml). Чтобы проверить его из корня репозитория и получить ненулевой код выхода при любом замечании, запусти `swiftlint lint --strict`.
+
 ## Референс
 
 Предыдущий прототип Arkham Horror сохранён в [Reference](Reference/).
