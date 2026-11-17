@@ -135,8 +135,8 @@ private func compile(_ source: String) throws -> EncounterScript {
 @Test(arguments: [
     #"(do (hasItem .coin) (say "next"))"#,
     #"(chooseOne (case "yes" (addItem .parcel)) (case "no" (hasItem .coin)))"#,
-    #"(chooseOne (caseIf "yes" (if true true (do (removeItem .coin) true)) (addItem .parcel)))"#,
-    #"(chooseOne (case (do (say "side effect") "title") (addItem .parcel)))"#,
+    #"(chooseOne (caseIf "yes" (removeItem .coin) (addItem .parcel)))"#,
+    #"(chooseOne (case true (addItem .parcel)))"#,
     "(addItem .coin count: 1.5)",
     "(chooseOne)", "(addItem .coin count: 0)", "(addItem .coin count: 1 count: 2)",
     "(addItem .coin in: all)", "(addItem .coin in: .missing)", "(addItem .coin count: 1 .parcel)",
@@ -147,18 +147,19 @@ func rejectsInvalidEncounterScripts(_ source: String) {
     #expect(throws: ScriptDiagnostic.self) { try compile(source) }
 }
 
-@Test(arguments: [
-    ("addItem", ".parcel"), ("removeItem", ".coin"),
-    ("say", #""Hello""#), ("chooseOne", #"(case "ask" (say "Hello"))"#)
-])
-func rejectsEffectsInChoiceTitles(_ command: String, arguments: String) {
-    let source = "(chooseOne (case (do\n  (\(command) \(arguments)) \"title\") (addItem .parcel)))"
-    #expect(throws: ScriptDiagnostic(
-        location: ScriptLocation(path: "script.yaml", line: 2, column: 4),
-        reason: "Command '\(command)' is unavailable in a read-only expression"
-    )) {
-        try compile(source)
-    }
+@Test func choiceEvaluatesTitlesAndConditionsBeforeSelection() async throws {
+    let script = try compile("""
+        (chooseOne
+          (caseIf "Pay" (do (removeItem .coin) (hasItem .coin atLeast: 5)) (addItem .parcel))
+          (case (do (say "At the station") "Leave") (say "Goodbye")))
+        """)
+    let session = EncounterTestSession(coins: 5, answer: 1)
+    try await script.run(in: session.context)
+    let choices = await session.choices
+    #expect(choices.map(\.title) == ["Pay", "Leave"])
+    #expect(choices.map(\.isAvailable) == [false, true])
+    #expect(await session.operations == ["-1 coin"])
+    #expect(await session.messages == ["At the station", "Goodbye"])
 }
 
 @Test func choiceCanReturnAValueAndNamedArgumentsCanBeReordered() async throws {

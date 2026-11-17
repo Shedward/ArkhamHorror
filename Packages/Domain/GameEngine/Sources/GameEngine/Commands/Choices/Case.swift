@@ -9,7 +9,7 @@ struct Case<Output: Sendable>: Expression {
     let body: AnyExpression<Output, EncounterContext>
 
     init(_ parser: inout ExpressionParser<EncounterContext>) throws {
-        title = try parser.nextArgument().readOnly.asAnyExpression(String.self)
+        title = try parser.nextArgument().asAnyExpression(String.self)
         body = try parser.nextArgument().asAnyExpression(Output.self)
     }
 

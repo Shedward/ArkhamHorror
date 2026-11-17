@@ -1,6 +1,5 @@
 public struct ExpressionRegistry<Context: ScriptContext> {
     private var entries: [String: [ObjectIdentifier: Entry]] = [:]
-    private var requiresReadOnly = false
 
     public init() {
         installControlFlow(Void.self)
@@ -23,7 +22,7 @@ public struct ExpressionRegistry<Context: ScriptContext> {
     }
 
     private mutating func install<Node: Expression>(_ type: Node.Type) where Node.Context == Context {
-        let entry = Entry(model: ObjectIdentifier(type), isMutating: Node.isMutating) { arg in
+        let entry = Entry(model: ObjectIdentifier(type)) { arg in
             let node = try arg.asExpression(type)
             let location = arg.commandLocation
             return AnyExpression<Node.Output, Context>(location: arg.location) { context in
@@ -35,12 +34,6 @@ public struct ExpressionRegistry<Context: ScriptContext> {
             }
         }
         entries[Node.name, default: [:]][ObjectIdentifier(Node.Output.self)] = entry
-    }
-
-    func restrictingToReadOnly() -> Self {
-        var restricted = self
-        restricted.requiresReadOnly = true
-        return restricted
     }
 
     public func compile<T: Sendable>(
@@ -62,10 +55,7 @@ public struct ExpressionRegistry<Context: ScriptContext> {
     }
 
     func supports<Node: Expression>(_ type: Node.Type) -> Bool where Node.Context == Context {
-        guard let entry = entries[Node.name]?[ObjectIdentifier(Node.Output.self)] else {
-            return false
-        }
-        return entry.model == ObjectIdentifier(type) && (!requiresReadOnly || !entry.isMutating)
+        entries[Node.name]?[ObjectIdentifier(Node.Output.self)]?.model == ObjectIdentifier(type)
     }
 
     func build<T: Sendable>(_ name: String, returning: T.Type, argument: ParsableArgument<Context>) throws
@@ -75,9 +65,6 @@ public struct ExpressionRegistry<Context: ScriptContext> {
         }
         guard let entry = forms[ObjectIdentifier(T.self)] else {
             throw argument.commandLocation.error("'\(name)' cannot return \(T.self)")
-        }
-        guard !requiresReadOnly || !entry.isMutating else {
-            throw argument.commandLocation.error("Command '\(name)' is unavailable in a read-only expression")
         }
         let node = try entry.build(argument)
         guard let typed = node as? AnyExpression<T, Context> else {
@@ -90,7 +77,6 @@ public struct ExpressionRegistry<Context: ScriptContext> {
 extension ExpressionRegistry {
     private struct Entry {
         let model: ObjectIdentifier
-        let isMutating: Bool
         let build: (ParsableArgument<Context>) throws -> Any
     }
 }

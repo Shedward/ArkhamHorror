@@ -11,7 +11,6 @@ private actor Counter: ScriptContext {
 
 private struct Tick: Expression {
     static let name = "tick"
-    static let isMutating = true
 
     init(_ parser: inout ExpressionParser<Counter>) {
     }
@@ -23,17 +22,13 @@ private struct Tick: Expression {
 
 private let origin = ScriptLocation(path: "example.yaml", line: 2, column: 3)
 
-@Test func readOnlyCompilationChecksEveryNestedBranchBeforeExecution() async throws {
-    var registry = ExpressionRegistry<Counter>()
-    try registry.register(Tick.self)
-    let readOnly = registry.restrictingToReadOnly()
-    let pure = try readOnly.compile("(if false 1 (do 2))", returning: Int.self, at: origin)
-    #expect(try await pure.run(in: Counter()) == 2)
+@Test func reportsTypeMismatchInUnselectedBranch() {
+    let registry = ExpressionRegistry<Counter>()
     #expect(throws: ScriptDiagnostic(
-        location: ScriptLocation(path: origin.path, line: 3, column: 6),
-        reason: "Command 'tick' is unavailable in a read-only expression"
+        location: ScriptLocation(path: origin.path, line: 3, column: 5),
+        reason: "Expected Int, got String"
     )) {
-        try readOnly.compile("(if true 1 (do\n  (tick) 2))", returning: Int.self, at: origin)
+        try registry.compile("(if true 1 (do\n  \"two\"))", returning: Int.self, at: origin)
     }
 }
 

@@ -19,10 +19,6 @@ public struct ParsableArgument<Context: ScriptContext> {
         return name
     }
 
-    public var readOnly: Self {
-        Self(source: source, index: index, registry: registry.restrictingToReadOnly(), metadata: metadata)
-    }
-
     public func asId() throws -> String {
         guard case let .id(id) = source.tokens[index].kind else { throw location.error("Expected a dot-prefixed ID") }
         return id

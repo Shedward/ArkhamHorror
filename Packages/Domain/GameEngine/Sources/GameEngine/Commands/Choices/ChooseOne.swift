@@ -5,10 +5,6 @@ private struct ChooseOne<Output: Sendable>: Expression {
         "chooseOne"
     }
 
-    static var isMutating: Bool {
-        true
-    }
-
     let answers: [AnyExpression<ChoiceAnswer<Output>, EncounterContext>]
 
     init(_ parser: inout ExpressionParser<EncounterContext>) throws {

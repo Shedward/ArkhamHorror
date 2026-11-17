@@ -10,8 +10,8 @@ struct CaseIf<Output: Sendable>: Expression {
     let body: AnyExpression<Output, EncounterContext>
 
     init(_ parser: inout ExpressionParser<EncounterContext>) throws {
-        title = try parser.nextArgument().readOnly.asAnyExpression(String.self)
-        let condition = try parser.nextArgument().readOnly
+        title = try parser.nextArgument().asAnyExpression(String.self)
+        let condition = try parser.nextArgument()
         if condition.name == HasItem.name {
             availability = try condition.asAnyExpression(ChoiceAvailability.self).run
         } else {

@@ -2,7 +2,6 @@ import Scripting
 
 struct RemoveItem: Expression {
     static let name = "removeItem"
-    static let isMutating = true
 
     let change: ItemChange
 
