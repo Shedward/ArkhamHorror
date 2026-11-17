@@ -139,12 +139,42 @@ private func compile(_ source: String) throws -> EncounterScript {
     #"(chooseOne (case true (addItem .parcel)))"#,
     "(addItem .coin count: 1.5)",
     "(chooseOne)", "(addItem .coin count: 0)", "(addItem .coin count: 1 count: 2)",
-    "(addItem .coin in: all)", "(addItem .coin in: .missing)", "(addItem .coin count: 1 .parcel)",
+    "(addItem .coin in: .missing)", "(addItem .coin count: 1 .parcel)",
     "(addItem .coin hnt: 2)", "(addItem .coin) (do)", "(do", #"(say "unterminated)"#,
     #"(say "bad\tescape")"#, "(do ; comment\n)", "(addItem .bad--id)", "(unknown .coin)"
 ])
 func rejectsInvalidEncounterScripts(_ source: String) {
     #expect(throws: ScriptDiagnostic.self) { try compile(source) }
+}
+
+@Test(arguments: [
+    ("removeItem", "Cannot remove items from all inventories at once."),
+    ("addItem", "Cannot add items to all inventories at once.")
+])
+func suggestsOneInventoryForItemChanges(_ command: String, _ reason: String) throws {
+    let origin = ScriptLocation(path: "events/trade.yaml", line: 10, column: 3)
+    let location = ScriptLocation(path: origin.path, line: 11, column: 6)
+    func compileChange(_ arguments: String) throws -> EncounterScript {
+        try EncounterScript.compile(
+            "(do\n  (\(command) \(arguments)))",
+            at: origin,
+            items: ["coin": .character, "hope": .party],
+            characterIDs: ["anna"]
+        )
+    }
+
+    #expect(throws: ScriptDiagnostic(
+        location: location, reason: "\(reason) Choose one inventory with 'in: current' or a character ID such as 'in: .anna'."
+    )) {
+        try compileChange(".coin in: all")
+    }
+    _ = try compileChange(".coin in: current")
+    _ = try compileChange(".coin in: .anna")
+
+    #expect(throws: ScriptDiagnostic(location: location, reason: "\(reason) Omit 'in: all' to use the party inventory.")) {
+        try compileChange(".hope in: all")
+    }
+    _ = try compileChange(".hope")
 }
 
 @Test func choiceEvaluatesTitlesAndConditionsBeforeSelection() async throws {

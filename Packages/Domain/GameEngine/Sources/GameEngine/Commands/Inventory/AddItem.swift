@@ -6,7 +6,7 @@ struct AddItem: Expression {
     let change: ItemChange
 
     init(_ parser: inout ExpressionParser<EncounterContext>) throws {
-        change = try ItemChange(&parser)
+        change = try ItemChange(&parser, allInventoriesError: "Cannot add items to all inventories at once.")
     }
 
     func run(in context: EncounterContext) async throws {
