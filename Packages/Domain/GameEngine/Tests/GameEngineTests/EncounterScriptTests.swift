@@ -148,8 +148,8 @@ func rejectsInvalidEncounterScripts(_ source: String) {
 }
 
 @Test(arguments: [
-    ("removeItem", "Cannot remove items from all inventories at once."),
-    ("addItem", "Cannot add items to all inventories at once.")
+    ("removeItem", "Cannot remove items from all inventories. Omit 'in: all' to use the default inventory."),
+    ("addItem", "Cannot add items to all inventories. Omit 'in: all' to use the default inventory.")
 ])
 func suggestsOneInventoryForItemChanges(_ command: String, _ reason: String) throws {
     let origin = ScriptLocation(path: "events/trade.yaml", line: 10, column: 3)
@@ -163,21 +163,18 @@ func suggestsOneInventoryForItemChanges(_ command: String, _ reason: String) thr
         )
     }
 
-    #expect(throws: ScriptDiagnostic(
-        location: location, reason: "\(reason) Choose one inventory with 'in: current' or a character ID such as 'in: .anna'."
-    )) {
-        try compileChange(".coin in: all")
+    for item in [".coin", ".hope"] {
+        #expect(throws: ScriptDiagnostic(location: location, reason: reason)) {
+            try compileChange("\(item) in: all")
+        }
+        _ = try compileChange(item)
     }
     _ = try compileChange(".coin in: current")
     _ = try compileChange(".coin in: .anna")
 
-    #expect(throws: ScriptDiagnostic(location: location, reason: "\(reason) Omit 'in: all' to use the party inventory.")) {
-        try compileChange(".hope in: all")
-    }
     #expect(throws: ScriptDiagnostic(location: location, reason: "Party item .hope cannot have a character recipient")) {
         try compileChange(".hope in: .anna")
     }
-    _ = try compileChange(".hope")
 }
 
 @Test func choiceEvaluatesTitlesAndConditionsBeforeSelection() async throws {

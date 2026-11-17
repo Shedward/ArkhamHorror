@@ -8,7 +8,7 @@ struct AddItem: Expression {
     init(_ parser: inout ExpressionParser<EncounterContext>) throws {
         change = try ItemChange(&parser)
         guard change.target != .all else {
-            throw ScriptError("Cannot add items to all inventories at once. \(change.item.singleInventoryHint)")
+            throw ScriptError("Cannot add items to all inventories. Omit 'in: all' to use the default inventory.")
         }
         try change.item.check(change.target)
     }
