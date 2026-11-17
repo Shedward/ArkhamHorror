@@ -1,7 +1,7 @@
 ---
 type: make
 status: in-progress
-next: "user: ревью подзадачи компилятора и команд встречи"
+next: "agent: завершить возврат результата встречи и проверить причины изменений на оплате курьеру"
 effort: medium
 impact: high
 depends-on:

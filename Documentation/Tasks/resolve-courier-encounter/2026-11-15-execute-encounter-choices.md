@@ -1,6 +1,7 @@
 ---
 type: make
-status: open
+status: in-progress
+next: "agent: вернуть изменения инвентаря в порядке исполнения и указать выбранный ответ как причину каждого"
 effort: medium
 impact: high
 depends-on:

@@ -1,6 +1,7 @@
 ---
 type: make
-status: open
+status: in-progress
+next: "agent: когда исполнитель начнёт возвращать изменения, проверить их порядок и общую причину в тесте оплаты"
 effort: low
 impact: high
 depends-on:
