@@ -25,6 +25,7 @@
       ],
     },
     { "kind": "folder", "path": "Apps/DistrictDeck", "target-membership": [ "DistrictDeck" ] },
+    { "kind": "folder", "path": "TestPlans" },
   ],
   "targets": [
     {

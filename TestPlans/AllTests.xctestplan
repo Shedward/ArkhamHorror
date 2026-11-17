@@ -1,0 +1,27 @@
+{
+  "configurations" : [
+    {
+      "id" : "369DEBFA-2889-4FD8-9D42-D7C3B228EBF2",
+      "name" : "Default",
+      "options" : {}
+    }
+  ],
+  "defaultOptions" : {},
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Packages/Core/Scripting",
+        "identifier" : "ScriptingTests",
+        "name" : "ScriptingTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Packages/Domain/GameEngine",
+        "identifier" : "GameEngineTests",
+        "name" : "GameEngineTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -31,6 +31,16 @@ xcodebuild -workspace DistrictDeck.xcworkspace -scheme DistrictDeck -destination
 xcodebuild -workspace DistrictDeck.xcworkspace -scheme DistrictDeck -destination 'generic/platform=iOS Simulator' build
 ```
 
+## Тесты
+
+В `DistrictDeck.xcworkspace` выбери схему **DistrictDeck**, назначение **My Mac** или симулятор iPad и нажми **⌘U**. По умолчанию запустится [план AllTests](TestPlans/AllTests.xctestplan) с тестами пакетов `Scripting` и `GameEngine`.
+
+```sh
+xcodebuild -workspace DistrictDeck.xcworkspace -scheme DistrictDeck -destination 'platform=macOS' test
+```
+
+Новые тесты внутри этих таргетов Xcode подхватывает автоматически. Когда добавляешь новый тестовый таргет, включи его в **AllTests → Tests**.
+
 ## SwiftLint
 
 Установи SwiftLint командой `brew install swiftlint`. При сборке схемы **DistrictDeck** Xcode проверяет код приложения, пакетов и тестов по [общим правилам проекта](.swiftlint.yml). Чтобы проверить его из корня репозитория и получить ненулевой код выхода при любом замечании, запусти `swiftlint lint --strict`.
