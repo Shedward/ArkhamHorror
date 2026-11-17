@@ -31,6 +31,20 @@ xcodebuild -workspace DistrictDeck.xcworkspace -scheme DistrictDeck -destination
 xcodebuild -workspace DistrictDeck.xcworkspace -scheme DistrictDeck -destination 'generic/platform=iOS Simulator' build
 ```
 
+## Тесты
+
+В `DistrictDeck.xcworkspace` выбери схему **DistrictDeck**, назначение **My Mac** или симулятор iPad и нажми **⌘U**. По умолчанию запустится [план AllTests](TestPlans/AllTests.xctestplan) с тестами пакетов `Scripting` и `GameEngine`.
+
+```sh
+xcodebuild -workspace DistrictDeck.xcworkspace -scheme DistrictDeck -destination 'platform=macOS' test
+```
+
+Новые тесты внутри этих таргетов Xcode подхватывает автоматически. Когда добавляешь новый тестовый таргет, включи его в **AllTests → Tests**.
+
+## SwiftLint
+
+Установи SwiftLint командой `brew install swiftlint`. При сборке схемы **DistrictDeck** Xcode проверяет приложение, пакеты и тесты по [правилам SwiftLint](.swiftlint.yml) и [стилю проекта](Documentation/CodeStyle.md). Для полной проверки с ненулевым кодом выхода при любом замечании запусти `Tools/lint --strict` из корня репозитория.
+
 ## Референс
 
 Предыдущий прототип Arkham Horror сохранён в [Reference](Reference/).
