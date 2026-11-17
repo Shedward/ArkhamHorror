@@ -6,7 +6,11 @@ struct RemoveItem: Expression {
     let change: ItemChange
 
     init(_ parser: inout ExpressionParser<EncounterContext>) throws {
-        change = try ItemChange(&parser, allInventoriesError: "Cannot remove items from all inventories at once.")
+        change = try ItemChange(&parser)
+        guard change.target != .all else {
+            throw ScriptError("Cannot remove items from all inventories at once. \(change.item.singleInventoryHint)")
+        }
+        try change.item.check(change.target)
     }
 
     func run(in context: EncounterContext) async throws {

@@ -4,6 +4,12 @@ struct ItemReference: Parsable {
     let id: String
     let defaultTarget: InventoryTarget
 
+    var singleInventoryHint: String {
+        defaultTarget == .party
+            ? "Omit 'in: all' to use the party inventory."
+            : "Choose one inventory with 'in: current' or a character ID such as 'in: .anna'."
+    }
+
     init(argument: ParsableArgument<EncounterContext>) throws {
         id = try argument.asId()
         let owner = try argument.metadata[ItemIDValidatorKey.self]?.owner(of: id)

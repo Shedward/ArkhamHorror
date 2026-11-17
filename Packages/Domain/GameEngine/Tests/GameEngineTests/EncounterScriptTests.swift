@@ -174,6 +174,9 @@ func suggestsOneInventoryForItemChanges(_ command: String, _ reason: String) thr
     #expect(throws: ScriptDiagnostic(location: location, reason: "\(reason) Omit 'in: all' to use the party inventory.")) {
         try compileChange(".hope in: all")
     }
+    #expect(throws: ScriptDiagnostic(location: location, reason: "Party item .hope cannot have a character recipient")) {
+        try compileChange(".hope in: .anna")
+    }
     _ = try compileChange(".hope")
 }
 
